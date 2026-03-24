@@ -734,9 +734,184 @@ const MODULES = {
     folderUrl: "https://drive.google.com/drive/folders/1m_OnilfgQSEJusmA3nz9Xk8-hcq8rsVo",
     slidesFolder: "https://drive.google.com/drive/folders/1tZWTL0cRKIunBRbaH3bFrK2g34WcW-ir",
     modules: [
-      { id: "m1", title: "M\u00f3dulo 1 \u2014 Bienvenida y Contexto", desc: "Qu\u00e9 es EMC, tu rol como tutor/a, manifiesto", duration: "~45 min", embedId: "11h97scJhZ9gOJETm4xH71MaB45bAeq0v", blocks: [] },
-      { id: "m2", title: "M\u00f3dulo 2 \u2014 Alfabetizaci\u00f3n en IA", desc: "Qu\u00e9 es IA, qu\u00e9 puede y no puede hacer, protocolo de alerta", duration: "~45 min", embedId: "1FHOp5UZ-1tZ9663v8TMuXzSOpFy-tuYE", blocks: [] },
-      { id: "m3", title: "M\u00f3dulo 3 \u2014 El Programa", desc: "12 sesiones, 8 pasos, estructura y plataforma", duration: "~60 min", embedId: "1NdvFA8KHBqC7ylinv88MNBgeKpmY3D5o", blocks: [] },
+      { id: "m1", title: "M\u00f3dulo 1 \u2014 Bienvenida y Contexto", desc: "Qu\u00e9 es EMC, tu rol como tutor/a, manifiesto", duration: "~45 min", embedId: "11h97scJhZ9gOJETm4xH71MaB45bAeq0v", blocks: [
+          {
+            title: "Bloque 1 — ¿Qué es Eligiendo Mi Camino?",
+            slideRange: "1-8",
+            content: `
+              <p><strong>¡Bienvenido/a a Eligiendo Mi Camino!</strong> Antes de arrancar, quiero que entiendas bien de qué se trata esto y por qué estás aquí. Este programa nace de una alianza entre la <strong>DRELM</strong>, el <strong>Banco Mundial</strong> y la <strong>UPC</strong>, con un objetivo claro: ayudar a tus estudiantes de 5.° de secundaria a tomar decisiones informadas sobre su futuro después del colegio.</p>
+              <p>¿Cómo funciona? Son <strong>12 sesiones de 90 minutos</strong>, una por semana, dentro de tu hora de Tutoría y Orientación Educativa (TOE). En cada sesión, tus estudiantes van a trabajar con una plataforma que incluye un <strong>coach de inteligencia artificial</strong> — un asistente virtual que les da información personalizada sobre carreras, universidades, institutos, becas y el mercado laboral.</p>
+              <p>Ahora, lo más importante: <strong>nadie te está pidiendo que seas un experto en tecnología</strong>. Tu rol es otro, y es insustituible:</p>
+              <ul>
+                <li><strong>Lo que hace la IA:</strong> procesa información, entrega datos del mercado laboral, personaliza el recorrido de cada estudiante, sugiere rutas según sus intereses.</li>
+                <li><strong>Lo que haces tú:</strong> lees el ambiente del aula, manejas las emociones que surgen, conectas con las familias, y ayudas a contextualizar las decisiones dentro de la realidad de cada estudiante.</li>
+              </ul>
+              <p>Tu trabajo es <strong>escuchar sin juzgar</strong>, dar información pero no opiniones, y ayudar a que cada estudiante construya sus <em>propios</em> argumentos. La IA pone los datos; tú pones el corazón y el criterio humano.</p>
+              <p><strong>Actividad:</strong> Escribe en una hoja o en tu celular: ¿Qué es lo primero que sientes cuando escuchas "inteligencia artificial en el aula"? ¿Curiosidad, miedo, escepticismo? No hay respuesta incorrecta — solo queremos que empieces siendo honesto/a contigo mismo/a.</p>
+            `
+          },
+          {
+            title: "Bloque 2 — Tu rol y tu manifiesto",
+            slideRange: "9-14",
+            content: `
+              <p>Vamos a hablar con franqueza. Hay <strong>5 mitos</strong> muy comunes entre tutores que necesitamos desarmar ahora mismo:</p>
+              <ol>
+                <li><strong>"Necesito conocer todas las carreras."</strong> No. La IA tiene esa base de datos. Tú necesitas saber escuchar y hacer buenas preguntas.</li>
+                <li><strong>"Debería decirles qué estudiar."</strong> Tampoco. Tu rol es ayudarles a <em>descubrir</em>, no decidir por ellos. Si les das la respuesta, les quitas el proceso.</li>
+                <li><strong>"La orientación vocacional es solo aplicar un test."</strong> Para nada. El test es apenas uno de 8 pasos. La orientación es un camino que incluye autoconocimiento, investigación, conversación familiar y planificación.</li>
+                <li><strong>"Mis estudiantes ya saben lo que quieren."</strong> La mayoría no. Y eso es completamente normal a los 16-17 años. Tu trabajo es acompañar la confusión, no eliminarla.</li>
+                <li><strong>"Las familias no van a apoyar esto."</strong> Muchas sí, pero necesitan ser incluidas desde el inicio. Hay sesiones específicas para involucrar a los padres.</li>
+              </ol>
+              <p>Con estos mitos fuera del camino, ahora viene algo personal. Queremos que escribas <strong>"Mi Manifiesto como Tutor/a"</strong>: un compromiso contigo mismo/a sobre qué tipo de acompañante quieres ser para tus estudiantes en este proceso.</p>
+              <p>No se trata de frases bonitas — se trata de ser honesto/a. ¿Qué vas a hacer diferente? ¿Qué actitudes quieres cultivar? ¿Qué vas a dejar de hacer?</p>
+              <p><strong>Actividad:</strong> Escribe tu manifiesto con <strong>3 compromisos concretos</strong> hacia tus estudiantes. Por ejemplo: "Me comprometo a no asumir que sé qué es mejor para ellos", "Me comprometo a escuchar antes de aconsejar", "Me comprometo a incluir a las familias en el proceso". Guarda este manifiesto — lo revisaremos al final de la capacitación.</p>
+            `
+          },
+          {
+            title: "Bloque 3 — Conociendo al estudiante",
+            slideRange: "15-20",
+            content: `
+              <p>Para acompañar bien, primero tenemos que <strong>entender a quién acompañamos</strong>. Tus estudiantes de 5.° de secundaria tienen entre 16 y 17 años. Están en plena formación de identidad: descubriendo quiénes son, lidiando con la presión de sus pares, navegando las expectativas de sus familias, y enfrentando la incertidumbre económica. Decidir qué hacer después del colegio es, para muchos, la primera gran decisión de su vida.</p>
+              <p>Vamos a hacer un ejercicio poderoso: el <strong>Mapa de Empatía del Estudiante</strong>. Piensa en un estudiante típico de 5.° año y responde estas cuatro preguntas:</p>
+              <ul>
+                <li><strong>¿Qué PIENSA?</strong> — "¿Y si elijo mal?", "No sé qué me gusta", "Mis papás quieren que sea doctor/a"...</li>
+                <li><strong>¿Qué SIENTE?</strong> — Ansiedad, presión, emoción, confusión, miedo al fracaso...</li>
+                <li><strong>¿Qué DICE?</strong> — "Ya sé lo que quiero" (aunque no sea cierto), "No me importa" (aunque sí le importa), "Voy a estudiar lo que da plata"...</li>
+                <li><strong>¿Qué HACE?</strong> — Busca información en TikTok, pregunta a amigos, evita el tema, cambia de opinión cada semana...</li>
+              </ul>
+              <p>Ahora viene la parte más valiente. Todos cargamos <strong>sesgos vocacionales</strong> — creencias que damos por ciertas sin cuestionarlas. Algunos ejemplos: "La universidad siempre es mejor que un instituto", "Ciertas carreras son para hombres y otras para mujeres", "Si eres bueno en matemáticas, deberías ser ingeniero", "Estudiar arte no es una carrera seria".</p>
+              <p>Estos sesgos, si no los identificamos, se filtran en nuestra orientación y limitan las opciones de nuestros estudiantes sin que nos demos cuenta.</p>
+              <p><strong>Actividad:</strong> Completa el Mapa de Empatía para un estudiante de tu aula. Luego, reflexiona con honestidad: ¿Qué sesgos vocacionales cargas tú? Escribe al menos 2 creencias sobre carreras o estudios que podrían estar influyendo en cómo orientas a tus estudiantes. No te juzgues — reconocerlos es el primer paso para no transmitirlos.</p>
+            `
+          }
+        ] },
+      { id: "m2", title: "M\u00f3dulo 2 \u2014 Alfabetizaci\u00f3n en IA", desc: "Qu\u00e9 es IA, qu\u00e9 puede y no puede hacer, protocolo de alerta", duration: "~45 min", embedId: "1FHOp5UZ-1tZ9663v8TMuXzSOpFy-tuYE", blocks: [
+          {
+            title: "Bloque 1 — ¿Qué es la IA?",
+            slideRange: "1-8",
+            content: `
+              <p>Vamos a hablar de inteligencia artificial sin tecnicismos. El coach que van a usar tus estudiantes se llama <strong>Claude</strong>, desarrollado por <strong>Anthropic</strong>. Es lo que se conoce como un <em>modelo de lenguaje</em>: básicamente, un sistema que <strong>predice la siguiente palabra</strong> más probable en un texto, basándose en patrones que aprendió de enormes cantidades de información.</p>
+              <p>Esto es importante que lo internalices bien, porque necesitas transmitirlo a tus estudiantes:</p>
+              <ul>
+                <li>La IA <strong>NO es consciente</strong>. No piensa, no siente, no tiene opiniones propias.</li>
+                <li>La IA <strong>NO es emocional</strong>. Puede sonar empática, pero es un patrón de lenguaje, no genuina comprensión.</li>
+                <li>La IA <strong>NO siempre tiene razón</strong>. Puede generar información que suena convincente pero es incorrecta.</li>
+              </ul>
+              <p>Ahora, lo que la IA <strong>sí puede</strong> hacer — y lo hace muy bien:</p>
+              <ul>
+                <li><strong>Procesar grandes cantidades de información</strong> — datos del mercado laboral, opciones de becas, perfiles de universidades e institutos.</li>
+                <li><strong>Personalizar respuestas</strong> para cada estudiante según sus intereses y contexto.</li>
+                <li><strong>Adaptarse al ritmo</strong> de cada persona — no se impacienta, no se cansa, no juzga.</li>
+                <li><strong>Sugerir rutas vocacionales</strong> basadas en los resultados del test de intereses y las conversaciones previas.</li>
+              </ul>
+              <p>Pero hay cosas que la IA <strong>no puede</strong> hacer: entender genuinamente las emociones de un adolescente, reemplazar tu juicio profesional, garantizar que toda su información sea 100% precisa, ni tomar decisiones por los estudiantes. Por eso tú eres imprescindible.</p>
+              <p><strong>Actividad:</strong> En parejas, hagan una lista rápida: 3 cosas que la IA puede hacer mejor que un tutor, y 3 cosas que un tutor puede hacer mejor que la IA. Compartan con el grupo. Esto les va a quedar claro: no compiten, se complementan.</p>
+            `
+          },
+          {
+            title: "Bloque 2 — 4 mitos sobre IA en educación",
+            slideRange: "9-16",
+            content: `
+              <p>Ahora vamos a desarmar <strong>4 mitos</strong> que probablemente has escuchado — o que tú mismo/a has pensado. Es normal, pero necesitamos superarlos:</p>
+              <ol>
+                <li><strong>"La IA va a reemplazar a los tutores."</strong> Esta es la más común. La realidad: la IA maneja datos, tú manejas personas. Ningún algoritmo puede notar que un estudiante está callado porque discutió con su mamá, o que otro dice "quiero ser doctor" solo porque su papá lo presiona. Eso lo detectas tú.</li>
+                <li><strong>"La IA siempre da respuestas correctas."</strong> Falso, y peligrosamente falso. Los modelos de lenguaje pueden <em>alucinar</em>: inventar datos, citar fuentes que no existen, o dar información desactualizada. Tus estudiantes necesitan aprender a verificar todo lo que la IA les diga. Esto es parte de la alfabetización digital.</li>
+                <li><strong>"Los estudiantes necesitan saber programar para usar esto."</strong> Para nada. La interfaz es un chat, como WhatsApp. Si tus estudiantes saben escribir un mensaje de texto, saben usar esta plataforma.</li>
+                <li><strong>"La IA es peligrosa para los estudiantes."</strong> La plataforma tiene filtros de seguridad y está diseñada específicamente para orientación vocacional. Pero eso no significa que bajes la guardia — tu supervisión sigue siendo necesaria.</li>
+              </ol>
+              <p>El principio fundamental del uso responsable de IA es este: <strong>la IA es una herramienta, no una autoridad</strong>. Queremos estudiantes que pregunten, que cuestionen, que verifiquen, que piensen críticamente. No queremos estudiantes que acepten ciegamente lo que una máquina les dice.</p>
+              <p><strong>Actividad:</strong> Piensa en una situación donde un estudiante te diga: "Profe, la IA me dijo que debería estudiar ingeniería, entonces ya decidí." ¿Cómo responderías? Escribe tu respuesta y compártela con tu grupo. Recuerda: no se trata de desautorizar a la IA, sino de enseñar pensamiento crítico.</p>
+            `
+          },
+          {
+            title: "Bloque 3 — Protocolo de alerta: Pausa, Verifica, Consulta",
+            slideRange: "17-22",
+            content: `
+              <p>Ahora vamos con algo práctico y muy importante. ¿Qué haces si la IA da una respuesta preocupante, incorrecta o inapropiada? Tienes un protocolo de 3 pasos que necesitas memorizar:</p>
+              <ol>
+                <li><strong>PAUSA:</strong> Detén la interacción. No entres en pánico ni hagas un escándalo frente a los estudiantes. Simplemente di algo como: "Espera, vamos a revisar eso juntos." Mantén la calma — si tú te alarmas, ellos se alarman.</li>
+                <li><strong>VERIFICA:</strong> Contrasta la información con fuentes confiables. Las tres fuentes oficiales que debes tener a mano son: <strong>MINEDU</strong> (normativa educativa), <strong>SUNEDU</strong> (universidades licenciadas) y <strong>Ponte en Carrera</strong> (datos de empleabilidad y salarios). Si la IA dijo algo que contradice estas fuentes, la IA se equivocó.</li>
+                <li><strong>CONSULTA:</strong> Reporta el incidente a tu coordinador/a y compártelo en el <strong>grupo de WhatsApp de soporte</strong>. No tienes que resolver todo solo/a. El equipo técnico necesita saber cuándo la IA falla para poder mejorarla.</li>
+              </ol>
+              <p>¿Qué tipo de cosas deberían activar tu alerta? Estas son algunas <strong>banderas rojas</strong>:</p>
+              <ul>
+                <li>La IA recomienda una carrera con datos que no coinciden con los de Ponte en Carrera.</li>
+                <li>La IA da una respuesta emocional o inapropiada para una interacción educativa.</li>
+                <li>La IA menciona una universidad o instituto que no está licenciado por SUNEDU.</li>
+                <li>La IA da información sobre becas con montos o fechas incorrectas.</li>
+              </ul>
+              <p><strong>Actividad:</strong> Practiquemos. Imagina este escenario: un estudiante te dice "Profe, la IA me dijo que la Universidad X tiene una beca del 100% para ingeniería, pero yo busqué y esa universidad ni siquiera aparece en SUNEDU." Aplica el protocolo Pausa-Verifica-Consulta y escribe qué harías en cada paso. Comparte con tu compañero/a.</p>
+            `
+          }
+        ] },
+      { id: "m3", title: "M\u00f3dulo 3 \u2014 El Programa", desc: "12 sesiones, 8 pasos, estructura y plataforma", duration: "~60 min", embedId: "1NdvFA8KHBqC7ylinv88MNBgeKpmY3D5o", blocks: [
+          {
+            title: "Bloque 1 — Los 8 pasos del camino",
+            slideRange: "1-10",
+            content: `
+              <p>Ahora sí, entremos al corazón del programa. <strong>Eligiendo Mi Camino</strong> no es una charla ni un test — es un recorrido de <strong>8 pasos</strong> que tus estudiantes van a completar a lo largo de 12 sesiones. Cada paso construye sobre el anterior, así que el orden importa:</p>
+              <ol>
+                <li><strong>Autoconocimiento (Sesiones 1-2):</strong> "¿Quién soy hoy?" Los estudiantes exploran sus valores, habilidades, intereses y sueños. Es el punto de partida — no puedes elegir un camino si no sabes quién eres.</li>
+                <li><strong>Test de Intereses (Sesión 3):</strong> Aplican el test RIASEC de 66 preguntas. Este test clasifica los intereses en 6 tipos: Realista, Investigador, Artístico, Social, Emprendedor y Convencional. No es un dictamen — es un espejo.</li>
+                <li><strong>Mitos y Realidades (Sesión 4):</strong> Desmontan mitos vocacionales usando datos reales. "¿Es verdad que los médicos ganan más que todos?" "¿Es verdad que un instituto es menos que una universidad?" Datos contra prejuicios.</li>
+                <li><strong>Rutas Post-secundarias (Sesiones 4-5):</strong> Exploran las 3 rutas posibles: universidad, instituto/CETPRO, o trabajo/emprendimiento. Ninguna es mejor que otra — depende de cada persona.</li>
+                <li><strong>Explorador de Ocupaciones (Sesión 5):</strong> Acceden a un catálogo de <strong>130 ocupaciones</strong> filtrables por tipo RIASEC, con datos de salario y demanda laboral.</li>
+                <li><strong>Investigación con IA (Sesiones 6-7):</strong> Usan NotebookLM para investigar a fondo las opciones que más les interesan.</li>
+                <li><strong>Decisión Familiar (Sesiones 8-9):</strong> Aprenden a comunicar sus decisiones a la familia — esta es una de las sesiones más potentes y emotivas.</li>
+                <li><strong>Plan Accionable (Sesiones 10-12):</strong> Construyen sus Planes A, B y C, más un CV 1.0. Salen del programa con un plan concreto, no solo con buenas intenciones.</li>
+              </ol>
+              <p><strong>Actividad:</strong> Revisa los 8 pasos y marca cuáles te parecen más desafiantes para tus estudiantes. ¿En cuál crees que van a necesitar más de tu acompañamiento? Anota tus ideas — las usaremos más adelante.</p>
+            `
+          },
+          {
+            title: "Bloque 2 — Estructura de cada sesión",
+            slideRange: "11-16",
+            content: `
+              <p>Cada una de las 12 sesiones dura <strong>90 minutos</strong> y sigue una estructura consistente. Esto es importante porque la rutina genera seguridad — tanto para ti como para tus estudiantes:</p>
+              <ol>
+                <li><strong>Apertura (10 minutos):</strong> Recapitulas brevemente la sesión anterior, compartes el objetivo del día y activas a los estudiantes con una pregunta o dinámica corta. Este momento es tuyo — la plataforma no lo controla.</li>
+                <li><strong>Actividad principal con la plataforma (50-60 minutos):</strong> Los estudiantes trabajan individualmente o en parejas con la plataforma de orientación vocacional. Tú circulas por el aula, observas, haces preguntas, y estás atento/a a quienes se traban o se desconectan emocionalmente.</li>
+                <li><strong>Reflexión y cierre (20 minutos):</strong> Este es el momento más valioso. Los estudiantes comparten descubrimientos, dudas, emociones. Tú facilitas la conversación y ayudas a aterrizar lo que vivieron en la plataforma.</li>
+              </ol>
+              <p>Cada sesión produce un <strong>producto concreto</strong>: una entrada en el diario, un resultado de test, un borrador de plan, una carta a la familia. Nada queda en el aire.</p>
+              <p>El <strong>Diario Digital</strong> es la herramienta transversal de todo el programa. Es un Google Doc donde cada estudiante va registrando sus reflexiones sesión a sesión. Piénsalo como su bitácora de viaje — al final del programa, van a poder ver todo el camino que recorrieron, desde el "no sé qué quiero" hasta un plan concreto.</p>
+              <p><strong>Actividad:</strong> Piensa en tu hora de TOE actual. ¿Cómo se compara con esta estructura de 3 momentos? ¿Qué te parece más fácil de implementar y qué te genera dudas? Escribe tus reflexiones y comparte una con el grupo.</p>
+            `
+          },
+          {
+            title: "Bloque 3 — La plataforma de Orientación Vocacional",
+            slideRange: "17-24",
+            content: `
+              <p>Hablemos de la herramienta que tus estudiantes van a usar: la plataforma <strong>uDocz Match</strong>. Cuando un estudiante entra, ve los <strong>8 pasos del camino</strong> en la barra lateral izquierda, como un mapa de progreso. Cada paso tiene contenido interactivo: videos, fichas con datos del mercado laboral, conversaciones con el coach de IA, y hojas de trabajo.</p>
+              <p>Las funcionalidades clave que necesitas conocer son:</p>
+              <ul>
+                <li><strong>Test RIASEC:</strong> 66 preguntas que clasifican los intereses del estudiante en 6 tipos. El resultado no es un veredicto — es un punto de partida para la exploración.</li>
+                <li><strong>Explorador de Ocupaciones:</strong> Un catálogo de 130 carreras y oficios con datos de salario promedio, demanda laboral y ruta formativa. Los estudiantes pueden filtrar por su tipo RIASEC.</li>
+                <li><strong>Coach de IA:</strong> Conversaciones personalizadas donde el estudiante puede hacer preguntas sobre carreras, universidades, becas, o simplemente explorar sus dudas. El coach recuerda las conversaciones anteriores.</li>
+                <li><strong>Diario Digital:</strong> Donde registran sus reflexiones de cada sesión.</li>
+              </ul>
+              <p>Todo el programa se sostiene sobre el marco <strong>IKIGAI</strong>, que cruza tres preguntas fundamentales: ¿Qué me encanta hacer? ¿En qué soy bueno/a? ¿Qué valora el mercado? Estas preguntas se van respondiendo progresivamente a lo largo de las 12 sesiones, y al final convergen en una decisión informada.</p>
+              <p><strong>Actividad:</strong> Si tienes acceso a la plataforma de prueba, entra y explora como si fueras estudiante. Navega los 8 pasos, mira el Explorador de Ocupaciones, y conversa con el coach de IA. Si aún no tienes acceso, anota 3 preguntas que te gustaría hacerle al coach cuando lo pruebes.</p>
+            `
+          },
+          {
+            title: "Bloque 4 — Calendario y logística",
+            slideRange: "25-30",
+            content: `
+              <p>Vamos a lo operativo. El programa tiene <strong>12 sesiones distribuidas en aproximadamente 12 semanas</strong>, una sesión por semana en tu hora de TOE. Es un compromiso sostenido — no es un taller de un día.</p>
+              <p>Antes de la primera sesión, necesitas completar este <strong>checklist de preparación</strong>. No te lo saltes — cada punto puede ser la diferencia entre una primera sesión exitosa y un desastre logístico:</p>
+              <ul>
+                <li><strong>Reserva el AIP (laboratorio de cómputo)</strong> para las 12 semanas. Habla con el responsable del AIP ahora, no después. Si otro docente ya tiene esas horas, negocia el intercambio con anticipación.</li>
+                <li><strong>Verifica las computadoras:</strong> ¿Funcionan? ¿Tienen acceso a internet? ¿El navegador está actualizado? Prueba al menos 5 equipos con tu cuenta de tutor.</li>
+                <li><strong>Prueba tu cuenta de tutor:</strong> Inicia sesión en la plataforma y asegúrate de que todo funcione antes de llevar a tus estudiantes.</li>
+                <li><strong>Crea la lista de estudiantes</strong> con el/la docente de PIP. El formato requiere DNI, nombres completos y sección. Sin lista, no hay cuentas.</li>
+                <li><strong>Comunica a los padres de familia</strong> a través del director/a. Las familias necesitan saber qué está pasando — esto genera confianza y facilita las sesiones de Decisión Familiar más adelante.</li>
+              </ul>
+              <p>Sobre <strong>materiales</strong>: en cada sesión vas a necesitar tu Guía del Tutor (puede ser física o en tu celular) y las fichas de trabajo del día. Los enlaces de las fichas los puedes proyectar en la pizarra o escribirlos. Si tu colegio tiene impresora, imprimir algunas copias siempre ayuda.</p>
+              <p><strong>Actividad:</strong> Revisa el calendario de las 12 sesiones y contrástalo con el calendario de tu colegio. ¿Hay semanas con feriados, simulacros o actividades que podrían chocar? Identifica al menos 2 posibles conflictos y piensa en cómo los resolverías. Anótalos — la planificación temprana te va a ahorrar muchos dolores de cabeza.</p>
+            `
+          }
+        ] },
       { id: "m4", title: "M\u00f3dulo 4 \u2014 Herramientas", desc: "Plataforma, NotebookLM, diario digital, fichas", duration: "~60 min", embedId: "1tQiMK_JG-vdaSf2E3Ra2VTkBMHTdsEyG", blocks: [] },
       { id: "m5", title: "M\u00f3dulo 5 \u2014 Pr\u00e1ctica y Fricci\u00f3n", desc: "Simulaci\u00f3n de sesi\u00f3n, situaciones dif\u00edciles", duration: "~45 min", embedId: "1Oj1zJ6pVGW3jySS5NleCfURf0Pmw_bKQ", blocks: [] },
       { id: "m6", title: "M\u00f3dulo 6 \u2014 Compromiso y Cierre", desc: "Plan de acci\u00f3n, red de apoyo, pr\u00f3ximos pasos", duration: "~30 min", embedId: "1YGWLaQVS-GoGWO1jYincqIpS_JVklndD", blocks: [] }
