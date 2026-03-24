@@ -241,23 +241,27 @@
     }
     .viewer-title-bar h1 { font-size: 1.15rem; font-weight: 700; }
 
+    .viewer-slides-container {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #000;
+    }
     .slides-container {
       width: 100%;
-      padding: 0 24px;
-      margin-bottom: 24px;
+      padding: 0;
     }
     .slides-container iframe {
       width: 100%;
-      height: 60vh;
+      height: 45vh;
       border: none;
-      border-radius: var(--radius);
-      box-shadow: var(--card-shadow);
+      display: block;
     }
 
     .narration-panel {
       max-width: 780px;
       margin: 0 auto;
-      padding: 0 24px 16px;
+      padding: 16px 24px 16px;
     }
     .narration-panel h2 {
       font-size: 1.1rem;
@@ -274,6 +278,7 @@
       box-shadow: var(--card-shadow);
       margin-bottom: 12px;
       overflow: hidden;
+      border-left: 4px solid #ddd;
     }
     .narration-block summary {
       padding: 14px 20px;
@@ -300,6 +305,35 @@
       font-size: 0.9rem;
       line-height: 1.65;
       color: var(--text-gray);
+    }
+
+    /* ── TTS Audio Controls ── */
+    .audio-controls {
+      margin: 12px 0 8px;
+      padding: 8px 0;
+      border-top: 1px solid #eee;
+    }
+    .btn-audio {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      border: none;
+      border-radius: 24px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-audio:hover {
+      transform: scale(1.03);
+      box-shadow: 0 4px 12px rgba(243, 147, 0, 0.3);
+    }
+    .btn-audio[data-state="playing"] {
+      background: linear-gradient(135deg, #e53935, #c62828);
     }
 
     .narration-placeholder {
@@ -422,7 +456,7 @@
       .hero p { font-size: 0.95rem; }
       .tracks { grid-template-columns: 1fr; max-width: 420px; }
       .module-grid { grid-template-columns: 1fr; max-width: 480px; }
-      .slides-container iframe { height: 50vh; }
+      .slides-container iframe { height: 40vh; }
     }
     @media (max-width: 480px) {
       .hero { padding: 40px 16px 36px; }
@@ -432,8 +466,7 @@
       .track-card { padding: 22px 18px 20px; }
       .module-grid { padding: 0 16px; }
       .narration-panel, .resources-section, .complete-btn, .viewer-nav { padding-left: 16px; padding-right: 16px; }
-      .slides-container { padding: 0 16px; }
-      .slides-container iframe { height: 42vh; }
+      .slides-container iframe { height: 35vh; }
       .viewer-title-bar { padding: 14px 16px; }
       .track-header { padding: 20px 16px 16px; }
     }
@@ -473,7 +506,9 @@
       <i class="fa-solid fa-arrow-left"></i> Volver a m&oacute;dulos
     </button>
     <div class="viewer-title-bar" id="viewer-title"></div>
-    <div class="slides-container" id="slides-container"></div>
+    <div class="viewer-slides-container" id="viewer-slides-container">
+      <div class="slides-container" id="slides-container"></div>
+    </div>
     <div class="narration-panel" id="narration-panel"></div>
     <div class="resources-section" id="resources-section"></div>
     <div class="complete-btn" id="complete-btn-wrap"></div>
@@ -1234,11 +1269,24 @@ function renderViewer() {
   const narPanel = document.getElementById('narration-panel');
   if (mod.blocks && mod.blocks.length > 0) {
     narPanel.innerHTML = `<h2><i class="fa-solid fa-headphones" style="color:${accentColor}"></i> Narraci\u00f3n</h2>`;
-    mod.blocks.forEach(block => {
+    mod.blocks.forEach((block, idx) => {
       const details = document.createElement('details');
       details.className = 'narration-block';
-      details.setAttribute('data-audio-slot', block.audioSlot || '');
-      details.innerHTML = `<summary>${block.title}</summary><div class="content">${block.content}</div>`;
+      details.style.borderLeftColor = accentColor;
+      details.innerHTML = `<summary>${block.title}</summary><div class="content"><div class="narration-content">${block.content}</div><div class="audio-controls" data-audio-slot><button class="btn-audio" onclick="toggleTTS(this)" data-state="stopped"><i class="fas fa-play"></i> Escuchar narraci\u00f3n</button></div></div>`;
+      // Auto-open first block
+      if (idx === 0) details.setAttribute('open', '');
+      // Auto-scroll into view when opened
+      details.addEventListener('toggle', function() {
+        if (this.open) {
+          setTimeout(() => {
+            const stickyH = document.getElementById('viewer-slides-container').offsetHeight;
+            const rect = this.getBoundingClientRect();
+            const scrollY = window.pageYOffset + rect.top - stickyH - 8;
+            window.scrollTo({ top: scrollY, behavior: 'smooth' });
+          }, 50);
+        }
+      });
       narPanel.appendChild(details);
     });
   } else {
@@ -1287,6 +1335,85 @@ function renderViewer() {
     </button>
   `;
 }
+
+/* ── TTS (Web Speech API) ── */
+let currentUtterance = null;
+let currentButton = null;
+
+function toggleTTS(btn) {
+  const speechSynth = window.speechSynthesis;
+
+  // If something is playing, stop it
+  if (speechSynth.speaking) {
+    speechSynth.cancel();
+    if (currentButton) {
+      currentButton.innerHTML = '<i class="fas fa-play"></i> Escuchar narraci\u00f3n';
+      currentButton.dataset.state = 'stopped';
+    }
+    // If clicking same button, just stop
+    if (currentButton === btn) {
+      currentButton = null;
+      return;
+    }
+  }
+
+  // Get the text content from the narration-content div
+  const details = btn.closest('details');
+  const contentDiv = details.querySelector('.narration-content');
+  const text = contentDiv.innerText || contentDiv.textContent;
+
+  // Create utterance
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = 'es-419'; // Latin American Spanish
+  utterance.rate = 0.9;
+  utterance.pitch = 1.0;
+
+  // Try to find a good Spanish voice
+  const voices = speechSynth.getVoices();
+  const spanishVoice = voices.find(v => v.lang.startsWith('es') && v.name.includes('Google'))
+    || voices.find(v => v.lang.startsWith('es'));
+  if (spanishVoice) utterance.voice = spanishVoice;
+
+  // Update button state
+  btn.innerHTML = '<i class="fas fa-pause"></i> Pausar';
+  btn.dataset.state = 'playing';
+  currentButton = btn;
+
+  // On end, reset button
+  utterance.onend = () => {
+    btn.innerHTML = '<i class="fas fa-play"></i> Escuchar narraci\u00f3n';
+    btn.dataset.state = 'stopped';
+    currentButton = null;
+  };
+
+  utterance.onerror = () => {
+    btn.innerHTML = '<i class="fas fa-play"></i> Escuchar narraci\u00f3n';
+    btn.dataset.state = 'stopped';
+    currentButton = null;
+  };
+
+  speechSynth.speak(utterance);
+}
+
+// Preload voices (needed for Chrome)
+if (window.speechSynthesis) {
+  window.speechSynthesis.getVoices();
+  window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+}
+
+// Stop TTS when navigating away from viewer
+const origNavigate = navigate;
+navigate = function(view, opts) {
+  if (window.speechSynthesis && window.speechSynthesis.speaking) {
+    window.speechSynthesis.cancel();
+    if (currentButton) {
+      currentButton.innerHTML = '<i class="fas fa-play"></i> Escuchar narraci\u00f3n';
+      currentButton.dataset.state = 'stopped';
+      currentButton = null;
+    }
+  }
+  origNavigate(view, opts);
+};
 
 /* ── Init ── */
 renderLanding();
