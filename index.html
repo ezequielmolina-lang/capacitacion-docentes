@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#f39300">
+  <meta name="description" content="Capacitaci&oacute;n virtual para docentes del programa Eligiendo Mi Camino">
+  <title>Capacitaci&oacute;n Docente &mdash; Eligiendo Mi Camino</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --primary: #f39300;
+      --primary-dark: #f75a00;
+      --primary-light: #fdd026;
+      --bg-cream: #fffbf0;
+      --text-dark: #242c32;
+      --text-gray: #666;
+      --math-color: #C62828;
+      --math-bg: #FFEBEE;
+      --ov-color: #2E7D32;
+      --ov-bg: #E8F5E9;
+      --card-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      --radius: 12px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--bg-cream);
+      color: var(--text-dark);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Views ── */
+    .view { display: none; }
+    .view.active {
+      display: block;
+      animation: slideUp 0.35s ease-out;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Landing ── */
+    .hero {
+      background: linear-gradient(135deg, #fde3b1 0%, #fdd026 30%, #f39300 65%, #f75a00 100%);
+      padding: 56px 24px 48px;
+      text-align: center;
+      color: #fff;
+    }
+    .hero h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    }
+    .hero p {
+      font-size: 1.05rem;
+      font-weight: 400;
+      opacity: 0.95;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .badges {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 20px 24px 8px;
+    }
+    .badge {
+      background: #fff;
+      border-radius: 50px;
+      padding: 6px 18px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-gray);
+      box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+      white-space: nowrap;
+    }
+
+    .tracks {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      max-width: 720px;
+      margin: 28px auto 48px;
+      padding: 0 24px;
+    }
+
+    .track-card {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--card-shadow);
+      padding: 28px 24px 24px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border-top: 4px solid transparent;
+      display: flex;
+      flex-direction: column;
+    }
+    .track-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+    }
+    .track-card[data-track="math"] { border-top-color: var(--math-color); }
+    .track-card[data-track="ov"]   { border-top-color: var(--ov-color); }
+
+    .track-card .icon {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 14px;
+    }
+    .track-card[data-track="math"] .icon { background: var(--math-bg); color: var(--math-color); }
+    .track-card[data-track="ov"]   .icon { background: var(--ov-bg);   color: var(--ov-color); }
+
+    .track-card h2 { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; }
+    .track-card .desc { font-size: 0.85rem; color: var(--text-gray); line-height: 1.5; flex: 1; }
+
+    .progress-bar-wrap {
+      margin-top: 16px;
+      background: #eee;
+      border-radius: 6px;
+      height: 8px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      border-radius: 6px;
+      transition: width 0.4s ease;
+    }
+    .track-card[data-track="math"] .progress-bar-fill { background: var(--math-color); }
+    .track-card[data-track="ov"]   .progress-bar-fill { background: var(--ov-color); }
+    .progress-label {
+      font-size: 0.75rem;
+      color: var(--text-gray);
+      margin-top: 6px;
+    }
+
+    /* ── Back button ── */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: none;
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-gray);
+      cursor: pointer;
+      padding: 14px 24px;
+      min-height: 44px;
+      min-width: 44px;
+    }
+    .back-btn:hover { color: var(--text-dark); }
+
+    /* ── Module List ── */
+    .track-header {
+      padding: 24px 24px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .track-header .icon {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+    }
+    .track-header h1 { font-size: 1.5rem; font-weight: 700; }
+
+    .module-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      max-width: 780px;
+      margin: 0 auto 48px;
+      padding: 0 24px;
+    }
+
+    .module-card {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--card-shadow);
+      padding: 20px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+    .module-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+    .module-card .num {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .module-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
+    .module-card .desc { font-size: 0.82rem; color: var(--text-gray); line-height: 1.45; margin-bottom: 10px; }
+    .module-card .meta {
+      font-size: 0.75rem;
+      color: var(--text-gray);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .module-card .check {
+      position: absolute;
+      top: 16px; right: 16px;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem;
+      color: #fff;
+    }
+    .module-card .check.done { background: #4CAF50; }
+    .module-card .check.pending { background: #ddd; color: #999; }
+
+    /* ── Viewer ── */
+    .viewer-title-bar {
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .viewer-title-bar h1 { font-size: 1.15rem; font-weight: 700; }
+
+    .slides-container {
+      width: 100%;
+      padding: 0 24px;
+      margin-bottom: 24px;
+    }
+    .slides-container iframe {
+      width: 100%;
+      height: 60vh;
+      border: none;
+      border-radius: var(--radius);
+      box-shadow: var(--card-shadow);
+    }
+
+    .narration-panel {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 24px 16px;
+    }
+    .narration-panel h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .narration-block {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--card-shadow);
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .narration-block summary {
+      padding: 14px 20px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 44px;
+    }
+    .narration-block summary::-webkit-details-marker { display: none; }
+    .narration-block summary::before {
+      content: '\f054';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      font-size: 0.7rem;
+      transition: transform 0.2s;
+    }
+    .narration-block[open] summary::before { transform: rotate(90deg); }
+    .narration-block .content {
+      padding: 0 20px 16px;
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: var(--text-gray);
+    }
+
+    .narration-placeholder {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--card-shadow);
+      padding: 32px 24px;
+      text-align: center;
+      color: var(--text-gray);
+      font-size: 0.92rem;
+    }
+    .narration-placeholder i { font-size: 1.6rem; margin-bottom: 10px; display: block; color: #ccc; }
+
+    .resources-section {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 8px 24px 16px;
+    }
+    .resources-section h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .resources-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .resources-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+      text-decoration: none;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.15s;
+      min-height: 44px;
+    }
+    .resources-links a:hover { transform: translateY(-2px); }
+
+    .complete-btn {
+      display: block;
+      max-width: 780px;
+      margin: 8px auto 12px;
+      padding: 0 24px;
+      width: 100%;
+    }
+    .complete-btn button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      min-height: 48px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .complete-btn button.mark {
+      background: var(--primary);
+      color: #fff;
+    }
+    .complete-btn button.mark:hover { background: var(--primary-dark); transform: translateY(-1px); }
+    .complete-btn button.done {
+      background: #E8F5E9;
+      color: #2E7D32;
+      cursor: default;
+    }
+
+    .viewer-nav {
+      display: flex;
+      justify-content: space-between;
+      max-width: 780px;
+      margin: 0 auto 48px;
+      padding: 8px 24px;
+      gap: 12px;
+    }
+    .viewer-nav button {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: var(--radius);
+      background: #fff;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      cursor: pointer;
+      min-height: 44px;
+      transition: border-color 0.2s, transform 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .viewer-nav button:hover { border-color: var(--primary); transform: translateY(-1px); }
+    .viewer-nav button:disabled { opacity: 0.35; cursor: default; transform: none; border-color: #e0e0e0; }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 0.78rem;
+      color: var(--text-gray);
+      border-top: 1px solid #eee;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 1.7rem; }
+      .hero p { font-size: 0.95rem; }
+      .tracks { grid-template-columns: 1fr; max-width: 420px; }
+      .module-grid { grid-template-columns: 1fr; max-width: 480px; }
+      .slides-container iframe { height: 50vh; }
+    }
+    @media (max-width: 480px) {
+      .hero { padding: 40px 16px 36px; }
+      .hero h1 { font-size: 1.4rem; }
+      .hero p { font-size: 0.88rem; }
+      .tracks { padding: 0 16px; gap: 14px; margin: 20px auto 36px; }
+      .track-card { padding: 22px 18px 20px; }
+      .module-grid { padding: 0 16px; }
+      .narration-panel, .resources-section, .complete-btn, .viewer-nav { padding-left: 16px; padding-right: 16px; }
+      .slides-container { padding: 0 16px; }
+      .slides-container iframe { height: 42vh; }
+      .viewer-title-bar { padding: 14px 16px; }
+      .track-header { padding: 20px 16px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════ Landing View ══════════ -->
+  <div id="view-landing" class="view active">
+    <div class="hero">
+      <h1>Capacitaci&oacute;n Docente</h1>
+      <p>Formaci&oacute;n virtual para docentes de Eligiendo Mi Camino</p>
+    </div>
+    <div class="badges">
+      <span class="badge">DRELM</span>
+      <span class="badge">Banco Mundial</span>
+      <span class="badge">UPC</span>
+      <span class="badge">uDocz</span>
+    </div>
+    <div class="tracks" id="track-cards"></div>
+    <div class="footer">Eligiendo Mi Camino &mdash; Programa de Orientaci&oacute;n Vocacional</div>
+  </div>
+
+  <!-- ══════════ Module List View ══════════ -->
+  <div id="view-modules" class="view">
+    <button class="back-btn" onclick="navigate('landing')">
+      <i class="fa-solid fa-arrow-left"></i> Volver
+    </button>
+    <div class="track-header" id="modules-header"></div>
+    <div class="module-grid" id="module-grid"></div>
+    <div class="footer">Eligiendo Mi Camino &mdash; Programa de Orientaci&oacute;n Vocacional</div>
+  </div>
+
+  <!-- ══════════ Viewer View ══════════ -->
+  <div id="view-viewer" class="view">
+    <button class="back-btn" id="viewer-back-btn">
+      <i class="fa-solid fa-arrow-left"></i> Volver a m&oacute;dulos
+    </button>
+    <div class="viewer-title-bar" id="viewer-title"></div>
+    <div class="slides-container" id="slides-container"></div>
+    <div class="narration-panel" id="narration-panel"></div>
+    <div class="resources-section" id="resources-section"></div>
+    <div class="complete-btn" id="complete-btn-wrap"></div>
+    <div class="viewer-nav" id="viewer-nav"></div>
+    <div class="footer">Eligiendo Mi Camino &mdash; Programa de Orientaci&oacute;n Vocacional</div>
+  </div>
+
+<script>
+/* ── Module Data ── */
+const MODULES = {
+  math: {
+    title: "Matem\u00e1ticas",
+    color: "var(--math-color)",
+    bg: "var(--math-bg)",
+    icon: "fa-calculator",
+    guideUrl: "https://drive.google.com/file/d/12Q5zUjofNHHfONZT2nSSQVOGH8M2zuan/view?usp=sharing",
+    folderUrl: "https://drive.google.com/drive/folders/1kfWgFFFpGl9LDKlUhREi9cBjERI2BJm3",
+    slidesFolder: "https://drive.google.com/drive/folders/1h_I1p-dcWMnMM8__eAFuV_vjkNkMEkO-",
+    modules: [
+      { id: "dia1", title: "D\u00eda 1 \u2014 Bienvenida, Plataforma y Curr\u00edculo", desc: "IA, plataforma Doc, registro, integraci\u00f3n curricular y dashboard", duration: "~90 min", embedId: "1V_ID56Czrnv0XfMCQTO8rutsnJ4Fb4-ePGe7GYoDuOU", blocks: [] },
+      { id: "dia2", title: "D\u00eda 2 \u2014 Gesti\u00f3n de Aula y Plan de Acci\u00f3n", desc: "Dise\u00f1o experimental, gesti\u00f3n de sesiones, simulaci\u00f3n y plan individual", duration: "~90 min", embedId: "1eYwrDWsaJF6v7fXVCQiCpf5uCspyXltIYHyvxYPw9lU", blocks: [] }
+    ]
+  },
+  ov: {
+    title: "Orientaci\u00f3n Vocacional",
+    color: "var(--ov-color)",
+    bg: "var(--ov-bg)",
+    icon: "fa-compass",
+    guideUrl: "https://drive.google.com/file/d/1_KfUBZ2gCql4iFDlv1UqFKSyBGpBl_GF/view?usp=sharing",
+    folderUrl: "https://drive.google.com/drive/folders/1m_OnilfgQSEJusmA3nz9Xk8-hcq8rsVo",
+    slidesFolder: "https://drive.google.com/drive/folders/1tZWTL0cRKIunBRbaH3bFrK2g34WcW-ir",
+    modules: [
+      { id: "m1", title: "M\u00f3dulo 1 \u2014 Bienvenida y Contexto", desc: "Qu\u00e9 es EMC, tu rol como tutor/a, manifiesto", duration: "~45 min", embedId: "11h97scJhZ9gOJETm4xH71MaB45bAeq0v", blocks: [] },
+      { id: "m2", title: "M\u00f3dulo 2 \u2014 Alfabetizaci\u00f3n en IA", desc: "Qu\u00e9 es IA, qu\u00e9 puede y no puede hacer, protocolo de alerta", duration: "~45 min", embedId: "1FHOp5UZ-1tZ9663v8TMuXzSOpFy-tuYE", blocks: [] },
+      { id: "m3", title: "M\u00f3dulo 3 \u2014 El Programa", desc: "12 sesiones, 8 pasos, estructura y plataforma", duration: "~60 min", embedId: "1NdvFA8KHBqC7ylinv88MNBgeKpmY3D5o", blocks: [] },
+      { id: "m4", title: "M\u00f3dulo 4 \u2014 Herramientas", desc: "Plataforma, NotebookLM, diario digital, fichas", duration: "~60 min", embedId: "1tQiMK_JG-vdaSf2E3Ra2VTkBMHTdsEyG", blocks: [] },
+      { id: "m5", title: "M\u00f3dulo 5 \u2014 Pr\u00e1ctica y Fricci\u00f3n", desc: "Simulaci\u00f3n de sesi\u00f3n, situaciones dif\u00edciles", duration: "~45 min", embedId: "1Oj1zJ6pVGW3jySS5NleCfURf0Pmw_bKQ", blocks: [] },
+      { id: "m6", title: "M\u00f3dulo 6 \u2014 Compromiso y Cierre", desc: "Plan de acci\u00f3n, red de apoyo, pr\u00f3ximos pasos", duration: "~30 min", embedId: "1YGWLaQVS-GoGWO1jYincqIpS_JVklndD", blocks: [] }
+    ]
+  }
+};
+
+/* ── State ── */
+const state = { view: 'landing', track: null, moduleId: null };
+
+/* ── Progress (localStorage) ── */
+function getProgress() {
+  return JSON.parse(localStorage.getItem('emc-cap-progress') || '{}');
+}
+function markComplete(track, moduleId) {
+  const p = getProgress();
+  if (!p[track]) p[track] = {};
+  p[track][moduleId] = true;
+  localStorage.setItem('emc-cap-progress', JSON.stringify(p));
+}
+function isComplete(track, moduleId) {
+  const p = getProgress();
+  return !!(p[track] && p[track][moduleId]);
+}
+function countComplete(track) {
+  const p = getProgress();
+  if (!p[track]) return 0;
+  return Object.keys(p[track]).length;
+}
+
+/* ── Navigation ── */
+function navigate(view, opts = {}) {
+  state.view = view;
+  if (opts.track !== undefined) state.track = opts.track;
+  if (opts.moduleId !== undefined) state.moduleId = opts.moduleId;
+
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + view).classList.add('active');
+  window.scrollTo(0, 0);
+
+  if (view === 'landing') renderLanding();
+  if (view === 'modules') renderModules();
+  if (view === 'viewer') renderViewer();
+}
+
+/* ── Render: Landing ── */
+function renderLanding() {
+  const container = document.getElementById('track-cards');
+  container.innerHTML = '';
+  for (const [key, track] of Object.entries(MODULES)) {
+    const total = track.modules.length;
+    const done = countComplete(key);
+    const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+    const desc = key === 'math'
+      ? 'D\u00eda 1 y D\u00eda 2 de formaci\u00f3n \u2014 Aprende a usar el tutor IA de matem\u00e1ticas Doc en tu aula'
+      : '6 m\u00f3dulos \u2014 Prep\u00e1rate para guiar a tus estudiantes con el coach vocacional IA';
+
+    const card = document.createElement('div');
+    card.className = 'track-card';
+    card.dataset.track = key;
+    card.onclick = () => navigate('modules', { track: key });
+    card.innerHTML = `
+      <div class="icon"><i class="fa-solid ${track.icon}"></i></div>
+      <h2>${track.title}</h2>
+      <p class="desc">${desc}</p>
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
+      <div class="progress-label">${done}/${total} m\u00f3dulos completados</div>
+    `;
+    container.appendChild(card);
+  }
+}
+
+/* ── Render: Module List ── */
+function renderModules() {
+  const track = MODULES[state.track];
+  const header = document.getElementById('modules-header');
+  const colorStyle = state.track === 'math' ? 'background:var(--math-bg);color:var(--math-color)' : 'background:var(--ov-bg);color:var(--ov-color)';
+  header.innerHTML = `
+    <div class="icon" style="${colorStyle}"><i class="fa-solid ${track.icon}"></i></div>
+    <h1>${track.title}</h1>
+  `;
+
+  const grid = document.getElementById('module-grid');
+  grid.innerHTML = '';
+  track.modules.forEach((mod, i) => {
+    const done = isComplete(state.track, mod.id);
+    const accentColor = state.track === 'math' ? 'var(--math-color)' : 'var(--ov-color)';
+    const card = document.createElement('div');
+    card.className = 'module-card';
+    card.onclick = () => navigate('viewer', { moduleId: mod.id });
+    card.innerHTML = `
+      <div class="check ${done ? 'done' : 'pending'}">
+        <i class="fa-solid ${done ? 'fa-check' : 'fa-minus'}"></i>
+      </div>
+      <div class="num" style="color:${accentColor}">${state.track === 'math' ? 'D\u00eda ' + (i + 1) : 'M\u00f3dulo ' + (i + 1)}</div>
+      <h3>${mod.title}</h3>
+      <p class="desc">${mod.desc}</p>
+      <div class="meta"><i class="fa-regular fa-clock"></i> ${mod.duration}</div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+/* ── Render: Viewer ── */
+function renderViewer() {
+  const track = MODULES[state.track];
+  const modIndex = track.modules.findIndex(m => m.id === state.moduleId);
+  const mod = track.modules[modIndex];
+  if (!mod) return;
+
+  const accentColor = state.track === 'math' ? 'var(--math-color)' : 'var(--ov-color)';
+
+  // Back button
+  document.getElementById('viewer-back-btn').onclick = () => navigate('modules', { track: state.track });
+
+  // Title
+  document.getElementById('viewer-title').innerHTML = `
+    <div style="width:6px;height:28px;border-radius:3px;background:${accentColor}"></div>
+    <h1>${mod.title}</h1>
+  `;
+
+  // Slides
+  document.getElementById('slides-container').innerHTML = `
+    <iframe src="https://docs.google.com/presentation/d/${mod.embedId}/embed?start=false&loop=false&delayms=60000" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+  `;
+
+  // Narration
+  const narPanel = document.getElementById('narration-panel');
+  if (mod.blocks && mod.blocks.length > 0) {
+    narPanel.innerHTML = `<h2><i class="fa-solid fa-headphones" style="color:${accentColor}"></i> Narraci\u00f3n</h2>`;
+    mod.blocks.forEach(block => {
+      const details = document.createElement('details');
+      details.className = 'narration-block';
+      details.setAttribute('data-audio-slot', block.audioSlot || '');
+      details.innerHTML = `<summary>${block.title}</summary><div class="content">${block.content}</div>`;
+      narPanel.appendChild(details);
+    });
+  } else {
+    narPanel.innerHTML = `
+      <h2><i class="fa-solid fa-headphones" style="color:${accentColor}"></i> Narraci\u00f3n</h2>
+      <div class="narration-placeholder">
+        <i class="fa-solid fa-microphone-slash"></i>
+        Narraci\u00f3n pr\u00f3ximamente
+      </div>
+    `;
+  }
+
+  // Resources
+  document.getElementById('resources-section').innerHTML = `
+    <h2><i class="fa-solid fa-link" style="color:${accentColor}"></i> Recursos</h2>
+    <div class="resources-links">
+      <a href="${track.guideUrl}" target="_blank"><i class="fa-solid fa-file-pdf"></i> Gu\u00eda del tutor</a>
+      <a href="${track.slidesFolder}" target="_blank"><i class="fa-solid fa-images"></i> Diapositivas</a>
+      <a href="${track.folderUrl}" target="_blank"><i class="fa-solid fa-folder-open"></i> Carpeta de recursos</a>
+    </div>
+  `;
+
+  // Complete button
+  const done = isComplete(state.track, mod.id);
+  const wrap = document.getElementById('complete-btn-wrap');
+  if (done) {
+    wrap.innerHTML = `<button class="done"><i class="fa-solid fa-circle-check"></i>&ensp;M\u00f3dulo completado</button>`;
+  } else {
+    wrap.innerHTML = `<button class="mark" id="mark-complete-btn">\u2705 Marcar como completado</button>`;
+    document.getElementById('mark-complete-btn').onclick = () => {
+      markComplete(state.track, mod.id);
+      renderViewer();
+    };
+  }
+
+  // Prev / Next
+  const nav = document.getElementById('viewer-nav');
+  const prevMod = track.modules[modIndex - 1];
+  const nextMod = track.modules[modIndex + 1];
+  nav.innerHTML = `
+    <button ${!prevMod ? 'disabled' : ''} onclick="${prevMod ? `navigate('viewer',{moduleId:'${prevMod.id}'})` : ''}">
+      <i class="fa-solid fa-arrow-left"></i> Anterior
+    </button>
+    <button ${!nextMod ? 'disabled' : ''} onclick="${nextMod ? `navigate('viewer',{moduleId:'${nextMod.id}'})` : ''}">
+      Siguiente <i class="fa-solid fa-arrow-right"></i>
+    </button>
+  `;
+}
+
+/* ── Init ── */
+renderLanding();
+</script>
+</body>
+</html>
