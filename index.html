@@ -493,7 +493,107 @@ const MODULES = {
     folderUrl: "https://drive.google.com/drive/folders/1kfWgFFFpGl9LDKlUhREi9cBjERI2BJm3",
     slidesFolder: "https://drive.google.com/drive/folders/1h_I1p-dcWMnMM8__eAFuV_vjkNkMEkO-",
     modules: [
-      { id: "dia1", title: "D\u00eda 1 \u2014 Bienvenida, Plataforma y Curr\u00edculo", desc: "IA, plataforma Doc, registro, integraci\u00f3n curricular y dashboard", duration: "~90 min", embedId: "1V_ID56Czrnv0XfMCQTO8rutsnJ4Fb4-ePGe7GYoDuOU", blocks: [] },
+      { id: "dia1", title: "D\u00eda 1 \u2014 Bienvenida, Plataforma y Curr\u00edculo", desc: "IA, plataforma Doc, registro, integraci\u00f3n curricular y dashboard", duration: "~90 min", embedId: "1V_ID56Czrnv0XfMCQTO8rutsnJ4Fb4-ePGe7GYoDuOU", blocks: [
+          {
+            title: "Bloque 1 — Bienvenida, contexto y alfabetización en IA (Diapositivas 1–10)",
+            slideRange: "1-10",
+            content: `
+              <p><strong>¡Bienvenido/a al programa Eligiendo Mi Camino!</strong> Antes de meternos de lleno, quiero que sepas con quién estamos en esto. Este programa es una alianza entre tres actores: la <strong>DRELM</strong> (tu autoridad educativa), el <strong>Banco Mundial</strong> y la <strong>UPC</strong>. Juntos hemos diseñado algo ambicioso: llevar tutoría con inteligencia artificial a cerca de <strong>100 colegios, más de 6,600 estudiantes y unos 200 docentes</strong> durante 16 semanas, con 2 horas semanales de laboratorio. Tú eres pieza clave de todo esto.</p>
+              <p>Ahora, hablemos de IA. Fíjate en las diapositivas 4 y 5: un modelo de lenguaje es básicamente un sistema que <strong>predice la siguiente palabra</strong> más probable en un texto. No piensa, no siente, no tiene conciencia. Es una herramienta muy potente, pero una herramienta al fin.</p>
+              <p>Hay <strong>4 mitos</strong> que necesitamos desarmar ahora mismo:</p>
+              <ul>
+                <li><strong>Mito 1: "La IA va a reemplazar al docente."</strong> Falso. La IA automatiza la práctica repetitiva; tú construyes comprensión, motivación y vínculo humano.</li>
+                <li><strong>Mito 2: "La IA siempre da respuestas correctas."</strong> Falso. Puede "alucinar" — inventar datos que suenan convincentes pero son incorrectos.</li>
+                <li><strong>Mito 3: "Los estudiantes necesitan saber programar."</strong> Falso. Usan una interfaz de chat, igual que WhatsApp.</li>
+                <li><strong>Mito 4: "Solo profes tecnológicos pueden hacer esto."</strong> Falso. Si usas WhatsApp, puedes usar esta plataforma.</li>
+              </ul>
+              <p><strong>🎯 Actividad:</strong> Abre <em>ChatGPT</em>, <em>Claude</em> o <em>Copilot</em> en tu celular o computadora. Hazle una pregunta de matemáticas de 5.° de secundaria y evalúa la respuesta: ¿fue correcta? ¿Fue clara? ¿Un estudiante la entendería? Anota tus observaciones.</p>
+            `
+          },
+          {
+            title: "Bloque 2 — Conociendo la plataforma como estudiante (Diapositivas 11–22)",
+            slideRange: "11-22",
+            content: `
+              <p>Ahora viene lo bueno: vas a conocer a <strong>Doc</strong>, el tutor de matemáticas con IA desarrollado por uDocz y potenciado por Claude de Anthropic. Fíjate en la diapositiva 11 — Doc no le da la respuesta al estudiante de frente. Usa el <strong>método socrático con andamiaje progresivo</strong>: primero una pista sutil, luego una pista más directa, y solo al final una explicación completa. Esto es clave porque queremos que el estudiante <em>piense</em>, no que copie.</p>
+              <p>La plataforma tiene más de <strong>4,000 preguntas diagnósticas</strong>. Cada respuesta incorrecta está mapeada a un <strong>error conceptual específico</strong>. Es decir, cuando un estudiante se equivoca, Doc sabe <em>exactamente por qué</em> se equivocó y le hace una pregunta de remediación. Eso es poder diagnóstico real.</p>
+              <p>Hay dos modos que debes conocer bien:</p>
+              <ul>
+                <li><strong>Modo Escuela (Modelo B):</strong> Es el modo estructurado para las sesiones de laboratorio. El sistema controla la secuencia. Siempre abre con una <em>"Apertura de recuperación"</em> — práctica de repaso de la sesión anterior. Como puedes ver en la diapositiva 16, el flujo es guiado paso a paso.</li>
+                <li><strong>Modo Casa (Modelo A):</strong> Tiene 4 opciones libres para que el estudiante explore desde casa — <em>Aprender un tema</em>, <em>Resolver un problema</em>, <em>Ponte a prueba</em> y <em>Preguntar</em>.</li>
+              </ul>
+              <p>Fíjate en cómo Doc muestra el "Error conceptual" cuando respondes mal (diapositiva 19). Esa es la joya de la plataforma: no solo dice "incorrecto", sino que identifica la confusión exacta.</p>
+              <p><strong>🎯 Actividad:</strong> Inicia sesión con las cuentas de prueba que te hemos proporcionado. Resuelve problemas como si fueras estudiante y — esto es importante — <strong>equivócate a propósito</strong> para ver cómo responde Doc. Observa las pistas, el andamiaje y los errores conceptuales que identifica.</p>
+            `
+          },
+          {
+            title: "Bloque 3 — Registro de estudiantes y logística (Diapositivas 23–28)",
+            slideRange: "23-28",
+            content: `
+              <p>Muy bien, ahora pasemos a la parte operativa. Para que tus estudiantes puedan usar la plataforma, primero necesitamos <strong>registrarlos</strong>. Revisa la diapositiva 23: el formato que debes enviar incluye <strong>DNI, nombres completos y sección</strong> de cada estudiante. Es fundamental que respetes la fecha límite de entrega — sin lista, no hay cuentas.</p>
+              <p>Una vez que enviamos la lista, se hace una <strong>activación masiva de cuentas</strong>. El sistema crea las cuentas automáticamente: el <strong>DNI es el nombre de usuario y también la contraseña inicial</strong>. Así de sencillo.</p>
+              <p>Ahora, el <strong>protocolo de contraseñas</strong> es importante. Sigue este flujo:</p>
+              <ul>
+                <li><strong>Paso 1:</strong> Distribuyes las credenciales iniciales (DNI/DNI) a cada estudiante.</li>
+                <li><strong>Paso 2:</strong> El estudiante cambia su contraseña en el primer ingreso.</li>
+                <li><strong>Paso 3:</strong> Si un estudiante olvida su contraseña, tú puedes solicitar un restablecimiento.</li>
+                <li><strong>Paso 4:</strong> Si el problema persiste, escala al coordinador del programa.</li>
+              </ul>
+              <p>Antes del lanzamiento oficial, te pido un favor enorme: <strong>haz una sesión de prueba</strong>. Verifica que todos los accesos funcionen. No quieres descubrir problemas técnicos el día de la primera sesión real con estudiantes.</p>
+              <p><strong>✅ Checklist de verificación pre-lanzamiento:</strong></p>
+              <ul>
+                <li>Computadoras del laboratorio funcionan correctamente</li>
+                <li>Conexión a internet estable</li>
+                <li>Navegador actualizado (Chrome recomendado)</li>
+                <li>Todas las cuentas de estudiantes activas y probadas</li>
+                <li>Tu acceso al dashboard de docente confirmado</li>
+              </ul>
+              <p><strong>🎯 Actividad:</strong> Revisa la lista de tu sección y confirma que tienes los datos completos de cada estudiante. Si te falta algún DNI, este es el momento de gestionarlo.</p>
+            `
+          },
+          {
+            title: "Bloque 4 — Integración curricular (Diapositivas 29–31)",
+            slideRange: "29-31",
+            content: `
+              <p>Esta parte es crucial porque conecta la plataforma con <strong>tu planificación de aula real</strong>. Dependiendo de cuántas horas semanales de matemáticas tiene tu colegio, la integración cambia:</p>
+              <ul>
+                <li><strong>Colegios con 4 horas/semana:</strong> Serán 2 horas en aula + 2 horas en laboratorio. Esto significa que cada clase tiene un componente de laboratorio. La integración es directa — lo que enseñas en aula se practica en la plataforma.</li>
+                <li><strong>Colegios con 6 horas/semana:</strong> Serán 4 horas en aula + 2 horas en laboratorio. Aquí tienes más flexibilidad para decidir qué temas reforzar en el laboratorio.</li>
+              </ul>
+              <p>Fíjate en la diapositiva 30 donde aparece el <strong>mapeo de competencias del CNEB</strong>. El currículo de matemáticas tiene 4 competencias:</p>
+              <ul>
+                <li><strong>C1:</strong> Resuelve problemas de cantidad</li>
+                <li><strong>C2:</strong> Resuelve problemas de regularidad, equivalencia y cambio</li>
+                <li><strong>C3:</strong> Resuelve problemas de forma, movimiento y localización</li>
+                <li><strong>C4:</strong> Resuelve problemas de gestión de datos e incertidumbre</li>
+              </ul>
+              <p>La plataforma Doc cubre <strong>C1 y C2</strong>. Los temas 1 al 11 están mapeados al currículo de 5.° de secundaria. C3 y C4 los sigues trabajando normalmente en el aula.</p>
+              <p><strong>🎯 Actividad:</strong> Con tu programación anual a la mano, elabora un <strong>borrador de cronograma de 4 semanas</strong> indicando qué temas trabajarás en el aula y cuáles reforzarás en el laboratorio con Doc. Compártelo con tu grupo para recibir retroalimentación.</p>
+            `
+          },
+          {
+            title: "Bloque 5 — Dashboard del docente (Diapositivas 32–38)",
+            slideRange: "32-38",
+            content: `
+              <p>Llegamos a una de las herramientas más valiosas para ti: el <strong>dashboard del docente</strong>. Aquí es donde la magia de los datos se convierte en decisiones pedagógicas concretas. Como puedes ver en la diapositiva 32, el dashboard te muestra información <strong>en tiempo real</strong> sobre lo que está pasando con tus estudiantes.</p>
+              <p>Las <strong>métricas clave</strong> que encontrarás son:</p>
+              <ul>
+                <li><strong>Estudiantes activos:</strong> ¿Cuántos realmente están usando la plataforma?</li>
+                <li><strong>Tema actual por estudiante:</strong> ¿En qué tema está cada uno? ¿Algunos van muy adelante y otros se quedaron atrás?</li>
+                <li><strong>Estudiantes atascados:</strong> ¿Quién lleva demasiado tiempo en un mismo ejercicio sin avanzar?</li>
+              </ul>
+              <p>Fíjate en las <strong>categorías de resolución</strong> (diapositiva 34) — estas te dicen <em>cómo</em> resolvió cada estudiante:</p>
+              <ul>
+                <li><em>Resolvió solo</em> — excelente, domina el tema</li>
+                <li><em>Resolvió con ayuda mínima de la IA</em> — va por buen camino</li>
+                <li><em>La IA lo resolvió por el estudiante</em> — ojo, necesita refuerzo</li>
+                <li><em>No resolvió</em> — atención urgente</li>
+              </ul>
+              <p>Pero lo más poderoso está en los <strong>errores conceptuales frecuentes</strong>. El dashboard te muestra cuáles son los errores más comunes en tu sección. ¿Te imaginas llegar a tu clase del lunes sabiendo exactamente dónde se confundió la mayoría? Eso transforma tu planificación.</p>
+              <p><strong>🎯 Actividad:</strong> Usando los datos simulados del dashboard, identifica <strong>3 estudiantes que necesitan atención</strong> (busca los que están atascados o donde la IA resolvió por ellos). Luego, encuentra el <strong>error conceptual más frecuente</strong> de la sección y escribe brevemente cómo ajustarías tu próxima clase para abordarlo.</p>
+              <p><strong>🔚 Cierre 3-2-1:</strong> Para terminar, escribe en el chat: <strong>3 cosas que aprendiste</strong> hoy, <strong>2 cosas que te parecieron interesantes</strong>, y <strong>1 pregunta que todavía tienes</strong>.</p>
+            `
+          }
+        ] },
       { id: "dia2", title: "D\u00eda 2 \u2014 Gesti\u00f3n de Aula y Plan de Acci\u00f3n", desc: "Dise\u00f1o experimental, gesti\u00f3n de sesiones, simulaci\u00f3n y plan individual", duration: "~90 min", embedId: "1eYwrDWsaJF6v7fXVCQiCpf5uCspyXltIYHyvxYPw9lU", blocks: [] }
     ]
   },
