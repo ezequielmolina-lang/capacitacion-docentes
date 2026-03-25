@@ -1083,10 +1083,7 @@ function renderQuizStep(step, stepIdx) {
     });
     html += '</div>';
 
-    if (!qState) {
-      var hasSel = quizStates[stepIdx]['sel_' + qi] !== undefined;
-      html += '<button class="quiz-verify-btn" ' + (hasSel ? '' : 'disabled') + ' onclick="verifyQuiz(' + stepIdx + ',' + qi + ')">Verificar respuesta</button>';
-    } else {
+    if (qState) {
       var isCorrect = qState.selected === q.correct;
       html += '<div class="quiz-feedback ' + (isCorrect ? 'correct' : 'wrong') + '">';
       html += (isCorrect ? '\u2705 ' + q.feedback.correct : '\u274C ' + q.feedback.wrong);
@@ -1100,18 +1097,16 @@ function renderQuizStep(step, stepIdx) {
 }
 
 function selectQuizOption(stepIdx, qi, oi) {
-  if (quizStates[stepIdx][qi]) return;
-  quizStates[stepIdx]['sel_' + qi] = oi;
+  if (quizStates[stepIdx][qi]) return; // already answered
+  // Immediately verify on selection — no extra button needed
+  quizStates[stepIdx][qi] = { selected: oi };
   renderStep();
+  updateNextButton();
 }
 
 function verifyQuiz(stepIdx, qi) {
-  var selected = quizStates[stepIdx]['sel_' + qi];
-  if (selected === undefined) return;
-  quizStates[stepIdx][qi] = { selected: selected };
-  delete quizStates[stepIdx]['sel_' + qi];
-  renderStep();
-  updateNextButton();
+  // kept for backwards compat but no longer used
+  selectQuizOption(stepIdx, qi, quizStates[stepIdx]['sel_' + qi]);
 }
 
 function renderPracticeStep(step, stepIdx) {
