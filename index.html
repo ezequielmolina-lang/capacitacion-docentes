@@ -395,6 +395,7 @@
       transition: transform 0.15s;
     }
     .btn-continue:hover { transform: scale(1.05); }
+    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
 
     .narration-text-panel {
       display: none;
@@ -584,10 +585,11 @@
     <!-- Video pause overlay -->
     <div class="video-pause-overlay" id="video-pause-overlay" style="display:none">
       <div class="video-pause-card">
-        <i class="fas fa-film" style="font-size:2rem; color:var(--primary)"></i>
-        <p id="video-pause-message">Reproduce el video en la diapositiva</p>
-        <button onclick="resumeAfterVideo()" class="btn-continue">
-          <i class="fas fa-play"></i> Continuar narraci&oacute;n
+        <i class="fas fa-film" style="font-size:2.5rem; color:var(--primary); animation: pulse 2s infinite"></i>
+        <p id="video-pause-message">Reproduciendo video...</p>
+        <p style="font-size:0.85rem; color:var(--text-gray); margin-top:8px">La narraci&oacute;n continuar&aacute; autom&aacute;ticamente</p>
+        <button onclick="resumeAfterVideo()" class="btn-continue" style="margin-top:16px; font-size:0.85rem; padding:8px 20px; opacity:0.7">
+          <i class="fas fa-forward"></i> Saltar video
         </button>
       </div>
     </div>
@@ -642,7 +644,7 @@ const MODULES = {
             slideRange: "1-10",
             slides: [1,2,3,4,5,6,7,8,9,10],
             duration: "2:02",
-            videoPause: { slide: 3, message: "Reproduce el video de Jaime Saavedra en la diapositiva. Cuando termine, presiona Continuar." },
+            videoPause: { slide: 3, message: "Reproduciendo video de Jaime Saavedra...", durationSec: 90 },
             content: `
               <p><strong>¡Bienvenido/a al programa Eligiendo Mi Camino!</strong> Antes de meternos de lleno, quiero que sepas con quién estamos en esto. Este programa es una alianza entre tres actores: la <strong>DRELM</strong> (tu autoridad educativa), el <strong>Banco Mundial</strong> y la <strong>UPC</strong>. Juntos hemos diseñado algo ambicioso: llevar tutoría con inteligencia artificial a cerca de <strong>100 colegios, más de 6,600 estudiantes y unos 200 docentes</strong> durante 16 semanas, con 2 horas semanales de laboratorio. Tú eres pieza clave de todo esto.</p>
               <p>Ahora, hablemos de IA. Fíjate en las diapositivas 4 y 5: un modelo de lenguaje es básicamente un sistema que <strong>predice la siguiente palabra</strong> más probable en un texto. No piensa, no siente, no tiene conciencia. Es una herramienta muy potente, pero una herramienta al fin.</p>
@@ -1709,11 +1711,31 @@ function toggleAudio() {
   if (currentBlocks.length === 0) return;
   const block = currentBlocks[currentBlockIndex];
 
-  // Check for video pause — show overlay before starting narration
+  // Check for video pause — auto-play with countdown, no click needed
   if (block.videoPause) {
-    document.getElementById('video-pause-message').textContent = block.videoPause.message;
-    document.getElementById('video-pause-overlay').style.display = 'flex';
-    videoPauseCallback = () => startNarration(block);
+    const vp = block.videoPause;
+    const overlay = document.getElementById('video-pause-overlay');
+    const msgEl = document.getElementById('video-pause-message');
+    overlay.style.display = 'flex';
+    let remaining = vp.durationSec || 60;
+    msgEl.textContent = `${vp.message} (${Math.floor(remaining/60)}:${(remaining%60).toString().padStart(2,'0')})`;
+    // Update play button to show pause state
+    const btn = document.getElementById('btn-play');
+    btn.innerHTML = '<i class="fas fa-film"></i>';
+    btn.dataset.state = 'playing';
+    // Countdown timer
+    const countdownId = setInterval(() => {
+      remaining--;
+      if (remaining <= 0) {
+        clearInterval(countdownId);
+        overlay.style.display = 'none';
+        startNarration(block);
+        return;
+      }
+      msgEl.textContent = `${vp.message} (${Math.floor(remaining/60)}:${(remaining%60).toString().padStart(2,'0')})`;
+    }, 1000);
+    // Store interval so we can cancel on stop
+    videoPauseCallback = () => { clearInterval(countdownId); overlay.style.display = 'none'; };
     return;
   }
 
@@ -1721,12 +1743,14 @@ function toggleAudio() {
 }
 
 function resumeAfterVideo() {
-  document.getElementById('video-pause-overlay').style.display = 'none';
+  // Clear countdown and start narration
   if (videoPauseCallback) {
-    const cb = videoPauseCallback;
+    videoPauseCallback(); // clears interval + hides overlay
     videoPauseCallback = null;
-    cb();
   }
+  document.getElementById('video-pause-overlay').style.display = 'none';
+  const block = currentBlocks[currentBlockIndex];
+  if (block) startNarration(block);
 }
 
 function resetPlayButton() {
