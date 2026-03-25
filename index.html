@@ -1197,7 +1197,13 @@ function navigate(view, opts = {}) {
 function renderLanding() {
   const container = document.getElementById('track-cards');
   container.innerHTML = '';
+  var info = getTeacherInfo();
   for (const [key, track] of Object.entries(MODULES)) {
+    // Filter by materia: only show the track that matches
+    if (info && info.materia) {
+      if (info.materia === 'Matem\u00e1ticas' && key !== 'math') continue;
+      if (info.materia === 'Orientaci\u00f3n Vocacional' && key !== 'ov') continue;
+    }
     const total = track.modules.length;
     const done = countComplete(key);
     const pct = total > 0 ? Math.round((done / total) * 100) : 0;
