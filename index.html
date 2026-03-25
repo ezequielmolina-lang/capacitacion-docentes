@@ -652,12 +652,108 @@
       .module-grid { padding: 0 16px; }
       .track-header { padding: 20px 16px 16px; }
     }
+
+    /* ── Login Screen ── */
+    .login-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      padding: 24px;
+    }
+
+    .login-card {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+    .login-field {
+      text-align: left;
+      margin-bottom: 16px;
+    }
+
+    .login-field label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+
+    .login-field input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+
+    .login-field input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      margin-top: 8px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(243,147,0,0.3);
+    }
   </style>
 </head>
 <body>
 
+  <!-- ══════════ Login View ══════════ -->
+  <div id="view-login" class="view active">
+    <div class="login-screen">
+      <div class="login-card">
+        <img src="img/math.png" alt="EMC" style="width:100px;height:100px;object-fit:contain;margin:0 auto 16px;display:block">
+        <h1 style="font-size:1.8rem;margin:0">Capacitaci&oacute;n Docente</h1>
+        <p style="color:#666;margin:8px 0 24px">Eligiendo Mi Camino</p>
+
+        <div class="login-field">
+          <label>Nombre completo</label>
+          <input type="text" id="login-name" placeholder="Ej: Mar&iacute;a Garc&iacute;a L&oacute;pez" required>
+        </div>
+        <div class="login-field">
+          <label>DNI</label>
+          <input type="text" id="login-dni" placeholder="8 d&iacute;gitos" maxlength="8" pattern="[0-9]{8}" required>
+        </div>
+        <div class="login-field">
+          <label>Escuela</label>
+          <input type="text" id="login-school" placeholder="Nombre de tu instituci&oacute;n educativa" required>
+        </div>
+
+        <button onclick="doLogin()" class="login-btn">Comenzar capacitaci&oacute;n</button>
+      </div>
+    </div>
+  </div>
+
   <!-- ══════════ Landing View ══════════ -->
-  <div id="view-landing" class="view active">
+  <div id="view-landing" class="view">
     <div class="hero">
       <div class="hero-badge">Programa DRELM &middot; Banco Mundial &middot; UPC</div>
       <h1>Capacitaci&oacute;n<br><span>Docente</span></h1>
@@ -672,6 +768,11 @@
         <span style="color:rgba(255,255,255,0.8);font-size:0.85rem;font-weight:600;letter-spacing:1px">uDocz</span>
         <span style="color:rgba(255,255,255,0.4)">&bull;</span>
         <span style="color:rgba(255,255,255,0.8);font-size:0.85rem;font-weight:600;letter-spacing:1px">ANTHROPIC</span>
+      </div>
+      <div id="teacher-profile" style="margin-top:16px;display:none">
+        <span style="color:rgba(255,255,255,0.6);font-size:0.85rem">
+          <i class="fas fa-user-circle"></i> <span id="teacher-name-display"></span>
+        </span>
       </div>
     </div>
 
@@ -982,6 +1083,72 @@ const MODULES = {
 const state = { view: 'landing', track: null, moduleId: null };
 
 /* ── Progress (localStorage) ── */
+/* ── Login & Tracking ── */
+function getTeacherInfo() {
+  var stored = localStorage.getItem('emc-teacher-info');
+  return stored ? JSON.parse(stored) : null;
+}
+
+function doLogin() {
+  var name = document.getElementById('login-name').value.trim();
+  var dni = document.getElementById('login-dni').value.trim();
+  var school = document.getElementById('login-school').value.trim();
+
+  if (!name || !dni || !school) {
+    alert('Por favor completa todos los campos');
+    return;
+  }
+  if (dni.length !== 8 || !/^\d+$/.test(dni)) {
+    alert('El DNI debe tener 8 dígitos');
+    return;
+  }
+
+  var info = { name: name, dni: dni, school: school, loginDate: new Date().toISOString() };
+  localStorage.setItem('emc-teacher-info', JSON.stringify(info));
+
+  // Track login event
+  trackProgress('login', '', '', 'logged_in');
+
+  // Show landing
+  document.getElementById('view-login').style.display = 'none';
+  navigate('landing');
+}
+
+function doLogout() {
+  localStorage.removeItem('emc-teacher-info');
+  location.reload();
+}
+
+// Google Sheets tracking
+var TRACKING_URL = ''; // Will be set after deploying Google Apps Script
+
+function trackProgress(track, moduleId, stepTitle, status) {
+  var info = getTeacherInfo();
+  if (!info || !TRACKING_URL) return;
+
+  var data = {
+    timestamp: new Date().toISOString(),
+    name: info.name,
+    dni: info.dni,
+    school: info.school,
+    track: track,
+    moduleId: moduleId,
+    stepTitle: stepTitle,
+    status: status
+  };
+
+  // Send asynchronously (don't block the UI)
+  fetch(TRACKING_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  }).catch(function(err) {
+    console.log('Tracking error:', err);
+  });
+}
+
+/* ── Progress ── */
 function getProgress() {
   return JSON.parse(localStorage.getItem('emc-cap-progress') || '{}');
 }
@@ -1041,6 +1208,23 @@ function renderLanding() {
       <div class="progress-label">${done}/${total} m\u00f3dulos completados</div>
     `;
     container.appendChild(card);
+  }
+
+  // Show teacher profile
+  var info = getTeacherInfo();
+  if (info) {
+    document.getElementById('teacher-name-display').textContent = info.name;
+    document.getElementById('teacher-profile').style.display = 'block';
+  }
+
+  // Add logout option
+  var existing = document.getElementById('logout-link');
+  if (!existing) {
+    var logout = document.createElement('div');
+    logout.id = 'logout-link';
+    logout.style.cssText = 'text-align:center;margin:20px 0';
+    logout.innerHTML = '<a onclick="doLogout()" style="color:#999;font-size:0.8rem;cursor:pointer;text-decoration:underline">Cambiar de usuario</a>';
+    document.getElementById('view-landing').appendChild(logout);
   }
 }
 
@@ -1293,12 +1477,21 @@ function prevStep() {
 }
 
 function completeModule() {
+  trackProgress(state.track, state.moduleId, 'MODULE_COMPLETE', 'completed');
   markComplete(state.track, state.moduleId);
   navigate('modules', { track: state.track });
 }
 
 /* ── Init ── */
-renderLanding();
+var teacherInfo = getTeacherInfo();
+if (teacherInfo) {
+  document.getElementById('view-login').style.display = 'none';
+  navigate('landing');
+} else {
+  // Show login screen (it's already visible as default)
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-login').classList.add('active');
+}
 </script>
 </body>
 </html>
