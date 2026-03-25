@@ -52,66 +52,138 @@
 
     /* ── Landing ── */
     .hero {
-      background: linear-gradient(135deg, #fde3b1 0%, #fdd026 30%, #f39300 65%, #f75a00 100%);
-      padding: 56px 24px 48px;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      padding: 60px 24px 40px;
       text-align: center;
-      color: #fff;
-    }
-    .hero h1 {
-      font-size: 2.2rem;
-      font-weight: 800;
-      margin-bottom: 8px;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.12);
-    }
-    .hero p {
-      font-size: 1.05rem;
-      font-weight: 400;
-      opacity: 0.95;
-      max-width: 520px;
-      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
     }
 
-    .badges {
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(243,147,0,0.15) 0%, transparent 70%);
+      top: -100px; right: -50px;
+      border-radius: 50%;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(243,147,0,0.1) 0%, transparent 70%);
+      bottom: -50px; left: -30px;
+      border-radius: 50%;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(243,147,0,0.15);
+      border: 1px solid rgba(243,147,0,0.3);
+      color: var(--primary);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: white;
+      margin: 0;
+      line-height: 1.1;
+      position: relative;
+      z-index: 1;
+    }
+    .hero h1 span { color: var(--primary); }
+
+    .hero-subtitle {
+      color: rgba(255,255,255,0.7);
+      font-size: 1.1rem;
+      margin: 12px 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .stats-row {
       display: flex;
       justify-content: center;
+      gap: 24px;
       flex-wrap: wrap;
-      gap: 10px;
-      padding: 20px 24px 8px;
+      margin: 24px 0;
+      position: relative;
+      z-index: 1;
     }
-    .badge {
-      background: #fff;
-      border-radius: 50px;
-      padding: 6px 18px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--text-gray);
-      box-shadow: 0 1px 6px rgba(0,0,0,0.07);
-      white-space: nowrap;
+    .stat-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 16px 24px;
+      text-align: center;
+      min-width: 120px;
+    }
+    .stat-number {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.5);
+      margin-top: 4px;
     }
 
-    .tracks {
+    .badges-dark {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 20px 0;
+      position: relative;
+      z-index: 1;
+    }
+    .badges-dark span {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.7);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .track-cards {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 20px;
-      max-width: 720px;
-      margin: 28px auto 48px;
+      max-width: 800px;
+      margin: -40px auto 40px;
       padding: 0 24px;
+      position: relative;
+      z-index: 2;
     }
 
     .track-card {
-      background: #fff;
-      border-radius: var(--radius);
-      box-shadow: var(--card-shadow);
-      padding: 28px 24px 24px;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 16px;
+      padding: 28px;
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
       border-top: 4px solid transparent;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
       display: flex;
       flex-direction: column;
     }
     .track-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
     }
     .track-card[data-track="math"] { border-top-color: var(--math-color); }
     .track-card[data-track="ov"]   { border-top-color: var(--ov-color); }
@@ -563,9 +635,8 @@
 
     /* ── Responsive ── */
     @media (max-width: 768px) {
-      .hero h1 { font-size: 1.7rem; }
-      .hero p { font-size: 0.95rem; }
-      .tracks { grid-template-columns: 1fr; max-width: 420px; }
+      .hero h1 { font-size: 2rem; }
+      .track-cards { grid-template-columns: 1fr; max-width: 420px; }
       .module-grid { grid-template-columns: 1fr; max-width: 480px; }
       .step-content { padding: 0 16px 100px; }
       .step-header { padding: 16px 16px 8px; }
@@ -573,9 +644,10 @@
     }
     @media (max-width: 480px) {
       .hero { padding: 40px 16px 36px; }
-      .hero h1 { font-size: 1.4rem; }
-      .hero p { font-size: 0.88rem; }
-      .tracks { padding: 0 16px; gap: 14px; margin: 20px auto 36px; }
+      .hero h1 { font-size: 1.8rem; }
+      .stats-row { gap: 12px; }
+      .stat-card { min-width: 80px; padding: 12px 16px; }
+      .track-cards { padding: 0 16px; gap: 14px; }
       .track-card { padding: 22px 18px 20px; }
       .module-grid { padding: 0 16px; }
       .track-header { padding: 20px 16px 16px; }
@@ -587,16 +659,23 @@
   <!-- ══════════ Landing View ══════════ -->
   <div id="view-landing" class="view active">
     <div class="hero">
-      <h1>Capacitaci&oacute;n Docente</h1>
-      <p>Formaci&oacute;n virtual para docentes de Eligiendo Mi Camino</p>
+      <div class="hero-badge">Programa DRELM &middot; Banco Mundial &middot; UPC</div>
+      <h1>Capacitaci&oacute;n<br><span>Docente</span></h1>
+      <p class="hero-subtitle">Formaci&oacute;n virtual para docentes de Eligiendo Mi Camino</p>
+
+      <div class="stats-row">
+        <div class="stat-card"><div class="stat-number">110</div><div class="stat-label">Escuelas</div></div>
+        <div class="stat-card"><div class="stat-number">300+</div><div class="stat-label">Docentes</div></div>
+        <div class="stat-card"><div class="stat-number">~6,000</div><div class="stat-label">Estudiantes</div></div>
+        <div class="stat-card"><div class="stat-number">5,940</div><div class="stat-label">Preguntas Diagn&oacute;sticas</div></div>
+      </div>
+
+      <div class="badges-dark">
+        <span>DRELM</span><span>Banco Mundial</span><span>UPC</span><span>uDocz</span><span>Anthropic</span>
+      </div>
     </div>
-    <div class="badges">
-      <span class="badge">DRELM</span>
-      <span class="badge">Banco Mundial</span>
-      <span class="badge">UPC</span>
-      <span class="badge">uDocz</span>
-    </div>
-    <div class="tracks" id="track-cards"></div>
+
+    <div class="track-cards" id="track-cards"></div>
     <div class="footer">Eligiendo Mi Camino &mdash; Programa de Orientaci&oacute;n Vocacional</div>
   </div>
 
@@ -712,30 +791,7 @@ const MODULES = {
       },
       {
         id: "m3",
-        title: "M\u00f3dulo 3 \u2014 Registro, Curr\u00edculo y Dashboard",
-        desc: "Registro de estudiantes, integraci\u00f3n curricular, dashboard del docente",
-        duration: "~50 min",
-        steps: [
-          { type: "quiz", title: "Retrieval: Lo que aprendiste", intro: "Antes de avanzar, repasemos:", questions: [
-            { q: "\u00bfCu\u00e1ntos modos tiene Modo Casa?", options: ["2", "3", "4", "5"], correct: 1, feedback: { correct: "\u00a1Correcto! 3 modos: Aprender un tema, Resolver un problema, y Ponte a prueba.", wrong: "Son 3 modos en Modo Casa: Aprender un tema, Resolver un problema, y Ponte a prueba." } },
-            { q: "\u00bfQu\u00e9 pasa cuando un estudiante responde incorrectamente en Doc?", options: ["Doc le dice que est\u00e1 mal y pasa a otra pregunta", "Doc identifica el error conceptual espec\u00edfico y hace una pregunta de remediaci\u00f3n", "Doc le muestra un video explicativo", "Doc le resta puntos de su calificaci\u00f3n"], correct: 1, feedback: { correct: "\u00a1Exacto! Doc tiene m\u00e1s de 4,000 preguntas diagn\u00f3sticas con respuestas incorrectas mapeadas a errores conceptuales espec\u00edficos.", wrong: "Doc identifica el error conceptual espec\u00edfico detr\u00e1s de la respuesta incorrecta y hace una pregunta de remediaci\u00f3n dise\u00f1ada para corregir ese error." } }
-          ] },
-          { type: "content", title: "Registro de estudiantes", html: "<p>Para que tus estudiantes puedan usar la plataforma, primero necesitas registrarlos. Este paso es <strong>cr\u00edtico</strong> \u2014 sin registro, no hay cuentas, y sin cuentas, no hay programa.</p><h3>\ud83d\udccb El roster (lista de estudiantes)</h3><p>Vas a entregar una lista con los siguientes datos de cada estudiante:</p><ul><li><strong>DNI</strong> (Documento Nacional de Identidad)</li><li><strong>Nombres y apellidos completos</strong></li><li><strong>Secci\u00f3n</strong> a la que pertenece</li></ul><p>Esta lista se usa para crear las cuentas de forma masiva. El formato debe ser exacto \u2014 si hay errores en los DNIs, las cuentas no se crean correctamente.</p><h3>\ud83d\udd11 Activaci\u00f3n masiva de cuentas</h3><p>Una vez que entregas el roster, el sistema crea las cuentas autom\u00e1ticamente. El esquema es simple:</p><ul><li><strong>Usuario:</strong> el DNI del estudiante</li><li><strong>Contrase\u00f1a inicial:</strong> el mismo DNI</li></ul><p>Es decir, si un estudiante tiene DNI <code>72345678</code>, su usuario es <code>72345678</code> y su contrase\u00f1a inicial tambi\u00e9n es <code>72345678</code>.</p><h3>\ud83d\udd10 Protocolo de contrase\u00f1as</h3><ol><li><strong>Distribuci\u00f3n inicial:</strong> T\u00fa le das a cada estudiante su usuario y contrase\u00f1a (su DNI).</li><li><strong>Cambio de contrase\u00f1a:</strong> En el primer ingreso, el estudiante cambia su contrase\u00f1a por una personal.</li><li><strong>Recuperaci\u00f3n:</strong> Si un estudiante olvida su contrase\u00f1a, sigue el protocolo de recuperaci\u00f3n de la plataforma.</li><li><strong>Escalaci\u00f3n:</strong> Si el protocolo no funciona, escala al coordinador PIP de tu escuela.</li></ol><h3>\u2705 Verificaci\u00f3n pre-lanzamiento</h3><p>Esto es muy importante: <strong>haz una sesi\u00f3n de prueba ANTES del lanzamiento oficial</strong>. Lleva a tus estudiantes al laboratorio y verifica que <strong>TODOS</strong> puedan iniciar sesi\u00f3n. Es mucho m\u00e1s f\u00e1cil resolver problemas de acceso antes de que empiece el programa que durante una sesi\u00f3n real.</p><div class='callout'><strong>\u26a0\ufe0f Sin lista de estudiantes no hay cuentas.</strong> Respeta la fecha l\u00edmite de entrega del roster. Si lo entregas tarde, tus estudiantes empiezan tarde \u2014 y pierden sesiones valiosas del programa.</div>" },
-          { type: "content", title: "Integraci\u00f3n curricular", html: "<p>La plataforma no vive en un vac\u00edo \u2014 se integra con tu planificaci\u00f3n de aula. C\u00f3mo la integres depende de cu\u00e1ntas horas semanales de matem\u00e1ticas tiene tu colegio.</p><h3>\ud83d\udcc5 Dos escenarios seg\u00fan horas semanales</h3><p><strong>Escenario 1: 4 horas/semana</strong></p><ul><li>2 horas en aula regular</li><li>2 horas en laboratorio con la plataforma</li><li>Cada clase tiene un componente de laboratorio asociado</li></ul><p><strong>Escenario 2: 6 horas/semana</strong></p><ul><li>4 horas en aula regular</li><li>2 horas en laboratorio con la plataforma</li><li>Mayor flexibilidad para profundizar temas en el aula antes de practicarlos en la plataforma</li></ul><h3>\ud83d\udcda Competencias CNEB</h3><p>El Curr\u00edculo Nacional de Educaci\u00f3n B\u00e1sica tiene 4 competencias matem\u00e1ticas. La plataforma cubre dos de ellas:</p><ul><li><strong>C1 \u2014 Resuelve problemas de cantidad:</strong> operaciones, fracciones, porcentajes, proporcionalidad</li><li><strong>C2 \u2014 Resuelve problemas de regularidad, equivalencia y cambio:</strong> \u00e1lgebra, ecuaciones, funciones</li></ul><p>Las otras dos competencias se trabajan exclusivamente en el aula:</p><ul><li><strong>C3 \u2014 Resuelve problemas de forma, movimiento y localizaci\u00f3n</strong> (geometr\u00eda)</li><li><strong>C4 \u2014 Resuelve problemas de gesti\u00f3n de datos e incertidumbre</strong> (estad\u00edstica y probabilidad)</li></ul><h3>\ud83d\uddfa\ufe0f Temas en la plataforma</h3><p>La plataforma tiene <strong>11 temas</strong> mapeados al curr\u00edculo de 5to de secundaria. No necesitas cubrirlos todos \u2014 elige los que complementen tu trabajo en el aula.</p><div class='callout callout-info'><strong>\ud83d\udca1 No necesitas cubrir todo en la plataforma.</strong> Elige los temas que complementen lo que ya est\u00e1s ense\u00f1ando en el aula. La plataforma es un refuerzo, no un reemplazo de tu planificaci\u00f3n.</div>" },
-          {"type": "practice", "title": "Genera tu sesión de aprendizaje con IA", "instructions": "<p>Ahora vas a usar la IA para generar una <strong>sesión de aprendizaje personalizada</strong> para tu aula.</p><h3>👀 Mira cómo lo hicieron tus colegas</h3><p>Ejemplos reales creados por docentes en la capacitación:</p><div style='display:flex;flex-direction:column;gap:10px;margin:12px 0'><a href='https://gemini.google.com/share/2bec5c80ecd4' target='_blank' style='display:flex;align-items:center;gap:10px;padding:12px 16px;background:white;border:2px solid #e0e0e0;border-radius:8px;text-decoration:none;color:#242c32'><span style='background:#4285f4;color:white;border-radius:6px;padding:4px 8px;font-size:0.8rem;font-weight:600'>Gemini</span><span><strong>Funciones lineales — Eco-Entrega</strong><br><span style='font-size:0.85rem;color:#666'>Sesión completa con adaptaciones TDAH/TEA</span></span></a><a href='https://chatgpt.com/share/69befb6b-3fd8-800f-9f64-f2eabf53b6fa' target='_blank' style='display:flex;align-items:center;gap:10px;padding:12px 16px;background:white;border:2px solid #e0e0e0;border-radius:8px;text-decoration:none;color:#242c32'><span style='background:#10a37f;color:white;border-radius:6px;padding:4px 8px;font-size:0.8rem;font-weight:600'>ChatGPT</span><span><strong>Relaciones y funciones</strong><br><span style='font-size:0.85rem;color:#666'>Con errores cognitivos comunes</span></span></a></div><h3 style='margin-top:24px'>🤖 Ahora crea la tuya</h3><p><strong>Paso 1:</strong> Abre una IA:</p><div style='display:flex;gap:12px;flex-wrap:wrap;margin:12px 0'><a href='https://claude.ai' target='_blank' style='display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#d97706;color:white;border-radius:8px;text-decoration:none;font-weight:600'>Claude</a><a href='https://chat.openai.com' target='_blank' style='display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#10a37f;color:white;border-radius:8px;text-decoration:none;font-weight:600'>ChatGPT</a><a href='https://gemini.google.com' target='_blank' style='display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#4285f4;color:white;border-radius:8px;text-decoration:none;font-weight:600'>Gemini</a></div><p><strong>Paso 2:</strong> Copia este prompt y reemplaza los campos entre [CORCHETES]:</p><div style='background:#1e1e1e;color:#d4d4d4;border-radius:8px;padding:16px;margin:12px 0;max-height:250px;overflow-y:auto'><pre style='white-space:pre-wrap;font-size:0.85rem;line-height:1.5;margin:0'>Diseña una sesión de aprendizaje de Matemática de 90 minutos para 5to de secundaria en Perú, siguiendo el modelo SOMA de uDocz con 5 momentos:\n\n1. Apertura con ejemplo resuelto (5 min)\n2. Práctica autónoma + circulación docente (35-40 min) con lista de cotejo de 5 indicadores\n3. Pausa y puesta en común (10-15 min) — analizar error frecuente\n4. Segunda ronda de práctica (20-25 min) — problemas de transferencia\n5. Cierre y conexión (5 min) — metacognición\n\nDATOS:\n- Competencia CNEB: [TU COMPETENCIA]\n- Tema: [TU TEMA]\n- Estudiantes: [CUANTOS]\n- La plataforma uDocz se usa en el Momento 2 y 4 (Modo Escuela)\n\nIncluye: situación significativa, ficha de evaluación con 2 problemas, y tabla de situaciones problemáticas con estrategias. Formato MINEDU 2026.</pre></div><div class='callout'><strong>Consejo:</strong> Después de generar tu sesión, pídele a la IA: <em>Ahora hazme una versión en Word</em> o <em>Agrega adaptaciones para un estudiante con TDAH</em>.</div>", "checklist": ["Abrí una IA (Claude, ChatGPT o Gemini)", "Copié y pegué el prompt", "Reemplacé los campos con mis datos", "Revisé la sesión generada"], "responsePrompt": "Pega aquí el resumen de la sesión que te generó la IA (título, tema y los 5 momentos):"},
-          { type: "quiz", title: "Quiz: Log\u00edstica", intro: "Veamos si tienes claros los aspectos log\u00edsticos:", questions: [
-            { q: "Si tu colegio tiene 4 horas semanales de matem\u00e1ticas, \u00bfc\u00f3mo se distribuyen?", options: ["4h aula", "3h aula + 1h lab", "2h aula + 2h lab", "1h aula + 3h lab"], correct: 2, feedback: { correct: "\u00a1Correcto! 2 horas en aula + 2 horas en laboratorio con la plataforma.", wrong: "Con 4 horas semanales: 2h en aula regular + 2h en laboratorio con la plataforma." } },
-            { q: "\u00bfQu\u00e9 competencias CNEB cubre la plataforma?", options: ["C1, C2, C3 y C4", "Solo C1", "C1 y C2", "C3 y C4"], correct: 2, feedback: { correct: "\u00a1As\u00ed es! La plataforma cubre C1 (Cantidad) y C2 (Regularidad, Equivalencia y Cambio). C3 y C4 se trabajan en el aula.", wrong: "La plataforma cubre C1 (Resuelve problemas de cantidad) y C2 (Resuelve problemas de regularidad, equivalencia y cambio)." } },
-            { q: "\u00bfCu\u00e1l es la contrase\u00f1a inicial de cada estudiante?", options: ["123456", "Su DNI", "Su nombre", "matematicas2026"], correct: 1, feedback: { correct: "\u00a1Correcto! El DNI es tanto el usuario como la contrase\u00f1a inicial. El estudiante la cambia en su primer ingreso.", wrong: "La contrase\u00f1a inicial es el DNI del estudiante. Es importante que la cambien en su primer ingreso." } }
-          ] },
-          { type: "content", title: "Dashboard del docente", html: "<p>El dashboard es tu centro de control. Desde ah\u00ed puedes ver en tiempo real qu\u00e9 est\u00e1 pasando con cada uno de tus estudiantes mientras trabajan en la plataforma.</p><h3>\ud83d\udcca \u00bfQu\u00e9 muestra el dashboard?</h3><p>Cuando abres el dashboard durante una sesi\u00f3n de laboratorio, ves un panorama completo de tu secci\u00f3n:</p><ul><li><strong>Estudiantes activos:</strong> cu\u00e1ntos est\u00e1n conectados y trabajando en este momento</li><li><strong>Tema actual:</strong> en qu\u00e9 tema est\u00e1 cada estudiante</li><li><strong>Estudiantes 'atascados':</strong> qui\u00e9nes llevan demasiado tiempo en una misma pregunta o han tenido muchos errores seguidos</li></ul><h3>\ud83d\udd0d Categor\u00edas de resoluci\u00f3n</h3><p>Para cada pregunta, el dashboard clasifica c\u00f3mo la resolvi\u00f3 el estudiante:</p><ol><li><strong>Resolvi\u00f3 solo:</strong> lleg\u00f3 a la respuesta correcta sin ayuda de Doc</li><li><strong>Resolvi\u00f3 con ayuda m\u00ednima de IA:</strong> necesit\u00f3 una o dos pistas de Doc para llegar a la respuesta</li><li><strong>La IA lo resolvi\u00f3 por el estudiante:</strong> Doc tuvo que guiarlo paso a paso hasta la respuesta</li><li><strong>No resolvi\u00f3:</strong> el estudiante no lleg\u00f3 a la respuesta correcta ni con ayuda</li></ol><p>Estas categor\u00edas te dan informaci\u00f3n valiosa. Si muchos estudiantes est\u00e1n en la categor\u00eda 3 o 4 para un tema espec\u00edfico, es se\u00f1al de que necesitas reforzar ese concepto en el aula.</p><h3>\u26a0\ufe0f Errores conceptuales frecuentes</h3><p>Esta es quiz\u00e1s la funci\u00f3n m\u00e1s poderosa del dashboard: te muestra <strong>los errores m\u00e1s comunes por secci\u00f3n</strong>. Por ejemplo, si 12 de tus 30 estudiantes est\u00e1n cometiendo el mismo error al operar con fracciones, el dashboard te lo dice.</p><p>Usa esta informaci\u00f3n para <strong>planificar tu pr\u00f3xima clase en el aula</strong>. En lugar de adivinar qu\u00e9 necesitan repasar, tienes datos concretos.</p><div class='callout'><strong>\ud83c\udfaf El dashboard no reemplaza tu observaci\u00f3n directa.</strong> Es un complemento: te dice qu\u00e9 est\u00e1 pasando con los datos, t\u00fa decides qu\u00e9 hacer con esa informaci\u00f3n. Los n\u00fameros cuentan una parte de la historia; tu ojo entrenado como docente cuenta la otra.</div>" },
-          {"type": "practice", "title": "Genera tu planificación semestral con IA", "instructions": "<p>Antes de planificar semana a semana, necesitas una <strong>visión completa del semestre</strong>. Usa la IA para generarla.</p><h3>👀 Ejemplo de una colega</h3><a href='https://chatgpt.com/share/69bef8f0-41e8-800a-a9a5-c6a690123915' target='_blank' style='display:flex;align-items:center;gap:10px;padding:12px 16px;background:white;border:2px solid #e0e0e0;border-radius:8px;text-decoration:none;color:#242c32;margin:12px 0'><span style='background:#10a37f;color:white;border-radius:6px;padding:4px 8px;font-size:0.8rem;font-weight:600'>ChatGPT</span><span><strong>Planificación semestral completa</strong><br><span style='font-size:0.85rem;color:#666'>4 unidades, Modo Casa/Escuela, competencias CNEB</span></span></a><h3 style='margin-top:20px'>🤖 Genera la tuya</h3><p>Abre <a href='https://claude.ai' target='_blank' style='color:#d97706;font-weight:600'>Claude</a>, <a href='https://chat.openai.com' target='_blank' style='color:#10a37f;font-weight:600'>ChatGPT</a> o <a href='https://gemini.google.com' target='_blank' style='color:#4285f4;font-weight:600'>Gemini</a> y pega este prompt:</p><div style='background:#1e1e1e;color:#d4d4d4;border-radius:8px;padding:16px;margin:12px 0;max-height:220px;overflow-y:auto'><pre style='white-space:pre-wrap;font-size:0.85rem;line-height:1.5;margin:0'>Actua como Docente Especialista en Matematica para 5to de secundaria en Peru. Elabora mi planificacion semestral (marzo a julio 2026).\n\nTABLA: Semana | Fechas | Tema en clase | Subtema (Modo Casa y Modo Escuela) | Notas\n\nCONDICIONES:\n- 2 sesiones por semana en laboratorio con uDocz\n- Semana 16-20 marzo: EVALUACION DIAGNOSTICA\n- Semana 30 marzo-03 abril: SEMANA SANTA\n- Semana 18-22 mayo: SEMANA DE GESTION\n- Competencia: [TU COMPETENCIA]\n- Temas: [TUS TEMAS]\n- Mi colegio tiene [4 o 6] horas semanales\n\nPara cada semana diferencia Modo Casa (autonomo) y Modo Escuela (mediacion docente).</pre></div><p>Reemplaza los campos entre [CORCHETES] con tus datos.</p>", "checklist": ["Abrí una IA", "Copié el prompt", "Completé mis datos", "Revisé la planificación"], "responsePrompt": "Pega un resumen de tu planificación (primeras 4 semanas):"},
-          { type: "practice", title: "Planifica tu primera semana", instructions: "<p>Vamos a crear tu plan para la primera semana del programa. Necesitas definir:</p><ul><li>\u00bfTu colegio tiene 4h o 6h semanales de matem\u00e1ticas?</li><li>\u00bfQu\u00e9 tema cubrir\u00e1s primero en el aula?</li><li>\u00bfQu\u00e9 tema asignar\u00e1s en la plataforma?</li><li>\u00bfTienes el laboratorio de c\u00f3mputo reservado?</li></ul><div class='callout'>\ud83d\udca1 Consejo: Elige un tema que ya hayas empezado en el aula para que los estudiantes puedan practicarlo en la plataforma. No empieces con algo nuevo.</div>", checklist: ["Identifiqu\u00e9 si mi colegio tiene 4h o 6h semanales", "Eleg\u00ed el primer tema para el aula", "Eleg\u00ed el tema complementario para la plataforma", "Verifiqu\u00e9 que tengo el laboratorio reservado", "Tengo la lista de estudiantes lista para entregar"] }
-        ]
-      },
-      {
-        id: "m4",
-        title: "M\u00f3dulo 4 \u2014 Gesti\u00f3n de Aula con IA",
+        title: "M\u00f3dulo 3 \u2014 Gesti\u00f3n de Aula con IA",
         desc: "Modelo de 5 momentos, circulaci\u00f3n, situaciones dif\u00edciles",
         duration: "~60 min",
         steps: [
@@ -757,8 +813,8 @@ const MODULES = {
         ]
       },
       {
-        id: "m5",
-        title: "M\u00f3dulo 5 \u2014 Acompa\u00f1amiento y Plan",
+        id: "m4",
+        title: "M\u00f3dulo 4 \u2014 Acompa\u00f1amiento y Plan",
         desc: "Red de apoyo, evaluaciones, plan de acci\u00f3n personal",
         duration: "~45 min",
         steps: [
@@ -776,8 +832,24 @@ const MODULES = {
           { type: "reflection", title: "Tu compromiso", prompt: "Escribe 3 compromisos que te haces como docente de Eligiendo Mi Camino. \u00bfQu\u00e9 vas a hacer diferente en tu aula gracias a este programa? \u00bfCu\u00e1l es tu mayor preocupaci\u00f3n, y qu\u00e9 puedes hacer para resolverla esta semana?" },
           {"type": "quiz", "title": "Prueba de salida: ¿Cuánto aprendiste?", "intro": "Estas son las mismas preguntas del inicio. Ahora deberías poder responderlas con confianza.", "questions": [{"q": "¿Qué es un modelo de lenguaje de IA?", "options": ["Un programa que piensa como humano", "Un sistema que predice la siguiente palabra más probable", "Un buscador de internet avanzado", "Una base de datos"], "correct": 1, "feedback": {"correct": "¡Excelente! Recuerdas perfectamente.", "wrong": "Es un sistema que predice la siguiente palabra más probable. Revisa el Módulo 1."}}, {"q": "¿Cuál es tu rol principal cuando los estudiantes usan la plataforma?", "options": ["Supervisar la tecnología", "Construir comprensión, motivación y vínculo humano", "Dar las respuestas cuando se frustran", "Reemplazar a la IA"], "correct": 1, "feedback": {"correct": "¡Perfecto! Ese es tu rol irremplazable.", "wrong": "Tu rol es construir comprensión, motivación y vínculo humano."}}, {"q": "¿Qué pasa en Doc cuando un estudiante se equivoca?", "options": ["Le dice que está mal", "Identifica el error conceptual específico y hace una pregunta de remediación", "Le da la respuesta", "Lo saca del sistema"], "correct": 1, "feedback": {"correct": "¡Correcto! Feedback diagnóstico con remediación.", "wrong": "Doc identifica el error conceptual y hace una pregunta de remediación."}}, {"q": "¿Cuáles son los 5 momentos del modelo SOMA?", "options": ["Inicio, Desarrollo, Cierre, Evaluación, Tarea", "Apertura, Práctica autónoma, Pausa, Segunda ronda, Cierre", "Motivación, Explicación, Ejercicio, Prueba, Despedida", "No recuerdo"], "correct": 1, "feedback": {"correct": "¡Perfecto! Ya dominas el modelo.", "wrong": "Apertura (5min), Práctica autónoma (35-40min), Pausa (10-15min), Segunda ronda (20-25min), Cierre (5min)."}}, {"q": "¿Qué tipo de circulación usas cuando 3+ estudiantes tienen el mismo error?", "options": ["Escaneo", "Inmersión", "Intervención agrupada", "Clase magistral"], "correct": 2, "feedback": {"correct": "¡Excelente! Los juntas 3 min para aclarar el concepto.", "wrong": "Intervención agrupada: juntas a los estudiantes con el mismo error para una aclaración rápida (máx 3 min)."}}]}
         ]
-      }
-    ]
+      },
+      {
+        id: "m5",
+        title: "Módulo 5 — Integración Curricular y Planificación",
+        desc: "Planifica tu semestre, tus sesiones de aprendizaje y tu primera semana con la plataforma",
+        duration: "~50 min",
+        steps: [
+          { type: "quiz", title: "Retrieval: Gestión de aula", intro: "Antes de planificar, repasemos lo que aprendiste sobre gestión de aula:", questions: [
+            { q: "¿Cuáles son los 5 momentos del modelo SOMA?", options: ["Inicio, Desarrollo, Cierre", "Apertura, Práctica, Pausa, Segunda ronda, Cierre", "Motivación, Explicación, Ejercicio, Prueba, Despedida", "No recuerdo"], correct: 1, feedback: { correct: "¡Perfecto!", wrong: "Apertura → Práctica autónoma → Pausa → Segunda ronda → Cierre." } },
+            { q: "¿Qué tipo de circulación usas cuando varios estudiantes tienen el mismo error?", options: ["Escaneo", "Inmersión", "Intervención agrupada", "Clase magistral"], correct: 2, feedback: { correct: "¡Correcto! Los juntas brevemente para aclarar.", wrong: "Intervención agrupada: juntas a los estudiantes con el mismo error (máx 3 min)." } }
+          ] },
+          { type: "content", title: "Integraci\u00f3n curricular", html: "<p>La plataforma no vive en un vac\u00edo \u2014 se integra con tu planificaci\u00f3n de aula. C\u00f3mo la integres depende de cu\u00e1ntas horas semanales de matem\u00e1ticas tiene tu colegio.</p><h3>\ud83d\udcc5 Dos escenarios seg\u00fan horas semanales</h3><p><strong>Escenario 1: 4 horas/semana</strong></p><ul><li>2 horas en aula regular</li><li>2 horas en laboratorio con la plataforma</li><li>Cada clase tiene un componente de laboratorio asociado</li></ul><p><strong>Escenario 2: 6 horas/semana</strong></p><ul><li>4 horas en aula regular</li><li>2 horas en laboratorio con la plataforma</li><li>Mayor flexibilidad para profundizar temas en el aula antes de practicarlos en la plataforma</li></ul><h3>\ud83d\udcda Competencias CNEB</h3><p>El Curr\u00edculo Nacional de Educaci\u00f3n B\u00e1sica tiene 4 competencias matem\u00e1ticas. La plataforma cubre dos de ellas:</p><ul><li><strong>C1 \u2014 Resuelve problemas de cantidad:</strong> operaciones, fracciones, porcentajes, proporcionalidad</li><li><strong>C2 \u2014 Resuelve problemas de regularidad, equivalencia y cambio:</strong> \u00e1lgebra, ecuaciones, funciones</li></ul><p>Las otras dos competencias se trabajan exclusivamente en el aula:</p><ul><li><strong>C3 \u2014 Resuelve problemas de forma, movimiento y localizaci\u00f3n</strong> (geometr\u00eda)</li><li><strong>C4 \u2014 Resuelve problemas de gesti\u00f3n de datos e incertidumbre</strong> (estad\u00edstica y probabilidad)</li></ul><h3>\ud83d\uddfa\ufe0f Temas en la plataforma</h3><p>La plataforma tiene <strong>11 temas</strong> mapeados al curr\u00edculo de 5to de secundaria. No necesitas cubrirlos todos \u2014 elige los que complementen tu trabajo en el aula.</p><div class='callout callout-info'><strong>\ud83d\udca1 No necesitas cubrir todo en la plataforma.</strong> Elige los temas que complementen lo que ya est\u00e1s ense\u00f1ando en el aula. La plataforma es un refuerzo, no un reemplazo de tu planificaci\u00f3n.</div>" },
+          {"type": "practice", "title": "Genera tu planificación semestral con IA", "instructions": "<p>Antes de planificar semana a semana, necesitas una <strong>visión completa del semestre</strong>. Usa la IA para generarla.</p><h3>👀 Ejemplo de una colega</h3><a href='https://chatgpt.com/share/69bef8f0-41e8-800a-a9a5-c6a690123915' target='_blank' style='display:flex;align-items:center;gap:10px;padding:12px 16px;background:white;border:2px solid #e0e0e0;border-radius:8px;text-decoration:none;color:#242c32;margin:12px 0'><span style='background:#10a37f;color:white;border-radius:6px;padding:4px 8px;font-size:0.8rem;font-weight:600'>ChatGPT</span><span><strong>Planificación semestral completa</strong><br><span style='font-size:0.85rem;color:#666'>4 unidades, Modo Casa/Escuela, competencias CNEB</span></span></a><h3 style='margin-top:20px'>🤖 Genera la tuya</h3><p>Abre <a href='https://claude.ai' target='_blank' style='color:#d97706;font-weight:600'>Claude</a>, <a href='https://chat.openai.com' target='_blank' style='color:#10a37f;font-weight:600'>ChatGPT</a> o <a href='https://gemini.google.com' target='_blank' style='color:#4285f4;font-weight:600'>Gemini</a> y pega este prompt:</p><div style='background:#1e1e1e;color:#d4d4d4;border-radius:8px;padding:16px;margin:12px 0;max-height:220px;overflow-y:auto'><pre style='white-space:pre-wrap;font-size:0.85rem;line-height:1.5;margin:0'>Actua como Docente Especialista en Matematica para 5to de secundaria en Peru. Elabora mi planificacion semestral (marzo a julio 2026).\n\nTABLA: Semana | Fechas | Tema en clase | Subtema (Modo Casa y Modo Escuela) | Notas\n\nCONDICIONES:\n- 2 sesiones por semana en laboratorio con uDocz\n- Semana 16-20 marzo: EVALUACION DIAGNOSTICA\n- Semana 30 marzo-03 abril: SEMANA SANTA\n- Semana 18-22 mayo: SEMANA DE GESTION\n- Competencia: [TU COMPETENCIA]\n- Temas: [TUS TEMAS]\n- Mi colegio tiene [4 o 6] horas semanales\n\nPara cada semana diferencia Modo Casa (autonomo) y Modo Escuela (mediacion docente).</pre></div><p>Reemplaza los campos entre [CORCHETES] con tus datos.</p>", "checklist": ["Abrí una IA", "Copié el prompt", "Completé mis datos", "Revisé la planificación"], "responsePrompt": "Pega un resumen de tu planificación (primeras 4 semanas):"},
+          {"type": "practice", "title": "Genera tu sesión de aprendizaje con IA", "instructions": "<p>Ahora vas a usar la IA para generar una <strong>sesión de aprendizaje personalizada</strong> para tu aula.</p><h3>👀 Mira cómo lo hicieron tus colegas</h3><p>Ejemplos reales creados por docentes en la capacitación:</p><div style='display:flex;flex-direction:column;gap:10px;margin:12px 0'><a href='https://gemini.google.com/share/2bec5c80ecd4' target='_blank' style='display:flex;align-items:center;gap:10px;padding:12px 16px;background:white;border:2px solid #e0e0e0;border-radius:8px;text-decoration:none;color:#242c32'><span style='background:#4285f4;color:white;border-radius:6px;padding:4px 8px;font-size:0.8rem;font-weight:600'>Gemini</span><span><strong>Funciones lineales — Eco-Entrega</strong><br><span style='font-size:0.85rem;color:#666'>Sesión completa con adaptaciones TDAH/TEA</span></span></a><a href='https://chatgpt.com/share/69befb6b-3fd8-800f-9f64-f2eabf53b6fa' target='_blank' style='display:flex;align-items:center;gap:10px;padding:12px 16px;background:white;border:2px solid #e0e0e0;border-radius:8px;text-decoration:none;color:#242c32'><span style='background:#10a37f;color:white;border-radius:6px;padding:4px 8px;font-size:0.8rem;font-weight:600'>ChatGPT</span><span><strong>Relaciones y funciones</strong><br><span style='font-size:0.85rem;color:#666'>Con errores cognitivos comunes</span></span></a></div><h3 style='margin-top:24px'>🤖 Ahora crea la tuya</h3><p><strong>Paso 1:</strong> Abre una IA:</p><div style='display:flex;gap:12px;flex-wrap:wrap;margin:12px 0'><a href='https://claude.ai' target='_blank' style='display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#d97706;color:white;border-radius:8px;text-decoration:none;font-weight:600'>Claude</a><a href='https://chat.openai.com' target='_blank' style='display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#10a37f;color:white;border-radius:8px;text-decoration:none;font-weight:600'>ChatGPT</a><a href='https://gemini.google.com' target='_blank' style='display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#4285f4;color:white;border-radius:8px;text-decoration:none;font-weight:600'>Gemini</a></div><p><strong>Paso 2:</strong> Copia este prompt y reemplaza los campos entre [CORCHETES]:</p><div style='background:#1e1e1e;color:#d4d4d4;border-radius:8px;padding:16px;margin:12px 0;max-height:250px;overflow-y:auto'><pre style='white-space:pre-wrap;font-size:0.85rem;line-height:1.5;margin:0'>Diseña una sesión de aprendizaje de Matemática de 90 minutos para 5to de secundaria en Perú, siguiendo el modelo SOMA de uDocz con 5 momentos:\n\n1. Apertura con ejemplo resuelto (5 min)\n2. Práctica autónoma + circulación docente (35-40 min) con lista de cotejo de 5 indicadores\n3. Pausa y puesta en común (10-15 min) — analizar error frecuente\n4. Segunda ronda de práctica (20-25 min) — problemas de transferencia\n5. Cierre y conexión (5 min) — metacognición\n\nDATOS:\n- Competencia CNEB: [TU COMPETENCIA]\n- Tema: [TU TEMA]\n- Estudiantes: [CUANTOS]\n- La plataforma uDocz se usa en el Momento 2 y 4 (Modo Escuela)\n\nIncluye: situación significativa, ficha de evaluación con 2 problemas, y tabla de situaciones problemáticas con estrategias. Formato MINEDU 2026.</pre></div><div class='callout'><strong>Consejo:</strong> Después de generar tu sesión, pídele a la IA: <em>Ahora hazme una versión en Word</em> o <em>Agrega adaptaciones para un estudiante con TDAH</em>.</div>", "checklist": ["Abrí una IA (Claude, ChatGPT o Gemini)", "Copié y pegué el prompt", "Reemplacé los campos con mis datos", "Revisé la sesión generada"], "responsePrompt": "Pega aquí el resumen de la sesión que te generó la IA (título, tema y los 5 momentos):"},
+          { type: "practice", title: "Planifica tu primera semana", instructions: "<p>Vamos a crear tu plan para la primera semana del programa. Necesitas definir:</p><ul><li>\u00bfTu colegio tiene 4h o 6h semanales de matem\u00e1ticas?</li><li>\u00bfQu\u00e9 tema cubrir\u00e1s primero en el aula?</li><li>\u00bfQu\u00e9 tema asignar\u00e1s en la plataforma?</li><li>\u00bfTienes el laboratorio de c\u00f3mputo reservado?</li></ul><div class='callout'>\ud83d\udca1 Consejo: Elige un tema que ya hayas empezado en el aula para que los estudiantes puedan practicarlo en la plataforma. No empieces con algo nuevo.</div>", checklist: ["Identifiqu\u00e9 si mi colegio tiene 4h o 6h semanales", "Eleg\u00ed el primer tema para el aula", "Eleg\u00ed el tema complementario para la plataforma", "Verifiqu\u00e9 que tengo el laboratorio reservado", "Tengo la lista de estudiantes lista para entregar"] },
+          { type: "reflection", title: "Integración en tu práctica", prompt: "¿Cómo integrarás la plataforma en tu horario de clases? Piensa en tu contexto específico: ¿cuántas horas semanales tienes? ¿Qué días usarás el laboratorio? ¿Cómo conectarás lo que los estudiantes practican en la plataforma con tu trabajo en el aula?" }
+        ]
+      }]
   },
   ov: {
     title: "Orientaci\u00f3n Vocacional",
