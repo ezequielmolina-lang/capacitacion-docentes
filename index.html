@@ -1151,13 +1151,9 @@ function trackProgress(track, moduleId, stepTitle, status) {
     status: status
   };
 
-  // Send asynchronously (don't block the UI)
-  fetch(TRACKING_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  }).catch(function(err) {
+  // Send via GET with URL params (works with Google Apps Script CORS)
+  var params = Object.keys(data).map(function(k) { return k + '=' + encodeURIComponent(data[k]); }).join('&');
+  fetch(TRACKING_URL + '?' + params, { mode: 'no-cors' }).catch(function(err) {
     console.log('Tracking error:', err);
   });
 }
