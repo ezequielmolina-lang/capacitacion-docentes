@@ -303,6 +303,19 @@
     }
     .module-card .check.done { background: #4CAF50; }
     .module-card .check.pending { background: #ddd; color: #999; }
+    .module-card.locked {
+      opacity: 0.5;
+      cursor: not-allowed;
+      position: relative;
+    }
+    .module-card.locked::after {
+      content: '🔒 Completa el módulo anterior';
+      position: absolute;
+      bottom: 12px;
+      left: 16px;
+      font-size: 0.8rem;
+      color: #999;
+    }
 
     /* ── Spacing recommendation banner ── */
     .spacing-banner {
@@ -721,6 +734,22 @@
     .login-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(243,147,0,0.3);
+    }
+
+    @media print {
+      body * { display: none !important; }
+      #diploma-overlay, #diploma-overlay * { display: block !important; }
+      #diploma-overlay {
+        position: static !important;
+        background: white !important;
+        padding: 0 !important;
+      }
+      #diploma-card {
+        box-shadow: none !important;
+        max-width: 100% !important;
+        padding: 40px !important;
+      }
+      #diploma-card button { display: none !important; }
     }
   </style>
 </head>
@@ -1260,11 +1289,15 @@ function renderModules() {
   grid.innerHTML = '';
   track.modules.forEach((mod, i) => {
     const done = isComplete(state.track, mod.id);
+    const prevDone = i === 0 ? true : isComplete(state.track, track.modules[i - 1].id);
+    const locked = !prevDone && !done;
     const accentColor = state.track === 'math' ? 'var(--math-color)' : 'var(--ov-color)';
     const stepCount = mod.steps ? mod.steps.length : 0;
     const card = document.createElement('div');
-    card.className = 'module-card';
-    card.onclick = () => navigate('viewer', { moduleId: mod.id });
+    card.className = 'module-card' + (locked ? ' locked' : '');
+    if (!locked) {
+      card.onclick = () => navigate('viewer', { moduleId: mod.id });
+    }
     card.innerHTML = `
       <div class="check ${done ? 'done' : 'pending'}">
         <i class="fa-solid ${done ? 'fa-check' : 'fa-minus'}"></i>
@@ -1496,6 +1529,36 @@ function completeModule() {
   trackProgress(state.track, state.moduleId, 'MODULE_COMPLETE', 'completed');
   markComplete(state.track, state.moduleId);
   navigate('modules', { track: state.track });
+  checkTrackCompletion(state.track);
+}
+
+function checkTrackCompletion(track) {
+  var trackData = MODULES[track];
+  var allDone = trackData.modules.every(function(m) { return isComplete(track, m.id); });
+
+  if (allDone) {
+    var info = getTeacherInfo();
+
+    // Show diploma
+    var overlay = document.getElementById('diploma-overlay');
+    overlay.style.display = 'flex';
+    document.getElementById('diploma-teacher-name').textContent = info ? info.name : 'Docente';
+    document.getElementById('diploma-school').textContent = info ? info.school : '';
+    document.getElementById('diploma-track-name').textContent = track === 'math' ? 'Matemáticas — Tutor IA' : 'Orientación Vocacional — Coach IA';
+    document.getElementById('diploma-date').textContent = new Date().toLocaleDateString('es-PE', { year: 'numeric', month: 'long', day: 'numeric' });
+
+    // Send email notification via Google Sheets tracking
+    trackProgress(track, 'ALL', 'COURSE_COMPLETE', 'completed_all_modules');
+
+    // Also send email via mailto (opens email client as backup)
+    if (info) {
+      var subject = encodeURIComponent('Capacitación Completada - ' + info.name);
+      var body = encodeURIComponent('El/la docente ' + info.name + ' (DNI: ' + info.dni + ', Escuela: ' + info.school + ') ha completado todos los módulos de ' + (track === 'math' ? 'Matemáticas' : 'Orientación Vocacional') + ' en la capacitación de Eligiendo Mi Camino.\n\nFecha: ' + new Date().toLocaleString('es-PE'));
+      // Use an image beacon to notify (silent)
+      var notifyUrl = TRACKING_URL + '?timestamp=' + encodeURIComponent(new Date().toISOString()) + '&name=' + encodeURIComponent(info.name) + '&dni=' + encodeURIComponent(info.dni) + '&school=' + encodeURIComponent(info.school) + '&materia=' + encodeURIComponent(info.materia || '') + '&track=' + encodeURIComponent(track) + '&moduleId=DIPLOMA&status=COMPLETED_ALL_MODULES_EMAIL_molina@worldbank.org';
+      fetch(notifyUrl, { mode: 'no-cors' }).catch(function(){});
+    }
+  }
 }
 
 /* ── Init ── */
@@ -1509,5 +1572,34 @@ if (teacherInfo) {
   document.getElementById('view-login').classList.add('active');
 }
 </script>
+
+<div id="diploma-overlay" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);z-index:1000;align-items:center;justify-content:center;padding:20px">
+  <div id="diploma-card" style="background:white;border-radius:16px;max-width:700px;width:100%;padding:48px;text-align:center;position:relative">
+    <button onclick="document.getElementById('diploma-overlay').style.display='none'" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:1.5rem;cursor:pointer">&times;</button>
+    <img src="img/math.png" alt="EMC" style="width:80px;height:80px;object-fit:contain;margin:0 auto">
+    <h1 style="color:var(--primary);font-size:2rem;margin:16px 0 4px">¡Felicitaciones!</h1>
+    <p style="color:#666;font-size:1.1rem;margin-bottom:24px">Has completado la capacitación docente</p>
+
+    <div style="border:3px solid var(--primary);border-radius:12px;padding:32px;margin:20px 0">
+      <p style="font-size:0.85rem;color:#999;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px">CERTIFICADO DE FINALIZACIÓN</p>
+      <h2 style="font-size:1.5rem;margin:8px 0" id="diploma-track-name">Capacitación Docente</h2>
+      <p style="font-size:1.2rem;margin:16px 0;color:var(--text-dark)">Otorgado a</p>
+      <h2 style="font-size:1.8rem;color:var(--primary);margin:8px 0" id="diploma-teacher-name"></h2>
+      <p style="color:#666;margin:16px 0" id="diploma-school"></p>
+      <p style="font-size:0.9rem;color:#999" id="diploma-date"></p>
+      <div style="display:flex;justify-content:center;gap:24px;margin-top:24px;flex-wrap:wrap">
+        <span style="font-size:0.8rem;color:#666">DRELM</span>
+        <span style="font-size:0.8rem;color:#666">Banco Mundial</span>
+        <span style="font-size:0.8rem;color:#666">UPC</span>
+        <span style="font-size:0.8rem;color:#666">Eligiendo Mi Camino</span>
+      </div>
+    </div>
+
+    <button onclick="window.print()" style="padding:12px 32px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;border:none;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;margin-top:16px">
+      <i class="fas fa-download"></i> Descargar / Imprimir diploma
+    </button>
+  </div>
+</div>
+
 </body>
 </html>
