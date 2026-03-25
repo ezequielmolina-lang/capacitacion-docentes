@@ -1050,7 +1050,7 @@ function renderModules() {
   const header = document.getElementById('modules-header');
   const colorStyle = state.track === 'math' ? 'background:var(--math-bg);color:var(--math-color)' : 'background:var(--ov-bg);color:var(--ov-color)';
   header.innerHTML = `
-    <div class="icon" style="${colorStyle}"><i class="fa-solid ${track.icon}"></i></div>
+    <img src="${state.track === 'math' ? 'img/math.png' : 'img/vocation.png'}" alt="${track.title}" style="width:60px;height:60px;object-fit:contain">
     <h1>${track.title}</h1>
   `;
 
