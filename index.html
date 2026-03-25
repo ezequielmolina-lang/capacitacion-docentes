@@ -232,291 +232,325 @@
     .module-card .check.done { background: #4CAF50; }
     .module-card .check.pending { background: #ddd; color: #999; }
 
-    /* ── Viewer ── */
-    .viewer-title-bar {
-      padding: 16px 24px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .viewer-title-bar h1 { font-size: 1.15rem; font-weight: 700; }
-
-    .viewer-slides-container {
-      position: relative;
-      width: 100%;
-      height: 78vh;
-      background: #000;
-    }
-    .viewer-slides-container iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
-    }
-
-    /* ── Audio Control Bar ── */
-    .audio-bar {
-      position: -webkit-sticky;
-      position: sticky;
-      bottom: 0;
-      background: white;
-      border-top: 2px solid var(--primary);
-      padding: 14px 20px 12px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
-      z-index: 20;
-    }
-    .audio-bar .block-title {
-      flex: 1;
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: var(--text-dark);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .audio-bar .btn-play {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: white;
-      border: none;
-      font-size: 1.2rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: transform 0.15s;
-    }
-    .audio-bar .btn-play:hover { transform: scale(1.08); }
-    .audio-bar .btn-play[data-state="playing"] {
-      background: linear-gradient(135deg, #e53935, #c62828);
-    }
-    .audio-bar .btn-nav {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: #f5f5f5;
-      border: 1px solid #ddd;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      font-size: 0.85rem;
-      color: var(--text-dark);
-      transition: background 0.15s;
-    }
-    .audio-bar .btn-nav:hover { background: #e0e0e0; }
-    .audio-bar .btn-nav:disabled { opacity: 0.35; cursor: default; }
-    .audio-bar .block-progress {
-      font-size: 0.8rem;
-      color: var(--text-gray);
-      flex-shrink: 0;
-    }
-    .slide-indicator {
-      background: var(--primary);
-      color: white;
-      padding: 4px 12px;
-      border-radius: 16px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      flex-shrink: 0;
-      transition: transform 0.3s;
-    }
-    .slide-indicator.flash {
-      transform: scale(1.15);
-    }
-    .slide-indicator:empty { display: none; }
-    .btn-show-text {
-      font-size: 0.8rem;
-      color: var(--primary);
-      background: none;
-      border: 1px solid var(--primary);
-      border-radius: 16px;
-      padding: 4px 12px;
-      cursor: pointer;
-      flex-shrink: 0;
-      font-family: inherit;
-      transition: background 0.15s, color 0.15s;
-    }
-    .btn-show-text:hover { background: var(--primary); color: #fff; }
-    .btn-show-text.active { background: var(--primary); color: #fff; }
-
-    /* ── Progress bar (inside audio bar) ── */
-    .audio-progress-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: #e0e0e0;
-    }
-    .audio-progress-bar {
-      height: 100%;
-      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
-      transition: width 1s linear;
-      border-radius: 0 2px 2px 0;
-      width: 0%;
-    }
-    .time-display {
-      font-size: 0.8rem;
-      color: var(--text-gray);
-      font-variant-numeric: tabular-nums;
-      flex-shrink: 0;
-      min-width: 80px;
-      text-align: center;
-    }
-
-    /* ── Video Pause Overlay ── */
-    .video-pause-overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
-    }
-    .video-pause-card {
-      background: white;
-      padding: 32px 48px;
-      border-radius: 16px;
-      text-align: center;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-      max-width: 420px;
-    }
-    .video-pause-card p {
-      font-size: 1.1rem;
-      margin: 16px 0 24px;
-      color: var(--text-dark);
-      line-height: 1.5;
-    }
-    .btn-continue {
-      padding: 12px 32px;
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: white;
-      border: none;
-      border-radius: 24px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: inherit;
-      transition: transform 0.15s;
-    }
-    .btn-continue:hover { transform: scale(1.05); }
-    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
-
-    .narration-text-panel {
-      display: none;
-      max-height: 40vh;
-      overflow-y: auto;
-      padding: 20px 24px;
-      background: #fafafa;
-      border-top: 1px solid #eee;
-      font-size: 0.95rem;
-      line-height: 1.7;
-      color: var(--text-gray);
-    }
-    .narration-text-panel.visible { display: block; }
-
-    .resources-section {
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 8px 24px 16px;
-    }
-    .resources-section h2 {
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .resources-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .resources-links a {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: #fff;
+    /* ── Spacing recommendation banner ── */
+    .spacing-banner {
+      background: #FFF3E0;
+      border: 1px solid #FFE0B2;
       border-radius: 8px;
-      padding: 10px 18px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--primary-dark);
-      text-decoration: none;
-      box-shadow: var(--card-shadow);
-      transition: transform 0.15s;
-      min-height: 44px;
-    }
-    .resources-links a:hover { transform: translateY(-2px); }
-
-    .complete-btn {
-      display: block;
+      padding: 12px 16px;
+      font-size: 0.9rem;
+      color: #E65100;
+      text-align: center;
+      margin: 0 auto 16px;
       max-width: 780px;
-      margin: 8px auto 12px;
-      padding: 0 24px;
-      width: 100%;
-    }
-    .complete-btn button {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: var(--radius);
-      font-family: inherit;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      min-height: 48px;
-      transition: background 0.2s, transform 0.15s;
-    }
-    .complete-btn button.mark {
-      background: var(--primary);
-      color: #fff;
-    }
-    .complete-btn button.mark:hover { background: var(--primary-dark); transform: translateY(-1px); }
-    .complete-btn button.done {
-      background: #E8F5E9;
-      color: #2E7D32;
-      cursor: default;
     }
 
-    .viewer-nav {
+    /* ── Step Viewer ── */
+    .viewer-topbar {
       display: flex;
-      justify-content: space-between;
-      max-width: 780px;
-      margin: 0 auto 48px;
-      padding: 8px 24px;
-      gap: 12px;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 20px;
+      background: white;
+      border-bottom: 1px solid #eee;
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
-    .viewer-nav button {
-      flex: 1;
-      padding: 12px;
-      border: 2px solid #e0e0e0;
-      border-radius: var(--radius);
-      background: #fff;
-      font-family: inherit;
+    .back-link {
       font-size: 0.88rem;
       font-weight: 600;
-      color: var(--text-dark);
+      color: var(--text-gray);
       cursor: pointer;
-      min-height: 44px;
-      transition: border-color 0.2s, transform 0.15s;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .back-link:hover { color: var(--text-dark); }
+
+    .viewer-progress {
+      flex: 1;
+      height: 6px;
+      background: #e0e0e0;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .viewer-progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+      transition: width 0.4s ease;
+      border-radius: 3px;
+    }
+    .step-counter {
+      font-size: 0.85rem;
+      color: var(--text-gray);
+      white-space: nowrap;
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 20px 24px 12px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .step-type-badge {
+      font-size: 1.5rem;
+    }
+    .step-header h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin: 0;
+    }
+
+    .step-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px 100px;
+      min-height: 60vh;
+    }
+
+    /* Video step */
+    .step-video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 16px;
+    }
+    .step-video-wrapper iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+    .step-video-caption {
+      font-size: 0.9rem;
+      color: var(--text-gray);
+      font-style: italic;
+      text-align: center;
+    }
+
+    /* Content step */
+    .step-content-html {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-dark);
+    }
+    .step-content-html p { margin-bottom: 16px; }
+    .step-content-html ul, .step-content-html ol { margin: 12px 0; padding-left: 24px; }
+    .step-content-html li { margin-bottom: 8px; }
+    .step-content-html img {
+      max-width: 100%;
+      border-radius: 8px;
+      box-shadow: var(--card-shadow);
+      margin: 16px 0;
+    }
+    .step-content-html .callout {
+      background: #FFF3E0;
+      border-left: 4px solid var(--primary);
+      padding: 16px 20px;
+      border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+    }
+    .step-content-html .callout-info {
+      background: #E3F2FD;
+      border-left-color: #1565C0;
+    }
+
+    /* Quiz step */
+    .quiz-intro { font-size: 1rem; color: var(--text-gray); margin-bottom: 20px; }
+    .quiz-question {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .quiz-question-text {
+      font-weight: 600;
+      font-size: 1.05rem;
+      margin-bottom: 12px;
+    }
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .quiz-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.95rem;
+    }
+    .quiz-option:hover { border-color: var(--primary); background: #FFF8E1; }
+    .quiz-option.selected { border-color: var(--primary); background: #FFF3E0; }
+    .quiz-option.correct { border-color: #2E7D32; background: #E8F5E9; }
+    .quiz-option.wrong { border-color: #C62828; background: #FFEBEE; }
+    .quiz-option input[type="radio"] { display: none; }
+    .quiz-option .radio-dot {
+      width: 20px; height: 20px;
+      border: 2px solid #ccc;
+      border-radius: 50%;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .quiz-option.selected .radio-dot {
+      border-color: var(--primary);
+    }
+    .quiz-option.selected .radio-dot::after {
+      content: '';
+      width: 10px; height: 10px;
+      background: var(--primary);
+      border-radius: 50%;
+      position: absolute;
+      top: 3px; left: 3px;
+    }
+    .quiz-option.correct .radio-dot { border-color: #2E7D32; }
+    .quiz-option.correct .radio-dot::after { background: #2E7D32; }
+    .quiz-option.wrong .radio-dot { border-color: #C62828; }
+    .quiz-verify-btn {
+      display: block;
+      margin: 12px auto 0;
+      padding: 10px 24px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .quiz-verify-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .quiz-feedback {
+      margin-top: 12px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    .quiz-feedback.correct { background: #E8F5E9; color: #1B5E20; border: 1px solid #A5D6A7; }
+    .quiz-feedback.wrong { background: #FFEBEE; color: #B71C1C; border: 1px solid #EF9A9A; }
+
+    /* Practice step */
+    .practice-instructions {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    .practice-checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 20px 0;
+    }
+    .practice-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      background: white;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.95rem;
+    }
+    .practice-item:hover { border-color: var(--primary); }
+    .practice-item.checked { border-color: #2E7D32; background: #E8F5E9; }
+    .practice-checkbox {
+      width: 24px; height: 24px;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+      flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      transition: all 0.2s;
     }
-    .viewer-nav button:hover { border-color: var(--primary); transform: translateY(-1px); }
-    .viewer-nav button:disabled { opacity: 0.35; cursor: default; transform: none; border-color: #e0e0e0; }
+    .practice-item.checked .practice-checkbox {
+      background: #2E7D32;
+      border-color: #2E7D32;
+      color: white;
+    }
+
+    /* Reflection step */
+    .reflection-prompt {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .reflection-textarea {
+      width: 100%;
+      min-height: 150px;
+      padding: 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 1rem;
+      line-height: 1.6;
+      resize: vertical;
+      transition: border-color 0.2s;
+    }
+    .reflection-textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    .reflection-saved {
+      color: #2E7D32;
+      font-size: 0.85rem;
+      margin-top: 8px;
+    }
+
+    /* Step navigation */
+    .step-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      padding: 16px 24px;
+      background: white;
+      border-top: 1px solid #eee;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+      z-index: 20;
+    }
+    .btn-step-nav {
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .btn-prev {
+      background: #f5f5f5;
+      color: var(--text-dark);
+      border: 1px solid #ddd;
+    }
+    .btn-prev:hover { background: #e0e0e0; }
+    .btn-next {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      border: none;
+    }
+    .btn-next:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(243,147,0,0.3); }
+    .btn-next:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
 
     /* ── Footer ── */
     .footer {
@@ -533,9 +567,9 @@
       .hero p { font-size: 0.95rem; }
       .tracks { grid-template-columns: 1fr; max-width: 420px; }
       .module-grid { grid-template-columns: 1fr; max-width: 480px; }
-      .viewer-slides-container { height: 55vh; }
-      .audio-bar { padding: 10px 16px; gap: 10px; }
-      .audio-bar .block-title { font-size: 0.82rem; }
+      .step-content { padding: 0 16px 100px; }
+      .step-header { padding: 16px 16px 8px; }
+      .step-header h2 { font-size: 1.1rem; }
     }
     @media (max-width: 480px) {
       .hero { padding: 40px 16px 36px; }
@@ -544,15 +578,7 @@
       .tracks { padding: 0 16px; gap: 14px; margin: 20px auto 36px; }
       .track-card { padding: 22px 18px 20px; }
       .module-grid { padding: 0 16px; }
-      .resources-section, .complete-btn, .viewer-nav { padding-left: 16px; padding-right: 16px; }
-      .time-display { font-size: 0.72rem; min-width: 70px; }
-      .video-pause-card { padding: 24px 20px; margin: 0 16px; }
-      .viewer-slides-container { height: 45vh; }
-      .viewer-title-bar { padding: 14px 16px; }
       .track-header { padding: 20px 16px 16px; }
-      .audio-bar { flex-wrap: wrap; justify-content: center; padding: 10px 12px; gap: 8px; }
-      .audio-bar .block-title { order: -1; flex-basis: 100%; text-align: center; }
-      .narration-text-panel { padding: 16px; }
     }
   </style>
 </head>
@@ -580,65 +606,40 @@
       <i class="fa-solid fa-arrow-left"></i> Volver
     </button>
     <div class="track-header" id="modules-header"></div>
+    <div id="spacing-banner-container" style="padding:0 24px"></div>
     <div class="module-grid" id="module-grid"></div>
     <div class="footer">Eligiendo Mi Camino &mdash; Programa de Orientaci&oacute;n Vocacional</div>
   </div>
 
   <!-- ══════════ Viewer View ══════════ -->
   <div id="view-viewer" class="view">
-    <button class="back-btn" id="viewer-back-btn">
-      <i class="fa-solid fa-arrow-left"></i> Volver a m&oacute;dulos
-    </button>
-    <div class="viewer-title-bar" id="viewer-title"></div>
-
-    <!-- BIG slides -->
-    <div class="viewer-slides-container" id="viewer-slides-container">
-      <iframe id="slides-frame" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-    </div>
-
-    <!-- Video pause overlay -->
-    <div class="video-pause-overlay" id="video-pause-overlay" style="display:none">
-      <div class="video-pause-card">
-        <i class="fas fa-film" style="font-size:2.5rem; color:var(--primary); animation: pulse 2s infinite"></i>
-        <p id="video-pause-message">Reproduciendo video...</p>
-        <p style="font-size:0.85rem; color:var(--text-gray); margin-top:8px">La narraci&oacute;n continuar&aacute; autom&aacute;ticamente</p>
-        <button onclick="resumeAfterVideo()" class="btn-continue" style="margin-top:16px; font-size:0.85rem; padding:8px 20px; opacity:0.7">
-          <i class="fas fa-forward"></i> Saltar video
-        </button>
+    <!-- Top bar -->
+    <div class="viewer-topbar">
+      <a class="back-link" onclick="navigate('modules')"><i class="fa-solid fa-arrow-left"></i> Volver a m&oacute;dulos</a>
+      <div class="viewer-progress">
+        <div class="viewer-progress-bar" id="viewer-progress-bar"></div>
       </div>
+      <span class="step-counter" id="step-counter">Paso 1 de 1</span>
     </div>
 
-    <!-- Audio control bar -->
-    <div class="audio-bar" id="audio-bar">
-      <div class="audio-progress-container">
-        <div class="audio-progress-bar" id="audio-progress-bar"></div>
-      </div>
-      <button class="btn-nav" id="btn-prev-block" onclick="prevBlock()" title="Bloque anterior">
-        <i class="fas fa-step-backward"></i>
-      </button>
-      <button class="btn-play" id="btn-play" onclick="toggleAudio()" data-state="stopped">
-        <i class="fas fa-play"></i>
-      </button>
-      <button class="btn-nav" id="btn-next-block" onclick="nextBlock()" title="Siguiente bloque">
-        <i class="fas fa-step-forward"></i>
-      </button>
-      <span class="slide-indicator" id="slide-indicator"></span>
-      <span class="block-title" id="block-title">Bloque 1</span>
-      <span class="time-display" id="time-display"></span>
-      <span class="block-progress" id="block-progress">1/1</span>
-      <button class="btn-show-text" id="btn-show-text" onclick="toggleTextPanel()">
-        <i class="fas fa-book-open"></i> Ver texto
-      </button>
+    <!-- Step title -->
+    <div class="step-header" id="step-header">
+      <span class="step-type-badge" id="step-type-badge"></span>
+      <h2 id="step-title">Step Title</h2>
     </div>
 
-    <!-- Hidden text panel (toggle) -->
-    <div class="narration-text-panel" id="narration-text-panel"></div>
+    <!-- Step content area (dynamically rendered) -->
+    <div class="step-content" id="step-content"></div>
 
-    <!-- Footer: resources + completion + nav -->
-    <div class="resources-section" id="resources-section"></div>
-    <div class="complete-btn" id="complete-btn-wrap"></div>
-    <div class="viewer-nav" id="viewer-nav"></div>
-    <div class="footer">Eligiendo Mi Camino &mdash; Programa de Orientaci&oacute;n Vocacional</div>
+    <!-- Navigation footer -->
+    <div class="step-nav">
+      <button class="btn-step-nav btn-prev" id="btn-prev-step" onclick="prevStep()">
+        <i class="fas fa-arrow-left"></i> Anterior
+      </button>
+      <button class="btn-step-nav btn-next" id="btn-next-step" onclick="nextStep()">
+        Siguiente <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
   </div>
 
 <script>
@@ -649,289 +650,53 @@ const MODULES = {
     color: "var(--math-color)",
     bg: "var(--math-bg)",
     icon: "fa-calculator",
-    guideUrl: "https://drive.google.com/file/d/12Q5zUjofNHHfONZT2nSSQVOGH8M2zuan/view?usp=sharing",
+    guideUrl: "https://drive.google.com/file/d/12Q5zUjofNHHfONZT2nSSQVOGH8M2zuan/view",
     folderUrl: "https://drive.google.com/drive/folders/1kfWgFFFpGl9LDKlUhREi9cBjERI2BJm3",
-    slidesFolder: "https://drive.google.com/drive/folders/1h_I1p-dcWMnMM8__eAFuV_vjkNkMEkO-",
     modules: [
-      { id: "dia1", title: "D\u00eda 1 \u2014 Bienvenida, Plataforma y Curr\u00edculo", desc: "IA, plataforma Doc, registro, integraci\u00f3n curricular y dashboard", duration: "~10 min narraci\u00f3n", embedId: "1V_ID56Czrnv0XfMCQTO8rutsnJ4Fb4-ePGe7GYoDuOU", blocks: [
-          {
-            title: "Bienvenida al programa (Diapositivas 1–2)",
-            slideRange: "1-2",
-            slides: [1,2],
-            duration: "0:30",
-            videoPause: null,
-            content: `
-              <p><strong>¡Bienvenido/a al programa Eligiendo Mi Camino!</strong> Antes de meternos de lleno, quiero que sepas con quién estamos en esto. Este programa es una alianza entre tres actores: la <strong>DRELM</strong>, el <strong>Banco Mundial</strong> y la <strong>UPC</strong>. Juntos hemos diseñado algo ambicioso: llevar tutoría con inteligencia artificial a cerca de 100 colegios y más de 6,600 estudiantes. Tú eres pieza clave. Ahora vas a escuchar a Jaime Saavedra explicar la visión del programa.</p>
-            `
-          },
-          {
-            title: "🎬 Video: Jaime Saavedra (Diapositiva 3)",
-            slideRange: "3",
-            slides: [3],
-            duration: "1:30",
-            videoPause: null,
-            isVideo: true,
-            videoMessage: "Reproduciendo video de Jaime Saavedra...",
-            content: `<p>Escucha el mensaje de Jaime Saavedra, Director de Educación del Banco Mundial, sobre por qué este programa es importante para el futuro de tus estudiantes.</p>`
-          },
-          {
-            title: "Alfabetización en IA y 4 mitos (Diapositivas 4–10)",
-            slideRange: "4-10",
-            slides: [4,5,6,7,8,9,10],
-            duration: "1:40",
-            videoPause: null,
-            content: `
-              <p>Ahora, hablemos de IA. Fíjate en las diapositivas 4 y 5: un modelo de lenguaje es básicamente un sistema que <strong>predice la siguiente palabra</strong> más probable en un texto. No piensa, no siente, no tiene conciencia. Es una herramienta muy potente, pero una herramienta al fin.</p>
-              <p>Hay <strong>4 mitos</strong> que necesitamos desarmar ahora mismo:</p>
-              <ul>
-                <li><strong>Mito 1: "La IA va a reemplazar al docente."</strong> Falso. La IA automatiza la práctica repetitiva; tú construyes comprensión, motivación y vínculo humano.</li>
-                <li><strong>Mito 2: "La IA siempre da respuestas correctas."</strong> Falso. Puede "alucinar" — inventar datos que suenan convincentes pero son incorrectos.</li>
-                <li><strong>Mito 3: "Los estudiantes necesitan saber programar."</strong> Falso. Usan una interfaz de chat, igual que WhatsApp.</li>
-                <li><strong>Mito 4: "Solo profes tecnológicos pueden hacer esto."</strong> Falso. Si usas WhatsApp, puedes usar esta plataforma.</li>
-              </ul>
-              <p><strong>🎯 Actividad:</strong> Abre <em>ChatGPT</em>, <em>Claude</em> o <em>Copilot</em> en tu celular o computadora. Hazle una pregunta de matemáticas de 5.° de secundaria y evalúa la respuesta: ¿fue correcta? ¿Fue clara? ¿Un estudiante la entendería? Anota tus observaciones.</p>
-            `
-          },
-          {
-            title: "Bloque 2 — Conociendo la plataforma como estudiante (Diapositivas 11–22)",
-            slideRange: "11-22",
-            slides: [11,12,13,14,15,16,17,18,19,20,21,22],
-            duration: "2:21",
-            videoPause: null,
-            content: `
-              <p>Ahora viene lo bueno: vas a conocer a <strong>Doc</strong>, el tutor de matemáticas con IA desarrollado por uDocz y potenciado por Claude de Anthropic. Fíjate en la diapositiva 11 — Doc no le da la respuesta al estudiante de frente. Usa el <strong>método socrático con andamiaje progresivo</strong>: primero una pista sutil, luego una pista más directa, y solo al final una explicación completa. Esto es clave porque queremos que el estudiante <em>piense</em>, no que copie.</p>
-              <p>La plataforma tiene más de <strong>4,000 preguntas diagnósticas</strong>. Cada respuesta incorrecta está mapeada a un <strong>error conceptual específico</strong>. Es decir, cuando un estudiante se equivoca, Doc sabe <em>exactamente por qué</em> se equivocó y le hace una pregunta de remediación. Eso es poder diagnóstico real.</p>
-              <p>Hay dos modos que debes conocer bien:</p>
-              <ul>
-                <li><strong>Modo Escuela (Modelo B):</strong> Es el modo estructurado para las sesiones de laboratorio. El sistema controla la secuencia. Siempre abre con una <em>"Apertura de recuperación"</em> — práctica de repaso de la sesión anterior. Como puedes ver en la diapositiva 16, el flujo es guiado paso a paso.</li>
-                <li><strong>Modo Casa (Modelo A):</strong> Tiene 4 opciones libres para que el estudiante explore desde casa — <em>Aprender un tema</em>, <em>Resolver un problema</em>, <em>Ponte a prueba</em> y <em>Preguntar</em>.</li>
-              </ul>
-              <p>Fíjate en cómo Doc muestra el "Error conceptual" cuando respondes mal (diapositiva 19). Esa es la joya de la plataforma: no solo dice "incorrecto", sino que identifica la confusión exacta.</p>
-              <p><strong>🎯 Actividad:</strong> Inicia sesión con las cuentas de prueba que te hemos proporcionado. Resuelve problemas como si fueras estudiante y — esto es importante — <strong>equivócate a propósito</strong> para ver cómo responde Doc. Observa las pistas, el andamiaje y los errores conceptuales que identifica.</p>
-            `
-          },
-          {
-            title: "Bloque 3 — Registro de estudiantes y logística (Diapositivas 23–28)",
-            slideRange: "23-28",
-            slides: [23,24,25,26,27,28],
-            duration: "2:00",
-            videoPause: null,
-            content: `
-              <p>Muy bien, ahora pasemos a la parte operativa. Para que tus estudiantes puedan usar la plataforma, primero necesitamos <strong>registrarlos</strong>. Revisa la diapositiva 23: el formato que debes enviar incluye <strong>DNI, nombres completos y sección</strong> de cada estudiante. Es fundamental que respetes la fecha límite de entrega — sin lista, no hay cuentas.</p>
-              <p>Una vez que enviamos la lista, se hace una <strong>activación masiva de cuentas</strong>. El sistema crea las cuentas automáticamente: el <strong>DNI es el nombre de usuario y también la contraseña inicial</strong>. Así de sencillo.</p>
-              <p>Ahora, el <strong>protocolo de contraseñas</strong> es importante. Sigue este flujo:</p>
-              <ul>
-                <li><strong>Paso 1:</strong> Distribuyes las credenciales iniciales (DNI/DNI) a cada estudiante.</li>
-                <li><strong>Paso 2:</strong> El estudiante cambia su contraseña en el primer ingreso.</li>
-                <li><strong>Paso 3:</strong> Si un estudiante olvida su contraseña, tú puedes solicitar un restablecimiento.</li>
-                <li><strong>Paso 4:</strong> Si el problema persiste, escala al coordinador del programa.</li>
-              </ul>
-              <p>Antes del lanzamiento oficial, te pido un favor enorme: <strong>haz una sesión de prueba</strong>. Verifica que todos los accesos funcionen. No quieres descubrir problemas técnicos el día de la primera sesión real con estudiantes.</p>
-              <p><strong>✅ Checklist de verificación pre-lanzamiento:</strong></p>
-              <ul>
-                <li>Computadoras del laboratorio funcionan correctamente</li>
-                <li>Conexión a internet estable</li>
-                <li>Navegador actualizado (Chrome recomendado)</li>
-                <li>Todas las cuentas de estudiantes activas y probadas</li>
-                <li>Tu acceso al dashboard de docente confirmado</li>
-              </ul>
-              <p><strong>🎯 Actividad:</strong> Revisa la lista de tu sección y confirma que tienes los datos completos de cada estudiante. Si te falta algún DNI, este es el momento de gestionarlo.</p>
-            `
-          },
-          {
-            title: "Bloque 4 — Integración curricular (Diapositivas 29–31)",
-            slideRange: "29-31",
-            slides: [29,30,31],
-            duration: "1:47",
-            videoPause: null,
-            content: `
-              <p>Esta parte es crucial porque conecta la plataforma con <strong>tu planificación de aula real</strong>. Dependiendo de cuántas horas semanales de matemáticas tiene tu colegio, la integración cambia:</p>
-              <ul>
-                <li><strong>Colegios con 4 horas/semana:</strong> Serán 2 horas en aula + 2 horas en laboratorio. Esto significa que cada clase tiene un componente de laboratorio. La integración es directa — lo que enseñas en aula se practica en la plataforma.</li>
-                <li><strong>Colegios con 6 horas/semana:</strong> Serán 4 horas en aula + 2 horas en laboratorio. Aquí tienes más flexibilidad para decidir qué temas reforzar en el laboratorio.</li>
-              </ul>
-              <p>Fíjate en la diapositiva 30 donde aparece el <strong>mapeo de competencias del CNEB</strong>. El currículo de matemáticas tiene 4 competencias:</p>
-              <ul>
-                <li><strong>C1:</strong> Resuelve problemas de cantidad</li>
-                <li><strong>C2:</strong> Resuelve problemas de regularidad, equivalencia y cambio</li>
-                <li><strong>C3:</strong> Resuelve problemas de forma, movimiento y localización</li>
-                <li><strong>C4:</strong> Resuelve problemas de gestión de datos e incertidumbre</li>
-              </ul>
-              <p>La plataforma Doc cubre <strong>C1 y C2</strong>. Los temas 1 al 11 están mapeados al currículo de 5.° de secundaria. C3 y C4 los sigues trabajando normalmente en el aula.</p>
-              <p><strong>🎯 Actividad:</strong> Con tu programación anual a la mano, elabora un <strong>borrador de cronograma de 4 semanas</strong> indicando qué temas trabajarás en el aula y cuáles reforzarás en el laboratorio con Doc. Compártelo con tu grupo para recibir retroalimentación.</p>
-            `
-          },
-          {
-            title: "Bloque 5 — Dashboard del docente (Diapositivas 32–38)",
-            slideRange: "32-38",
-            slides: [32,33,34,35,36,37,38],
-            duration: "2:12",
-            videoPause: null,
-            content: `
-              <p>Llegamos a una de las herramientas más valiosas para ti: el <strong>dashboard del docente</strong>. Aquí es donde la magia de los datos se convierte en decisiones pedagógicas concretas. Como puedes ver en la diapositiva 32, el dashboard te muestra información <strong>en tiempo real</strong> sobre lo que está pasando con tus estudiantes.</p>
-              <p>Las <strong>métricas clave</strong> que encontrarás son:</p>
-              <ul>
-                <li><strong>Estudiantes activos:</strong> ¿Cuántos realmente están usando la plataforma?</li>
-                <li><strong>Tema actual por estudiante:</strong> ¿En qué tema está cada uno? ¿Algunos van muy adelante y otros se quedaron atrás?</li>
-                <li><strong>Estudiantes atascados:</strong> ¿Quién lleva demasiado tiempo en un mismo ejercicio sin avanzar?</li>
-              </ul>
-              <p>Fíjate en las <strong>categorías de resolución</strong> (diapositiva 34) — estas te dicen <em>cómo</em> resolvió cada estudiante:</p>
-              <ul>
-                <li><em>Resolvió solo</em> — excelente, domina el tema</li>
-                <li><em>Resolvió con ayuda mínima de la IA</em> — va por buen camino</li>
-                <li><em>La IA lo resolvió por el estudiante</em> — ojo, necesita refuerzo</li>
-                <li><em>No resolvió</em> — atención urgente</li>
-              </ul>
-              <p>Pero lo más poderoso está en los <strong>errores conceptuales frecuentes</strong>. El dashboard te muestra cuáles son los errores más comunes en tu sección. ¿Te imaginas llegar a tu clase del lunes sabiendo exactamente dónde se confundió la mayoría? Eso transforma tu planificación.</p>
-              <p><strong>🎯 Actividad:</strong> Usando los datos simulados del dashboard, identifica <strong>3 estudiantes que necesitan atención</strong> (busca los que están atascados o donde la IA resolvió por ellos). Luego, encuentra el <strong>error conceptual más frecuente</strong> de la sección y escribe brevemente cómo ajustarías tu próxima clase para abordarlo.</p>
-              <p><strong>🔚 Cierre 3-2-1:</strong> Para terminar, escribe en el chat: <strong>3 cosas que aprendiste</strong> hoy, <strong>2 cosas que te parecieron interesantes</strong>, y <strong>1 pregunta que todavía tienes</strong>.</p>
-            `
-          }
-        ] },
-      { id: "dia2", title: "D\u00eda 2 \u2014 Gesti\u00f3n de Aula y Plan de Acci\u00f3n", desc: "Dise\u00f1o experimental, gesti\u00f3n de sesiones, simulaci\u00f3n y plan individual", duration: "~15 min narraci\u00f3n", embedId: "1eYwrDWsaJF6v7fXVCQiCpf5uCspyXltIYHyvxYPw9lU", blocks: [
-          {
-            title: "Bloque 6 — El diseño experimental B vs B'",
-            slideRange: "1-5",
-            slides: [1,2,3,4,5],
-            duration: "3:00",
-            videoPause: null,
-            content: `
-              <p>¡Bienvenido/a al Día 2! Antes de avanzar, hagamos un <strong>repaso relámpago</strong> del Día 1. Responde mentalmente: ¿Cómo se llama el programa? ¿Cuántas escuelas participan? ¿Qué enfoque pedagógico usa la plataforma? ¿Cuántas preguntas diagnósticas tiene el banco? ¿Cuál es tu rol principal como docente? Si pudiste responder las cinco, vas muy bien. Si dudaste en alguna, revisa tus apuntes del Día 1 — hoy construimos sobre esa base.</p>
-              <p>Ahora, lo nuevo. Revisa las diapositivas 2 y 3: nuestro programa tiene un <strong>diseño experimental con dos brazos</strong>. Esto significa que no todas las escuelas usan la plataforma de la misma manera:</p>
-              <ul>
-                <li><strong>Modelo B</strong> — Tutoría estándar con IA. Los estudiantes trabajan con Doc siguiendo el flujo normal de ejercicios y retroalimentación.</li>
-                <li><strong>Modelo B'</strong> — Tutoría mejorada con 3 modificaciones específicas que potencian el aprendizaje.</li>
-              </ul>
-              <p>¿Cuáles son esas <strong>3 modificaciones del Modelo B'</strong>? Mira la diapositiva 4:</p>
-              <ul>
-                <li><strong>1. Apertura de recuperación:</strong> Al inicio de cada sesión, antes de avanzar con contenido nuevo, el estudiante repasa temas anteriores. Esto se llama <em>retrieval practice</em> y es una de las estrategias con más evidencia científica para consolidar aprendizajes.</li>
-                <li><strong>2. Ciclo predice-revela-diagnostica:</strong> El estudiante primero predice la respuesta, luego ve el resultado, y finalmente Doc diagnostica el error. Este ciclo activa el pensamiento metacognitivo.</li>
-                <li><strong>3. Detección de errores plantados:</strong> La plataforma muestra soluciones intencionalmente incorrectas para que el estudiante encuentre el error. Buscar errores ajenos fortalece la comprensión profunda.</li>
-              </ul>
-              <p>Ahora viene algo <strong>crítico</strong>, diapositiva 5: si tu escuela está asignada al Modelo B', <strong>no debes intervenir durante estas tres actividades</strong>. Sé que tu instinto docente te va a pedir ayudar cuando veas a un estudiante atascado en la apertura de recuperación o frustrado buscando el error plantado. Pero esa lucha cognitiva <em>es</em> el mecanismo de aprendizaje. Si intervienes, contaminas los datos de investigación y reduces el efecto pedagógico. La plataforma está diseñada para guiar al estudiante — confía en el proceso.</p>
-              <p><strong>🎯 Actividad:</strong> Verifica en tus materiales: <strong>¿a qué brazo está asignada tu escuela, B o B'?</strong> Escríbelo y comparte con tu compañero/a de al lado. Si estás en B', identifica en qué momentos específicos de la sesión ocurren las 3 modificaciones.</p>
-            `
-          },
-          {
-            title: "Bloque 7 — Gestión del aula durante sesiones de IA",
-            slideRange: "6-12",
-            slides: [6,7,8,9,10,11,12],
-            duration: "3:28",
-            videoPause: null,
-            content: `
-              <p>Ya sabes qué hace la plataforma. Ahora hablemos de lo que haces <strong>tú</strong> mientras los estudiantes trabajan con Doc. Porque tu rol durante las sesiones de laboratorio no es pasivo — es estratégico. Revisa la diapositiva 6: usamos un <strong>modelo de 5 momentos</strong> para cada sesión:</p>
-              <ul>
-                <li><strong>1. Apertura (5 min):</strong> Los estudiantes se sientan, abren el navegador, ingresan a la plataforma, verifican el tema asignado y comienzan. Tú supervisas que todos estén dentro.</li>
-                <li><strong>2. Práctica autónoma (35-40 min):</strong> Los estudiantes trabajan con Doc. Tú circulas por el aula observando pantallas y revisando el dashboard.</li>
-                <li><strong>3. Pausa / Discusión grupal (10-15 min):</strong> Cuando detectas un error común en el dashboard, pausas a todo el grupo y discutes ese error con la clase completa. Es tu momento de enseñanza directa.</li>
-                <li><strong>4. Segunda ronda (20-25 min):</strong> Los estudiantes vuelven a la plataforma con la nueva comprensión. Muchos superarán el punto donde estaban atascados.</li>
-                <li><strong>5. Cierre (5-10 min):</strong> Resumes lo trabajado, destacas logros que observaste en el dashboard y anticipas la siguiente sesión.</li>
-              </ul>
-              <p>Ahora, la diapositiva 8 presenta los <strong>tres tipos de circulación</strong> que vas a alternar:</p>
-              <ul>
-                <li><strong>Escaneo (5-10 min):</strong> Caminas por todo el laboratorio mirando pantallas rápidamente. Buscas quién está atascado, quién avanza bien, quién no está trabajando.</li>
-                <li><strong>Inmersión (3 estudiantes, ~90 seg cada uno):</strong> Te detienes con un estudiante específico, miras su pantalla con más detalle, le haces una pregunta breve sobre lo que está resolviendo.</li>
-                <li><strong>Intervención agrupada:</strong> Si 3 o más estudiantes tienen el mismo problema, los reúnes brevemente y abordas el error en grupo pequeño.</li>
-              </ul>
-              <p>Diapositivas 10-11 — lo que <strong>NO debes hacer</strong>:</p>
-              <ul>
-                <li>No te sientes en tu escritorio durante toda la sesión.</li>
-                <li>No des clases magistrales largas en medio de la práctica.</li>
-                <li>No des la respuesta cuando un estudiante se frustra — Doc lo guiará.</li>
-                <li>No interrumpas la práctica de recuperación en escuelas B'.</li>
-                <li>No uses el tiempo de laboratorio para otras actividades.</li>
-              </ul>
-              <p>La diapositiva 12 tiene una <strong>tabla de situaciones comunes</strong>: el estudiante que no quiere trabajar (acércate, pregunta qué pasa, ofrece acompañamiento), el que termina rápido (asigna ejercicios de extensión), problemas técnicos (reinicia, cambia de máquina, reporta), el que copia (separa, conversa sobre el valor de intentarlo solo), y contraseñas olvidadas (usa el protocolo de restablecimiento).</p>
-              <p><strong>🎯 Actividad:</strong> En parejas, hagan un <strong>juego de roles</strong>. Uno hace de estudiante con un problema (elige de la tabla: no quiere trabajar, terminó todo, se le olvidó la contraseña, está copiando). El otro hace de docente y aplica la respuesta recomendada. Luego intercambien roles.</p>
-            `
-          },
-          {
-            title: "Bloque 8 — Simulación de sesión completa",
-            slideRange: "13-18",
-            slides: [13,14,15,16,17,18],
-            duration: "2:57",
-            videoPause: null,
-            content: `
-              <p>Llegó el momento de poner todo en práctica. Vamos a hacer una <strong>simulación completa de 40 minutos</strong> donde algunos de ustedes serán estudiantes y otros serán docentes supervisores. Revisa la diapositiva 13 para las instrucciones generales.</p>
-              <p>El problema matemático que usaremos es este (diapositiva 14): <em>"Un pantalón cuesta S/100. Primero sube 20%, luego baja 20%. ¿Cuál es el precio final?"</em> La respuesta intuitiva es S/100, pero la correcta es <strong>S/96</strong>. ¿Por qué? Porque el 20% de aumento se aplica sobre S/100 (da S/120), pero el 20% de descuento se aplica sobre S/120 (da S/24 de descuento), quedando S/96. Este es un ejemplo clásico de <strong>porcentajes sucesivos</strong> donde el orden y la base de cálculo importan mucho.</p>
-              <p>Si eres <strong>supervisor/a</strong> durante la simulación, observa con atención (diapositiva 15):</p>
-              <ul>
-                <li>¿En qué momento intervino el docente? ¿Era necesaria esa intervención?</li>
-                <li>¿Qué mostraba el dashboard cuando se hizo la pausa grupal?</li>
-                <li>¿Se usaron los tres tipos de circulación (escaneo, inmersión, intervención agrupada)?</li>
-                <li>¿El docente se sentó en algún momento o estuvo activo todo el tiempo?</li>
-              </ul>
-              <p>Después de la simulación, hacemos el <strong>debrief</strong> (diapositiva 16). Reflexiona sobre estas preguntas:</p>
-              <ul>
-                <li>¿Qué te sorprendió de la experiencia?</li>
-                <li>¿En qué momento fue más difícil no dar la respuesta directamente?</li>
-                <li>¿Qué harías diferente en una sesión real?</li>
-              </ul>
-              <p>Diapositivas 17-18 resumen las reglas de oro:</p>
-              <ul>
-                <li><strong>SÍ:</strong> Revisa los problemas antes de la sesión. Resuelve al menos un ejemplo tú mismo/a. Usa los 3 tipos de circulación. Registra errores comunes que observes.</li>
-                <li><strong>NO:</strong> No te quedes en el escritorio. No des clases largas a mitad de sesión. No ignores los patrones de error del dashboard. No apures a los estudiantes que están pensando.</li>
-              </ul>
-              <p>El insight clave es este: <strong>la plataforma adapta los ejercicios y da retroalimentación personalizada; tú observas patrones, tomas decisiones de timing y motivas a tus estudiantes</strong>. Son roles complementarios. Doc no te reemplaza — te libera para hacer lo que la IA no puede: leer el ambiente del aula, decidir cuándo pausar, y dar ese empujón humano que marca la diferencia.</p>
-              <p><strong>🎯 Reflexión:</strong> Escribe en una oración: ¿cuál fue tu momento más revelador durante la simulación? Compártelo con el grupo.</p>
-            `
-          },
-          {
-            title: "Bloque 9 — Acompañamiento y evaluaciones",
-            slideRange: "19-22",
-            slides: [19,20,21,22],
-            duration: "2:38",
-            videoPause: null,
-            content: `
-              <p>Algo muy importante: <strong>no vas a estar solo/a en esto</strong>. Revisa la diapositiva 19: hemos creado una <strong>red de soporte</strong> para acompañarte durante todo el programa.</p>
-              <p>El primer nivel de apoyo es el <strong>grupo de WhatsApp por UGEL</strong>. Cada UGEL tiene su grupo donde puedes hacer consultas rápidas, tanto técnicas como pedagógicas. ¿Se cayó la plataforma? Pregunta ahí. ¿No sabes cómo manejar una situación en el aula? Pregunta ahí. ¿Quieres compartir algo que te funcionó bien? Compártelo ahí. Este grupo es tu línea directa con el equipo y con tus colegas que están viviendo lo mismo que tú.</p>
-              <p>El segundo nivel son las <strong>visitas de observación en tu escuela</strong> (diapositiva 20). El equipo de capacitación irá a verte durante una sesión real. Esto <em>no es una evaluación punitiva</em> — es una visita de apoyo. Queremos ver cómo va todo, identificar si necesitas algo, y darte retroalimentación constructiva. Piensa en ello como una visita de un colega que quiere ayudarte.</p>
-              <p>Ahora, las <strong>evaluaciones del programa</strong> (diapositivas 21-22). Hay tres momentos clave:</p>
-              <ul>
-                <li><strong>Evaluación de línea de base (semana 1):</strong> Antes de que empiece el programa. Mide el punto de partida de tus estudiantes.</li>
-                <li><strong>Evaluación intermedia (mayo):</strong> A mitad de camino. ¿Están aprendiendo? ¿Hay que ajustar algo?</li>
-                <li><strong>Evaluación final (junio/julio):</strong> Al cierre. ¿Cuánto avanzaron?</li>
-              </ul>
-              <p>¿Qué miden exactamente? Tres cosas: <strong>ganancias de aprendizaje</strong> de los estudiantes (¿mejoraron sus resultados?), <strong>fidelidad de implementación</strong> del docente (¿seguiste el protocolo?), y <strong>satisfacción</strong> de los estudiantes (¿les gustó la experiencia?).</p>
-              <p>Tu compromiso es claro:</p>
-              <ul>
-                <li>Participa en las tres evaluaciones — son fundamentales para medir el impacto del programa.</li>
-                <li>Mantén comunicación activa por WhatsApp — responde y pregunta.</li>
-                <li>Reporta problemas técnicos de inmediato — mientras más rápido, más rápido se resuelven.</li>
-              </ul>
-              <p><strong>🎯 Actividad:</strong> Anota en tu cuaderno las <strong>3 fechas de evaluación</strong> y agrega el <strong>grupo de WhatsApp de tu UGEL</strong> a tus contactos favoritos. Verifica que tengas acceso al grupo ahora mismo.</p>
-            `
-          },
-          {
-            title: "Bloque 10 — Plan de acción individual y cierre",
-            slideRange: "23-30",
-            slides: [23,24,25,26,27,28,29,30],
-            duration: "3:08",
-            videoPause: null,
-            content: `
-              <p>Estamos en la recta final, y esta es quizá la parte más práctica de toda la capacitación. Vamos a construir tu <strong>plan de acción personal</strong> para las próximas semanas. Revisa la diapositiva 23: antes de irte hoy, necesitas tener completa esta <strong>lista de verificación pre-lanzamiento</strong>:</p>
-              <ul>
-                <li>✅ Lista de estudiantes enviada al equipo del programa</li>
-                <li>✅ Horario de laboratorio confirmado con tu escuela</li>
-                <li>✅ Temas de las primeras 4 semanas identificados</li>
-                <li>✅ Brazo de tu escuela (B o B') conocido y claro</li>
-                <li>✅ Contactos de soporte guardados en tu celular</li>
-              </ul>
-              <p>Diapositivas 24-25: ahora completa tu <strong>plan de 4 semanas</strong>. Semana por semana, define qué temas trabajarán tus estudiantes en la plataforma y cómo vas a alternar entre sesiones de aula y sesiones de laboratorio. Usa la plantilla de <strong>planificación bimestral</strong> (diapositiva 26) que alterna sesiones regulares con sesiones de IA.</p>
-              <p>La diapositiva 27 tiene tu <strong>guía de referencia rápida</strong>: una página con el protocolo de sesión, las situaciones comunes y sus soluciones, los contactos de soporte y el calendario de evaluaciones. Imprímela y tenla a la mano en el laboratorio.</p>
-              <p>Diapositiva 28: <strong>firma tu compromiso</strong> con el programa. No es un trámite burocrático — es una declaración de intención. Te comprometes a implementar las sesiones según el protocolo, participar en las evaluaciones, mantener comunicación con tu grupo, y reportar problemas oportunamente.</p>
-              <p>Las <strong>fechas clave</strong> (diapositiva 29):</p>
-              <ul>
-                <li><strong>16 de marzo:</strong> Evaluación de línea de base</li>
-                <li><strong>23 de marzo:</strong> Lanzamiento oficial del programa</li>
-                <li><strong>En adelante:</strong> Soporte continuo por WhatsApp y visitas de acompañamiento</li>
-              </ul>
-              <p>Diapositiva 30 — antes de cerrar: <strong>ronda de preguntas abiertas</strong>. No te vayas con dudas. Después completaremos una breve <strong>encuesta de satisfacción</strong> sobre la capacitación y entregaremos los <strong>certificados</strong>.</p>
-              <p>Y quiero dejarte con esto: <strong>no estás solo/a en esto</strong>. Tienes un equipo detrás, una plataforma que se adapta a cada estudiante, y tus colegas en el grupo de WhatsApp que están viviendo exactamente lo mismo que tú. Cada sesión que facilites es una oportunidad de transformar cómo tus estudiantes aprenden matemáticas. Confía en el proceso, confía en tus estudiantes, y confía en ti.</p>
-              <p><strong>🎯 Actividad final:</strong> Completa tu plan de 4 semanas, firma tu compromiso, y responde la encuesta de satisfacción. ¡Nos vemos el 23 de marzo para el lanzamiento!</p>
-            `
-          }
-        ] }
+      {
+        id: "m1",
+        title: "M\u00f3dulo 1 \u2014 Bienvenida y Contexto",
+        desc: "Video de Jaime Saavedra, qu\u00e9 es el programa, qu\u00e9 es IA, 4 mitos",
+        duration: "~45 min",
+        steps: [
+          { type: "video", title: "Bienvenida de Jaime Saavedra", driveId: "1epEU4vQEa4nxbwcHkuKG1mz8KBtSpIfe", caption: "Jaime Saavedra, Director Global de Educaci\u00f3n del Banco Mundial, presenta el programa" },
+          { type: "content", title: "\u00bfQu\u00e9 es Eligiendo Mi Camino?", html: "<p>Contenido pr\u00f3ximamente...</p>" },
+          { type: "quiz", title: "Verifica tu comprensi\u00f3n", intro: "Responde estas preguntas sobre lo que acabas de aprender:", questions: [
+            { q: "\u00bfCu\u00e1ntas escuelas participan en el piloto?", options: ["50", "100", "200", "500"], correct: 1, feedback: { correct: "\u00a1Exacto! 100 escuelas de Lima Metropolitana.", wrong: "Son 100 escuelas. Recuerda: 100 escuelas, 6,600 estudiantes, 200 docentes." } }
+          ] }
+        ]
+      },
+      {
+        id: "m2",
+        title: "M\u00f3dulo 2 \u2014 La Plataforma Doc",
+        desc: "Conoce al tutor IA, modo escuela vs casa, practica en la plataforma",
+        duration: "~60 min",
+        steps: [
+          { type: "video", title: "Demo del Tutor IA de Matem\u00e1ticas", driveId: "1Je8uRcmj3mQZp_KzbHjMvPvC4SpkqdxL", caption: "Demostraci\u00f3n del tutor Doc by uDocz" },
+          { type: "content", title: "Placeholder", html: "<p>Contenido pr\u00f3ximamente...</p>" }
+        ]
+      },
+      {
+        id: "m3",
+        title: "M\u00f3dulo 3 \u2014 Registro, Curr\u00edculo y Dashboard",
+        desc: "Registro de estudiantes, integraci\u00f3n curricular, dashboard del docente",
+        duration: "~50 min",
+        steps: [{ type: "content", title: "Placeholder", html: "<p>Contenido pr\u00f3ximamente...</p>" }]
+      },
+      {
+        id: "m4",
+        title: "M\u00f3dulo 4 \u2014 Gesti\u00f3n de Aula con IA",
+        desc: "Modelo de 5 momentos, circulaci\u00f3n, situaciones dif\u00edciles",
+        duration: "~60 min",
+        steps: [{ type: "content", title: "Placeholder", html: "<p>Contenido pr\u00f3ximamente...</p>" }]
+      },
+      {
+        id: "m5",
+        title: "M\u00f3dulo 5 \u2014 Acompa\u00f1amiento y Plan",
+        desc: "Red de apoyo, evaluaciones, plan de acci\u00f3n personal",
+        duration: "~45 min",
+        steps: [{ type: "content", title: "Placeholder", html: "<p>Contenido pr\u00f3ximamente...</p>" }]
+      }
     ]
   },
   ov: {
@@ -939,443 +704,50 @@ const MODULES = {
     color: "var(--ov-color)",
     bg: "var(--ov-bg)",
     icon: "fa-compass",
-    guideUrl: "https://drive.google.com/file/d/1_KfUBZ2gCql4iFDlv1UqFKSyBGpBl_GF/view?usp=sharing",
+    guideUrl: "https://drive.google.com/file/d/1_KfUBZ2gCql4iFDlv1UqFKSyBGpBl_GF/view",
     folderUrl: "https://drive.google.com/drive/folders/1m_OnilfgQSEJusmA3nz9Xk8-hcq8rsVo",
-    slidesFolder: "https://drive.google.com/drive/folders/1tZWTL0cRKIunBRbaH3bFrK2g34WcW-ir",
     modules: [
-      { id: "m1", title: "M\u00f3dulo 1 \u2014 Bienvenida y Contexto", desc: "Qu\u00e9 es EMC, tu rol como tutor/a, manifiesto", duration: "~7 min narraci\u00f3n", embedId: "11h97scJhZ9gOJETm4xH71MaB45bAeq0v", blocks: [
-          {
-            title: "Bloque 1 — ¿Qué es Eligiendo Mi Camino?",
-            slideRange: "1-8",
-            slides: [1,2,3,4,5,6,7,8],
-            duration: "2:14",
-            videoPause: null,
-            content: `
-              <p><strong>¡Bienvenido/a a Eligiendo Mi Camino!</strong> Antes de arrancar, quiero que entiendas bien de qué se trata esto y por qué estás aquí. Este programa nace de una alianza entre la <strong>DRELM</strong>, el <strong>Banco Mundial</strong> y la <strong>UPC</strong>, con un objetivo claro: ayudar a tus estudiantes de 5.° de secundaria a tomar decisiones informadas sobre su futuro después del colegio.</p>
-              <p>¿Cómo funciona? Son <strong>12 sesiones de 90 minutos</strong>, una por semana, dentro de tu hora de Tutoría y Orientación Educativa (TOE). En cada sesión, tus estudiantes van a trabajar con una plataforma que incluye un <strong>coach de inteligencia artificial</strong> — un asistente virtual que les da información personalizada sobre carreras, universidades, institutos, becas y el mercado laboral.</p>
-              <p>Ahora, lo más importante: <strong>nadie te está pidiendo que seas un experto en tecnología</strong>. Tu rol es otro, y es insustituible:</p>
-              <ul>
-                <li><strong>Lo que hace la IA:</strong> procesa información, entrega datos del mercado laboral, personaliza el recorrido de cada estudiante, sugiere rutas según sus intereses.</li>
-                <li><strong>Lo que haces tú:</strong> lees el ambiente del aula, manejas las emociones que surgen, conectas con las familias, y ayudas a contextualizar las decisiones dentro de la realidad de cada estudiante.</li>
-              </ul>
-              <p>Tu trabajo es <strong>escuchar sin juzgar</strong>, dar información pero no opiniones, y ayudar a que cada estudiante construya sus <em>propios</em> argumentos. La IA pone los datos; tú pones el corazón y el criterio humano.</p>
-              <p><strong>Actividad:</strong> Escribe en una hoja o en tu celular: ¿Qué es lo primero que sientes cuando escuchas "inteligencia artificial en el aula"? ¿Curiosidad, miedo, escepticismo? No hay respuesta incorrecta — solo queremos que empieces siendo honesto/a contigo mismo/a.</p>
-            `
-          },
-          {
-            title: "Bloque 2 — Tu rol y tu manifiesto",
-            slideRange: "9-14",
-            slides: [9,10,11,12,13,14],
-            duration: "2:10",
-            videoPause: null,
-            content: `
-              <p>Vamos a hablar con franqueza. Hay <strong>5 mitos</strong> muy comunes entre tutores que necesitamos desarmar ahora mismo:</p>
-              <ol>
-                <li><strong>"Necesito conocer todas las carreras."</strong> No. La IA tiene esa base de datos. Tú necesitas saber escuchar y hacer buenas preguntas.</li>
-                <li><strong>"Debería decirles qué estudiar."</strong> Tampoco. Tu rol es ayudarles a <em>descubrir</em>, no decidir por ellos. Si les das la respuesta, les quitas el proceso.</li>
-                <li><strong>"La orientación vocacional es solo aplicar un test."</strong> Para nada. El test es apenas uno de 8 pasos. La orientación es un camino que incluye autoconocimiento, investigación, conversación familiar y planificación.</li>
-                <li><strong>"Mis estudiantes ya saben lo que quieren."</strong> La mayoría no. Y eso es completamente normal a los 16-17 años. Tu trabajo es acompañar la confusión, no eliminarla.</li>
-                <li><strong>"Las familias no van a apoyar esto."</strong> Muchas sí, pero necesitan ser incluidas desde el inicio. Hay sesiones específicas para involucrar a los padres.</li>
-              </ol>
-              <p>Con estos mitos fuera del camino, ahora viene algo personal. Queremos que escribas <strong>"Mi Manifiesto como Tutor/a"</strong>: un compromiso contigo mismo/a sobre qué tipo de acompañante quieres ser para tus estudiantes en este proceso.</p>
-              <p>No se trata de frases bonitas — se trata de ser honesto/a. ¿Qué vas a hacer diferente? ¿Qué actitudes quieres cultivar? ¿Qué vas a dejar de hacer?</p>
-              <p><strong>Actividad:</strong> Escribe tu manifiesto con <strong>3 compromisos concretos</strong> hacia tus estudiantes. Por ejemplo: "Me comprometo a no asumir que sé qué es mejor para ellos", "Me comprometo a escuchar antes de aconsejar", "Me comprometo a incluir a las familias en el proceso". Guarda este manifiesto — lo revisaremos al final de la capacitación.</p>
-            `
-          },
-          {
-            title: "Bloque 3 — Conociendo al estudiante",
-            slideRange: "15-20",
-            slides: [15,16,17,18,19,20],
-            duration: "2:26",
-            videoPause: null,
-            content: `
-              <p>Para acompañar bien, primero tenemos que <strong>entender a quién acompañamos</strong>. Tus estudiantes de 5.° de secundaria tienen entre 16 y 17 años. Están en plena formación de identidad: descubriendo quiénes son, lidiando con la presión de sus pares, navegando las expectativas de sus familias, y enfrentando la incertidumbre económica. Decidir qué hacer después del colegio es, para muchos, la primera gran decisión de su vida.</p>
-              <p>Vamos a hacer un ejercicio poderoso: el <strong>Mapa de Empatía del Estudiante</strong>. Piensa en un estudiante típico de 5.° año y responde estas cuatro preguntas:</p>
-              <ul>
-                <li><strong>¿Qué PIENSA?</strong> — "¿Y si elijo mal?", "No sé qué me gusta", "Mis papás quieren que sea doctor/a"...</li>
-                <li><strong>¿Qué SIENTE?</strong> — Ansiedad, presión, emoción, confusión, miedo al fracaso...</li>
-                <li><strong>¿Qué DICE?</strong> — "Ya sé lo que quiero" (aunque no sea cierto), "No me importa" (aunque sí le importa), "Voy a estudiar lo que da plata"...</li>
-                <li><strong>¿Qué HACE?</strong> — Busca información en TikTok, pregunta a amigos, evita el tema, cambia de opinión cada semana...</li>
-              </ul>
-              <p>Ahora viene la parte más valiente. Todos cargamos <strong>sesgos vocacionales</strong> — creencias que damos por ciertas sin cuestionarlas. Algunos ejemplos: "La universidad siempre es mejor que un instituto", "Ciertas carreras son para hombres y otras para mujeres", "Si eres bueno en matemáticas, deberías ser ingeniero", "Estudiar arte no es una carrera seria".</p>
-              <p>Estos sesgos, si no los identificamos, se filtran en nuestra orientación y limitan las opciones de nuestros estudiantes sin que nos demos cuenta.</p>
-              <p><strong>Actividad:</strong> Completa el Mapa de Empatía para un estudiante de tu aula. Luego, reflexiona con honestidad: ¿Qué sesgos vocacionales cargas tú? Escribe al menos 2 creencias sobre carreras o estudios que podrían estar influyendo en cómo orientas a tus estudiantes. No te juzgues — reconocerlos es el primer paso para no transmitirlos.</p>
-            `
-          }
-        ] },
-      { id: "m2", title: "M\u00f3dulo 2 \u2014 Alfabetizaci\u00f3n en IA", desc: "Qu\u00e9 es IA, qu\u00e9 puede y no puede hacer, protocolo de alerta", duration: "~7 min narraci\u00f3n", embedId: "1FHOp5UZ-1tZ9663v8TMuXzSOpFy-tuYE", blocks: [
-          {
-            title: "Bloque 1 — ¿Qué es la IA?",
-            slideRange: "1-8",
-            slides: [1,2,3,4,5,6,7,8],
-            duration: "2:17",
-            videoPause: null,
-            content: `
-              <p>Vamos a hablar de inteligencia artificial sin tecnicismos. El coach que van a usar tus estudiantes se llama <strong>Claude</strong>, desarrollado por <strong>Anthropic</strong>. Es lo que se conoce como un <em>modelo de lenguaje</em>: básicamente, un sistema que <strong>predice la siguiente palabra</strong> más probable en un texto, basándose en patrones que aprendió de enormes cantidades de información.</p>
-              <p>Esto es importante que lo internalices bien, porque necesitas transmitirlo a tus estudiantes:</p>
-              <ul>
-                <li>La IA <strong>NO es consciente</strong>. No piensa, no siente, no tiene opiniones propias.</li>
-                <li>La IA <strong>NO es emocional</strong>. Puede sonar empática, pero es un patrón de lenguaje, no genuina comprensión.</li>
-                <li>La IA <strong>NO siempre tiene razón</strong>. Puede generar información que suena convincente pero es incorrecta.</li>
-              </ul>
-              <p>Ahora, lo que la IA <strong>sí puede</strong> hacer — y lo hace muy bien:</p>
-              <ul>
-                <li><strong>Procesar grandes cantidades de información</strong> — datos del mercado laboral, opciones de becas, perfiles de universidades e institutos.</li>
-                <li><strong>Personalizar respuestas</strong> para cada estudiante según sus intereses y contexto.</li>
-                <li><strong>Adaptarse al ritmo</strong> de cada persona — no se impacienta, no se cansa, no juzga.</li>
-                <li><strong>Sugerir rutas vocacionales</strong> basadas en los resultados del test de intereses y las conversaciones previas.</li>
-              </ul>
-              <p>Pero hay cosas que la IA <strong>no puede</strong> hacer: entender genuinamente las emociones de un adolescente, reemplazar tu juicio profesional, garantizar que toda su información sea 100% precisa, ni tomar decisiones por los estudiantes. Por eso tú eres imprescindible.</p>
-              <p><strong>Actividad:</strong> En parejas, hagan una lista rápida: 3 cosas que la IA puede hacer mejor que un tutor, y 3 cosas que un tutor puede hacer mejor que la IA. Compartan con el grupo. Esto les va a quedar claro: no compiten, se complementan.</p>
-            `
-          },
-          {
-            title: "Bloque 2 — 4 mitos sobre IA en educación",
-            slideRange: "9-16",
-            slides: [9,10,11,12,13,14,15,16],
-            duration: "2:18",
-            videoPause: null,
-            content: `
-              <p>Ahora vamos a desarmar <strong>4 mitos</strong> que probablemente has escuchado — o que tú mismo/a has pensado. Es normal, pero necesitamos superarlos:</p>
-              <ol>
-                <li><strong>"La IA va a reemplazar a los tutores."</strong> Esta es la más común. La realidad: la IA maneja datos, tú manejas personas. Ningún algoritmo puede notar que un estudiante está callado porque discutió con su mamá, o que otro dice "quiero ser doctor" solo porque su papá lo presiona. Eso lo detectas tú.</li>
-                <li><strong>"La IA siempre da respuestas correctas."</strong> Falso, y peligrosamente falso. Los modelos de lenguaje pueden <em>alucinar</em>: inventar datos, citar fuentes que no existen, o dar información desactualizada. Tus estudiantes necesitan aprender a verificar todo lo que la IA les diga. Esto es parte de la alfabetización digital.</li>
-                <li><strong>"Los estudiantes necesitan saber programar para usar esto."</strong> Para nada. La interfaz es un chat, como WhatsApp. Si tus estudiantes saben escribir un mensaje de texto, saben usar esta plataforma.</li>
-                <li><strong>"La IA es peligrosa para los estudiantes."</strong> La plataforma tiene filtros de seguridad y está diseñada específicamente para orientación vocacional. Pero eso no significa que bajes la guardia — tu supervisión sigue siendo necesaria.</li>
-              </ol>
-              <p>El principio fundamental del uso responsable de IA es este: <strong>la IA es una herramienta, no una autoridad</strong>. Queremos estudiantes que pregunten, que cuestionen, que verifiquen, que piensen críticamente. No queremos estudiantes que acepten ciegamente lo que una máquina les dice.</p>
-              <p><strong>Actividad:</strong> Piensa en una situación donde un estudiante te diga: "Profe, la IA me dijo que debería estudiar ingeniería, entonces ya decidí." ¿Cómo responderías? Escribe tu respuesta y compártela con tu grupo. Recuerda: no se trata de desautorizar a la IA, sino de enseñar pensamiento crítico.</p>
-            `
-          },
-          {
-            title: "Bloque 3 — Protocolo de alerta: Pausa, Verifica, Consulta",
-            slideRange: "17-22",
-            slides: [17,18,19,20,21,22],
-            duration: "2:12",
-            videoPause: null,
-            content: `
-              <p>Ahora vamos con algo práctico y muy importante. ¿Qué haces si la IA da una respuesta preocupante, incorrecta o inapropiada? Tienes un protocolo de 3 pasos que necesitas memorizar:</p>
-              <ol>
-                <li><strong>PAUSA:</strong> Detén la interacción. No entres en pánico ni hagas un escándalo frente a los estudiantes. Simplemente di algo como: "Espera, vamos a revisar eso juntos." Mantén la calma — si tú te alarmas, ellos se alarman.</li>
-                <li><strong>VERIFICA:</strong> Contrasta la información con fuentes confiables. Las tres fuentes oficiales que debes tener a mano son: <strong>MINEDU</strong> (normativa educativa), <strong>SUNEDU</strong> (universidades licenciadas) y <strong>Ponte en Carrera</strong> (datos de empleabilidad y salarios). Si la IA dijo algo que contradice estas fuentes, la IA se equivocó.</li>
-                <li><strong>CONSULTA:</strong> Reporta el incidente a tu coordinador/a y compártelo en el <strong>grupo de WhatsApp de soporte</strong>. No tienes que resolver todo solo/a. El equipo técnico necesita saber cuándo la IA falla para poder mejorarla.</li>
-              </ol>
-              <p>¿Qué tipo de cosas deberían activar tu alerta? Estas son algunas <strong>banderas rojas</strong>:</p>
-              <ul>
-                <li>La IA recomienda una carrera con datos que no coinciden con los de Ponte en Carrera.</li>
-                <li>La IA da una respuesta emocional o inapropiada para una interacción educativa.</li>
-                <li>La IA menciona una universidad o instituto que no está licenciado por SUNEDU.</li>
-                <li>La IA da información sobre becas con montos o fechas incorrectas.</li>
-              </ul>
-              <p><strong>Actividad:</strong> Practiquemos. Imagina este escenario: un estudiante te dice "Profe, la IA me dijo que la Universidad X tiene una beca del 100% para ingeniería, pero yo busqué y esa universidad ni siquiera aparece en SUNEDU." Aplica el protocolo Pausa-Verifica-Consulta y escribe qué harías en cada paso. Comparte con tu compañero/a.</p>
-            `
-          }
-        ] },
-      { id: "m3", title: "M\u00f3dulo 3 \u2014 El Programa", desc: "12 sesiones, 8 pasos, estructura y plataforma", duration: "~9 min narraci\u00f3n", embedId: "1NdvFA8KHBqC7ylinv88MNBgeKpmY3D5o", blocks: [
-          {
-            title: "Bloque 1 — Los 8 pasos del camino",
-            slideRange: "1-10",
-            slides: [1,2,3,4,5,6,7,8,9,10],
-            duration: "2:26",
-            videoPause: null,
-            content: `
-              <p>Ahora sí, entremos al corazón del programa. <strong>Eligiendo Mi Camino</strong> no es una charla ni un test — es un recorrido de <strong>8 pasos</strong> que tus estudiantes van a completar a lo largo de 12 sesiones. Cada paso construye sobre el anterior, así que el orden importa:</p>
-              <ol>
-                <li><strong>Autoconocimiento (Sesiones 1-2):</strong> "¿Quién soy hoy?" Los estudiantes exploran sus valores, habilidades, intereses y sueños. Es el punto de partida — no puedes elegir un camino si no sabes quién eres.</li>
-                <li><strong>Test de Intereses (Sesión 3):</strong> Aplican el test RIASEC de 66 preguntas. Este test clasifica los intereses en 6 tipos: Realista, Investigador, Artístico, Social, Emprendedor y Convencional. No es un dictamen — es un espejo.</li>
-                <li><strong>Mitos y Realidades (Sesión 4):</strong> Desmontan mitos vocacionales usando datos reales. "¿Es verdad que los médicos ganan más que todos?" "¿Es verdad que un instituto es menos que una universidad?" Datos contra prejuicios.</li>
-                <li><strong>Rutas Post-secundarias (Sesiones 4-5):</strong> Exploran las 3 rutas posibles: universidad, instituto/CETPRO, o trabajo/emprendimiento. Ninguna es mejor que otra — depende de cada persona.</li>
-                <li><strong>Explorador de Ocupaciones (Sesión 5):</strong> Acceden a un catálogo de <strong>130 ocupaciones</strong> filtrables por tipo RIASEC, con datos de salario y demanda laboral.</li>
-                <li><strong>Investigación con IA (Sesiones 6-7):</strong> Usan NotebookLM para investigar a fondo las opciones que más les interesan.</li>
-                <li><strong>Decisión Familiar (Sesiones 8-9):</strong> Aprenden a comunicar sus decisiones a la familia — esta es una de las sesiones más potentes y emotivas.</li>
-                <li><strong>Plan Accionable (Sesiones 10-12):</strong> Construyen sus Planes A, B y C, más un CV 1.0. Salen del programa con un plan concreto, no solo con buenas intenciones.</li>
-              </ol>
-              <p><strong>Actividad:</strong> Revisa los 8 pasos y marca cuáles te parecen más desafiantes para tus estudiantes. ¿En cuál crees que van a necesitar más de tu acompañamiento? Anota tus ideas — las usaremos más adelante.</p>
-            `
-          },
-          {
-            title: "Bloque 2 — Estructura de cada sesión",
-            slideRange: "11-16",
-            slides: [11,12,13,14,15,16],
-            duration: "2:08",
-            videoPause: null,
-            content: `
-              <p>Cada una de las 12 sesiones dura <strong>90 minutos</strong> y sigue una estructura consistente. Esto es importante porque la rutina genera seguridad — tanto para ti como para tus estudiantes:</p>
-              <ol>
-                <li><strong>Apertura (10 minutos):</strong> Recapitulas brevemente la sesión anterior, compartes el objetivo del día y activas a los estudiantes con una pregunta o dinámica corta. Este momento es tuyo — la plataforma no lo controla.</li>
-                <li><strong>Actividad principal con la plataforma (50-60 minutos):</strong> Los estudiantes trabajan individualmente o en parejas con la plataforma de orientación vocacional. Tú circulas por el aula, observas, haces preguntas, y estás atento/a a quienes se traban o se desconectan emocionalmente.</li>
-                <li><strong>Reflexión y cierre (20 minutos):</strong> Este es el momento más valioso. Los estudiantes comparten descubrimientos, dudas, emociones. Tú facilitas la conversación y ayudas a aterrizar lo que vivieron en la plataforma.</li>
-              </ol>
-              <p>Cada sesión produce un <strong>producto concreto</strong>: una entrada en el diario, un resultado de test, un borrador de plan, una carta a la familia. Nada queda en el aire.</p>
-              <p>El <strong>Diario Digital</strong> es la herramienta transversal de todo el programa. Es un Google Doc donde cada estudiante va registrando sus reflexiones sesión a sesión. Piénsalo como su bitácora de viaje — al final del programa, van a poder ver todo el camino que recorrieron, desde el "no sé qué quiero" hasta un plan concreto.</p>
-              <p><strong>Actividad:</strong> Piensa en tu hora de TOE actual. ¿Cómo se compara con esta estructura de 3 momentos? ¿Qué te parece más fácil de implementar y qué te genera dudas? Escribe tus reflexiones y comparte una con el grupo.</p>
-            `
-          },
-          {
-            title: "Bloque 3 — La plataforma de Orientación Vocacional",
-            slideRange: "17-24",
-            slides: [17,18,19,20,21,22,23,24],
-            duration: "2:06",
-            videoPause: null,
-            content: `
-              <p>Hablemos de la herramienta que tus estudiantes van a usar: la plataforma <strong>uDocz Match</strong>. Cuando un estudiante entra, ve los <strong>8 pasos del camino</strong> en la barra lateral izquierda, como un mapa de progreso. Cada paso tiene contenido interactivo: videos, fichas con datos del mercado laboral, conversaciones con el coach de IA, y hojas de trabajo.</p>
-              <p>Las funcionalidades clave que necesitas conocer son:</p>
-              <ul>
-                <li><strong>Test RIASEC:</strong> 66 preguntas que clasifican los intereses del estudiante en 6 tipos. El resultado no es un veredicto — es un punto de partida para la exploración.</li>
-                <li><strong>Explorador de Ocupaciones:</strong> Un catálogo de 130 carreras y oficios con datos de salario promedio, demanda laboral y ruta formativa. Los estudiantes pueden filtrar por su tipo RIASEC.</li>
-                <li><strong>Coach de IA:</strong> Conversaciones personalizadas donde el estudiante puede hacer preguntas sobre carreras, universidades, becas, o simplemente explorar sus dudas. El coach recuerda las conversaciones anteriores.</li>
-                <li><strong>Diario Digital:</strong> Donde registran sus reflexiones de cada sesión.</li>
-              </ul>
-              <p>Todo el programa se sostiene sobre el marco <strong>IKIGAI</strong>, que cruza tres preguntas fundamentales: ¿Qué me encanta hacer? ¿En qué soy bueno/a? ¿Qué valora el mercado? Estas preguntas se van respondiendo progresivamente a lo largo de las 12 sesiones, y al final convergen en una decisión informada.</p>
-              <p><strong>Actividad:</strong> Si tienes acceso a la plataforma de prueba, entra y explora como si fueras estudiante. Navega los 8 pasos, mira el Explorador de Ocupaciones, y conversa con el coach de IA. Si aún no tienes acceso, anota 3 preguntas que te gustaría hacerle al coach cuando lo pruebes.</p>
-            `
-          },
-          {
-            title: "Bloque 4 — Calendario y logística",
-            slideRange: "25-30",
-            slides: [25,26,27,28,29,30],
-            duration: "2:28",
-            videoPause: null,
-            content: `
-              <p>Vamos a lo operativo. El programa tiene <strong>12 sesiones distribuidas en aproximadamente 12 semanas</strong>, una sesión por semana en tu hora de TOE. Es un compromiso sostenido — no es un taller de un día.</p>
-              <p>Antes de la primera sesión, necesitas completar este <strong>checklist de preparación</strong>. No te lo saltes — cada punto puede ser la diferencia entre una primera sesión exitosa y un desastre logístico:</p>
-              <ul>
-                <li><strong>Reserva el AIP (laboratorio de cómputo)</strong> para las 12 semanas. Habla con el responsable del AIP ahora, no después. Si otro docente ya tiene esas horas, negocia el intercambio con anticipación.</li>
-                <li><strong>Verifica las computadoras:</strong> ¿Funcionan? ¿Tienen acceso a internet? ¿El navegador está actualizado? Prueba al menos 5 equipos con tu cuenta de tutor.</li>
-                <li><strong>Prueba tu cuenta de tutor:</strong> Inicia sesión en la plataforma y asegúrate de que todo funcione antes de llevar a tus estudiantes.</li>
-                <li><strong>Crea la lista de estudiantes</strong> con el/la docente de PIP. El formato requiere DNI, nombres completos y sección. Sin lista, no hay cuentas.</li>
-                <li><strong>Comunica a los padres de familia</strong> a través del director/a. Las familias necesitan saber qué está pasando — esto genera confianza y facilita las sesiones de Decisión Familiar más adelante.</li>
-              </ul>
-              <p>Sobre <strong>materiales</strong>: en cada sesión vas a necesitar tu Guía del Tutor (puede ser física o en tu celular) y las fichas de trabajo del día. Los enlaces de las fichas los puedes proyectar en la pizarra o escribirlos. Si tu colegio tiene impresora, imprimir algunas copias siempre ayuda.</p>
-              <p><strong>Actividad:</strong> Revisa el calendario de las 12 sesiones y contrástalo con el calendario de tu colegio. ¿Hay semanas con feriados, simulacros o actividades que podrían chocar? Identifica al menos 2 posibles conflictos y piensa en cómo los resolverías. Anótalos — la planificación temprana te va a ahorrar muchos dolores de cabeza.</p>
-            `
-          }
-        ] },
-      { id: "m4", title: "M\u00f3dulo 4 \u2014 Herramientas", desc: "Plataforma, NotebookLM, diario digital, fichas", duration: "~9 min narraci\u00f3n", embedId: "1tQiMK_JG-vdaSf2E3Ra2VTkBMHTdsEyG", blocks: [
-          {
-            title: "Bloque 1 — La plataforma paso a paso",
-            slideRange: "1-8",
-            slides: [1,2,3,4,5,6,7,8],
-            duration: "2:12",
-            videoPause: null,
-            content: `
-              <p>Vamos a recorrer juntos el proceso que van a vivir tus estudiantes cuando usen la plataforma por primera vez. Todo comienza <strong>antes</strong> de que ellos toquen una computadora: el/la docente de PIP los ayuda a crear una <strong>cuenta de Gmail</strong> durante la Sesión 1. Esto es fundamental porque sin Gmail no pueden registrarse en la plataforma. Si algún estudiante ya tiene Gmail, perfecto — se salta ese paso.</p>
-              <p>Una vez que tienen su correo, el registro en <strong>uDocz Match</strong> es bastante sencillo:</p>
-              <ul>
-                <li>El estudiante ingresa su <strong>DNI</strong> como identificador principal.</li>
-                <li>Completa su <strong>nombre y apellidos</strong> tal como aparecen en su documento.</li>
-                <li>Se <strong>vincula a su colegio</strong> seleccionándolo de una lista.</li>
-              </ul>
-              <p>¿Y qué pasa cuando entran por primera vez? Aquí es donde la magia comienza. El estudiante ve tres cosas importantes:</p>
-              <ol>
-                <li>Un <strong>mensaje de bienvenida del coach de IA</strong> — que los saluda por su nombre. Sí, por su nombre. Esto puede parecer un detalle pequeño, pero para un adolescente que está acostumbrado a que la tecnología lo trate como un número, es significativo.</li>
-                <li>La <strong>barra lateral con los 8 pasos</strong> del camino — es su mapa de ruta. Pueden ver todo el recorrido desde el principio.</li>
-                <li>El punto de partida: <strong>Autoconocimiento</strong>. El coach les explica qué van a hacer juntos y les hace las primeras preguntas para que empiecen a reflexionar sobre quiénes son.</li>
-              </ol>
-              <p>Tu rol durante este primer contacto es crucial: circula, ayuda con problemas técnicos, pero <strong>no intervengas en el contenido</strong>. Deja que el coach haga su trabajo y que el estudiante viva la experiencia de ser acompañado por la IA.</p>
-            `
-          },
-          {
-            title: "Bloque 2 — NotebookLM: Tu asistente de investigación",
-            slideRange: "9-14",
-            slides: [9,10,11,12,13,14],
-            duration: "2:12",
-            videoPause: null,
-            content: `
-              <p>Ahora te presento una herramienta que va a ser clave en las <strong>Sesiones 6 y 7</strong>: <strong>NotebookLM</strong>, desarrollada por Google. ¿Qué es exactamente? Es un asistente de investigación con IA que permite a los estudiantes <strong>subir documentos y hacerles preguntas</strong>. Piénsalo como un bibliotecario digital que lee todo por ti y te ayuda a encontrar la información que necesitas.</p>
-              <p>¿Cómo lo usan tus estudiantes? El flujo es así:</p>
-              <ol>
-                <li>El estudiante <strong>sube información</strong> sobre las 3 ocupaciones que más le interesan — puede ser de páginas web, PDFs, o documentos que haya recopilado.</li>
-                <li>Luego le <strong>hace preguntas específicas</strong> a NotebookLM sobre esas ocupaciones: ¿Qué becas existen? ¿Cuáles son los exámenes de admisión? ¿Cuánto cuesta estudiar? ¿En qué instituciones puedo formarme? ¿Cuánto dura la carrera? ¿Cómo es la inserción laboral?</li>
-                <li>NotebookLM responde <strong>basándose únicamente en los documentos que el estudiante subió</strong>, no inventa información de la nada. Esto lo hace más confiable para investigación.</li>
-              </ol>
-              <p>Aquí viene algo importante que te va a aliviar: <strong>no necesitas ser un experto en cada carrera</strong>. NotebookLM se encarga de procesar la información técnica. Tu rol es ayudar al estudiante a <em>interpretar</em> lo que encuentra: ¿Qué significa que la inserción laboral sea del 70%? ¿Es realista esa expectativa salarial para Lima? ¿Qué alternativas tiene si no accede a la beca?</p>
-              <p>Para acceder, los estudiantes van a <strong>notebooklm.google.com</strong> con su cuenta de Gmail. Es gratuito. Te recomiendo que lo pruebes tú primero — sube un par de documentos sobre una carrera que te interese y juega con las preguntas. Así llegas preparado/a a las Sesiones 6 y 7.</p>
-            `
-          },
-          {
-            title: "Bloque 3 — El Diario Digital y las fichas",
-            slideRange: "15-20",
-            slides: [15,16,17,18,19,20],
-            duration: "2:03",
-            videoPause: null,
-            content: `
-              <p>Hablemos de las dos herramientas que acompañan a tus estudiantes durante <strong>todo</strong> el programa: el Diario Digital y las fichas de trabajo.</p>
-              <p>El <strong>Diario Digital</strong> es un documento de Google Docs donde cada estudiante escribe sus reflexiones después de cada sesión. Quiero que entiendas algo fundamental sobre este diario: es <strong>SU</strong> espacio. No se califica, no se juzga, no se corrige la ortografía. Tú lo lees para entender su proceso — para saber qué están sintiendo, qué les está costando, qué descubrimientos están haciendo. Es tu ventana a lo que pasa dentro de cada estudiante cuando la sesión termina.</p>
-              <p>Ahora, las <strong>fichas de trabajo</strong> son hojas de actividades específicas que se usan en distintas sesiones. Estas son las principales:</p>
-              <ul>
-                <li><strong>Mi Manifiesto:</strong> donde el estudiante escribe sus compromisos con el proceso.</li>
-                <li><strong>Mapa de Empatía:</strong> para entender sus propios pensamientos y emociones.</li>
-                <li><strong>IKIGAI:</strong> se usa en las Sesiones 2 y 5 para cruzar lo que aman, lo que saben hacer y lo que valora el mercado.</li>
-                <li><strong>Ficha Comparativa de Rutas Post-secundarias:</strong> para comparar universidad, instituto y trabajo.</li>
-                <li><strong>MI PLAN A:</strong> donde cristalizan su decisión vocacional con pasos concretos.</li>
-                <li><strong>Carta a Mi Yo del Futuro:</strong> una carta que se escriben a sí mismos para leer después.</li>
-              </ul>
-              <p>Cada ficha tiene un <strong>enlace corto</strong> (tipo n9.cl/...) que puedes escribir en la pizarra para que los estudiantes accedan rápidamente. Y si no puedes imprimir, no te preocupes: todo funciona en formato digital. Como último recurso, los estudiantes pueden usar sus cuadernos físicos.</p>
-            `
-          },
-          {
-            title: "Bloque 4 — Checklist pre-Sesión 1",
-            slideRange: "21-26",
-            slides: [21,22,23,24,25,26],
-            duration: "2:12",
-            videoPause: null,
-            content: `
-              <p>Antes de que llegue el gran día, necesitas asegurarte de que todo está listo. Este es tu <strong>checklist de preparación</strong> — no te saltes ningún punto:</p>
-              <ol>
-                <li><strong>Reserva el AIP (laboratorio de cómputo) para 12 semanas consecutivas.</strong> Habla con el responsable del laboratorio hoy, no mañana. Si hay conflictos de horario, resuélvelos ahora. Es mucho más fácil negociar con anticipación que improvisar después.</li>
-                <li><strong>Verifica que las computadoras funcionen</strong>, que el internet sea estable y que el navegador esté actualizado. Chrome es el navegador recomendado. Prueba al menos 5 equipos — si solo pruebas uno, la ley de Murphy se encargará del resto.</li>
-                <li><strong>Prueba TU cuenta de tutor.</strong> Inicia sesión en la plataforma, navega los 8 pasos, explora el dashboard. No puedes guiar a tus estudiantes por un camino que tú no has recorrido.</li>
-                <li><strong>Crea la lista de estudiantes con el/la docente de PIP.</strong> Necesitas: DNI, nombre completo y sección de cada estudiante. Sin esta lista no se pueden crear las cuentas.</li>
-                <li><strong>Comunica a los padres de familia a través del director/a.</strong> Una nota breve explicando el programa genera confianza y evita preguntas incómodas después.</li>
-                <li><strong>Ten la Guía del Tutor a la mano</strong> — en tu celular como PDF o impresa en una hoja. Es tu referencia rápida para cada sesión.</li>
-              </ol>
-              <p><strong>Actividad:</strong> Revisa este checklist ahora mismo. ¿Qué puntos puedes completar <em>esta semana</em>? Marca los que ya tienes resueltos y anota un plan para los que te faltan. Lo ideal es que para cuando empiece la Sesión 1, lo único que te preocupe sea darles una buena bienvenida a tus estudiantes — no la logística.</p>
-            `
-          }
-        ] },
-      { id: "m5", title: "M\u00f3dulo 5 \u2014 Pr\u00e1ctica y Fricci\u00f3n", desc: "Simulaci\u00f3n de sesi\u00f3n, situaciones dif\u00edciles", duration: "~8 min narraci\u00f3n", embedId: "1Oj1zJ6pVGW3jySS5NleCfURf0Pmw_bKQ", blocks: [
-          {
-            title: "Bloque 1 — Simulación de una sesión",
-            slideRange: "1-10",
-            slides: [1,2,3,4,5,6,7,8,9,10],
-            duration: "2:32",
-            videoPause: null,
-            content: `
-              <p>Llegó el momento de <strong>practicar</strong>. Vamos a hacer una simulación completa de la <strong>Sesión 1</strong> para que sepas exactamente qué esperar y cómo actuar. Imagina que estás en el laboratorio, tus estudiantes acaban de entrar, y tienes 90 minutos por delante.</p>
-              <p>El flujo de la Sesión 1 tiene <strong>4 momentos</strong>:</p>
-              <ol>
-                <li><strong>Creación de Gmail (con apoyo del docente PIP):</strong> Los estudiantes que no tienen correo lo crean con ayuda. Esto puede tomar entre 10 y 20 minutos dependiendo del grupo. Ten paciencia — para algunos será su primera cuenta de correo.</li>
-                <li><strong>Registro en la plataforma:</strong> Con el Gmail listo, los estudiantes se registran en uDocz Match usando su DNI. Tú proyectas los pasos o los escribes en la pizarra.</li>
-                <li><strong>Introducción a la IA — "espejo vs. oráculo":</strong> Les explicas que el coach de IA es como un <em>espejo</em> que les devuelve sus propias reflexiones, no un <em>oráculo</em> que les dice qué hacer. Esta distinción es fundamental para que usen la herramienta correctamente.</li>
-                <li><strong>Autodescripción en el Diario Digital:</strong> Los estudiantes escriben 3 adjetivos que los describen, algo que les gusta hacer, y algo en lo que son buenos. Es su primera entrada en el diario — el punto de partida de todo el viaje.</li>
-              </ol>
-              <p>Durante la simulación, tu rol como tutor/a es:</p>
-              <ul>
-                <li><strong>Circular</strong> entre las filas, observando pantallas y lenguaje corporal.</li>
-                <li><strong>Ayudar con problemas técnicos</strong> sin dar respuestas sobre el contenido — si un estudiante te pregunta "¿qué adjetivo pongo?", devuélvele la pregunta: "¿Tú cómo te describirías?"</li>
-                <li><strong>Leer el ambiente:</strong> ¿Quién está enganchado? ¿Quién se ve perdido? ¿Quién está ayudando a su compañero?</li>
-              </ul>
-              <p>Recuerda: la primera sesión <strong>marca el tono</strong> de todo el programa. Sé cálido/a, muestra entusiasmo genuino, y ten mucha paciencia con los problemas técnicos. Si algo falla, respira y resuelve con calma — tus estudiantes están observando cómo manejas la frustración.</p>
-            `
-          },
-          {
-            title: "Bloque 2 — Situaciones difíciles: Kit de Supervivencia",
-            slideRange: "11-18",
-            slides: [11,12,13,14,15,16,17,18],
-            duration: "2:24",
-            videoPause: null,
-            content: `
-              <p>Seamos realistas: no todo va a salir perfecto. Pero si te preparas para los problemas más comunes, vas a poder resolverlos sin que se note el sudor frío. Aquí va tu <strong>kit de supervivencia</strong>:</p>
-              <p><strong>🖥️ "No hay proyector."</strong> No pasa nada. Usa la pizarra para escribir los pasos y los enlaces. Camina entre las filas mostrando tu celular a grupos pequeños. Lo importante es que los estudiantes vean qué hacer — no importa la pantalla en la que lo vean.</p>
-              <p><strong>😐 "Un estudiante no quiere participar."</strong> Acércate con calma, sin presionar delante de todos. Dile algo como: "¿Me das solo 10 minutos? Si después no te convence, hablamos." Nunca lo ridiculices ni lo obligues. Muchos estudiantes se resisten porque <em>tienen miedo de tomar decisiones</em> — la resistencia es una máscara del miedo.</p>
-              <p><strong>👔 "El director me pregunta qué es esto."</strong> Ten listo tu elevator pitch de 30 segundos: "Es un programa de la DRELM y el Banco Mundial que ayuda a los estudiantes de 5.° a planificar su futuro post-secundario usando inteligencia artificial. Son 12 sesiones dentro de la hora de TOE." Corto, claro, institucional.</p>
-              <p><strong>🖨️ "No puedo imprimir las fichas."</strong> Todo el material funciona en formato digital. Si tampoco hay acceso digital para algún estudiante, los cuadernos físicos son un respaldo válido. La actividad es lo que importa, no el formato.</p>
-              <p><strong>🤖 "Un estudiante dice que la IA se equivocó."</strong> ¡Excelente! Eso es <strong>pensamiento crítico en acción</strong>. No lo corrijas ni le digas que la IA tiene razón. Activa el protocolo <strong>Pausa-Verifica-Consulta</strong>: hagan una pausa, verifiquen juntos con fuentes confiables, y si confirman el error, repórtalo en el grupo de WhatsApp. Que un estudiante cuestione a la IA es exactamente lo que queremos.</p>
-            `
-          },
-          {
-            title: "Bloque 3 — Los 12 movimientos clave del tutor",
-            slideRange: "19-26",
-            slides: [19,20,21,22,23,24,25,26],
-            duration: "3:01",
-            videoPause: null,
-            content: `
-              <p>Estos son tus <strong>12 superpoderes de facilitación</strong>. Son frases y acciones concretas que puedes usar en momentos específicos. No necesitas memorizarlos todos hoy — pero sí quiero que elijas los que más necesitas practicar:</p>
-              <ol>
-                <li><strong>Abre con calidez, no con reglas.</strong> En vez de empezar con "Hoy vamos a hacer..." prueba con "¡Qué bueno verlos! Hoy vamos a descubrir algo interesante sobre ustedes mismos."</li>
-                <li><strong>Da instrucciones claras ANTES de que abran los dispositivos.</strong> Una vez que las pantallas están encendidas, perdiste su atención. Explica todo primero.</li>
-                <li><strong>Normaliza los resultados RIASEC.</strong> "Este resultado no es una sentencia — es un punto de partida. Si no te identificas con él, está bien. Vamos a explorarlo juntos."</li>
-                <li><strong>Valida la resistencia sin confrontar.</strong> "Entiendo que esto puede parecer raro al principio. Es normal. Dale una oportunidad."</li>
-                <li><strong>Demuestra con vulnerabilidad.</strong> Comparte tus propios mitos vocacionales: "Yo a tu edad creía que solo había dos opciones: medicina o derecho."</li>
-                <li><strong>Circulación silenciosa.</strong> Cuando están trabajando en la plataforma, camina entre las filas sin interrumpir. Observa, anota, y solo intervén si ves a alguien trabado.</li>
-                <li><strong>Protocolo de alerta IA.</strong> Si algo no se ve bien, recuerda: Pausa, Verifica, Consulta. Siempre verifica antes de creer.</li>
-                <li><strong>Ayuda a preparar la conversación familiar.</strong> En las sesiones de decisión familiar, tu rol es ayudarles a preparar sus argumentos, no tomar partido entre el estudiante y su familia.</li>
-                <li><strong>Reconoce emociones, no las minimices.</strong> "Es normal sentirse así cuando piensas en el futuro" vale más que "No te preocupes, todo va a estar bien."</li>
-                <li><strong>Haz planes ACCIONABLES.</strong> No aceptes respuestas vagas. En vez de "Voy a investigar", pregunta: "¿Qué vas a investigar, dónde, y para cuándo?"</li>
-                <li><strong>Celebra el PROCESO, no solo el resultado.</strong> "Me encanta que hayas cambiado de opinión — eso significa que estás pensando en serio."</li>
-                <li><strong>Cierra con compromiso personal, no con logística.</strong> En vez de "La próxima sesión es el martes", termina con "¿Qué es lo más importante que descubriste hoy?"</li>
-              </ol>
-              <p><strong>Actividad:</strong> Elige <strong>3 movimientos</strong> que quieres practicar esta semana — los que sientas que más te cuestan o que más impacto podrían tener en tu aula. Escríbelos y compártelos con un compañero/a. Comprométete a probar al menos uno en tu próxima clase.</p>
-            `
-          }
-        ] },
-      { id: "m6", title: "M\u00f3dulo 6 \u2014 Compromiso y Cierre", desc: "Plan de acci\u00f3n, red de apoyo, pr\u00f3ximos pasos", duration: "~7 min narraci\u00f3n", embedId: "1YGWLaQVS-GoGWO1jYincqIpS_JVklndD", blocks: [
-          {
-            title: "Bloque 1 — Tu red de apoyo",
-            slideRange: "1-8",
-            slides: [1,2,3,4,5,6,7,8],
-            duration: "2:06",
-            videoPause: null,
-            content: `
-              <p>No estás solo/a en esto. Quiero que conozcas los <strong>4 pilares de soporte</strong> que tienes a tu disposición durante todo el programa:</p>
-              <p><strong>1. Grupo de WhatsApp por UGEL.</strong> Este es tu canal de ayuda rápida. ¿Un estudiante no puede iniciar sesión? ¿La plataforma se colgó? ¿No sabes cómo manejar una situación en clase? Escribe al grupo. Hay compañeros tutores pasando por lo mismo y un equipo técnico monitoreando. Las preguntas "tontas" no existen — si tú tienes esa duda, probablemente otros cinco tutores también.</p>
-              <p><strong>2. Visitas de observación del equipo de capacitación.</strong> Van a venir a tu aula entre <strong>2 y 3 veces</strong> durante el programa. Esto NO es una evaluación punitiva — es acompañamiento. Vienen a ver cómo te va, qué necesitas, y cómo pueden ayudarte. Piénsalo como una visita de un colega que quiere aprender contigo, no como una inspección.</p>
-              <p><strong>3. Coordinador/a PIP de tu colegio.</strong> Esta persona es tu <strong>primera línea de apoyo</strong>. Si tienes un problema logístico (laboratorio ocupado, estudiante sin DNI, conflicto de horario), el coordinador PIP es a quien acudes primero.</p>
-              <p><strong>4. Directorio de recursos clave.</strong> Ten estos enlaces a la mano — los vas a necesitar en distintas sesiones:</p>
-              <ul>
-                <li><strong>Beca 18</strong> — información sobre becas integrales para estudiantes de alto rendimiento.</li>
-                <li><strong>Ponte en Carrera</strong> — datos del mercado laboral, salarios promedio, y empleabilidad por carrera.</li>
-                <li><strong>Línea 100</strong> — línea de apoyo en crisis. Si un estudiante muestra señales de angustia severa, este es tu recurso inmediato.</li>
-                <li><strong>SUNEDU</strong> — para verificar que una universidad esté licenciada.</li>
-              </ul>
-            `
-          },
-          {
-            title: "Bloque 2 — Evaluación y seguimiento",
-            slideRange: "9-16",
-            slides: [9,10,11,12,13,14,15,16],
-            duration: "2:06",
-            videoPause: null,
-            content: `
-              <p>Hablemos de algo que genera muchas preguntas: la <strong>evaluación</strong>. Este programa es parte de un <strong>estudio de investigación del Banco Mundial</strong>, así que la evaluación no es un trámite — es lo que nos permite saber si lo que estamos haciendo realmente funciona.</p>
-              <p>El cronograma de evaluación tiene <strong>3 momentos</strong>:</p>
-              <ol>
-                <li><strong>Línea de base (Semana 1, antes de empezar):</strong> Medimos dónde están tus estudiantes antes del programa. Es como tomarles una "foto" de su punto de partida.</li>
-                <li><strong>Evaluación intermedia (mayo):</strong> Revisamos el progreso a mitad de camino. ¿Están avanzando? ¿Hay algo que ajustar?</li>
-                <li><strong>Evaluación final (junio/julio):</strong> Medimos el impacto completo del programa.</li>
-              </ol>
-              <p>¿Qué se mide exactamente? Cuatro dimensiones:</p>
-              <ul>
-                <li><strong>Crecimiento en autoconocimiento:</strong> ¿El estudiante se conoce mejor que al inicio?</li>
-                <li><strong>Calidad de las decisiones:</strong> ¿Sus elecciones están basadas en información real o en mitos?</li>
-                <li><strong>Concreción del plan:</strong> ¿Tiene un plan específico con pasos claros, o solo ideas vagas?</li>
-                <li><strong>Fidelidad de implementación del tutor:</strong> ¿Seguiste la estructura de las sesiones? ¿Usaste las herramientas?</li>
-              </ul>
-              <p>Tu rol en la evaluación es <strong>facilitar</strong>: asegúrate de que los estudiantes completen las encuestas durante el tiempo de sesión. Lo que <em>no</em> debes hacer es orientar sus respuestas. No les digas qué contestar ni los guíes hacia respuestas "correctas". Necesitamos datos honestos, no datos bonitos.</p>
-              <p>¿Por qué importa tanto? Porque los resultados de este estudio van a determinar si el programa se <strong>escala a todo el país</strong>. Tu implementación fiel no solo ayuda a tus estudiantes — ayuda a todos los estudiantes que vendrán después.</p>
-            `
-          },
-          {
-            title: "Bloque 3 — Tu plan de acción y compromiso",
-            slideRange: "17-24",
-            slides: [17,18,19,20,21,22,23,24],
-            duration: "2:26",
-            videoPause: null,
-            content: `
-              <p>Hemos llegado al final de la capacitación, y ahora viene lo más importante: <strong>convertir todo lo que aprendiste en acción</strong>.</p>
-              <p>Primero, revisemos tu <strong>checklist de preparación</strong>. ¿Estás listo/a?</p>
-              <ul>
-                <li>☐ Laboratorio de cómputo reservado para 12 semanas</li>
-                <li>☐ Computadoras probadas y funcionando</li>
-                <li>☐ Lista de estudiantes completada (DNI, nombre, sección)</li>
-                <li>☐ Primera sesión planificada</li>
-                <li>☐ Guía del Tutor en tu celular o impresa</li>
-                <li>☐ Grupo de WhatsApp de tu UGEL — ya te uniste</li>
-              </ul>
-              <p>Ahora, tu <strong>plan de acción</strong>. Necesito que seas concreto/a — nada de "voy a prepararme". Responde estas tres preguntas:</p>
-              <ol>
-                <li><strong>¿Qué vas a hacer ESTA semana?</strong> (Ejemplo: reservar el laboratorio, probar mi cuenta de tutor)</li>
-                <li><strong>¿Qué vas a hacer la PRÓXIMA semana?</strong> (Ejemplo: coordinar la lista de estudiantes con PIP, comunicar a padres)</li>
-                <li><strong>¿Qué vas a hacer ANTES de la Sesión 1?</strong> (Ejemplo: hacer una prueba completa de la plataforma, preparar la pizarra con los enlaces)</li>
-              </ol>
-              <p>Y para cerrar, quiero pedirte algo personal. Escribe tu <strong>"Carta a ti mismo/a"</strong>: ¿Qué tipo de tutor/a quieres ser al final de las 12 sesiones? ¿Cómo quieres que tus estudiantes te recuerden? No tiene que ser largo — pueden ser 3 líneas. Pero que sean honestas.</p>
-              <p>Si necesitas ayuda durante el programa, escribe al grupo de WhatsApp de tu UGEL o contacta al equipo de capacitación por correo. Los enlaces y contactos están en tu Guía del Tutor.</p>
-              <p>Y quiero dejarte con esto: <strong>cada uno de tus estudiantes está a punto de tomar una de las decisiones más importantes de su vida. No necesitas tener todas las respuestas — necesitas estar presente, escuchar, y confiar en el proceso. La IA se encarga de los datos. Tú te encargas de lo humano.</strong></p>
-              <p>Gracias por estar aquí. El programa empieza contigo.</p>
-            `
-          }
-        ] }
+      {
+        id: "m1",
+        title: "M\u00f3dulo 1 \u2014 Bienvenida, Tu Rol y el Estudiante",
+        desc: "Qu\u00e9 es EMC, tu rol como tutor, manifiesto, empat\u00eda",
+        duration: "~50 min",
+        steps: [
+          { type: "video", title: "Bienvenida de Jaime Saavedra", driveId: "1epEU4vQEa4nxbwcHkuKG1mz8KBtSpIfe", caption: "Jaime Saavedra presenta el programa" },
+          { type: "content", title: "Placeholder", html: "<p>Contenido pr\u00f3ximamente...</p>" }
+        ]
+      },
+      {
+        id: "m2",
+        title: "M\u00f3dulo 2 \u2014 IA y el Programa de 8 Pasos",
+        desc: "Qu\u00e9 es IA, protocolo de alerta, los 8 pasos del programa",
+        duration: "~55 min",
+        steps: [
+          { type: "video", title: "Demo del Coach IA Vocacional", driveId: "1cY-CvrgCDIBztI9OUuI8lHwJnV-okw-1", caption: "Demostraci\u00f3n del coach vocacional IA" },
+          { type: "content", title: "Placeholder", html: "<p>Contenido pr\u00f3ximamente...</p>" }
+        ]
+      },
+      {
+        id: "m3",
+        title: "M\u00f3dulo 3 \u2014 Herramientas y Preparaci\u00f3n",
+        desc: "Plataforma, NotebookLM, diario digital, checklist pre-sesi\u00f3n 1",
+        duration: "~50 min",
+        steps: [{ type: "content", title: "Placeholder", html: "<p>Contenido pr\u00f3ximamente...</p>" }]
+      },
+      {
+        id: "m4",
+        title: "M\u00f3dulo 4 \u2014 Facilitaci\u00f3n y Situaciones Dif\u00edciles",
+        desc: "Simulaci\u00f3n de sesi\u00f3n, kit de supervivencia, 12 movimientos clave",
+        duration: "~55 min",
+        steps: [{ type: "content", title: "Placeholder", html: "<p>Contenido pr\u00f3ximamente...</p>" }]
+      },
+      {
+        id: "m5",
+        title: "M\u00f3dulo 5 \u2014 Acompa\u00f1amiento y Compromiso",
+        desc: "Red de apoyo, evaluaci\u00f3n, plan de acci\u00f3n, carta a ti mismo/a",
+        duration: "~45 min",
+        steps: [{ type: "content", title: "Placeholder", html: "<p>Contenido pr\u00f3ximamente...</p>" }]
+      }
     ]
   }
 };
@@ -1427,8 +799,8 @@ function renderLanding() {
     const done = countComplete(key);
     const pct = total > 0 ? Math.round((done / total) * 100) : 0;
     const desc = key === 'math'
-      ? 'D\u00eda 1 y D\u00eda 2 de formaci\u00f3n \u2014 Aprende a usar el tutor IA de matem\u00e1ticas Doc en tu aula'
-      : '6 m\u00f3dulos \u2014 Prep\u00e1rate para guiar a tus estudiantes con el coach vocacional IA';
+      ? '5 m\u00f3dulos \u2014 Aprende a usar el tutor IA de matem\u00e1ticas Doc en tu aula'
+      : '5 m\u00f3dulos \u2014 Prep\u00e1rate para guiar a tus estudiantes con el coach vocacional IA';
 
     const card = document.createElement('div');
     card.className = 'track-card';
@@ -1455,11 +827,16 @@ function renderModules() {
     <h1>${track.title}</h1>
   `;
 
+  // Spacing banner
+  document.getElementById('spacing-banner-container').innerHTML =
+    '<div class="spacing-banner">\uD83D\uDCA1 Recomendamos completar 1 m\u00f3dulo por d\u00eda para mejor retenci\u00f3n</div>';
+
   const grid = document.getElementById('module-grid');
   grid.innerHTML = '';
   track.modules.forEach((mod, i) => {
     const done = isComplete(state.track, mod.id);
     const accentColor = state.track === 'math' ? 'var(--math-color)' : 'var(--ov-color)';
+    const stepCount = mod.steps ? mod.steps.length : 0;
     const card = document.createElement('div');
     card.className = 'module-card';
     card.onclick = () => navigate('viewer', { moduleId: mod.id });
@@ -1467,400 +844,216 @@ function renderModules() {
       <div class="check ${done ? 'done' : 'pending'}">
         <i class="fa-solid ${done ? 'fa-check' : 'fa-minus'}"></i>
       </div>
-      <div class="num" style="color:${accentColor}">${state.track === 'math' ? 'D\u00eda ' + (i + 1) : 'M\u00f3dulo ' + (i + 1)}</div>
+      <div class="num" style="color:${accentColor}">M\u00f3dulo ${i + 1}</div>
       <h3>${mod.title}</h3>
       <p class="desc">${mod.desc}</p>
-      <div class="meta"><i class="fa-regular fa-clock"></i> ${mod.duration}</div>
+      <div class="meta"><i class="fa-regular fa-clock"></i> ${stepCount} pasos \u00b7 ${mod.duration}</div>
     `;
     grid.appendChild(card);
   });
 }
 
-/* ── Render: Viewer ── */
-let currentBlockIndex = 0;
-let currentBlocks = [];
+/* ── Render: Viewer (Step-based) ── */
+let currentStepIndex = 0;
+let currentSteps = [];
+let quizStates = {};
 
 function renderViewer() {
-  const track = MODULES[state.track];
-  const modIndex = track.modules.findIndex(m => m.id === state.moduleId);
-  const mod = track.modules[modIndex];
+  const trackData = MODULES[state.track];
+  const mod = trackData.modules.find(m => m.id === state.moduleId);
   if (!mod) return;
 
-  const accentColor = state.track === 'math' ? 'var(--math-color)' : 'var(--ov-color)';
+  currentSteps = mod.steps;
+  currentStepIndex = 0;
+  quizStates = {};
+  renderStep();
+}
 
-  // Back button
-  document.getElementById('viewer-back-btn').onclick = () => navigate('modules', { track: state.track });
+function renderStep() {
+  const step = currentSteps[currentStepIndex];
+  const total = currentSteps.length;
 
-  // Title
-  document.getElementById('viewer-title').innerHTML = `
-    <div style="width:6px;height:28px;border-radius:3px;background:${accentColor}"></div>
-    <h1>${mod.title}</h1>
-  `;
+  // Update progress bar
+  const pct = ((currentStepIndex + 1) / total) * 100;
+  document.getElementById('viewer-progress-bar').style.width = pct + '%';
+  document.getElementById('step-counter').textContent = 'Paso ' + (currentStepIndex + 1) + ' de ' + total;
 
-  // Slides — BIG iframe
-  currentEmbedId = mod.embedId;
-  document.getElementById('slides-frame').src =
-    `https://docs.google.com/presentation/d/${mod.embedId}/embed?start=false&loop=false&delayms=60000`;
+  // Step type badge
+  const badges = { video: '\uD83C\uDFAC', content: '\uD83D\uDCD6', quiz: '\uD83E\uDDE0', practice: '\uD83D\uDCBB', reflection: '\uD83D\uDCAC' };
+  document.getElementById('step-type-badge').textContent = badges[step.type] || '\uD83D\uDCD6';
+  document.getElementById('step-title').textContent = step.title;
 
-  // Initialize blocks
-  currentBlocks = mod.blocks || [];
-  currentBlockIndex = 0;
+  // Render content by type
+  const container = document.getElementById('step-content');
+  switch (step.type) {
+    case 'video': container.innerHTML = renderVideoStep(step); break;
+    case 'content': container.innerHTML = renderContentStep(step); break;
+    case 'quiz': container.innerHTML = renderQuizStep(step, currentStepIndex); break;
+    case 'practice': container.innerHTML = renderPracticeStep(step, currentStepIndex); break;
+    case 'reflection': container.innerHTML = renderReflectionStep(step, currentStepIndex); break;
+    default: container.innerHTML = '<p>Tipo de paso no reconocido.</p>';
+  }
 
-  // Hide text panel and reset toggle
-  document.getElementById('narration-text-panel').classList.remove('visible');
-  document.getElementById('btn-show-text').classList.remove('active');
+  // Navigation buttons
+  document.getElementById('btn-prev-step').style.display = currentStepIndex === 0 ? 'none' : 'flex';
+  updateNextButton();
 
-  // Show/hide audio bar based on blocks
-  document.getElementById('audio-bar').style.display = currentBlocks.length > 0 ? 'flex' : 'none';
+  // Scroll to top
+  window.scrollTo(0, 0);
+}
 
-  updateBlockUI();
-
-  // Resources
-  document.getElementById('resources-section').innerHTML = `
-    <h2><i class="fa-solid fa-link" style="color:${accentColor}"></i> Recursos</h2>
-    <div class="resources-links">
-      <a href="${track.guideUrl}" target="_blank"><i class="fa-solid fa-file-pdf"></i> Gu\u00eda del tutor</a>
-      <a href="${track.slidesFolder}" target="_blank"><i class="fa-solid fa-images"></i> Diapositivas</a>
-      <a href="${track.folderUrl}" target="_blank"><i class="fa-solid fa-folder-open"></i> Carpeta de recursos</a>
+function renderVideoStep(step) {
+  return `
+    <div class="step-video-wrapper">
+      <iframe src="https://drive.google.com/file/d/${step.driveId}/preview" allow="autoplay" allowfullscreen></iframe>
     </div>
-  `;
-
-  // Complete button
-  const done = isComplete(state.track, mod.id);
-  const wrap = document.getElementById('complete-btn-wrap');
-  if (done) {
-    wrap.innerHTML = `<button class="done"><i class="fa-solid fa-circle-check"></i>&ensp;M\u00f3dulo completado</button>`;
-  } else {
-    wrap.innerHTML = `<button class="mark" id="mark-complete-btn">\u2705 Marcar como completado</button>`;
-    document.getElementById('mark-complete-btn').onclick = () => {
-      markComplete(state.track, mod.id);
-      renderViewer();
-    };
-  }
-
-  // Prev / Next module
-  const nav = document.getElementById('viewer-nav');
-  const prevMod = track.modules[modIndex - 1];
-  const nextMod = track.modules[modIndex + 1];
-  nav.innerHTML = `
-    <button ${!prevMod ? 'disabled' : ''} onclick="${prevMod ? `navigate('viewer',{moduleId:'${prevMod.id}'})` : ''}">
-      <i class="fa-solid fa-arrow-left"></i> Anterior
-    </button>
-    <button ${!nextMod ? 'disabled' : ''} onclick="${nextMod ? `navigate('viewer',{moduleId:'${nextMod.id}'})` : ''}">
-      Siguiente <i class="fa-solid fa-arrow-right"></i>
-    </button>
+    ${step.caption ? '<p class="step-video-caption">' + step.caption + '</p>' : ''}
   `;
 }
 
-/* ── Progress / Timer State ── */
-let progressInterval = null;
-let blockStartTime = 0;
-let blockDurationMs = 0;
-let currentEmbedId = '';
-let videoPauseCallback = null;
-
-function parseDuration(durStr) {
-  // "M:SS" -> milliseconds
-  const parts = durStr.split(':');
-  return (parseInt(parts[0]) * 60 + parseInt(parts[1])) * 1000;
+function renderContentStep(step) {
+  return '<div class="step-content-html">' + step.html + '</div>';
 }
 
-function formatTime(seconds) {
-  const m = Math.floor(seconds / 60);
-  const s = seconds % 60;
-  return m + ':' + s.toString().padStart(2, '0');
-}
+function renderQuizStep(step, stepIdx) {
+  if (!quizStates[stepIdx]) quizStates[stepIdx] = {};
 
-function startProgress(durationMs) {
-  blockStartTime = Date.now();
-  blockDurationMs = durationMs;
-  updateProgressDisplay();
-  progressInterval = setInterval(updateProgressDisplay, 1000);
-}
+  var html = step.intro ? '<p class="quiz-intro">' + step.intro + '</p>' : '';
 
-function updateProgressDisplay() {
-  const elapsed = Date.now() - blockStartTime;
-  const progress = Math.min(elapsed / blockDurationMs * 100, 100);
-  document.getElementById('audio-progress-bar').style.width = progress + '%';
-
-  const elapsedSec = Math.floor(elapsed / 1000);
-  const totalSec = Math.floor(blockDurationMs / 1000);
-  document.getElementById('time-display').textContent =
-    formatTime(elapsedSec) + ' / ' + formatTime(totalSec);
-}
-
-function stopProgress() {
-  if (progressInterval) {
-    clearInterval(progressInterval);
-    progressInterval = null;
-  }
-  document.getElementById('audio-progress-bar').style.width = '0%';
-  document.getElementById('time-display').textContent = '';
-}
-
-/* ── Slide Indicator ── */
-let slideAdvanceInterval = null;
-let currentSlideIdx = 0;
-let currentBlockSlides = [];
-
-function startSlideAutoAdvance(block, durationMs) {
-  if (!block.slides || block.slides.length === 0) return;
-  stopSlideAutoAdvance();
-  currentBlockSlides = block.slides;
-  currentSlideIdx = 0;
-  updateSlideIndicator();
-  if (block.slides.length <= 1) return;
-  const delayMs = Math.round(durationMs / block.slides.length);
-  slideAdvanceInterval = setInterval(() => {
-    currentSlideIdx++;
-    if (currentSlideIdx >= currentBlockSlides.length) {
-      clearInterval(slideAdvanceInterval);
-      slideAdvanceInterval = null;
-      return;
-    }
-    updateSlideIndicator();
-  }, delayMs);
-}
-
-function updateSlideIndicator() {
-  const el = document.getElementById('slide-indicator');
-  if (!el || currentBlockSlides.length === 0) return;
-  const slideNum = currentBlockSlides[currentSlideIdx];
-  el.innerHTML = `<i class="fas fa-arrow-right"></i> Diapositiva <strong>${slideNum}</strong>`;
-  el.classList.add('flash');
-  setTimeout(() => el.classList.remove('flash'), 600);
-}
-
-function stopSlideAutoAdvance() {
-  if (slideAdvanceInterval) {
-    clearInterval(slideAdvanceInterval);
-    slideAdvanceInterval = null;
-  }
-}
-
-/* ── Block UI ── */
-function updateBlockUI() {
-  if (currentBlocks.length === 0) return;
-  const block = currentBlocks[currentBlockIndex];
-  document.getElementById('block-title').textContent = block.title;
-  document.getElementById('block-progress').textContent =
-    (currentBlockIndex + 1) + ' / ' + currentBlocks.length;
-  document.getElementById('narration-text-panel').innerHTML = block.content;
-
-  // Show duration in time display when not playing
-  if (block.duration) {
-    document.getElementById('time-display').textContent = '0:00 / ' + block.duration;
-  } else {
-    document.getElementById('time-display').textContent = '';
-  }
-
-  // Update nav button states
-  document.getElementById('btn-prev-block').disabled = currentBlockIndex === 0;
-  document.getElementById('btn-next-block').disabled = currentBlockIndex >= currentBlocks.length - 1;
-
-  // Stop any playing audio and reset progress
-  stopAllPlayback();
-}
-
-function stopAllPlayback() {
-  if (window.speechSynthesis && window.speechSynthesis.speaking) {
-    window.speechSynthesis.cancel();
-  }
-  stopProgress();
-  resetPlayButton();
-  // Hide video pause overlay if visible
-  document.getElementById('video-pause-overlay').style.display = 'none';
-  videoPauseCallback = null;
-}
-
-function prevBlock() {
-  if (currentBlockIndex > 0) {
-    stopAllPlayback();
-    stopSlideAutoAdvance();
-    currentBlockIndex--;
-    updateBlockUI();
-  }
-}
-
-function nextBlock() {
-  if (currentBlockIndex < currentBlocks.length - 1) {
-    stopAllPlayback();
-    stopSlideAutoAdvance();
-    currentBlockIndex++;
-    updateBlockUI();
-  }
-}
-
-/* ── TTS Audio (Latin American Spanish) ── */
-function getLatamVoice() {
-  const synth = window.speechSynthesis;
-  const voices = synth.getVoices();
-  const latamLangs = ['es-419', 'es-MX', 'es-US', 'es-PE', 'es-CO', 'es-AR', 'es-CL', 'es-VE'];
-  for (const lang of latamLangs) {
-    const v = voices.find(voice => voice.lang === lang);
-    if (v) return v;
-  }
-  const nonSpain = voices.find(v =>
-    v.lang.startsWith('es') && v.lang !== 'es-ES' && !v.name.includes('Spain')
-  );
-  if (nonSpain) return nonSpain;
-  return voices.find(v => v.lang.startsWith('es')) || null;
-}
-
-function startNarration(block) {
-  const synth = window.speechSynthesis;
-  const btn = document.getElementById('btn-play');
-
-  // Strip HTML to get plain text
-  const temp = document.createElement('div');
-  temp.innerHTML = block.content;
-  const text = temp.textContent || temp.innerText;
-
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = 'es-419';
-  utterance.rate = 0.92;
-  utterance.pitch = 1.0;
-
-  const voice = getLatamVoice();
-  if (voice) utterance.voice = voice;
-
-  btn.innerHTML = '<i class="fas fa-stop"></i>';
-  btn.dataset.state = 'playing';
-
-  // Calculate duration
-  const durationMs = block.duration ? parseDuration(block.duration) : 120000;
-
-  // Start progress timer and slide auto-advance
-  startProgress(durationMs);
-  startSlideAutoAdvance(block, durationMs);
-
-  utterance.onend = () => {
-    stopProgress();
-    stopSlideAutoAdvance();
-    resetPlayButton();
-    // Auto-advance to next block
-    if (currentBlockIndex < currentBlocks.length - 1) {
-      currentBlockIndex++;
-      updateBlockUI();
-      setTimeout(() => toggleAudio(), 1500);
-    }
-  };
-
-  utterance.onerror = () => {
-    stopProgress();
-    stopSlideAutoAdvance();
-    resetPlayButton();
-  };
-
-  synth.speak(utterance);
-}
-
-function toggleAudio() {
-  const synth = window.speechSynthesis;
-
-  if (synth.speaking) {
-    synth.cancel();
-    stopProgress();
-    stopSlideAutoAdvance();
-    resetPlayButton();
-    return;
-  }
-
-  if (currentBlocks.length === 0) return;
-  const block = currentBlocks[currentBlockIndex];
-
-  // Handle video blocks — no TTS, just countdown then auto-advance
-  if (block.isVideo) {
-    const overlay = document.getElementById('video-pause-overlay');
-    const msgEl = document.getElementById('video-pause-message');
-    overlay.style.display = 'flex';
-    const totalSec = parseDuration(block.duration);
-    let remaining = totalSec;
-    const msg = block.videoMessage || 'Reproduciendo video...';
-    msgEl.textContent = `${msg} (${Math.floor(remaining/60)}:${(remaining%60).toString().padStart(2,'0')})`;
-    // Update play button
-    const btn = document.getElementById('btn-play');
-    btn.innerHTML = '<i class="fas fa-film"></i>';
-    btn.dataset.state = 'playing';
-    // Start progress bar for video duration
-    startProgress(totalSec * 1000);
-    // Set slides to show the video slide (no auto-advance, just 1 slide)
-    const iframe = document.getElementById('slides-frame');
-    iframe.src = `https://docs.google.com/presentation/d/${currentEmbedId}/embed?start=false&loop=false&delayms=60000`;
-    // Countdown
-    const countdownId = setInterval(() => {
-      remaining--;
-      if (remaining <= 0) {
-        clearInterval(countdownId);
-        overlay.style.display = 'none';
-        stopProgress();
-        // Auto-advance to next block
-        if (currentBlockIndex < currentBlocks.length - 1) {
-          currentBlockIndex++;
-          updateBlockUI();
-          setTimeout(() => toggleAudio(), 800);
-        } else {
-          resetPlayButton();
-        }
-        return;
+  step.questions.forEach(function(q, qi) {
+    var qState = quizStates[stepIdx][qi];
+    html += '<div class="quiz-question" id="quiz-q-' + qi + '">';
+    html += '<p class="quiz-question-text">' + (qi + 1) + '. ' + q.q + '</p>';
+    html += '<div class="quiz-options">';
+    q.options.forEach(function(opt, oi) {
+      var cls = 'quiz-option';
+      if (qState) {
+        if (oi === q.correct) cls += ' correct';
+        else if (oi === qState.selected && oi !== q.correct) cls += ' wrong';
+      } else if (quizStates[stepIdx]['sel_' + qi] === oi) {
+        cls += ' selected';
       }
-      msgEl.textContent = `${msg} (${Math.floor(remaining/60)}:${(remaining%60).toString().padStart(2,'0')})`;
-    }, 1000);
-    videoPauseCallback = () => { clearInterval(countdownId); overlay.style.display = 'none'; stopProgress(); };
-    return;
+      var clickHandler = qState ? '' : 'onclick="selectQuizOption(' + stepIdx + ',' + qi + ',' + oi + ')"';
+      html += '<div class="' + cls + '" ' + clickHandler + '>';
+      html += '<span class="radio-dot"></span>';
+      html += '<span>' + opt + '</span>';
+      html += '</div>';
+    });
+    html += '</div>';
+
+    if (!qState) {
+      var hasSel = quizStates[stepIdx]['sel_' + qi] !== undefined;
+      html += '<button class="quiz-verify-btn" ' + (hasSel ? '' : 'disabled') + ' onclick="verifyQuiz(' + stepIdx + ',' + qi + ')">Verificar respuesta</button>';
+    } else {
+      var isCorrect = qState.selected === q.correct;
+      html += '<div class="quiz-feedback ' + (isCorrect ? 'correct' : 'wrong') + '">';
+      html += (isCorrect ? '\u2705 ' + q.feedback.correct : '\u274C ' + q.feedback.wrong);
+      html += '</div>';
+    }
+
+    html += '</div>';
+  });
+
+  return html;
+}
+
+function selectQuizOption(stepIdx, qi, oi) {
+  if (quizStates[stepIdx][qi]) return;
+  quizStates[stepIdx]['sel_' + qi] = oi;
+  renderStep();
+}
+
+function verifyQuiz(stepIdx, qi) {
+  var selected = quizStates[stepIdx]['sel_' + qi];
+  if (selected === undefined) return;
+  quizStates[stepIdx][qi] = { selected: selected };
+  delete quizStates[stepIdx]['sel_' + qi];
+  renderStep();
+  updateNextButton();
+}
+
+function renderPracticeStep(step, stepIdx) {
+  if (!quizStates[stepIdx]) quizStates[stepIdx] = { checks: {} };
+  var checks = quizStates[stepIdx].checks || {};
+
+  var html = '<div class="practice-instructions">' + step.instructions + '</div>';
+  html += '<div class="practice-checklist">';
+  step.checklist.forEach(function(item, i) {
+    var checked = checks[i] ? 'checked' : '';
+    html += '<div class="practice-item ' + checked + '" onclick="togglePracticeItem(' + stepIdx + ',' + i + ')">';
+    html += '<span class="practice-checkbox">' + (checks[i] ? '<i class="fas fa-check"></i>' : '') + '</span>';
+    html += '<span>' + item + '</span>';
+    html += '</div>';
+  });
+  html += '</div>';
+  return html;
+}
+
+function togglePracticeItem(stepIdx, i) {
+  if (!quizStates[stepIdx]) quizStates[stepIdx] = { checks: {} };
+  if (!quizStates[stepIdx].checks) quizStates[stepIdx].checks = {};
+  quizStates[stepIdx].checks[i] = !quizStates[stepIdx].checks[i];
+  renderStep();
+  updateNextButton();
+}
+
+function renderReflectionStep(step, stepIdx) {
+  var key = 'emc-reflection-' + state.track + '-' + state.moduleId + '-' + stepIdx;
+  var saved = localStorage.getItem(key) || '';
+
+  return '<p class="reflection-prompt">' + step.prompt + '</p>' +
+    '<textarea class="reflection-textarea" id="reflection-text" placeholder="Escribe tu reflexi\u00f3n aqu\u00ed..." oninput="saveReflection(\'' + key + '\')">' + saved + '</textarea>' +
+    (saved ? '<p class="reflection-saved"><i class="fas fa-check"></i> Guardado autom\u00e1ticamente</p>' : '');
+}
+
+function saveReflection(key) {
+  var text = document.getElementById('reflection-text').value;
+  localStorage.setItem(key, text);
+}
+
+function updateNextButton() {
+  var btn = document.getElementById('btn-next-step');
+  var step = currentSteps[currentStepIndex];
+
+  // Last step: show "Completar modulo"
+  if (currentStepIndex === currentSteps.length - 1) {
+    btn.innerHTML = '<i class="fas fa-check"></i> Completar m\u00f3dulo';
+    btn.onclick = function() { completeModule(); };
+  } else {
+    btn.innerHTML = 'Siguiente <i class="fas fa-arrow-right"></i>';
+    btn.onclick = function() { nextStep(); };
   }
 
-  // Check for old-style videoPause (backwards compat)
-  if (block.videoPause) {
-    startNarration(block);
-    return;
+  // Disable next if quiz not fully answered or practice not checked
+  var canProceed = true;
+  if (step.type === 'quiz') {
+    var qs = quizStates[currentStepIndex] || {};
+    canProceed = step.questions.every(function(q, qi) { return qs[qi] !== undefined; });
+  } else if (step.type === 'practice' && step.checklist) {
+    var checks = (quizStates[currentStepIndex] || {}).checks || {};
+    canProceed = step.checklist.every(function(_, i) { return checks[i]; });
   }
-
-  startNarration(block);
+  btn.disabled = !canProceed;
 }
 
-function resumeAfterVideo() {
-  // Clear countdown and start narration
-  if (videoPauseCallback) {
-    videoPauseCallback(); // clears interval + hides overlay
-    videoPauseCallback = null;
+function nextStep() {
+  if (currentStepIndex < currentSteps.length - 1) {
+    currentStepIndex++;
+    renderStep();
   }
-  document.getElementById('video-pause-overlay').style.display = 'none';
-  const block = currentBlocks[currentBlockIndex];
-  if (block) startNarration(block);
 }
 
-function resetPlayButton() {
-  const btn = document.getElementById('btn-play');
-  btn.innerHTML = '<i class="fas fa-play"></i>';
-  btn.dataset.state = 'stopped';
-}
-
-function toggleTextPanel() {
-  const panel = document.getElementById('narration-text-panel');
-  const btn = document.getElementById('btn-show-text');
-  panel.classList.toggle('visible');
-  btn.classList.toggle('active');
-}
-
-// Preload voices (needed for Chrome)
-if (window.speechSynthesis) {
-  window.speechSynthesis.getVoices();
-  window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
-}
-
-// Stop TTS and progress when navigating away from viewer
-const origNavigate = navigate;
-navigate = function(view, opts) {
-  if (window.speechSynthesis && window.speechSynthesis.speaking) {
-    window.speechSynthesis.cancel();
+function prevStep() {
+  if (currentStepIndex > 0) {
+    currentStepIndex--;
+    renderStep();
   }
-  stopProgress();
-  resetPlayButton();
-  document.getElementById('video-pause-overlay').style.display = 'none';
-  videoPauseCallback = null;
-  origNavigate(view, opts);
-};
+}
+
+function completeModule() {
+  markComplete(state.track, state.moduleId);
+  navigate('modules', { track: state.track });
+}
 
 /* ── Init ── */
 renderLanding();
