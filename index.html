@@ -662,17 +662,16 @@
       <div class="hero-badge">Programa DRELM &middot; Banco Mundial &middot; UPC</div>
       <h1>Capacitaci&oacute;n<br><span>Docente</span></h1>
       <p class="hero-subtitle">Formaci&oacute;n virtual para docentes de Eligiendo Mi Camino</p>
-      <div style="margin:20px auto;width:90px;height:90px;background:linear-gradient(135deg,#f39300,#f75a00);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(243,147,0,0.4);border:3px solid rgba(255,255,255,0.2)"><span style="font-size:2.8rem">&#x1F426;</span></div>
-
-      <div class="stats-row">
-        <div class="stat-card"><div class="stat-number">110</div><div class="stat-label">Escuelas</div></div>
-        <div class="stat-card"><div class="stat-number">300+</div><div class="stat-label">Docentes</div></div>
-        <div class="stat-card"><div class="stat-number">~6,000</div><div class="stat-label">Estudiantes</div></div>
-        <div class="stat-card"><div class="stat-number">5,940</div><div class="stat-label">Preguntas Diagn&oacute;sticas</div></div>
-      </div>
-
-      <div class="badges-dark">
-        <span>DRELM</span><span>Banco Mundial</span><span>UPC</span><span>uDocz</span><span>Anthropic</span>
+      <div style="display:flex;justify-content:center;align-items:center;gap:24px;flex-wrap:wrap;margin:24px 0;opacity:0.7">
+        <span style="color:rgba(255,255,255,0.8);font-size:0.85rem;font-weight:600;letter-spacing:1px">GRUPO BANCO MUNDIAL</span>
+        <span style="color:rgba(255,255,255,0.4)">&bull;</span>
+        <span style="color:rgba(255,255,255,0.8);font-size:0.85rem;font-weight:600;letter-spacing:1px">DRELM</span>
+        <span style="color:rgba(255,255,255,0.4)">&bull;</span>
+        <span style="color:rgba(255,255,255,0.8);font-size:0.85rem;font-weight:600;letter-spacing:1px">UPC</span>
+        <span style="color:rgba(255,255,255,0.4)">&bull;</span>
+        <span style="color:rgba(255,255,255,0.8);font-size:0.85rem;font-weight:600;letter-spacing:1px">uDocz</span>
+        <span style="color:rgba(255,255,255,0.4)">&bull;</span>
+        <span style="color:rgba(255,255,255,0.8);font-size:0.85rem;font-weight:600;letter-spacing:1px">ANTHROPIC</span>
       </div>
     </div>
 
@@ -1033,8 +1032,9 @@ function renderLanding() {
     card.className = 'track-card';
     card.dataset.track = key;
     card.onclick = () => navigate('modules', { track: key });
+    const imgSrc = key === 'math' ? 'img/math.png' : 'img/vocation.png';
     card.innerHTML = `
-      <div class="icon"><i class="fa-solid ${track.icon}"></i></div>
+      <img src="${imgSrc}" alt="${track.title}" style="width:120px;height:120px;object-fit:contain;margin:0 auto 12px;display:block">
       <h2>${track.title}</h2>
       <p class="desc">${desc}</p>
       <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
