@@ -318,6 +318,20 @@
       color: var(--text-gray);
       flex-shrink: 0;
     }
+    .slide-indicator {
+      background: var(--primary);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 16px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      transition: transform 0.3s;
+    }
+    .slide-indicator.flash {
+      transform: scale(1.15);
+    }
+    .slide-indicator:empty { display: none; }
     .btn-show-text {
       font-size: 0.8rem;
       color: var(--primary);
@@ -608,6 +622,7 @@
       <button class="btn-nav" id="btn-next-block" onclick="nextBlock()" title="Siguiente bloque">
         <i class="fas fa-step-forward"></i>
       </button>
+      <span class="slide-indicator" id="slide-indicator"></span>
       <span class="block-title" id="block-title">Bloque 1</span>
       <span class="time-display" id="time-display"></span>
       <span class="block-progress" id="block-progress">1/1</span>
@@ -640,13 +655,32 @@ const MODULES = {
     modules: [
       { id: "dia1", title: "D\u00eda 1 \u2014 Bienvenida, Plataforma y Curr\u00edculo", desc: "IA, plataforma Doc, registro, integraci\u00f3n curricular y dashboard", duration: "~10 min narraci\u00f3n", embedId: "1V_ID56Czrnv0XfMCQTO8rutsnJ4Fb4-ePGe7GYoDuOU", blocks: [
           {
-            title: "Bloque 1 — Bienvenida, contexto y alfabetización en IA (Diapositivas 1–10)",
-            slideRange: "1-10",
-            slides: [1,2,3,4,5,6,7,8,9,10],
-            duration: "2:02",
-            videoPause: { slide: 3, message: "Reproduciendo video de Jaime Saavedra...", durationSec: 90 },
+            title: "Bienvenida al programa (Diapositivas 1–2)",
+            slideRange: "1-2",
+            slides: [1,2],
+            duration: "0:30",
+            videoPause: null,
             content: `
-              <p><strong>¡Bienvenido/a al programa Eligiendo Mi Camino!</strong> Antes de meternos de lleno, quiero que sepas con quién estamos en esto. Este programa es una alianza entre tres actores: la <strong>DRELM</strong> (tu autoridad educativa), el <strong>Banco Mundial</strong> y la <strong>UPC</strong>. Juntos hemos diseñado algo ambicioso: llevar tutoría con inteligencia artificial a cerca de <strong>100 colegios, más de 6,600 estudiantes y unos 200 docentes</strong> durante 16 semanas, con 2 horas semanales de laboratorio. Tú eres pieza clave de todo esto.</p>
+              <p><strong>¡Bienvenido/a al programa Eligiendo Mi Camino!</strong> Antes de meternos de lleno, quiero que sepas con quién estamos en esto. Este programa es una alianza entre tres actores: la <strong>DRELM</strong>, el <strong>Banco Mundial</strong> y la <strong>UPC</strong>. Juntos hemos diseñado algo ambicioso: llevar tutoría con inteligencia artificial a cerca de 100 colegios y más de 6,600 estudiantes. Tú eres pieza clave. Ahora vas a escuchar a Jaime Saavedra explicar la visión del programa.</p>
+            `
+          },
+          {
+            title: "🎬 Video: Jaime Saavedra (Diapositiva 3)",
+            slideRange: "3",
+            slides: [3],
+            duration: "1:30",
+            videoPause: null,
+            isVideo: true,
+            videoMessage: "Reproduciendo video de Jaime Saavedra...",
+            content: `<p>Escucha el mensaje de Jaime Saavedra, Director de Educación del Banco Mundial, sobre por qué este programa es importante para el futuro de tus estudiantes.</p>`
+          },
+          {
+            title: "Alfabetización en IA y 4 mitos (Diapositivas 4–10)",
+            slideRange: "4-10",
+            slides: [4,5,6,7,8,9,10],
+            duration: "1:40",
+            videoPause: null,
+            content: `
               <p>Ahora, hablemos de IA. Fíjate en las diapositivas 4 y 5: un modelo de lenguaje es básicamente un sistema que <strong>predice la siguiente palabra</strong> más probable en un texto. No piensa, no siente, no tiene conciencia. Es una herramienta muy potente, pero una herramienta al fin.</p>
               <p>Hay <strong>4 mitos</strong> que necesitamos desarmar ahora mismo:</p>
               <ul>
@@ -1564,20 +1598,44 @@ function stopProgress() {
   document.getElementById('time-display').textContent = '';
 }
 
-/* ── Slide Auto-Advance ── */
+/* ── Slide Indicator ── */
+let slideAdvanceInterval = null;
+let currentSlideIdx = 0;
+let currentBlockSlides = [];
+
 function startSlideAutoAdvance(block, durationMs) {
-  if (!currentEmbedId || !block.slides || block.slides.length === 0) return;
+  if (!block.slides || block.slides.length === 0) return;
+  stopSlideAutoAdvance();
+  currentBlockSlides = block.slides;
+  currentSlideIdx = 0;
+  updateSlideIndicator();
+  if (block.slides.length <= 1) return;
   const delayMs = Math.round(durationMs / block.slides.length);
-  const iframe = document.getElementById('slides-frame');
-  iframe.src = 'https://docs.google.com/presentation/d/' + currentEmbedId +
-    '/embed?start=true&loop=false&delayms=' + delayMs;
+  slideAdvanceInterval = setInterval(() => {
+    currentSlideIdx++;
+    if (currentSlideIdx >= currentBlockSlides.length) {
+      clearInterval(slideAdvanceInterval);
+      slideAdvanceInterval = null;
+      return;
+    }
+    updateSlideIndicator();
+  }, delayMs);
+}
+
+function updateSlideIndicator() {
+  const el = document.getElementById('slide-indicator');
+  if (!el || currentBlockSlides.length === 0) return;
+  const slideNum = currentBlockSlides[currentSlideIdx];
+  el.innerHTML = `<i class="fas fa-arrow-right"></i> Diapositiva <strong>${slideNum}</strong>`;
+  el.classList.add('flash');
+  setTimeout(() => el.classList.remove('flash'), 600);
 }
 
 function stopSlideAutoAdvance() {
-  if (!currentEmbedId) return;
-  const iframe = document.getElementById('slides-frame');
-  iframe.src = 'https://docs.google.com/presentation/d/' + currentEmbedId +
-    '/embed?start=false&loop=false&delayms=60000';
+  if (slideAdvanceInterval) {
+    clearInterval(slideAdvanceInterval);
+    slideAdvanceInterval = null;
+  }
 }
 
 /* ── Block UI ── */
@@ -1711,31 +1769,50 @@ function toggleAudio() {
   if (currentBlocks.length === 0) return;
   const block = currentBlocks[currentBlockIndex];
 
-  // Check for video pause — auto-play with countdown, no click needed
-  if (block.videoPause) {
-    const vp = block.videoPause;
+  // Handle video blocks — no TTS, just countdown then auto-advance
+  if (block.isVideo) {
     const overlay = document.getElementById('video-pause-overlay');
     const msgEl = document.getElementById('video-pause-message');
     overlay.style.display = 'flex';
-    let remaining = vp.durationSec || 60;
-    msgEl.textContent = `${vp.message} (${Math.floor(remaining/60)}:${(remaining%60).toString().padStart(2,'0')})`;
-    // Update play button to show pause state
+    const totalSec = parseDuration(block.duration);
+    let remaining = totalSec;
+    const msg = block.videoMessage || 'Reproduciendo video...';
+    msgEl.textContent = `${msg} (${Math.floor(remaining/60)}:${(remaining%60).toString().padStart(2,'0')})`;
+    // Update play button
     const btn = document.getElementById('btn-play');
     btn.innerHTML = '<i class="fas fa-film"></i>';
     btn.dataset.state = 'playing';
-    // Countdown timer
+    // Start progress bar for video duration
+    startProgress(totalSec * 1000);
+    // Set slides to show the video slide (no auto-advance, just 1 slide)
+    const iframe = document.getElementById('slides-frame');
+    iframe.src = `https://docs.google.com/presentation/d/${currentEmbedId}/embed?start=false&loop=false&delayms=60000`;
+    // Countdown
     const countdownId = setInterval(() => {
       remaining--;
       if (remaining <= 0) {
         clearInterval(countdownId);
         overlay.style.display = 'none';
-        startNarration(block);
+        stopProgress();
+        // Auto-advance to next block
+        if (currentBlockIndex < currentBlocks.length - 1) {
+          currentBlockIndex++;
+          updateBlockUI();
+          setTimeout(() => toggleAudio(), 800);
+        } else {
+          resetPlayButton();
+        }
         return;
       }
-      msgEl.textContent = `${vp.message} (${Math.floor(remaining/60)}:${(remaining%60).toString().padStart(2,'0')})`;
+      msgEl.textContent = `${msg} (${Math.floor(remaining/60)}:${(remaining%60).toString().padStart(2,'0')})`;
     }, 1000);
-    // Store interval so we can cancel on stop
-    videoPauseCallback = () => { clearInterval(countdownId); overlay.style.display = 'none'; };
+    videoPauseCallback = () => { clearInterval(countdownId); overlay.style.display = 'none'; stopProgress(); };
+    return;
+  }
+
+  // Check for old-style videoPause (backwards compat)
+  if (block.videoPause) {
+    startNarration(block);
     return;
   }
 
