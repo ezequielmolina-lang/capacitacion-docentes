@@ -673,7 +673,7 @@ const MODULES = {
             { q: "Los estudiantes necesitan saber programar para usar la plataforma.", options: ["Verdadero", "Falso"], correct: 1, feedback: { correct: "\u00a1Correcto! Falso. La plataforma es una interfaz de chat, como WhatsApp. No se necesita ning\u00fan conocimiento t\u00e9cnico.", wrong: "Es FALSO. Es una interfaz de chat \u2014 si tus estudiantes usan WhatsApp, pueden usar la plataforma." } },
             { q: "Solo docentes tecnol\u00f3gicos pueden implementar este programa.", options: ["Verdadero", "Falso"], correct: 1, feedback: { correct: "\u00a1As\u00ed es! Falso. Si usas WhatsApp, puedes hacer esto. La plataforma es intuitiva y tendr\u00e1s acompa\u00f1amiento.", wrong: "Es FALSO. Si sabes usar WhatsApp, tienes las habilidades necesarias. Adem\u00e1s, tendr\u00e1s soporte continuo." } }
           ] },
-          { type: "practice", title: "Prueba una IA t\u00fa mismo", instructions: "<p>Ahora vamos a hacer algo pr\u00e1ctico. Abre una herramienta de IA en tu celular o computadora \u2014 puede ser <strong>ChatGPT</strong>, <strong>Claude</strong>, o <strong>Copilot</strong> (todos son gratuitos).</p><p>Hazle esta pregunta exacta:</p><p><em>\u201CSi un pantal\u00f3n cuesta S/100, primero sube 20% y luego baja 20%, \u00bfcu\u00e1nto cuesta al final?\u201D</em></p><p>La respuesta correcta es <strong>S/96</strong>, no S/100. \u00bfLa IA acert\u00f3? \u00bfExplic\u00f3 bien el por qu\u00e9?</p><p>Este ejercicio demuestra dos cosas importantes:</p><ol><li>La IA <strong>puede</strong> resolver problemas matem\u00e1ticos y explicar el razonamiento paso a paso.</li><li>Pero no siempre lo hace bien \u2014 y ah\u00ed es donde <strong>t\u00fa</strong> entras, para verificar y complementar.</li></ol>", checklist: ["Abr\u00ed ChatGPT, Claude o Copilot", "Le hice la pregunta del pantal\u00f3n de S/100", "Verifiqu\u00e9 si la respuesta fue correcta (S/96)", "Evalu\u00e9 si la explicaci\u00f3n ser\u00eda clara para un estudiante de 5to"] },
+          { type: "practice", title: "Prueba una IA t\u00fa mismo", instructions: "<p>Ahora vamos a hacer algo pr\u00e1ctico. Abre una de estas herramientas de IA (todas son gratuitas):</p><div style='display:flex;gap:12px;flex-wrap:wrap;margin:16px 0'><a href='https://chat.openai.com' target='_blank' style='display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#10a37f;color:white;border-radius:8px;text-decoration:none;font-weight:600'><i class='fas fa-external-link-alt'></i> ChatGPT</a><a href='https://claude.ai' target='_blank' style='display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#d97706;color:white;border-radius:8px;text-decoration:none;font-weight:600'><i class='fas fa-external-link-alt'></i> Claude</a><a href='https://copilot.microsoft.com' target='_blank' style='display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#2563eb;color:white;border-radius:8px;text-decoration:none;font-weight:600'><i class='fas fa-external-link-alt'></i> Copilot</a></div><p>Hazle esta pregunta exacta:</p><div class='callout'><em>\u201CSi un pantal\u00f3n cuesta S/100, primero sube 20% y luego baja 20%, \u00bfcu\u00e1nto cuesta al final?\u201D</em></div><p>La respuesta correcta es <strong>S/96</strong>, no S/100.</p>", checklist: ["Abr\u00ed una de las IAs (ChatGPT, Claude o Copilot)"], responsePrompt: "\u00bfQu\u00e9 respondi\u00f3 la IA? Pega o escribe la respuesta aqu\u00ed. \u00bfAcert\u00f3? \u00bfLa explicaci\u00f3n ser\u00eda clara para un estudiante de 5to?" },
           { type: "reflection", title: "Tu primera impresi\u00f3n", prompt: "\u00bfQu\u00e9 te sorprendi\u00f3 de la respuesta de la IA? \u00bfCrees que un estudiante de 5to la entender\u00eda tal como est\u00e1? \u00bfQu\u00e9 ajustar\u00edas si tuvieras que explicar lo mismo en tu aula?" }
         ]
       },
@@ -1128,7 +1128,23 @@ function renderPracticeStep(step, stepIdx) {
     html += '</div>';
   });
   html += '</div>';
+  // Optional response text field
+  if (step.responsePrompt) {
+    var rKey = 'emc-practice-' + state.track + '-' + state.moduleId + '-' + stepIdx;
+    var saved = localStorage.getItem(rKey) || '';
+    html += '<div style="margin-top:20px">';
+    html += '<p class="reflection-prompt">' + step.responsePrompt + '</p>';
+    html += '<textarea class="reflection-textarea" id="practice-response" placeholder="Escribe aquí lo que encontraste..." oninput="savePracticeResponse(\'' + rKey + '\')">' + saved + '</textarea>';
+    if (saved) html += '<p class="reflection-saved"><i class="fas fa-check"></i> Guardado</p>';
+    html += '</div>';
+  }
   return html;
+}
+
+function savePracticeResponse(key) {
+  var text = document.getElementById('practice-response').value;
+  localStorage.setItem(key, text);
+  updateNextButton();
 }
 
 function togglePracticeItem(stepIdx, i) {
@@ -1174,6 +1190,12 @@ function updateNextButton() {
   } else if (step.type === 'practice' && step.checklist) {
     var checks = (quizStates[currentStepIndex] || {}).checks || {};
     canProceed = step.checklist.every(function(_, i) { return checks[i]; });
+    // Also require response text if responsePrompt exists
+    if (canProceed && step.responsePrompt) {
+      var rKey = 'emc-practice-' + state.track + '-' + state.moduleId + '-' + currentStepIndex;
+      var resp = localStorage.getItem(rKey) || '';
+      canProceed = resp.trim().length > 10; // at least a short response
+    }
   }
   btn.disabled = !canProceed;
 }
