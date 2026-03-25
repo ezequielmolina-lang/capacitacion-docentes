@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "capacitacion",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["http-server", "C:\\Users\\cosmo\\Downloads\\capacitacion-docentes", "-p", "8091", "-c-1"],
+      "port": 8091
+    }
+  ]
+}
