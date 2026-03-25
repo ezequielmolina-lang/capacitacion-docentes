@@ -1545,6 +1545,7 @@ function checkTrackCompletion(track) {
     document.getElementById('diploma-teacher-name').textContent = info ? info.name : 'Docente';
     document.getElementById('diploma-school').textContent = info ? info.school : '';
     document.getElementById('diploma-track-name').textContent = track === 'math' ? 'Matemáticas — Tutor IA' : 'Orientación Vocacional — Coach IA';
+    document.getElementById('diploma-img').src = track === 'math' ? 'img/math.png' : 'img/vocation.png';
     document.getElementById('diploma-date').textContent = new Date().toLocaleDateString('es-PE', { year: 'numeric', month: 'long', day: 'numeric' });
 
     // Send email notification via Google Sheets tracking
@@ -1576,7 +1577,7 @@ if (teacherInfo) {
 <div id="diploma-overlay" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);z-index:1000;align-items:center;justify-content:center;padding:20px">
   <div id="diploma-card" style="background:white;border-radius:16px;max-width:700px;width:100%;padding:48px;text-align:center;position:relative">
     <button onclick="document.getElementById('diploma-overlay').style.display='none'" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:1.5rem;cursor:pointer">&times;</button>
-    <img src="img/math.png" alt="EMC" style="width:80px;height:80px;object-fit:contain;margin:0 auto">
+    <img id="diploma-img" src="img/math.png" alt="EMC" style="width:80px;height:80px;object-fit:contain;margin:0 auto">
     <h1 style="color:var(--primary);font-size:2rem;margin:16px 0 4px">¡Felicitaciones!</h1>
     <p style="color:#666;font-size:1.1rem;margin-bottom:24px">Has completado la capacitación docente</p>
 
