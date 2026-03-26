@@ -855,8 +855,8 @@
 
     <!-- Resource bar -->
     <div id="resource-bar" style="display:none;padding:8px 16px;background:#f8f9fa;border-top:1px solid #e0e0e0;display:flex;justify-content:center;gap:16px;flex-wrap:wrap;font-size:0.8rem">
-      <a id="res-guide" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:4px;color:#1565C0;text-decoration:none;font-weight:600"><i class="fas fa-book"></i> <span id="res-guide-label">Gu\u00eda</span></a>
-      <a id="res-folder" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:4px;color:#1565C0;text-decoration:none;font-weight:600"><i class="fas fa-folder-open"></i> Carpeta de formaci\u00f3n</a>
+      <a id="res-guide" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:4px;color:#1565C0;text-decoration:none;font-weight:600"><i class="fas fa-book"></i> <span id="res-guide-label">Guía</span></a>
+      <a id="res-folder" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:4px;color:#1565C0;text-decoration:none;font-weight:600"><i class="fas fa-folder-open"></i> Carpeta de formación</a>
       <a id="res-help" href="https://eligiendomicamino.docs.udocz.com/" target="_blank" style="display:inline-flex;align-items:center;gap:4px;color:#1565C0;text-decoration:none;font-weight:600"><i class="fas fa-question-circle"></i> Centro de Ayuda</a>
     </div>
 
@@ -1352,6 +1352,46 @@ function renderModules() {
     `;
     grid.appendChild(card);
   });
+
+  // Resource cards below modules
+  var resSection = document.getElementById('module-resources');
+  if (!resSection) {
+    resSection = document.createElement('div');
+    resSection.id = 'module-resources';
+    grid.parentNode.insertBefore(resSection, grid.nextSibling);
+  }
+
+  var guideUrl, guideImg, guideTitle, folderUrl, helpUrl;
+  if (state.track === 'math') {
+    guideUrl = 'https://drive.google.com/file/d/12Q5zUjofNHHfONZT2nSSQVOGH8M2zuan/view?usp=sharing';
+    guideImg = 'img/guia-mate-cover.png';
+    guideTitle = 'Gu\u00eda del Docente de Matem\u00e1ticas';
+    folderUrl = 'https://drive.google.com/drive/folders/1RknhY4YcTpk2WxaWwoy-F_2-r9PmQoOm';
+  } else {
+    guideUrl = 'https://drive.google.com/file/d/1_KfUBZ2gCql4iFDlv1UqFKSyBGpBl_GF/view?usp=sharing';
+    guideImg = 'img/guia-ov-cover.png';
+    guideTitle = 'Gu\u00eda Completa del Tutor';
+    folderUrl = 'https://drive.google.com/drive/folders/1m_OnilfgQSEJusmA3nz9Xk8-hcq8rsVo';
+  }
+  helpUrl = 'https://eligiendomicamino.docs.udocz.com/';
+
+  resSection.innerHTML = '<h3 style="text-align:center;margin:32px 0 16px;color:#666;font-weight:600">\uD83D\uDCDA Recursos de apoyo</h3>' +
+    '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;max-width:800px;margin:0 auto 32px;padding:0 20px">' +
+      '<a href="' + guideUrl + '" target="_blank" style="display:block;text-decoration:none;color:#242c32;background:white;border-radius:16px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,0.1);transition:transform 0.2s,box-shadow 0.2s" onmouseover="this.style.transform=\'translateY(-4px)\';this.style.boxShadow=\'0 8px 24px rgba(243,147,0,0.2)\'" onmouseout="this.style.transform=\'none\';this.style.boxShadow=\'0 4px 16px rgba(0,0,0,0.1)\'">' +
+        '<img src="' + guideImg + '" alt="' + guideTitle + '" style="width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top">' +
+        '<div style="padding:12px 16px"><p style="font-weight:700;font-size:0.95rem;margin-bottom:4px">' + guideTitle + '</p><p style="font-size:0.8rem;color:#666">Abrir PDF \u2197</p></div>' +
+      '</a>' +
+      '<a href="' + folderUrl + '" target="_blank" style="display:flex;flex-direction:column;justify-content:center;align-items:center;text-decoration:none;color:#242c32;background:white;border-radius:16px;padding:32px 20px;box-shadow:0 4px 16px rgba(0,0,0,0.1);transition:transform 0.2s,box-shadow 0.2s;text-align:center" onmouseover="this.style.transform=\'translateY(-4px)\';this.style.boxShadow=\'0 8px 24px rgba(243,147,0,0.2)\'" onmouseout="this.style.transform=\'none\';this.style.boxShadow=\'0 4px 16px rgba(0,0,0,0.1)\'">' +
+        '<i class="fas fa-folder-open" style="font-size:3rem;color:#f39300;margin-bottom:12px"></i>' +
+        '<p style="font-weight:700;font-size:0.95rem;margin-bottom:4px">Carpeta de formaci\u00f3n</p>' +
+        '<p style="font-size:0.8rem;color:#666">Slides, s\u00edlabo, materiales</p>' +
+      '</a>' +
+      '<a href="' + helpUrl + '" target="_blank" style="display:flex;flex-direction:column;justify-content:center;align-items:center;text-decoration:none;color:#242c32;background:white;border-radius:16px;padding:32px 20px;box-shadow:0 4px 16px rgba(0,0,0,0.1);transition:transform 0.2s,box-shadow 0.2s;text-align:center" onmouseover="this.style.transform=\'translateY(-4px)\';this.style.boxShadow=\'0 8px 24px rgba(243,147,0,0.2)\'" onmouseout="this.style.transform=\'none\';this.style.boxShadow=\'0 4px 16px rgba(0,0,0,0.1)\'">' +
+        '<i class="fas fa-question-circle" style="font-size:3rem;color:#1565C0;margin-bottom:12px"></i>' +
+        '<p style="font-weight:700;font-size:0.95rem;margin-bottom:4px">Centro de Ayuda</p>' +
+        '<p style="font-size:0.8rem;color:#666">Login, contrase\u00f1as, navegaci\u00f3n</p>' +
+      '</a>' +
+    '</div>';
 }
 
 /* ── Render: Viewer (Step-based) ── */
