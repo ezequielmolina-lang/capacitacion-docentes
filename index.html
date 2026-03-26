@@ -49,6 +49,10 @@
       from { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: translateY(0); }
     }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
 
     /* ── Landing ── */
     .hero {
@@ -1653,8 +1657,56 @@ function prevStep() {
 function completeModule() {
   trackProgress(state.track, state.moduleId, 'MODULE_COMPLETE', 'completed');
   markComplete(state.track, state.moduleId);
-  navigate('modules', { track: state.track });
-  checkTrackCompletion(state.track);
+
+  // Count completed modules
+  var trackData = MODULES[state.track];
+  var completed = trackData.modules.filter(function(m) { return isComplete(state.track, m.id); }).length;
+  var total = trackData.modules.length;
+  var currentIdx = trackData.modules.findIndex(function(m) { return m.id === state.moduleId; });
+  var currentTitle = trackData.modules[currentIdx] ? trackData.modules[currentIdx].title : '';
+  var nextModule = trackData.modules[currentIdx + 1];
+
+  // Show celebration overlay
+  var celebrationHTML = '<div id="celebration-overlay" style="position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:10000;display:flex;align-items:center;justify-content:center;animation:fadeIn 0.3s">';
+  celebrationHTML += '<div style="background:white;border-radius:24px;padding:40px;max-width:480px;text-align:center;animation:slideUp 0.4s;box-shadow:0 20px 60px rgba(0,0,0,0.3)">';
+  celebrationHTML += '<div style="font-size:4rem;margin-bottom:16px">' + (completed === total ? '\uD83C\uDF89' : '\uD83C\uDF1F') + '</div>';
+  celebrationHTML += '<h2 style="margin-bottom:8px;color:#1a1a2e">\u00a1M\u00f3dulo completado!</h2>';
+  celebrationHTML += '<p style="color:#666;margin-bottom:20px">' + currentTitle + '</p>';
+
+  // Progress ring
+  var pct = Math.round((completed / total) * 100);
+  celebrationHTML += '<div style="position:relative;width:120px;height:120px;margin:0 auto 20px">';
+  celebrationHTML += '<svg width="120" height="120" style="transform:rotate(-90deg)">';
+  celebrationHTML += '<circle cx="60" cy="60" r="52" fill="none" stroke="#e0e0e0" stroke-width="8"/>';
+  celebrationHTML += '<circle cx="60" cy="60" r="52" fill="none" stroke="#f39300" stroke-width="8" stroke-dasharray="' + (2 * Math.PI * 52) + '" stroke-dashoffset="' + (2 * Math.PI * 52 * (1 - completed/total)) + '" stroke-linecap="round"/>';
+  celebrationHTML += '</svg>';
+  celebrationHTML += '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:700;color:#f39300">' + pct + '%</div>';
+  celebrationHTML += '</div>';
+
+  celebrationHTML += '<p style="font-size:1.1rem;font-weight:600;color:#1a1a2e;margin-bottom:4px">' + completed + ' de ' + total + ' m\u00f3dulos</p>';
+
+  if (nextModule && completed < total) {
+    celebrationHTML += '<p style="color:#888;font-size:0.9rem;margin-bottom:24px">Siguiente: ' + nextModule.title + '</p>';
+    celebrationHTML += '<button onclick="document.getElementById(\'celebration-overlay\').remove();navigate(\'modules\',{track:state.track})" style="background:linear-gradient(135deg,#f39300,#f75a00);color:white;border:none;padding:14px 32px;border-radius:12px;font-size:1.05rem;font-weight:600;cursor:pointer">\u00a1Vamos al siguiente! \u2192</button>';
+  } else if (completed === total) {
+    celebrationHTML += '<p style="color:#2E7D32;font-weight:600;font-size:1.1rem;margin-bottom:24px">\u00a1Completaste todos los m\u00f3dulos! \uD83C\uDF93</p>';
+    celebrationHTML += '<button onclick="document.getElementById(\'celebration-overlay\').remove();navigate(\'modules\',{track:state.track});checkTrackCompletion(state.track)" style="background:linear-gradient(135deg,#2E7D32,#1B5E20);color:white;border:none;padding:14px 32px;border-radius:12px;font-size:1.05rem;font-weight:600;cursor:pointer">Ver mi diploma \uD83C\uDF93</button>';
+  }
+
+  celebrationHTML += '</div></div>';
+
+  document.body.insertAdjacentHTML('beforeend', celebrationHTML);
+
+  if (completed < total) {
+    // Not all done yet — just go back after clicking
+  } else {
+    // Will trigger diploma via button click
+  }
+
+  // Navigate back to modules (celebration overlay is on top)
+  if (completed < total) {
+    // Navigation happens when they click the button
+  }
 }
 
 function checkTrackCompletion(track) {
