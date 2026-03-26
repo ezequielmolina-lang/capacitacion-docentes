@@ -550,6 +550,7 @@
       font-size: 0.95rem;
     }
     .practice-item:hover { border-color: var(--primary); }
+    .scenario-choice:hover { border-color: var(--primary) !important; background: #FFF8E1 !important; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(243,147,0,0.15); }
     .practice-item.checked { border-color: #2E7D32; background: #E8F5E9; }
     .practice-checkbox {
       width: 24px; height: 24px;
@@ -946,7 +947,36 @@ const MODULES = {
           ] },
           { type: "content", title: "Qu\u00e9 NO hacer durante una sesi\u00f3n", html: "<p>Tan importante como saber qu\u00e9 hacer es saber qu\u00e9 <strong>evitar</strong>. Estos son los errores m\u00e1s comunes que queremos que no cometas:</p><ul><li><strong>\u274c NO te sientes en tu escritorio toda la sesi\u00f3n</strong><br>Tu lugar durante el laboratorio es caminando entre los estudiantes, no detr\u00e1s de tu computadora. Si est\u00e1s sentado, no est\u00e1s circulando, y si no est\u00e1s circulando, no est\u00e1s ense\u00f1ando.</li><li><strong>\u274c NO des clases magistrales de m\u00e1s de 3 minutos durante el lab</strong><br>El laboratorio es para pr\u00e1ctica. Si necesitas explicar algo, hazlo breve y enfocado. Las explicaciones largas van en el aula, no en el lab.</li><li><strong>\u274c NO le des la respuesta cuando un estudiante se frustra</strong><br>Doc est\u00e1 dise\u00f1ado para guiar al estudiante paso a paso. Si t\u00fa le das la respuesta, le quitas la oportunidad de aprender del proceso. La frustraci\u00f3n moderada es parte del aprendizaje.</li><li><strong>\u274c NO uses el tiempo de laboratorio para otras actividades</strong><br>Las 2 horas de laboratorio son exclusivamente para trabajo en la plataforma. No las uses para ex\u00e1menes, tareas de otros cursos, ni actividades administrativas.</li></ul><div class='callout'><strong>\ud83e\udd14 Lo m\u00e1s dif\u00edcil va a ser NO dar la respuesta cuando ves a un estudiante frustrado.</strong> Conf\u00eda en el proceso: la lucha productiva es parte del aprendizaje. Doc est\u00e1 ah\u00ed para guiarlo \u2014 tu rol es motivar y acompa\u00f1ar, no resolver.</div>" },
           { type: "content", title: "Plataforma vs Docente \u2014 \u00bfQui\u00e9n hace qu\u00e9?", html: "<p>Una pregunta que seguramente te est\u00e1s haciendo: si la plataforma hace tanto, \u00bfcu\u00e1l es mi rol exactamente? La respuesta es clara: <strong>son complementarios</strong>. Cada uno hace lo que mejor sabe hacer.</p><h3>\ud83e\udd16 Lo que hace la plataforma</h3><ul><li><strong>Adapta ejercicios al nivel del estudiante:</strong> si un estudiante domina fracciones, avanza. Si no, refuerza. Autom\u00e1ticamente.</li><li><strong>Da feedback inmediato y espec\u00edfico:</strong> no solo dice 'incorrecto' \u2014 explica por qu\u00e9 y hace preguntas de remediaci\u00f3n.</li><li><strong>Registra progreso y errores:</strong> cada interacci\u00f3n queda registrada. Nada se pierde.</li><li><strong>Nunca se cansa:</strong> puede repetir la misma explicaci\u00f3n 100 veces sin frustrarse. T\u00fa no puedes (ni deber\u00edas tener que hacerlo).</li></ul><h3>\ud83d\udc69\u200d\ud83c\udfeb Lo que haces t\u00fa</h3><ul><li><strong>Observas patrones que los datos no muestran:</strong> un estudiante desmotivado, un conflicto entre compa\u00f1eros, un problema en casa que afecta el rendimiento.</li><li><strong>Tomas decisiones de timing:</strong> cu\u00e1ndo pausar la pr\u00e1ctica, cu\u00e1ndo intervenir, cu\u00e1ndo dejar que un estudiante luche un poco m\u00e1s.</li><li><strong>Motivas y acompa\u00f1as emocionalmente:</strong> un 'vas bien, sigue as\u00ed' tuyo vale m\u00e1s que cualquier mensaje autom\u00e1tico.</li><li><strong>Conectas la pr\u00e1ctica de lab con el aula:</strong> lo que el estudiante practica en la plataforma cobra sentido cuando t\u00fa lo conectas con la clase presencial.</li></ul><div class='callout callout-info'><strong>\ud83d\udca1 No compites con la plataforma. Son complementarios.</strong> Ella hace lo que las m\u00e1quinas hacen bien: repetici\u00f3n, datos, personalizaci\u00f3n. T\u00fa haces lo que los humanos hacen bien: empat\u00eda, juicio, motivaci\u00f3n. Juntos son m\u00e1s poderosos que por separado.</div>" },
-          { type: "practice", title: "Simula una sesi\u00f3n mentalmente", instructions: "<p>Vamos a hacer un ejercicio de simulaci\u00f3n mental. Imagina que est\u00e1s en tu laboratorio. Tienes 25 estudiantes, computadoras listas, y es la tercera semana del programa.</p><strong>Responde mentalmente o en voz alta:</strong><ol><li><strong>Minuto 0-5 (Apertura):</strong> \u00bfQu\u00e9 instrucciones das? \u00bfQu\u00e9 verificas antes de que empiecen?</li><li><strong>Minuto 5-40 (Pr\u00e1ctica aut\u00f3noma):</strong> \u00bfQu\u00e9 tipo de circulaci\u00f3n usas primero? \u00bfCu\u00e1ndo pasas de escaneo a inmersi\u00f3n?</li><li><strong>Minuto 40 (Dashboard):</strong> Abres el dashboard y ves que 8 estudiantes tienen el mismo error en porcentajes. \u00bfQu\u00e9 haces?</li><li><strong>Minuto 50-55 (Cierre):</strong> \u00bfQu\u00e9 les dices? \u00bfQu\u00e9 previsualizas para la pr\u00f3xima sesi\u00f3n?</li></ol>", checklist: ["Pens\u00e9 en qu\u00e9 instrucciones doy en la Apertura", "Identifiqu\u00e9 qu\u00e9 tipo de circulaci\u00f3n uso primero", "Decid\u00ed qu\u00e9 har\u00eda con 8 estudiantes con el mismo error", "Planifiqu\u00e9 c\u00f3mo cerrar\u00eda la sesi\u00f3n"] },
+          { type: "scenario", title: "Simulaci\u00f3n: Tu primera sesi\u00f3n de laboratorio", context: "Lunes, 8:00 AM \u2014 Laboratorio de c\u00f3mputo, IE 1234", momento: "Sesi\u00f3n completa: 5 momentos",
+            nodes: [
+              { clock: "7:55 AM \u2014 Antes de que lleguen los estudiantes", situation: "Llegas al laboratorio 5 minutos antes. El t\u00e9cnico te dice que <strong>4 de las 30 computadoras no encienden</strong>. Tu secci\u00f3n tiene 32 estudiantes. \u00bfQu\u00e9 haces?", choices: [
+                { text: "Pides a los primeros 4 estudiantes que lleguen que compartan computadora con un compa\u00f1ero", optimal: true, consequence: "Buena decisi\u00f3n. Resuelves r\u00e1pido sin perder tiempo. Los pares pueden turnarse cada 20 minutos.", next: 1 },
+                { text: "Vas a buscar al t\u00e9cnico para que las arregle ahora", optimal: false, consequence: "Pierdes 10 minutos buscando al t\u00e9cnico. Los estudiantes llegan y no hay nadie organiz\u00e1ndolos. El desorden crece.", next: 1 },
+                { text: "Cancelas la sesi\u00f3n y les das clase regular", optimal: false, consequence: "Pierdes una sesi\u00f3n completa de pr\u00e1ctica. 4 computadoras menos no justifica cancelar \u2014 siempre habr\u00e1 problemas t\u00e9cnicos.", next: 1 }
+              ]},
+              { clock: "8:05 AM \u2014 Momento 1: Apertura", situation: "Los 32 estudiantes est\u00e1n sentados. Escribiste en la pizarra: <em>Usuario: tu DNI | Contrase\u00f1a: emc2026</em>. 28 ya iniciaron sesi\u00f3n. <strong>Mar\u00eda levanta la mano:</strong> 'Profe, me dice contrase\u00f1a incorrecta.' <strong>Pedro est\u00e1 en YouTube.</strong> <strong>Luc\u00eda ya empez\u00f3 a resolver preguntas.</strong> \u00bfQu\u00e9 atiendes primero?", choices: [
+                { text: "Le digo a Pedro que cierre YouTube \u2014 es lo m\u00e1s urgente", optimal: false, consequence: "Pedro cierra YouTube pero Mar\u00eda sigue sin poder entrar. Mientras atiendes a Pedro, otros 2 estudiantes tambi\u00e9n reportan problemas de contrase\u00f1a.", next: 2 },
+                { text: "Ayudo a Mar\u00eda con su contrase\u00f1a primero \u2014 es un problema t\u00e9cnico que no puede resolver sola", optimal: true, consequence: "Le verificas el DNI, le reseteas la contrase\u00f1a desde tu panel. Mientras tanto, Pedro notar\u00e1 que todos est\u00e1n trabajando y probablemente cierre YouTube solo. Si no, lo atiendes despu\u00e9s.", next: 2 },
+                { text: "Felicito a Luc\u00eda por empezar r\u00e1pido y la pongo de ejemplo", optimal: false, consequence: "Luc\u00eda se siente bien, pero Mar\u00eda sigue sin poder entrar y Pedro sigue en YouTube. No resolviste ning\u00fan problema.", next: 2 }
+              ]},
+              { clock: "8:15 AM \u2014 Momento 2: Pr\u00e1ctica aut\u00f3noma", situation: "Todos est\u00e1n trabajando en Modo Escuela. Empiezas a circular. Pasas por el puesto de <strong>Carlos</strong> y ves que lleva 4 minutos en la misma pregunta sobre fracciones. Su cara muestra frustraci\u00f3n. Miras la pantalla: Doc le hizo una pregunta de remediaci\u00f3n pero Carlos no la responde. \u00bfQu\u00e9 haces?", choices: [
+                { text: "Le explico c\u00f3mo resolver la fracci\u00f3n", optimal: false, consequence: "Carlos resuelve la pregunta, pero no aprendi\u00f3 del proceso. Doc estaba guiando con preguntas \u2014 al darle la respuesta, le quitaste la oportunidad de luchar productivamente.", next: 3 },
+                { text: "Le digo: 'Tranquilo, Carlos. Lee lo que Doc te est\u00e1 preguntando. \u00bfQu\u00e9 crees que te est\u00e1 pidiendo?' Y sigo circulando.", optimal: true, consequence: "\u00a1Excelente! Motivaste sin resolver. Carlos relee la remediaci\u00f3n de Doc, intenta de nuevo y \u2014 aunque se equivoca otra vez \u2014 Doc le da otra pista m\u00e1s directa. Al tercer intento, lo logra solo.", next: 3 },
+                { text: "Lo dejo tranquilo, no quiero interrumpir el proceso de Doc", optimal: false, consequence: "Carlos se frustra m\u00e1s, cierra la pesta\u00f1a y se pone a hablar con su compa\u00f1ero. A veces no intervenir no es la mejor opci\u00f3n \u2014 un peque\u00f1o empuj\u00f3n motivacional habr\u00eda bastado.", next: 3 }
+              ]},
+              { clock: "8:35 AM \u2014 Momento 3: Pausa / Dashboard", situation: "Llevas 20 minutos de pr\u00e1ctica aut\u00f3noma. Abres tu <strong>dashboard</strong> y ves lo siguiente:<br><br><div style='background:#f8f9fa;padding:16px;border-radius:8px;font-family:monospace;font-size:0.9rem'>\ud83d\udfe2 18 estudiantes avanzando bien<br>\ud83d\udfe1 8 estudiantes con el MISMO error: 'Confunden per\u00edmetro con \u00e1rea'<br>\ud83d\udd34 4 estudiantes sin actividad (0 preguntas respondidas)<br>\ud83d\udfe0 2 estudiantes terminaron todo el tema</div><br>\u00bfQu\u00e9 haces?", choices: [
+                { text: "Pauso a toda la clase y explico la diferencia entre per\u00edmetro y \u00e1rea (3 min en la pizarra)", optimal: true, consequence: "\u00a1Perfecto! Usaste los datos del dashboard para una intervenci\u00f3n focalizada. 8 estudiantes necesitaban exactamente eso. Los otros 18 tambi\u00e9n se benefician del repaso. Luego revisas a los 4 inactivos individualmente.", next: 4 },
+                { text: "Me acerco individualmente a cada uno de los 8 estudiantes con el error", optimal: false, consequence: "Con 8 estudiantes, te tomar\u00e1 al menos 15 minutos atender a cada uno. Mientras tanto, los 4 inactivos siguen sin hacer nada y los 2 que terminaron se aburren. Una intervenci\u00f3n grupal de 3 minutos habr\u00eda sido m\u00e1s eficiente.", next: 4 },
+                { text: "Ignoro el dashboard y sigo circulando normalmente", optimal: false, consequence: "Los 8 estudiantes siguen tropezando con el mismo error una y otra vez. El dashboard te dio informaci\u00f3n valiosa que no usaste. Esos datos son tu superpoder \u2014 \u00fasalos.", next: 4 }
+              ]},
+              { clock: "8:55 AM \u2014 Momento 5: Cierre", situation: "Faltan 5 minutos. Los estudiantes est\u00e1n en su segunda ronda de pr\u00e1ctica. El dashboard muestra que el error de per\u00edmetro/\u00e1rea baj\u00f3 de 8 a 2 estudiantes despu\u00e9s de tu intervenci\u00f3n. \u00bfC\u00f3mo cierras la sesi\u00f3n?", choices: [
+                { text: "Les digo que guarden todo y se vayan", optimal: false, consequence: "Oportunidad perdida. El cierre es un momento clave para consolidar el aprendizaje y generar expectativa para la pr\u00f3xima sesi\u00f3n.", next: 5 },
+                { text: "Les pido que paren, les cuento que el error m\u00e1s com\u00fan fue per\u00edmetro vs \u00e1rea, y que la pr\u00f3xima sesi\u00f3n seguiremos con geometr\u00eda", optimal: true, consequence: "\u00a1Excelente cierre! Compartiste el dato del dashboard (transparencia), reconociste el esfuerzo colectivo, y generaste expectativa para la pr\u00f3xima sesi\u00f3n. Los estudiantes se van sabiendo qu\u00e9 aprendieron y qu\u00e9 viene.", next: 5 },
+                { text: "Les digo: 'Los que no terminaron, practiquen en casa en Modo Casa'", optimal: false, consequence: "Est\u00e1 bien mencionarlo, pero falt\u00f3 el cierre grupal. Sin reflexi\u00f3n colectiva, la sesi\u00f3n se siente como 'tiempo en la computadora' en vez de 'sesi\u00f3n de aprendizaje'.", next: 5 }
+              ]},
+              { type: "end", title: "\u00a1Sesi\u00f3n completada!", summary: "Acabas de vivir los 5 momentos de una sesi\u00f3n de laboratorio con decisiones reales.", debrief: "Las decisiones \u00f3ptimas tienen algo en com\u00fan: <strong>priorizan lo que el estudiante necesita</strong>, <strong>usan los datos del dashboard</strong>, y <strong>dejan que Doc haga su trabajo</strong> mientras t\u00fa aportas lo humano \u2014 motivaci\u00f3n, empat\u00eda, y juicio profesional. No siempre vas a tomar la decisi\u00f3n perfecta, y eso est\u00e1 bien. Lo importante es que est\u00e9s presente, circulando, observando, y usando los datos." }
+            ]
+          },
           { type: "reflection", title: "Reflexi\u00f3n: Tu estilo de circulaci\u00f3n", prompt: "\u00bfCu\u00e1l de los 3 tipos de circulaci\u00f3n te parece m\u00e1s dif\u00edcil de implementar? \u00bfPor qu\u00e9? \u00bfQu\u00e9 necesitar\u00edas para sentirte m\u00e1s c\u00f3modo/a haci\u00e9ndolo?" }
         ]
       },
@@ -1337,7 +1367,7 @@ function renderStep() {
   document.getElementById('step-counter').textContent = 'Paso ' + (currentStepIndex + 1) + ' de ' + total;
 
   // Step type badge
-  const badges = { video: '\uD83C\uDFAC', content: '\uD83D\uDCD6', quiz: '\uD83E\uDDE0', practice: '\uD83D\uDCBB', reflection: '\uD83D\uDCAC' };
+  const badges = { video: '\uD83C\uDFAC', content: '\uD83D\uDCD6', quiz: '\uD83E\uDDE0', practice: '\uD83D\uDCBB', reflection: '\uD83D\uDCAC', scenario: '\uD83C\uDFAE' };
   document.getElementById('step-type-badge').textContent = badges[step.type] || '\uD83D\uDCD6';
   document.getElementById('step-title').textContent = step.title;
 
@@ -1349,6 +1379,7 @@ function renderStep() {
     case 'quiz': container.innerHTML = renderQuizStep(step, currentStepIndex); break;
     case 'practice': container.innerHTML = renderPracticeStep(step, currentStepIndex); break;
     case 'reflection': container.innerHTML = renderReflectionStep(step, currentStepIndex); break;
+    case 'scenario': container.innerHTML = renderScenarioStep(step, currentStepIndex); break;
     default: container.innerHTML = '<p>Tipo de paso no reconocido.</p>';
   }
 
@@ -1478,6 +1509,96 @@ function saveReflection(key) {
   localStorage.setItem(key, text);
 }
 
+// ═══════════════════════════════════════════
+// BRANCHING SCENARIO ENGINE
+// ═══════════════════════════════════════════
+function renderScenarioStep(step, stepIdx) {
+  if (!quizStates[stepIdx]) quizStates[stepIdx] = { nodeIdx: 0, history: [], score: 0, total: 0 };
+  var ss = quizStates[stepIdx];
+  var nodes = step.nodes;
+  var node = nodes[ss.nodeIdx];
+  var html = '';
+
+  // Context bar
+  if (step.context) {
+    html += '<div style="background:linear-gradient(135deg,#1a1a2e,#16213e);color:white;padding:16px 20px;border-radius:12px;margin-bottom:20px;font-size:0.95rem">';
+    html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span style="font-size:1.3rem">\uD83C\uDFEB</span><strong>' + step.context + '</strong></div>';
+    if (step.momento) html += '<span style="background:rgba(243,147,0,0.2);color:#f39300;padding:4px 12px;border-radius:20px;font-size:0.85rem;font-weight:600">' + step.momento + '</span>';
+    html += '</div>';
+  }
+
+  // History of past decisions
+  ss.history.forEach(function(h) {
+    html += '<div style="background:#f8f9fa;border-radius:12px;padding:16px;margin-bottom:12px;border-left:4px solid ' + (h.optimal ? '#2E7D32' : '#F57B21') + '">';
+    html += '<p style="color:#666;font-size:0.85rem;margin-bottom:4px">' + h.situation + '</p>';
+    html += '<p style="font-weight:600;margin-bottom:4px">' + (h.optimal ? '\u2705' : '\u26A0\uFE0F') + ' Tu decisi\u00f3n: ' + h.choice + '</p>';
+    html += '<p style="font-size:0.9rem;color:#555">' + h.consequence + '</p>';
+    html += '</div>';
+  });
+
+  // Current node
+  if (node.type === 'end') {
+    // Ending screen
+    var pct = ss.total > 0 ? Math.round((ss.score / ss.total) * 100) : 0;
+    html += '<div style="text-align:center;padding:30px 20px">';
+    html += '<div style="font-size:3rem;margin-bottom:16px">' + (pct >= 70 ? '\uD83C\uDF1F' : '\uD83D\uDCAA') + '</div>';
+    html += '<h3 style="margin-bottom:8px">' + node.title + '</h3>';
+    html += '<p style="color:#666;margin-bottom:20px">' + node.summary + '</p>';
+    html += '<div style="background:linear-gradient(135deg,#f39300,#f75a00);color:white;display:inline-block;padding:12px 24px;border-radius:12px;font-size:1.2rem;font-weight:700">' + pct + '% decisiones \u00f3ptimas</div>';
+    if (node.debrief) {
+      html += '<div style="text-align:left;margin-top:24px;background:#FFF8E1;border-radius:12px;padding:20px;border-left:4px solid #F57B21">';
+      html += '<h4 style="margin-bottom:8px">\uD83D\uDCA1 Reflexi\u00f3n</h4>';
+      html += '<p>' + node.debrief + '</p>';
+      html += '</div>';
+    }
+    html += '</div>';
+  } else {
+    // Decision node
+    html += '<div style="background:white;border:2px solid #e0e0e0;border-radius:16px;padding:24px;margin-bottom:16px">';
+    if (node.clock) html += '<div style="display:flex;align-items:center;gap:6px;color:#666;font-size:0.85rem;margin-bottom:12px"><i class="fas fa-clock"></i> ' + node.clock + '</div>';
+    html += '<p style="font-size:1.05rem;line-height:1.6">' + node.situation + '</p>';
+    html += '</div>';
+
+    // Choices
+    html += '<div style="display:flex;flex-direction:column;gap:10px">';
+    node.choices.forEach(function(c, ci) {
+      html += '<div class="scenario-choice" onclick="selectScenarioChoice(' + stepIdx + ',' + ci + ')" style="background:white;border:2px solid #e0e0e0;border-radius:12px;padding:16px 20px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:12px">';
+      html += '<span style="background:#f0f0f0;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">' + String.fromCharCode(65 + ci) + '</span>';
+      html += '<span>' + c.text + '</span>';
+      html += '</div>';
+    });
+    html += '</div>';
+  }
+
+  return html;
+}
+
+function selectScenarioChoice(stepIdx, ci) {
+  var ss = quizStates[stepIdx];
+  var node = currentSteps[currentStepIndex].nodes[ss.nodeIdx];
+  var choice = node.choices[ci];
+
+  ss.total++;
+  if (choice.optimal) ss.score++;
+
+  ss.history.push({
+    situation: node.situation.substring(0, 80) + '...',
+    choice: choice.text,
+    consequence: choice.consequence,
+    optimal: choice.optimal
+  });
+
+  // Move to next node
+  ss.nodeIdx = choice.next !== undefined ? choice.next : ss.nodeIdx + 1;
+  renderStep();
+  // Scroll to bottom to see new content
+  setTimeout(function() {
+    var container = document.getElementById('step-content');
+    container.scrollTop = container.scrollHeight;
+    window.scrollTo(0, document.body.scrollHeight);
+  }, 100);
+}
+
 function updateNextButton() {
   var btn = document.getElementById('btn-next-step');
   var step = currentSteps[currentStepIndex];
@@ -1496,6 +1617,10 @@ function updateNextButton() {
   if (step.type === 'quiz') {
     var qs = quizStates[currentStepIndex] || {};
     canProceed = step.questions.every(function(q, qi) { return qs[qi] !== undefined; });
+  } else if (step.type === 'scenario') {
+    var ss = quizStates[currentStepIndex] || {};
+    var nodeIdx = ss.nodeIdx || 0;
+    canProceed = step.nodes[nodeIdx] && step.nodes[nodeIdx].type === 'end';
   } else if (step.type === 'practice' && step.checklist) {
     var checks = (quizStates[currentStepIndex] || {}).checks || {};
     canProceed = step.checklist.every(function(_, i) { return checks[i]; });
