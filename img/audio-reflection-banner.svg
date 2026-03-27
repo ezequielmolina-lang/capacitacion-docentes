@@ -1,0 +1,203 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <defs>
+    <!-- Sky gradient - warm sunset -->
+    <linearGradient id="skyGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a0533"/>
+      <stop offset="15%" stop-color="#2d1b4e"/>
+      <stop offset="30%" stop-color="#6b2fa0"/>
+      <stop offset="50%" stop-color="#c44e52"/>
+      <stop offset="65%" stop-color="#e8854a"/>
+      <stop offset="80%" stop-color="#f4a742"/>
+      <stop offset="92%" stop-color="#fcd34d"/>
+      <stop offset="100%" stop-color="#fef3c7"/>
+    </linearGradient>
+
+    <!-- Sun glow -->
+    <radialGradient id="sunGlow" cx="0.5" cy="0.72" r="0.35">
+      <stop offset="0%" stop-color="#fff7ed" stop-opacity="0.9"/>
+      <stop offset="30%" stop-color="#fbbf24" stop-opacity="0.5"/>
+      <stop offset="60%" stop-color="#f59e0b" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Water reflection gradient -->
+    <linearGradient id="waterGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f4a742" stop-opacity="0.8"/>
+      <stop offset="30%" stop-color="#c44e52" stop-opacity="0.6"/>
+      <stop offset="60%" stop-color="#6b2fa0" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#1a0533" stop-opacity="0.9"/>
+    </linearGradient>
+
+    <!-- Light rays -->
+    <linearGradient id="rayGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fef3c7" stop-opacity="0"/>
+      <stop offset="40%" stop-color="#fef3c7" stop-opacity="0.08"/>
+      <stop offset="70%" stop-color="#fbbf24" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#fbbf24" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Silhouette ground gradient -->
+    <linearGradient id="groundGradient" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0f0520"/>
+      <stop offset="50%" stop-color="#1a0a30"/>
+      <stop offset="100%" stop-color="#0f0520"/>
+    </linearGradient>
+
+    <!-- Soft glow filter -->
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3"/>
+    </filter>
+
+    <filter id="bigGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="15"/>
+    </filter>
+
+    <!-- Stars twinkle filter -->
+    <filter id="starGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.5"/>
+    </filter>
+  </defs>
+
+  <!-- Sky background -->
+  <rect width="800" height="400" fill="url(#skyGradient)"/>
+
+  <!-- Sun glow layer -->
+  <rect width="800" height="400" fill="url(#sunGlow)"/>
+
+  <!-- Sun -->
+  <circle cx="400" cy="285" r="45" fill="#fef3c7" opacity="0.95"/>
+  <circle cx="400" cy="285" r="55" fill="#fbbf24" opacity="0.3" filter="url(#bigGlow)"/>
+  <circle cx="400" cy="285" r="70" fill="#f59e0b" opacity="0.15" filter="url(#bigGlow)"/>
+
+  <!-- Light rays from sun -->
+  <g opacity="0.15">
+    <polygon points="400,250 340,50 360,50" fill="url(#rayGradient)"/>
+    <polygon points="400,250 430,30 460,30" fill="url(#rayGradient)"/>
+    <polygon points="400,260 250,80 280,70" fill="url(#rayGradient)"/>
+    <polygon points="400,260 520,70 550,80" fill="url(#rayGradient)"/>
+    <polygon points="400,270 150,150 180,130" fill="url(#rayGradient)"/>
+    <polygon points="400,270 620,130 650,150" fill="url(#rayGradient)"/>
+  </g>
+
+  <!-- Stars in the upper dark sky -->
+  <g filter="url(#starGlow)">
+    <circle cx="80" cy="30" r="1.2" fill="#e2d5f0" opacity="0.7"/>
+    <circle cx="150" cy="55" r="0.8" fill="#e2d5f0" opacity="0.5"/>
+    <circle cx="230" cy="20" r="1" fill="#e2d5f0" opacity="0.6"/>
+    <circle cx="320" cy="45" r="0.7" fill="#e2d5f0" opacity="0.4"/>
+    <circle cx="500" cy="35" r="1.1" fill="#e2d5f0" opacity="0.6"/>
+    <circle cx="580" cy="15" r="0.8" fill="#e2d5f0" opacity="0.5"/>
+    <circle cx="650" cy="50" r="1" fill="#e2d5f0" opacity="0.55"/>
+    <circle cx="720" cy="25" r="1.3" fill="#e2d5f0" opacity="0.65"/>
+    <circle cx="50" cy="70" r="0.6" fill="#e2d5f0" opacity="0.35"/>
+    <circle cx="760" cy="65" r="0.9" fill="#e2d5f0" opacity="0.4"/>
+  </g>
+
+  <!-- Distant mountains/hills - layer 1 (furthest) -->
+  <path d="M0,300 Q80,260 160,280 Q240,250 320,270 Q380,255 400,260 Q420,255 480,270 Q560,250 640,280 Q720,260 800,300 L800,320 L0,320 Z"
+        fill="#2d1b4e" opacity="0.6"/>
+
+  <!-- Distant mountains/hills - layer 2 -->
+  <path d="M0,310 Q100,275 200,295 Q280,270 360,285 Q400,278 440,285 Q520,270 600,295 Q700,275 800,310 L800,330 L0,330 Z"
+        fill="#1a0a30" opacity="0.7"/>
+
+  <!-- Horizon line / water -->
+  <rect x="0" y="305" width="800" height="95" fill="url(#waterGradient)"/>
+
+  <!-- Sun reflection on water -->
+  <g opacity="0.4">
+    <ellipse cx="400" cy="330" rx="60" ry="3" fill="#fef3c7"/>
+    <ellipse cx="400" cy="340" rx="40" ry="2" fill="#fbbf24"/>
+    <ellipse cx="400" cy="350" rx="50" ry="2.5" fill="#f4a742" opacity="0.6"/>
+    <ellipse cx="400" cy="360" rx="35" ry="2" fill="#f4a742" opacity="0.4"/>
+    <ellipse cx="400" cy="370" rx="45" ry="2" fill="#c44e52" opacity="0.3"/>
+    <ellipse cx="400" cy="380" rx="30" ry="1.5" fill="#c44e52" opacity="0.2"/>
+  </g>
+
+  <!-- Water shimmer lines -->
+  <g opacity="0.15" stroke="#fef3c7" stroke-width="0.5" fill="none">
+    <line x1="300" y1="320" x2="330" y2="320"/>
+    <line x1="450" y1="325" x2="490" y2="325"/>
+    <line x1="200" y1="335" x2="240" y2="335"/>
+    <line x1="500" y1="340" x2="530" y2="340"/>
+    <line x1="350" y1="355" x2="380" y2="355"/>
+    <line x1="150" y1="345" x2="185" y2="345"/>
+    <line x1="600" y1="350" x2="630" y2="350"/>
+  </g>
+
+  <!-- Ground/cliff silhouette (right side, where person stands) -->
+  <path d="M520,400 L520,340 Q530,330 540,325 Q560,315 580,310 Q600,308 620,310
+           Q640,305 660,300 Q680,298 700,305 Q720,300 740,295 Q760,292 780,295
+           Q790,293 800,290 L800,400 Z"
+        fill="#0f0520"/>
+
+  <!-- Small grass/vegetation details on cliff -->
+  <g fill="#0f0520">
+    <path d="M540,325 Q542,318 544,325 Q546,316 548,325" stroke="#0f0520" stroke-width="1"/>
+    <path d="M600,310 Q603,302 606,310 Q609,300 612,310" stroke="#0f0520" stroke-width="1"/>
+    <path d="M680,300 Q682,293 685,300 Q687,291 690,300" stroke="#0f0520" stroke-width="1"/>
+    <path d="M740,295 Q743,287 746,295" stroke="#0f0520" stroke-width="1"/>
+  </g>
+
+  <!-- Ground silhouette - left side (lower, with some vegetation) -->
+  <path d="M0,400 L0,350 Q20,345 40,348 Q60,340 80,345 Q100,338 120,342
+           Q140,336 160,340 Q180,338 200,345 Q220,350 240,355 Q280,360 320,365
+           Q360,370 400,375 Q440,378 480,380 Q500,385 520,400 Z"
+        fill="#0f0520"/>
+
+  <!-- Vegetation silhouettes - left side -->
+  <g fill="#0f0520">
+    <!-- Small tree/bush left -->
+    <path d="M60,345 Q55,330 50,320 Q48,315 52,310 Q56,305 60,310 Q58,300 62,295
+             Q66,290 68,295 Q72,288 70,300 Q75,305 72,310 Q76,315 70,320 Q68,330 65,345"/>
+    <!-- Grass tufts -->
+    <path d="M120,342 Q122,334 124,342 Q126,332 128,342"/>
+    <path d="M180,340 Q183,330 186,340 Q189,328 192,340"/>
+    <path d="M30,348 Q33,340 36,348"/>
+  </g>
+
+  <!-- Person silhouette - standing on the right cliff, looking at sunset -->
+  <g fill="#0f0520" transform="translate(620, 175) scale(0.85)">
+    <!-- Head -->
+    <ellipse cx="0" cy="0" rx="14" ry="16"/>
+    <!-- Hair flowing slightly -->
+    <path d="M-12,-8 Q-16,-12 -14,-18 Q-10,-22 -4,-20 Q2,-24 8,-20 Q14,-22 16,-16
+             Q18,-10 14,-6 Q16,-4 14,0 Q12,-4 10,-8 Q6,-12 0,-14 Q-6,-12 -10,-8 Z"/>
+    <!-- Neck -->
+    <rect x="-5" y="14" width="10" height="10"/>
+    <!-- Body/torso -->
+    <path d="M-18,24 Q-20,22 -16,18 Q-10,14 -5,14 L5,14 Q10,14 16,18 Q20,22 18,24
+             L20,70 Q18,75 10,78 L-10,78 Q-18,75 -20,70 Z"/>
+    <!-- Left arm (slightly away from body, relaxed) -->
+    <path d="M-18,24 Q-24,28 -28,38 Q-32,48 -30,58 Q-29,63 -26,66 Q-23,68 -20,66
+             Q-22,60 -22,52 Q-22,44 -18,36" fill="#0f0520"/>
+    <!-- Right arm (hand near chest/heart, reflective pose) -->
+    <path d="M18,24 Q22,28 24,36 Q26,44 22,50 Q20,54 16,52 Q14,48 14,42 Q14,36 16,30" fill="#0f0520"/>
+    <!-- Legs -->
+    <path d="M-10,78 Q-12,90 -14,105 Q-15,115 -14,125 Q-13,132 -10,138
+             Q-8,140 -6,140 Q-4,138 -4,132 Q-4,120 -3,108 Q-2,96 0,88"/>
+    <path d="M10,78 Q12,90 13,105 Q14,115 13,125 Q12,132 10,138
+             Q8,140 6,140 Q4,138 4,132 Q4,120 4,108 Q3,96 0,88"/>
+    <!-- Feet -->
+    <path d="M-14,136 Q-18,138 -20,140 Q-18,143 -14,143 Q-8,143 -6,140"/>
+    <path d="M14,136 Q18,138 20,140 Q18,143 14,143 Q8,143 6,140"/>
+  </g>
+
+  <!-- Floating memory/thought bubbles - representing remembering youth -->
+  <g opacity="0.25">
+    <circle cx="500" cy="140" r="8" fill="none" stroke="#fef3c7" stroke-width="0.8"/>
+    <circle cx="480" cy="110" r="12" fill="none" stroke="#fef3c7" stroke-width="0.8"/>
+    <circle cx="450" cy="75" r="18" fill="none" stroke="#fef3c7" stroke-width="1"/>
+    <circle cx="440" cy="75" r="18" fill="none" stroke="#e2d5f0" stroke-width="0.5" stroke-dasharray="3,3"/>
+  </g>
+
+  <!-- Small bird silhouettes in the distance -->
+  <g fill="none" stroke="#1a0533" stroke-width="1.2" opacity="0.4">
+    <path d="M250,160 Q255,155 260,160 Q265,155 270,160"/>
+    <path d="M280,145 Q284,141 288,145 Q292,141 296,145"/>
+    <path d="M310,155 Q313,152 316,155 Q319,152 322,155"/>
+  </g>
+
+  <!-- Subtle warm overlay at bottom -->
+  <rect x="0" y="350" width="800" height="50" fill="#0f0520" opacity="0.5"/>
+</svg>
