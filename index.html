@@ -1459,13 +1459,18 @@ function renderLanding() {
   const container = document.getElementById('track-cards');
   container.innerHTML = '';
   var info = getTeacherInfo();
-  for (const [key, track] of Object.entries(MODULES)) {
-    // Filter by materia: only show the track that matches
-    if (info && info.materia) {
-      if (info.materia === 'Matem\u00e1ticas' && key !== 'math') continue;
-      if (info.materia === 'Orientaci\u00f3n Vocacional' && key !== 'ov') continue;
-      if (info.materia === 'Docente PIP' && key !== 'pip') continue;
+
+  // If materia is set, skip landing and go directly to modules
+  if (info && info.materia) {
+    var trackMap = {'Matem\u00e1ticas': 'math', 'Orientaci\u00f3n Vocacional': 'ov', 'Docente PIP': 'pip'};
+    var directTrack = trackMap[info.materia];
+    if (directTrack && MODULES[directTrack]) {
+      navigate('modules', { track: directTrack });
+      return;
     }
+  }
+
+  for (const [key, track] of Object.entries(MODULES)) {
     const total = track.modules.length;
     const done = countComplete(key);
     const pct = total > 0 ? Math.round((done / total) * 100) : 0;
