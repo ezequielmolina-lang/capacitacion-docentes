@@ -194,6 +194,20 @@
     .track-card[data-track="math"] { border-top-color: var(--math-color); }
     .track-card[data-track="ov"]   { border-top-color: var(--ov-color); }
     .track-card[data-track="pip"]  { border-top-color: var(--pip-color); }
+    .track-card.track-locked {
+      opacity: 0.4;
+      filter: grayscale(100%);
+      cursor: not-allowed;
+      pointer-events: none;
+      position: relative;
+    }
+    .track-card.track-locked::after {
+      content: '\uD83D\uDD12';
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 1.2rem;
+    }
 
     .track-card .icon {
       width: 52px; height: 52px;
@@ -1460,15 +1474,9 @@ function renderLanding() {
   container.innerHTML = '';
   var info = getTeacherInfo();
 
-  // If materia is set, skip landing and go directly to modules
-  if (info && info.materia) {
-    var trackMap = {'Matem\u00e1ticas': 'math', 'Orientaci\u00f3n Vocacional': 'ov', 'Docente PIP': 'pip'};
-    var directTrack = trackMap[info.materia];
-    if (directTrack && MODULES[directTrack]) {
-      navigate('modules', { track: directTrack });
-      return;
-    }
-  }
+  // Determine which track matches teacher's materia
+  var trackMap = {'Matem\u00e1ticas': 'math', 'Orientaci\u00f3n Vocacional': 'ov', 'Docente PIP': 'pip'};
+  var myTrack = (info && info.materia) ? trackMap[info.materia] : null;
 
   for (const [key, track] of Object.entries(MODULES)) {
     const total = track.modules.length;
@@ -1480,11 +1488,14 @@ function renderLanding() {
       pip: '5 m\u00f3dulos \u2014 Gestiona cuentas, laboratorio y soporte t\u00e9cnico'
     };
     const desc = descMap[key] || '';
+    const isMyTrack = !myTrack || key === myTrack;
 
     const card = document.createElement('div');
-    card.className = 'track-card';
+    card.className = 'track-card' + (isMyTrack ? '' : ' track-locked');
     card.dataset.track = key;
-    card.onclick = () => navigate('modules', { track: key });
+    if (isMyTrack) {
+      card.onclick = () => navigate('modules', { track: key });
+    }
     let cardVisual = '';
     if (key === 'pip') {
       cardVisual = '<img src=\"img/gallito-pip.png\" alt=\"Gallito PIP\" style=\"width:120px;height:120px;object-fit:contain;margin:0 auto 12px;display:block\">';
