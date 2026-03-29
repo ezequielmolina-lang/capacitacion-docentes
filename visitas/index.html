@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitas de Acompañamiento — Eligiendo Mi Camino</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --orange: #F57B21;
+            --orange-hover: #E06A10;
+            --orange-light: #FFF8F0;
+            --orange-bg: rgba(245,123,33,0.06);
+            --dark: #26282B;
+            --dark-deep: #1a1a2e;
+            --dark-mid: #16213e;
+            --dark-blue: #0f3460;
+            --beige: #fffbf0;
+            --text-muted: #5C5E66;
+            --wb-blue: #0072BC;
+            --radius: 12px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; background: var(--beige); color: var(--dark); min-height: 100vh; }
+        h1, h2, h3, .step-label, .card-title { font-family: 'Poppins', sans-serif; }
+
+        /* Header */
+        .hero {
+            background: linear-gradient(135deg, var(--dark-deep) 0%, var(--dark-mid) 50%, var(--dark-blue) 100%);
+            color: white;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(245,123,33,0.12) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .hero-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px 48px;
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-text { flex: 1; }
+        .hero-gallito {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            animation: float 3s ease-in-out infinite;
+        }
+        .hero-gallito img {
+            width: 130px;
+            height: 130px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(245,123,33,0.15);
+            border: 1px solid rgba(245,123,33,0.3);
+            color: var(--orange);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+            font-family: 'Poppins', sans-serif;
+        }
+        .hero h1 {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 4px;
+        }
+        .hero h1 span { color: var(--orange); }
+        .hero-sub {
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-top: 12px;
+        }
+        .hero-partners {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 16px;
+            font-size: 11px;
+            color: rgba(255,255,255,0.4);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .hero-partners span { opacity: 0.3; }
+
+        /* Info cards strip */
+        .info-strip {
+            max-width: 800px;
+            margin: -24px auto 24px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            position: relative;
+            z-index: 2;
+        }
+        .info-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .info-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: var(--orange-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        .info-card .title { font-weight: 600; font-size: 13px; color: var(--dark); font-family: 'Poppins', sans-serif; }
+        .info-card .desc { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+        /* Visitors card */
+        .visitors {
+            max-width: 800px;
+            margin: 0 auto 24px;
+            padding: 0 20px;
+        }
+        .card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.05);
+            padding: 24px;
+        }
+        .card-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 12px;
+        }
+        .visitor-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .visitor {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 200px;
+        }
+        .visitor-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 12px;
+            flex-shrink: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+        .visitor-avatar.em { background: rgba(245,123,33,0.12); color: var(--orange); }
+        .visitor-avatar.ud { background: rgba(0,114,188,0.1); color: var(--wb-blue); }
+        .visitor-name { font-weight: 600; font-size: 13px; color: var(--dark); }
+        .visitor-role { font-size: 11px; color: var(--text-muted); }
+        .card-note {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #f0f0f0;
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Form area */
+        .form-area {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+
+        /* Progress bar */
+        .progress-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+        .step-dot {
+            height: 6px;
+            border-radius: 3px;
+            background: #e0e0e0;
+            transition: all 0.3s ease;
+            width: 8px;
+        }
+        .step-dot.active {
+            background: var(--orange);
+            width: 32px;
+        }
+
+        /* Form card */
+        .form-card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.05);
+            padding: 28px;
+            margin-bottom: 16px;
+        }
+        .form-card h2 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 2px;
+        }
+        .step-label {
+            font-size: 12px;
+            color: var(--orange);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+        }
+
+        /* Form fields */
+        label.field-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 6px;
+            font-family: 'Poppins', sans-serif;
+        }
+        label.field-label .req { color: var(--orange); }
+        .field-hint {
+            font-size: 11px;
+            color: #999;
+            margin-top: 4px;
+        }
+        .field-group { margin-bottom: 20px; }
+        .field-group:last-child { margin-bottom: 0; }
+
+        input[type="text"], input[type="tel"], input[type="email"], select, textarea {
+            width: 100%;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark);
+            background: white;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--orange);
+            box-shadow: 0 0 0 3px rgba(245,123,33,0.12);
+        }
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 36px;
+        }
+        textarea { resize: none; }
+
+        /* Radio & Checkbox items */
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.15s;
+            font-size: 14px;
+            color: var(--dark);
+        }
+        .option-item:hover { background: var(--orange-bg); }
+        .option-item input[type="radio"],
+        .option-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--orange);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--orange), var(--orange-hover));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 14px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.15s;
+            width: 100%;
+        }
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(245,123,33,0.3);
+        }
+        .btn-primary:active { transform: translateY(0); }
+        .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+        .btn-back {
+            background: white;
+            color: var(--dark);
+            border: 1.5px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 14px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .btn-back:hover { background: #f5f5f5; }
+
+        .btn-row { display: flex; gap: 12px; }
+        .btn-row .btn-back { flex: 1; }
+        .btn-row .btn-primary { flex: 2; }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hidden */
+        .hidden { display: none !important; }
+
+        /* Success */
+        .success-screen {
+            display: none;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .success-screen.active { display: block; }
+        .success-gallito {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+        .success-gallito img { width: 100%; height: 100%; object-fit: contain; }
+        .success-screen h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+        .success-screen .sub {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+        .success-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: left;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border-left: 4px solid var(--orange);
+        }
+        .success-card .title {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-family: 'Poppins', sans-serif;
+        }
+        .success-card li {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            list-style: none;
+        }
+        .success-card li span { flex-shrink: 0; }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid rgba(0,0,0,0.06);
+            margin-top: 20px;
+        }
+        .footer-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #999;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .footer-partners { display: flex; align-items: center; gap: 12px; }
+        .footer-partners span { opacity: 0.4; }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .hero-inner { flex-direction: column; text-align: center; padding: 32px 20px 48px; }
+            .hero-gallito { width: 120px; height: 120px; }
+            .hero-gallito img { width: 100px; height: 100px; }
+            .hero h1 { font-size: 24px; }
+            .hero-partners { justify-content: center; }
+            .info-strip { grid-template-columns: 1fr; margin-top: -20px; }
+            .visitor-row { flex-direction: column; }
+            .btn-row { flex-direction: column; }
+            .btn-row .btn-back, .btn-row .btn-primary { flex: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero -->
+    <header class="hero">
+        <div class="hero-inner fade-in">
+            <div class="hero-text">
+                <div class="hero-badge">Programa DRELM &middot; Banco Mundial</div>
+                <h1>Visitas de<br><span>Acompañamiento</span></h1>
+                <p class="hero-sub">
+                    Estamos organizando visitas a las escuelas participantes de Eligiendo Mi Camino
+                    para conocer de cerca cómo se desarrollan las sesiones con la plataforma de IA.
+                </p>
+                <div class="hero-partners">
+                    <span>GRUPO BANCO MUNDIAL</span>
+                    <span>&middot;</span>
+                    <span>DRELM</span>
+                    <span>&middot;</span>
+                    <span>UPC</span>
+                    <span>&middot;</span>
+                    <span>uDocz</span>
+                    <span>&middot;</span>
+                    <span>ANTHROPIC</span>
+                </div>
+            </div>
+            <div class="hero-gallito">
+                <img src="https://eligiendomicamino.org/img/gallito-pip.png" alt="Gallito de Eligiendo Mi Camino">
+            </div>
+        </div>
+    </header>
+
+    <!-- Info strip -->
+    <div class="info-strip fade-in">
+        <div class="info-card">
+            <div class="info-icon">&#9202;</div>
+            <div>
+                <div class="title">1 hora</div>
+                <div class="desc">Duraci&oacute;n de la visita</div>
+            </div>
+        </div>
+        <div class="info-card">
+            <div class="info-icon">&#128065;</div>
+            <div>
+                <div class="title">Solo observamos</div>
+                <div class="desc">No es evaluaci&oacute;n ni supervisi&oacute;n</div>
+            </div>
+        </div>
+        <div class="info-card">
+            <div class="info-icon">&#10003;</div>
+            <div>
+                <div class="title">Sin preparaci&oacute;n</div>
+                <div class="desc">No necesitan preparar nada</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Visitors -->
+    <div class="visitors fade-in">
+        <div class="card">
+            <div class="card-title">¿Quiénes visitarán?</div>
+            <div class="visitor-row">
+                <div class="visitor">
+                    <div class="visitor-avatar em">EM</div>
+                    <div>
+                        <div class="visitor-name">Ezequiel Molina</div>
+                        <div class="visitor-role">Líder del proyecto, Banco Mundial</div>
+                    </div>
+                </div>
+                <div class="visitor">
+                    <div class="visitor-avatar ud">uD</div>
+                    <div>
+                        <div class="visitor-name">Representante de uDocz</div>
+                        <div class="visitor-role">Equipo que desarrolló la plataforma</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-note">
+                Queremos observar una sesión regular de tutoría o matemática donde se use la plataforma.
+                La visita es solo de acompañamiento — no necesitan preparar nada especial ni cambiar su rutina.
+                Nos interesa conocer la experiencia real del día a día.
+            </div>
+        </div>
+    </div>
+
+    <!-- Form -->
+    <div id="formScreen" class="form-area fade-in">
+        <div class="progress-bar" id="progressDots">
+            <div class="step-dot active" data-step="0"></div>
+            <div class="step-dot" data-step="1"></div>
+            <div class="step-dot" data-step="2"></div>
+        </div>
+
+        <form id="visitForm" novalidate>
+
+            <!-- STEP 1 -->
+            <div class="form-step" data-step="0">
+                <div class="form-card">
+                    <h2>Datos de la institución</h2>
+                    <div class="step-label">Paso 1 de 3</div>
+
+                    <div class="field-group">
+                        <label class="field-label">Nombre de la Institución Educativa <span class="req">*</span></label>
+                        <select name="colegio" required>
+                            <option value="">Seleccione su colegio...</option>
+                        </select>
+                    </div>
+
+                    <div class="field-group">
+                        <label class="field-label">Persona de contacto para coordinar la visita <span class="req">*</span></label>
+                        <input type="text" name="contacto_nombre" required placeholder="Nombre completo">
+                        <div class="field-hint">Puede ser el director(a), subdirector(a), coordinador(a), o quien considere apropiado</div>
+                    </div>
+
+                    <div class="field-group">
+                        <label class="field-label">Cargo <span class="req">*</span></label>
+                        <select name="contacto_cargo" required>
+                            <option value="">Seleccione...</option>
+                            <option value="Director(a)">Director(a)</option>
+                            <option value="Subdirector(a)">Subdirector(a)</option>
+                            <option value="Coordinador(a) de Tutoría">Coordinador(a) de Tutoría</option>
+                            <option value="Coordinador(a) Académico">Coordinador(a) Académico</option>
+                            <option value="Docente responsable del programa">Docente responsable del programa</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+
+                    <div class="field-group">
+                        <label class="field-label">Teléfono celular (WhatsApp) <span class="req">*</span></label>
+                        <input type="tel" name="telefono" required placeholder="9XX XXX XXX">
+                    </div>
+
+                    <div class="field-group">
+                        <label class="field-label">Correo electrónico <span class="req">*</span></label>
+                        <input type="email" name="correo" required placeholder="correo@ejemplo.com">
+                    </div>
+                </div>
+                <button type="button" onclick="nextStep(1)" class="btn-primary">Siguiente &rarr;</button>
+            </div>
+
+            <!-- STEP 2 -->
+            <div class="form-step hidden" data-step="1">
+                <div class="form-card">
+                    <h2>Horarios del programa</h2>
+                    <div class="step-label">Paso 2 de 3</div>
+
+                    <div class="field-group">
+                        <label class="field-label">Turno del colegio <span class="req">*</span></label>
+                        <div>
+                            <label class="option-item"><input type="radio" name="turno" value="Solo mañana" required> Solo mañana</label>
+                            <label class="option-item"><input type="radio" name="turno" value="Solo tarde"> Solo tarde</label>
+                            <label class="option-item"><input type="radio" name="turno" value="Mañana y tarde"> Mañana y tarde</label>
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <label class="field-label">Secciones de 5to de secundaria que participan <span class="req">*</span></label>
+                        <input type="text" name="secciones" required placeholder="Ej: 5to A, 5to B, 5to C">
+                    </div>
+
+                    <div class="field-group">
+                        <label class="field-label">Horarios de las sesiones de <strong>TUTORÍA</strong> con Eligiendo Mi Camino <span class="req">*</span></label>
+                        <textarea name="horario_tutoria" required rows="2" placeholder="Ej: Lunes 10:00-10:45 (5to A), Miércoles 8:00-8:45 (5to B)"></textarea>
+                        <div class="field-hint">Indique día, hora y sección para cada sesión</div>
+                    </div>
+
+                    <div class="field-group">
+                        <label class="field-label">Horarios de las sesiones de <strong>MATEMÁTICA</strong> de 5to de secundaria <span class="req">*</span></label>
+                        <textarea name="horario_mate" required rows="2" placeholder="Ej: Martes y Jueves 9:00-10:30 (5to A y B)"></textarea>
+                        <div class="field-hint">Indique día, hora y sección para cada sesión</div>
+                    </div>
+                </div>
+                <div class="btn-row">
+                    <button type="button" onclick="prevStep(0)" class="btn-back">&larr; Atrás</button>
+                    <button type="button" onclick="nextStep(2)" class="btn-primary">Siguiente &rarr;</button>
+                </div>
+            </div>
+
+            <!-- STEP 3 -->
+            <div class="form-step hidden" data-step="2">
+                <div class="form-card">
+                    <h2>Disponibilidad para la visita</h2>
+                    <div class="step-label">Paso 3 de 3</div>
+
+                    <div class="field-group">
+                        <label class="field-label">¿Qué días de la semana pueden recibir la visita? <span class="req">*</span></label>
+                        <div class="field-hint" style="margin-bottom:6px">Puede marcar más de una opción</div>
+                        <div>
+                            <label class="option-item"><input type="checkbox" name="dias" value="Lunes"> Lunes</label>
+                            <label class="option-item"><input type="checkbox" name="dias" value="Martes"> Martes</label>
+                            <label class="option-item"><input type="checkbox" name="dias" value="Miércoles"> Miércoles</label>
+                            <label class="option-item"><input type="checkbox" name="dias" value="Jueves"> Jueves</label>
+                            <label class="option-item"><input type="checkbox" name="dias" value="Viernes"> Viernes</label>
+                            <label class="option-item"><input type="checkbox" name="dias" value="Cualquier día"> Cualquier día está bien</label>
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <label class="field-label">¿En qué horario prefieren la visita? <span class="req">*</span></label>
+                        <div class="field-hint" style="margin-bottom:6px">Puede marcar más de una opción</div>
+                        <div>
+                            <label class="option-item"><input type="checkbox" name="horarios" value="Primera hora (7:30-8:30)"> Primera hora (7:30 - 8:30)</label>
+                            <label class="option-item"><input type="checkbox" name="horarios" value="Media mañana (9:00-11:00)"> Media mañana (9:00 - 11:00)</label>
+                            <label class="option-item"><input type="checkbox" name="horarios" value="Última hora mañana (11:00-12:30)"> Última hora mañana (11:00 - 12:30)</label>
+                            <label class="option-item"><input type="checkbox" name="horarios" value="Primera hora tarde (1:00-2:00)"> Primera hora tarde (1:00 - 2:00)</label>
+                            <label class="option-item"><input type="checkbox" name="horarios" value="Media tarde (2:30-4:00)"> Media tarde (2:30 - 4:00)</label>
+                            <label class="option-item"><input type="checkbox" name="horarios" value="Última hora tarde (4:00-5:30)"> Última hora tarde (4:00 - 5:30)</label>
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <label class="field-label">¿Algo que debamos saber antes de la visita?</label>
+                        <textarea name="notas" rows="3" placeholder="Protocolo de ingreso, restricciones, comentarios..."></textarea>
+                        <div class="field-hint">Opcional</div>
+                    </div>
+                </div>
+                <div class="btn-row">
+                    <button type="button" onclick="prevStep(1)" class="btn-back">&larr; Atrás</button>
+                    <button type="submit" id="submitBtn" class="btn-primary">Enviar formulario &#10003;</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Success -->
+    <div id="successScreen" class="success-screen">
+        <div class="success-gallito">
+            <img src="https://eligiendomicamino.org/img/gallito-pip.png" alt="Gallito">
+        </div>
+        <h2>¡Gracias por responder!</h2>
+        <p class="sub">Hemos recibido su información. Nos pondremos en contacto pronto para confirmar la fecha y hora de la visita.</p>
+        <div class="success-card">
+            <div class="title">Recuerde:</div>
+            <ul>
+                <li><span>&#128065;</span> La visita es solo de observación</li>
+                <li><span>&#128203;</span> No necesitan preparar nada especial</li>
+                <li><span>&#9202;</span> Dura aproximadamente 1 hora</li>
+                <li><span>&#128241;</span> Si tiene dudas, puede escribirnos por WhatsApp</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-partners">
+                Grupo Banco Mundial <span>&middot;</span> DRELM <span>&middot;</span> UPC <span>&middot;</span> uDocz <span>&middot;</span> Anthropic
+            </div>
+            <div>Eligiendo Mi Camino &copy; 2026</div>
+        </div>
+    </footer>
+
+    <script>
+    // School list (88 treatment schools)
+    const schools = [
+        "0086 JOSE MARIA ARGUEDAS","0087 JOSE MARIA ARGUEDAS","0089 MANUEL GONZALES PRADA",
+        "0090 DANIEL ALCIDES CARRION","100 SANTA ELIZABETH","1021 REPUBLICA FEDERAL DE ALEMANIA",
+        "1035 JOSE DEL CARMEN MARIN ARISTA","1049 JUANA ALARCO DE DAMMERT",
+        "107 DANIEL ALCIDES CARRION GARCIA","1070 MELITON CARVAJAL","1087 GRAL ROQUE SAENZ PEÑA",
+        "109 INCA MANCO CAPAC","1103 ELVIRA GARCIA Y GARCIA","1105 LA SAGRADA FAMILIA",
+        "1123 SAGRADO CORAZON DE JESUS","1124 JOSE MARTI","1128 SAN LUIS",
+        "115 TORIBIO RODRIGUEZ DE MENDOZA","1166 LIBERTADOR SIMON BOLIVAR",
+        "1181 ALBERT EINSTEIN","1209 MARISCAL TORIBIO DE LUZURIAGA",
+        "122 ANDRES AVELINO CACERES","1225 MARIANO MELGAR","1267",
+        "1278 MIXTO LA MOLINA","139 GRAN AMAUTA MARIATEGUI","169",
+        "2003 LIBERTADOR JOSE DE SAN MARTIN","2023 AUGUSTO SALAZAR BONDY",
+        "2031 VIRGEN DE FATIMA","2040 REPUBLICA DE CUBA",
+        "2053 FRANCISCO BOLOGNESI CERVANTES","2070 NUESTRA SEÑORA DEL CARMEN",
+        "2076 ABRAHAM LINCOLN","2078 NUESTRA SEÑORA DE LOURDES","2085 SAN AGUSTIN",
+        "2088 REPUBLICA FEDERAL DE ALEMANIA","2091 MARISCAL ANDRES AVELINO CACERES",
+        "2092 CRISTO MORADO","24 ROSA IRENE INFANTES DE CANALES","3014 LEONCIO PRADO",
+        "3015 LOS ANGELES DE JESUS","3032 VILLA ANGELICA","3040 20 DE ABRIL",
+        "3049 IMPERIO DEL TAHUANTINSUYO","6004 SANTIAGO ANTUNEZ DE MAYOLO",
+        "6037 INCA PACHACUTEC","6062 PERU EEUU","6063 JOSE CARLOS MARIATEGUI",
+        "6069 PACHACUTEC","6081 MANUEL SCORZA TORRES","6087 PABLO MARIA GUZMAN",
+        "6096 ANTONIO RAIMONDI","7034 ENRIQUE NERINI COLLAZOS","7042 SANTA TERESA DE VILLA",
+        "7055 TUPAC AMARU II","7057 SOBERANA ORDEN MILITAR DE MALTA",
+        "7061 LOS HEROES DE SAN JUAN","7067 TORIBIO SEMINARIO",
+        "7082 JUAN DE ESPINOSA MEDRANO","7086 LOS PRECURSORES",
+        "7089 ROMEO LUNA VICTORIA","7090 FORJADORES DEL PERU","7231","7265",
+        "7266 LAS MERCEDES","ANGELICA PALMA ROMAN","BARTOLOME HERRERA",
+        "CARLOS PAREJA PAZ SOLDAN","ENRIQUE MILLA OCHOA",
+        "GENERAL FELIPE SANTIAGO SALAVERRY","ISABEL CHIMPU OCLLO",
+        "JOSE SANTOS CHOCANO","JUAN PABLO VIZCARDO Y GUZMAN (Breña)",
+        "JUAN PABLO VIZCARDO Y GUZMAN (Comas)","MANUEL CALVO Y PEREZ",
+        "MICAELA BASTIDAS","MIGUEL GRAU","NUESTRA SEÑORA DE LOURDES",
+        "PALMAS REALES","REPUBLICA DE BOLIVIA","REPUBLICA DE CHILE",
+        "RICARDO PALMA","ROSA DOMINGA PEREZ LIENDO","SOLIDARIDAD III",
+        "TELESFORO CATACORA","TUPAC AMARU II","VIRGEN DEL CARMEN"
+    ].sort();
+
+    const select = document.querySelector('select[name="colegio"]');
+    schools.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s;
+        opt.textContent = s;
+        select.appendChild(opt);
+    });
+
+    // Multi-step
+    let currentStep = 0;
+
+    function showStep(step) {
+        document.querySelectorAll('.form-step').forEach(el => el.classList.add('hidden'));
+        const target = document.querySelector('.form-step[data-step="' + step + '"]');
+        target.classList.remove('hidden');
+        document.querySelectorAll('.step-dot').forEach(dot => {
+            dot.classList.toggle('active', parseInt(dot.dataset.step) <= step);
+        });
+        currentStep = step;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function validateStep(step) {
+        var stepEl = document.querySelector('.form-step[data-step="' + step + '"]');
+        var required = stepEl.querySelectorAll('[required]');
+        var valid = true;
+
+        required.forEach(function(field) {
+            if (field.type === 'radio') {
+                var name = field.name;
+                var checked = stepEl.querySelector('input[name="' + name + '"]:checked');
+                if (!checked) {
+                    valid = false;
+                    var group = field.closest('div');
+                    if (group) { group.style.outline = '2px solid #ef4444'; group.style.borderRadius = '8px'; }
+                    setTimeout(function() { if (group) group.style.outline = ''; }, 3000);
+                }
+            } else if (!field.value.trim()) {
+                valid = false;
+                field.style.borderColor = '#ef4444';
+                setTimeout(function() { field.style.borderColor = ''; }, 3000);
+            }
+        });
+        return valid;
+    }
+
+    function nextStep(step) {
+        if (validateStep(currentStep)) showStep(step);
+    }
+    function prevStep(step) { showStep(step); }
+
+    // ==========================================
+    // Google Sheets submission
+    // ==========================================
+    // SETUP INSTRUCTIONS:
+    // 1. Create a Google Sheet
+    // 2. Go to Extensions > Apps Script
+    // 3. Paste this code:
+    //
+    //    function doPost(e) {
+    //      var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    //      var data = JSON.parse(e.postData.contents);
+    //      var timestamp = new Date();
+    //      sheet.appendRow([
+    //        timestamp, data.colegio, data.contacto_nombre,
+    //        data.contacto_cargo, data.telefono, data.correo,
+    //        data.turno, data.secciones, data.horario_tutoria,
+    //        data.horario_mate, data.dias, data.horarios, data.notas
+    //      ]);
+    //      return ContentService
+    //        .createTextOutput(JSON.stringify({result:'ok'}))
+    //        .setMimeType(ContentService.MimeType.JSON);
+    //    }
+    //
+    // 4. Deploy > New Deployment > Web App
+    //    Execute as: Me | Who has access: Anyone
+    // 5. Paste the URL below:
+
+    var GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz9YNLjjhtQ0rbjKd1k3yIRC2PDLMey5kNKw2-X3KTxDvvHN8cqMumcBopvsK7G7LUe_Q/exec';
+
+    document.getElementById('visitForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        var diasChecked = document.querySelectorAll('input[name="dias"]:checked');
+        var horariosChecked = document.querySelectorAll('input[name="horarios"]:checked');
+
+        if (diasChecked.length === 0) {
+            alert('Por favor seleccione al menos un día disponible para la visita.');
+            return;
+        }
+        if (horariosChecked.length === 0) {
+            alert('Por favor seleccione al menos un horario preferido para la visita.');
+            return;
+        }
+
+        var btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.textContent = 'Enviando...';
+
+        var form = this;
+        var formData = {
+            colegio: form.colegio.value,
+            contacto_nombre: form.contacto_nombre.value,
+            contacto_cargo: form.contacto_cargo.value,
+            telefono: form.telefono.value,
+            correo: form.correo.value,
+            turno: (form.querySelector('input[name="turno"]:checked') || {}).value || '',
+            secciones: form.secciones.value,
+            horario_tutoria: form.horario_tutoria.value,
+            horario_mate: form.horario_mate.value,
+            dias: Array.from(diasChecked).map(function(c) { return c.value; }).join(', '),
+            horarios: Array.from(horariosChecked).map(function(c) { return c.value; }).join(', '),
+            notas: form.notas.value || '(sin notas)'
+        };
+
+        if (GOOGLE_SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+            console.log('DEMO MODE - Form data:', formData);
+            showSuccess();
+            return;
+        }
+
+        fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+        }).then(function() {
+            showSuccess();
+        }).catch(function(error) {
+            console.error('Error:', error);
+            alert('Hubo un error al enviar. Por favor intente de nuevo o contáctenos por WhatsApp.');
+            btn.disabled = false;
+            btn.textContent = 'Enviar formulario \u2713';
+        });
+    });
+
+    function showSuccess() {
+        document.getElementById('formScreen').classList.add('hidden');
+        document.getElementById('progressDots').style.display = 'none';
+        var success = document.getElementById('successScreen');
+        success.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    </script>
+</body>
+</html>
