@@ -1434,15 +1434,20 @@ function trackProgress(track, moduleId, stepTitle, status) {
   });
 }
 
-/* ── Progress ── */
+/* ── Progress (per-user by DNI) ── */
+function progressKey() {
+  var info = getTeacherInfo();
+  var dni = info ? info.dni : 'anon';
+  return 'emc-cap-progress-' + dni;
+}
 function getProgress() {
-  return JSON.parse(localStorage.getItem('emc-cap-progress') || '{}');
+  return JSON.parse(localStorage.getItem(progressKey()) || '{}');
 }
 function markComplete(track, moduleId) {
   const p = getProgress();
   if (!p[track]) p[track] = {};
   p[track][moduleId] = true;
-  localStorage.setItem('emc-cap-progress', JSON.stringify(p));
+  localStorage.setItem(progressKey(), JSON.stringify(p));
 }
 function isComplete(track, moduleId) {
   const p = getProgress();
@@ -1828,7 +1833,7 @@ function renderPracticeStep(step, stepIdx) {
   html += '</div>';
   // Optional response text field
   if (step.responsePrompt) {
-    var rKey = 'emc-practice-' + state.track + '-' + state.moduleId + '-' + stepIdx;
+    var rKey = 'emc-practice-' + (getTeacherInfo() ? getTeacherInfo().dni : 'anon') + '-' + state.track + '-' + state.moduleId + '-' + stepIdx;
     var saved = localStorage.getItem(rKey) || '';
     html += '<div style="margin-top:20px">';
     html += '<p class="reflection-prompt">' + step.responsePrompt + '</p>';
@@ -1854,7 +1859,7 @@ function togglePracticeItem(stepIdx, i) {
 }
 
 function renderReflectionStep(step, stepIdx) {
-  var key = 'emc-reflection-' + state.track + '-' + state.moduleId + '-' + stepIdx;
+  var key = 'emc-reflection-' + (getTeacherInfo() ? getTeacherInfo().dni : 'anon') + '-' + state.track + '-' + state.moduleId + '-' + stepIdx;
   var saved = localStorage.getItem(key) || '';
 
   return '<p class="reflection-prompt">' + step.prompt + '</p>' +
@@ -1997,7 +2002,7 @@ function updateNextButton() {
     canProceed = step.checklist.every(function(_, i) { return checks[i]; });
     // Also require response text if responsePrompt exists
     if (canProceed && step.responsePrompt) {
-      var rKey = 'emc-practice-' + state.track + '-' + state.moduleId + '-' + currentStepIndex;
+      var rKey = 'emc-practice-' + (getTeacherInfo() ? getTeacherInfo().dni : 'anon') + '-' + state.track + '-' + state.moduleId + '-' + currentStepIndex;
       var resp = localStorage.getItem(rKey) || '';
       canProceed = resp.trim().length > 10; // at least a short response
     }
