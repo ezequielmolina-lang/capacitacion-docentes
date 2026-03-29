@@ -770,7 +770,7 @@
             dot.classList.toggle('active', parseInt(dot.dataset.step) <= step);
         });
         currentStep = step;
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        document.getElementById('progressDots').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     function validateStep(step) {
