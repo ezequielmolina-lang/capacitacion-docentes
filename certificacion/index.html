@@ -919,7 +919,12 @@ function trackProgress(moduleId, stepTitle) {
   try { fetch(TRACKING_URL + '?' + params, { mode: 'no-cors' }).catch(function(){}); } catch(e){}
 }
 function saveState() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
-function resetState() { localStorage.removeItem(STORAGE_KEY); state = loadState(); init(); }
+function resetState() {
+  localStorage.removeItem(STORAGE_KEY);
+  state = loadState();
+  // Force a full reload to clean any rendered DOM
+  window.location.href = window.location.pathname + '?reset=1';
+}
 
 // ============================================================================
 // INTAKE
@@ -947,14 +952,37 @@ function renderIntake() {
     return;
   }
 
-  // Step 1: roles (multi-select)
+  // Step 1: personal data (name, DNI, school)
   if (step === 1) {
+    const name = state.userName || '';
+    const dni = state.userDni || '';
+    const school = state.userSchool || '';
+    const ready = name && dni && school;
+    modal.innerHTML = `
+      <div class="intake-progress"><div class="intake-dot active"></div><div class="intake-dot"></div><div class="intake-dot"></div><div class="intake-dot"></div></div>
+      <div class="intake-step">
+        <h3>1. Tus datos</h3>
+        <p class="step-hint">Estos datos quedan registrados en el sistema y aparecen en tu certificado de inducción.</p>
+        <input type="text" class="intake-input" id="userNameInput" placeholder="Nombre completo *" value="${state.userName||''}" oninput="onPersonalInput()">
+        <input type="text" class="intake-input" id="userDniInput" placeholder="DNI *" value="${state.userDni||''}" maxlength="12" oninput="onPersonalInput()">
+        <input type="text" class="intake-input" id="userSchoolInput" placeholder="Institución educativa *" value="${state.userSchool||''}" oninput="onPersonalInput()">
+        <div style="display:flex; gap:8px;">
+          <button class="btn btn-secondary" onclick="state.intakeStep=0; saveState(); renderIntake();">Atrás</button>
+          <button class="btn btn-primary" style="flex:1;" id="step1Next" ${!ready?'disabled':''} onclick="savePersonalAndAdvance()">Siguiente →</button>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  // Step 2: roles (multi-select)
+  if (step === 2) {
     const roles = state.intakeAnswers.roles || [];
     const isAip = roles.includes('aip');
     modal.innerHTML = `
-      <div class="intake-progress"><div class="intake-dot active"></div><div class="intake-dot"></div><div class="intake-dot"></div></div>
+      <div class="intake-progress"><div class="intake-dot done"></div><div class="intake-dot active"></div><div class="intake-dot"></div><div class="intake-dot"></div></div>
       <div class="intake-step">
-        <h3>1. ¿Qué roles tienes en el programa?</h3>
+        <h3>2. ¿Qué roles tienes en el programa?</h3>
         <p class="step-hint">Puedes seleccionar más de uno si cumples varios roles.</p>
         <div class="intake-options">
           <button class="intake-option ${roles.includes('mat')?'selected':''}" onclick="toggleRole('mat')">
@@ -982,7 +1010,7 @@ function renderIntake() {
         ${roles.length > 1 && !isAip ? `<div class="callout callout-info" style="font-size:13px; padding:10px 14px; margin:0 0 12px;"><p><span class="callout-icon">💡</span>Tienes <strong>roles combinados</strong>. En el siguiente paso indicarás cuántas secciones tienes en cada uno.</p></div>` : ''}
         ${isAip && roles.length > 1 ? `<div class="callout callout-tip" style="font-size:13px; padding:10px 14px; margin:0 0 12px;"><p><span class="callout-icon">📌</span>Como <strong>AIP/PIP</strong> tu certificación es siempre de 120h y cubre todas las secciones, sin importar otros roles.</p></div>` : ''}
         <div style="display:flex; gap:8px;">
-          <button class="btn btn-secondary" onclick="state.intakeStep=0; saveState(); renderIntake();">Atrás</button>
+          <button class="btn btn-secondary" onclick="state.intakeStep=1; saveState(); renderIntake();">Atrás</button>
           <button class="btn btn-primary" style="flex:1;" ${roles.length === 0 ? 'disabled' : ''} onclick="advanceIntake()">Siguiente →</button>
         </div>
       </div>
@@ -990,15 +1018,14 @@ function renderIntake() {
     return;
   }
 
-  // Step 2: sections per role
-  if (step === 2) {
+  // Step 3: sections per role
+  if (step === 3) {
     const roles = state.intakeAnswers.roles || [];
-    // If only AIP, skip sections (always 120h, all sections)
     if (roles.length === 1 && roles[0] === 'aip') {
       state.intakeAnswers.matSections = 0;
       state.intakeAnswers.tutSections = 0;
       state.pathKey = 'aip-120';
-      state.intakeStep = 3;
+      state.intakeStep = 4;
       saveState();
       renderIntake();
       return;
@@ -1012,9 +1039,9 @@ function renderIntake() {
     const allReady = matReady && tutReady;
 
     let html = `
-      <div class="intake-progress"><div class="intake-dot done"></div><div class="intake-dot active"></div><div class="intake-dot"></div></div>
+      <div class="intake-progress"><div class="intake-dot done"></div><div class="intake-dot done"></div><div class="intake-dot active"></div><div class="intake-dot"></div></div>
       <div class="intake-step">
-        <h3>2. ¿Cuántas secciones tienes asignadas?</h3>
+        <h3>3. ¿Cuántas secciones tienes asignadas?</h3>
         <p class="step-hint">Indica el número de secciones de 5to de secundaria asignadas al programa para cada rol.</p>
     `;
 
@@ -1054,7 +1081,7 @@ function renderIntake() {
 
     html += `
         <div style="display:flex; gap:8px;">
-          <button class="btn btn-secondary" onclick="state.intakeStep=1; saveState(); renderIntake();">Atrás</button>
+          <button class="btn btn-secondary" onclick="state.intakeStep=2; saveState(); renderIntake();">Atrás</button>
           <button class="btn btn-primary" style="flex:1;" ${!allReady?'disabled':''} onclick="advanceIntake()">Siguiente →</button>
         </div>
       </div>
@@ -1063,60 +1090,40 @@ function renderIntake() {
     return;
   }
 
-  // Step 3: name and result
-  if (step === 3) {
+  // Step 4: show result + start
+  if (step === 4) {
     if (!state.pathKey) {
-      // Calculate path based on roles + sections
       const roles = state.intakeAnswers.roles || [];
       const matSec = state.intakeAnswers.matSections || 0;
       const tutSec = state.intakeAnswers.tutSections || 0;
       const totalSec = matSec + tutSec;
-
-      // AIP always overrides everything
       if (roles.includes('aip')) {
         state.pathKey = 'aip-120';
       } else if (totalSec === 0) {
-        // Edge: no sections, default to math 80h
         state.pathKey = 'mat-80';
       } else if (totalSec === 1) {
-        // Only 1 section total — single-role 80h
         state.pathKey = matSec === 1 ? 'mat-80' : 'tut-80';
       } else {
-        // 2+ sections total = 120h, pick role with more sections (math wins ties)
-        if (matSec >= tutSec) {
-          state.pathKey = 'mat-120';
-        } else {
-          state.pathKey = 'tut-120';
-        }
+        state.pathKey = matSec >= tutSec ? 'mat-120' : 'tut-120';
       }
       saveState();
     }
     const p = getPath(state.pathKey);
     const roles = state.intakeAnswers.roles || [];
-    const matSec = state.intakeAnswers.matSections || 0;
-    const tutSec = state.intakeAnswers.tutSections || 0;
     const isMultiRole = roles.length > 1 && !roles.includes('aip');
 
     let multiRoleNote = '';
     if (isMultiRole) {
-      multiRoleNote = `
-        <div class="callout callout-tip" style="margin-top:14px;">
-          <p><span class="callout-icon">💡</span><strong>Tienes roles combinados.</strong> Recibes <strong>una sola certificación</strong> según el rol con más secciones (en empate, prevalece Matemáticas). Tus horas de implementación incluyen todas tus secciones.</p>
-        </div>
-      `;
+      multiRoleNote = `<div class="callout callout-tip" style="margin-top:14px;"><p><span class="callout-icon">💡</span><strong>Tienes roles combinados.</strong> Recibes <strong>una sola certificación</strong> según el rol con más secciones (en empate, prevalece Matemáticas). Tus horas de implementación incluyen todas tus secciones.</p></div>`;
     }
     if (roles.includes('aip') && roles.length > 1) {
-      multiRoleNote = `
-        <div class="callout callout-tip" style="margin-top:14px;">
-          <p><span class="callout-icon">📌</span>Como <strong>Coordinador AIP/PIP</strong> tu certificación de 120h cubre el soporte técnico integral. Si también das clases en alguna sección, esa actividad la coordinas con el equipo EMC pero la certificación principal es la AIP/PIP.</p>
-        </div>
-      `;
+      multiRoleNote = `<div class="callout callout-tip" style="margin-top:14px;"><p><span class="callout-icon">📌</span>Como <strong>Coordinador AIP/PIP</strong> tu certificación de 120h cubre el soporte técnico integral. Si también das clases en alguna sección, esa actividad la coordinas con el equipo EMC pero la certificación principal es la AIP/PIP.</p></div>`;
     }
 
     modal.innerHTML = `
-      <div class="intake-progress"><div class="intake-dot done"></div><div class="intake-dot done"></div><div class="intake-dot active"></div></div>
+      <div class="intake-progress"><div class="intake-dot done"></div><div class="intake-dot done"></div><div class="intake-dot done"></div><div class="intake-dot active"></div></div>
       <div class="intake-step">
-        <h3>¡Listo! Esta es tu certificación</h3>
+        <h3>¡Listo, ${state.userName.split(' ')[0]}! Esta es tu certificación</h3>
         <div class="result-card" style="margin-top:16px;">
           <span class="result-tag">${p.icon} Tu certificación</span>
           <h3 style="margin:8px 0 4px;">${p.name}</h3>
@@ -1125,12 +1132,8 @@ function renderIntake() {
           <div class="result-hours-label">Horas pedagógicas</div>
         </div>
         ${multiRoleNote}
-        <p style="font-size:14.5px; margin-top:14px; font-weight:600;">Tus datos para el certificado y registro:</p>
-        <input type="text" class="intake-input" id="userNameInput" placeholder="Nombre completo *" value="${state.userName||''}">
-        <input type="text" class="intake-input" id="userDniInput" placeholder="DNI *" value="${state.userDni||''}" maxlength="12">
-        <input type="text" class="intake-input" id="userSchoolInput" placeholder="Institución educativa *" value="${state.userSchool||''}">
-        <div style="display:flex; gap:8px;">
-          <button class="btn btn-secondary" onclick="state.intakeStep=2; state.pathKey=null; saveState(); renderIntake();">Atrás</button>
+        <div style="display:flex; gap:8px; margin-top:18px;">
+          <button class="btn btn-secondary" onclick="state.intakeStep=3; state.pathKey=null; saveState(); renderIntake();">Atrás</button>
           <button class="btn btn-primary" style="flex:1;" onclick="finishIntake()">Empezar curso →</button>
         </div>
         <p style="font-size:12px; color:var(--text-muted); margin-top:14px;"><a href="#" onclick="resetState(); return false;" style="color:var(--text-muted);">Restablecer datos del curso</a></p>
@@ -1139,6 +1142,32 @@ function renderIntake() {
   }
 }
 
+// Helpers for personal data step
+function onPersonalInput() {
+  const name = (document.getElementById('userNameInput')||{}).value || '';
+  const dni = (document.getElementById('userDniInput')||{}).value || '';
+  const school = (document.getElementById('userSchoolInput')||{}).value || '';
+  const btn = document.getElementById('step1Next');
+  if (btn) btn.disabled = !(name.trim() && dni.trim() && school.trim());
+}
+
+function savePersonalAndAdvance() {
+  const name = document.getElementById('userNameInput').value.trim();
+  const dni = document.getElementById('userDniInput').value.trim();
+  const school = document.getElementById('userSchoolInput').value.trim();
+  if (!name || !dni || !school) {
+    alert('Por favor completa los tres campos.');
+    return;
+  }
+  state.userName = name;
+  state.userDni = dni;
+  state.userSchool = school;
+  state.intakeStep = 2;
+  saveState();
+  renderIntake();
+}
+
+// Helpers for the new multi-role intake
 // Helpers for the new multi-role intake
 function toggleRole(role) {
   const roles = state.intakeAnswers.roles || [];
@@ -1173,16 +1202,6 @@ function advanceIntake() {
 }
 
 function finishIntake() {
-  const name = document.getElementById('userNameInput').value.trim();
-  const dni = document.getElementById('userDniInput').value.trim();
-  const school = document.getElementById('userSchoolInput').value.trim();
-  if (!name || !dni || !school) {
-    alert('Por favor completa todos los campos: nombre, DNI e institución educativa.');
-    return;
-  }
-  state.userName = name;
-  state.userDni = dni;
-  state.userSchool = school;
   state.started = true;
   state.currentModule = 0;
   saveState();
@@ -1209,6 +1228,7 @@ function renderSidebar() {
         <div class="my-path-label">Tu plan</div>
         <div class="my-path-name">${p.icon} ${p.shortName}</div>
         <div class="my-path-hours">${p.hours} horas pedagógicas</div>
+        <a href="#" onclick="if(confirm('\u00bfReiniciar el curso? Esto borrar\u00e1 tu progreso y volver\u00e1s al cuestionario inicial.')) resetState(); return false;" style="display:block;margin-top:8px;font-size:11px;color:var(--primary-dark);text-decoration:none;font-weight:600;"><i class="fas fa-rotate-left" style="margin-right:4px;"></i>Cambiar plan / reiniciar</a>
       </div>
       <div class="nav-section-title">Módulos del curso</div>
     `;
@@ -1240,11 +1260,12 @@ function renderProgress() {
   document.getElementById('progressText').textContent = `${done} de ${total} módulos completados (${pct}%)`;
 }
 
-function renderModule() {
+function renderModule(opts) {
+  opts = opts || {};
+  const savedScroll = opts.preserveScroll ? window.scrollY : 0;
   const m = MODULES[state.currentModule];
   document.getElementById('topbarTitle').textContent = m.title;
   const main = document.getElementById('main');
-  window.scrollTo(0, 0);
 
   const contentHtml = typeof m.content === 'function' ? m.content() : m.content;
   let html = `
@@ -1265,6 +1286,13 @@ function renderModule() {
 
   html += renderNavButtons();
   main.innerHTML = html;
+
+  // Restore or reset scroll
+  if (opts.preserveScroll) {
+    window.scrollTo(0, savedScroll);
+  } else {
+    window.scrollTo(0, 0);
+  }
 
   // Inject downloads on final module
   if (m.isFinal) {
@@ -1380,9 +1408,15 @@ function answerQuiz(moduleId, answerIdx, correctIdx) {
   // Track module completion
   var m = MODULES.find(function(x){ return x.id === moduleId; });
   trackProgress('MOD-' + moduleId, m ? m.title : moduleId);
-  renderModule();
+  // Preserve scroll so user sees the feedback right where they were
+  renderModule({preserveScroll: true});
   renderSidebar();
   renderProgress();
+  // After re-render, scroll the quiz feedback into view
+  setTimeout(function() {
+    var fb = document.querySelector('.quiz-feedback.show');
+    if (fb) fb.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 50);
 }
 
 function nextModule() {
@@ -1513,6 +1547,12 @@ function showCertificate(correct) {
 // INIT
 // ============================================================================
 function init() {
+  // URL param reset
+  if (window.location.search.indexOf('reset') !== -1) {
+    localStorage.removeItem(STORAGE_KEY);
+    state = loadState();
+    history.replaceState({}, '', window.location.pathname);
+  }
   if (state.started && state.pathKey) {
     document.getElementById('welcomeOverlay').classList.add('hidden');
     MODULES = buildModules(state.pathKey);
