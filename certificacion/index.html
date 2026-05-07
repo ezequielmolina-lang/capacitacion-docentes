@@ -891,11 +891,32 @@ function loadState() {
       pathKey: s.pathKey || null,
       intakeStep: s.intakeStep || 0,
       intakeAnswers: s.intakeAnswers || {},
-      started: s.started || false
+      started: s.started || false,
+      userDni: s.userDni || '',
+      userSchool: s.userSchool || ''
     };
   } catch(e) {
-    return { currentModule:0, completed:{}, finalAnswers:{}, finalCompleted:false, userName:'', pathKey:null, intakeStep:0, intakeAnswers:{}, started:false };
+    return { currentModule:0, completed:{}, finalAnswers:{}, finalCompleted:false, userName:'', pathKey:null, intakeStep:0, intakeAnswers:{}, started:false, userDni:'', userSchool:'' };
   }
+}
+
+// Google Sheets tracking - same endpoint as the main capacitacion site
+var TRACKING_URL = 'https://script.google.com/macros/s/AKfycbyUeu-Q_wesHnr9Df_OKWgfM6_o7pOMPP2Z5tlxATllORSfAYTDSYKcm-JsqJjS2Rd7/exec';
+function trackProgress(moduleId, stepTitle) {
+  if (!state.userName || !state.userDni) return;
+  var data = {
+    timestamp: new Date().toISOString(),
+    name: state.userName,
+    dni: state.userDni,
+    school: state.userSchool || '',
+    materia: state.pathKey || '',
+    track: 'CERT-INDUCCION',
+    moduleId: moduleId,
+    stepTitle: stepTitle || '',
+    status: 'COMPLETED'
+  };
+  var params = Object.keys(data).map(function(k) { return k + '=' + encodeURIComponent(data[k]); }).join('&');
+  try { fetch(TRACKING_URL + '?' + params, { mode: 'no-cors' }).catch(function(){}); } catch(e){}
 }
 function saveState() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
 function resetState() { localStorage.removeItem(STORAGE_KEY); state = loadState(); init(); }
@@ -926,100 +947,172 @@ function renderIntake() {
     return;
   }
 
-  // Step 1: rol
+  // Step 1: roles (multi-select)
   if (step === 1) {
+    const roles = state.intakeAnswers.roles || [];
+    const isAip = roles.includes('aip');
     modal.innerHTML = `
       <div class="intake-progress"><div class="intake-dot active"></div><div class="intake-dot"></div><div class="intake-dot"></div></div>
       <div class="intake-step">
-        <h3>1. ¿Cuál es tu rol en el programa?</h3>
-        <p class="step-hint">Selecciona la función que cumples en tu institución educativa.</p>
+        <h3>1. ¿Qué roles tienes en el programa?</h3>
+        <p class="step-hint">Puedes seleccionar más de uno si cumples varios roles.</p>
         <div class="intake-options">
-          <button class="intake-option ${state.intakeAnswers.rol==='mat'?'selected':''}" onclick="setIntakeAnswer('rol','mat')">
+          <button class="intake-option ${roles.includes('mat')?'selected':''}" onclick="toggleRole('mat')">
             <span class="intake-icon">📐</span>
             <div class="intake-option-text">
-              <div class="intake-option-title">Docente de Matemáticas</div>
+              <div class="intake-option-title">Docente de Matemáticas ${roles.includes('mat')?'<i class=\'fas fa-check-circle\' style=\'color:var(--success);margin-left:4px\'></i>':''}</div>
               <div class="intake-option-desc">Facilito el Tutor de Matemáticas con IA</div>
             </div>
           </button>
-          <button class="intake-option ${state.intakeAnswers.rol==='tut'?'selected':''}" onclick="setIntakeAnswer('rol','tut')">
+          <button class="intake-option ${roles.includes('tut')?'selected':''}" onclick="toggleRole('tut')">
             <span class="intake-icon">🧭</span>
             <div class="intake-option-text">
-              <div class="intake-option-title">Tutor de Orientación Vocacional</div>
+              <div class="intake-option-title">Tutor de Orientación Vocacional ${roles.includes('tut')?'<i class=\'fas fa-check-circle\' style=\'color:var(--success);margin-left:4px\'></i>':''}</div>
               <div class="intake-option-desc">Facilito las 12 sesiones del Orientador Vocacional con IA</div>
             </div>
           </button>
-          <button class="intake-option ${state.intakeAnswers.rol==='aip'?'selected':''}" onclick="setIntakeAnswer('rol','aip')">
+          <button class="intake-option ${isAip?'selected':''}" onclick="toggleRole('aip')">
             <span class="intake-icon">🛠️</span>
             <div class="intake-option-text">
-              <div class="intake-option-title">Coordinador AIP / Docente PIP</div>
+              <div class="intake-option-title">Coordinador AIP / Docente PIP ${isAip?'<i class=\'fas fa-check-circle\' style=\'color:var(--success);margin-left:4px\'></i>':''}</div>
               <div class="intake-option-desc">Brindo soporte técnico al laboratorio para todas las secciones</div>
             </div>
           </button>
         </div>
+        ${roles.length > 1 && !isAip ? `<div class="callout callout-info" style="font-size:13px; padding:10px 14px; margin:0 0 12px;"><p><span class="callout-icon">💡</span>Tienes <strong>roles combinados</strong>. En el siguiente paso indicarás cuántas secciones tienes en cada uno.</p></div>` : ''}
+        ${isAip && roles.length > 1 ? `<div class="callout callout-tip" style="font-size:13px; padding:10px 14px; margin:0 0 12px;"><p><span class="callout-icon">📌</span>Como <strong>AIP/PIP</strong> tu certificación es siempre de 120h y cubre todas las secciones, sin importar otros roles.</p></div>` : ''}
         <div style="display:flex; gap:8px;">
           <button class="btn btn-secondary" onclick="state.intakeStep=0; saveState(); renderIntake();">Atrás</button>
-          <button class="btn btn-primary" style="flex:1;" ${!state.intakeAnswers.rol?'disabled':''} onclick="advanceIntake()">Siguiente →</button>
+          <button class="btn btn-primary" style="flex:1;" ${roles.length === 0 ? 'disabled' : ''} onclick="advanceIntake()">Siguiente →</button>
         </div>
       </div>
     `;
     return;
   }
 
-  // Step 2: sections (skip for AIP)
+  // Step 2: sections per role
   if (step === 2) {
-    if (state.intakeAnswers.rol === 'aip') {
-      // AIP always 120h
-      state.intakeAnswers.sections = 'all';
+    const roles = state.intakeAnswers.roles || [];
+    // If only AIP, skip sections (always 120h, all sections)
+    if (roles.length === 1 && roles[0] === 'aip') {
+      state.intakeAnswers.matSections = 0;
+      state.intakeAnswers.tutSections = 0;
       state.pathKey = 'aip-120';
       state.intakeStep = 3;
       saveState();
       renderIntake();
       return;
     }
-    modal.innerHTML = `
+    const matSec = state.intakeAnswers.matSections;
+    const tutSec = state.intakeAnswers.tutSections;
+    const askMat = roles.includes('mat');
+    const askTut = roles.includes('tut');
+    const matReady = !askMat || (matSec !== undefined && matSec !== null && matSec !== '');
+    const tutReady = !askTut || (tutSec !== undefined && tutSec !== null && tutSec !== '');
+    const allReady = matReady && tutReady;
+
+    let html = `
       <div class="intake-progress"><div class="intake-dot done"></div><div class="intake-dot active"></div><div class="intake-dot"></div></div>
       <div class="intake-step">
-        <h3>2. ¿Cuántas secciones de 5to tienes asignadas al programa?</h3>
-        <p class="step-hint">Esto determina si tu certificación es de 80h o 120h.</p>
-        <div class="intake-options">
-          <button class="intake-option ${state.intakeAnswers.sections==='1'?'selected':''}" onclick="setIntakeAnswer('sections','1')">
-            <span class="intake-icon">1️⃣</span>
-            <div class="intake-option-text">
-              <div class="intake-option-title">Una (1) sección</div>
-              <div class="intake-option-desc">Te corresponde el sílabo de 80 horas</div>
-            </div>
-          </button>
-          <button class="intake-option ${state.intakeAnswers.sections==='2+'?'selected':''}" onclick="setIntakeAnswer('sections','2+')">
-            <span class="intake-icon">➕</span>
-            <div class="intake-option-text">
-              <div class="intake-option-title">Dos (2) o más secciones</div>
-              <div class="intake-option-desc">Te corresponde el plan de 120 horas</div>
-            </div>
-          </button>
+        <h3>2. ¿Cuántas secciones tienes asignadas?</h3>
+        <p class="step-hint">Indica el número de secciones de 5to de secundaria asignadas al programa para cada rol.</p>
+    `;
+
+    if (askMat) {
+      html += `
+        <div style="margin-bottom:16px;">
+          <div style="font-weight:700; color:var(--primary-dark); font-size:14px; margin-bottom:8px;">📐 Como Docente de Matemáticas:</div>
+          <div class="intake-options">
+            ${[0,1,2,3].map(n => {
+              const label = n===0 ? 'Ninguna' : n===3 ? '3 o más secciones' : `${n} ${n===1?'sección':'secciones'}`;
+              return `<button class="intake-option ${matSec===n?'selected':''}" style="padding:10px 14px;" onclick="setSections('mat',${n})">
+                <span class="intake-icon" style="width:32px;height:32px;font-size:14px;">${n}</span>
+                <div class="intake-option-text"><div class="intake-option-title" style="font-size:14px;">${label}</div></div>
+              </button>`;
+            }).join('')}
+          </div>
         </div>
+      `;
+    }
+
+    if (askTut) {
+      html += `
+        <div style="margin-bottom:16px;">
+          <div style="font-weight:700; color:var(--primary-dark); font-size:14px; margin-bottom:8px;">🧭 Como Tutor de OV:</div>
+          <div class="intake-options">
+            ${[0,1,2,3].map(n => {
+              const label = n===0 ? 'Ninguna' : n===3 ? '3 o más secciones' : `${n} ${n===1?'sección':'secciones'}`;
+              return `<button class="intake-option ${tutSec===n?'selected':''}" style="padding:10px 14px;" onclick="setSections('tut',${n})">
+                <span class="intake-icon" style="width:32px;height:32px;font-size:14px;">${n}</span>
+                <div class="intake-option-text"><div class="intake-option-title" style="font-size:14px;">${label}</div></div>
+              </button>`;
+            }).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    html += `
         <div style="display:flex; gap:8px;">
           <button class="btn btn-secondary" onclick="state.intakeStep=1; saveState(); renderIntake();">Atrás</button>
-          <button class="btn btn-primary" style="flex:1;" ${!state.intakeAnswers.sections?'disabled':''} onclick="advanceIntake()">Siguiente →</button>
+          <button class="btn btn-primary" style="flex:1;" ${!allReady?'disabled':''} onclick="advanceIntake()">Siguiente →</button>
         </div>
       </div>
     `;
+    modal.innerHTML = html;
     return;
   }
 
   // Step 3: name and result
   if (step === 3) {
     if (!state.pathKey) {
-      // Calculate path
-      const r = state.intakeAnswers.rol;
-      const s = state.intakeAnswers.sections;
-      if (r === 'mat' && s === '1') state.pathKey = 'mat-80';
-      else if (r === 'mat' && s === '2+') state.pathKey = 'mat-120';
-      else if (r === 'tut' && s === '1') state.pathKey = 'tut-80';
-      else if (r === 'tut' && s === '2+') state.pathKey = 'tut-120';
-      else if (r === 'aip') state.pathKey = 'aip-120';
+      // Calculate path based on roles + sections
+      const roles = state.intakeAnswers.roles || [];
+      const matSec = state.intakeAnswers.matSections || 0;
+      const tutSec = state.intakeAnswers.tutSections || 0;
+      const totalSec = matSec + tutSec;
+
+      // AIP always overrides everything
+      if (roles.includes('aip')) {
+        state.pathKey = 'aip-120';
+      } else if (totalSec === 0) {
+        // Edge: no sections, default to math 80h
+        state.pathKey = 'mat-80';
+      } else if (totalSec === 1) {
+        // Only 1 section total — single-role 80h
+        state.pathKey = matSec === 1 ? 'mat-80' : 'tut-80';
+      } else {
+        // 2+ sections total = 120h, pick role with more sections (math wins ties)
+        if (matSec >= tutSec) {
+          state.pathKey = 'mat-120';
+        } else {
+          state.pathKey = 'tut-120';
+        }
+      }
       saveState();
     }
     const p = getPath(state.pathKey);
+    const roles = state.intakeAnswers.roles || [];
+    const matSec = state.intakeAnswers.matSections || 0;
+    const tutSec = state.intakeAnswers.tutSections || 0;
+    const isMultiRole = roles.length > 1 && !roles.includes('aip');
+
+    let multiRoleNote = '';
+    if (isMultiRole) {
+      multiRoleNote = `
+        <div class="callout callout-tip" style="margin-top:14px;">
+          <p><span class="callout-icon">💡</span><strong>Tienes roles combinados.</strong> Recibes <strong>una sola certificación</strong> según el rol con más secciones (en empate, prevalece Matemáticas). Tus horas de implementación incluyen todas tus secciones.</p>
+        </div>
+      `;
+    }
+    if (roles.includes('aip') && roles.length > 1) {
+      multiRoleNote = `
+        <div class="callout callout-tip" style="margin-top:14px;">
+          <p><span class="callout-icon">📌</span>Como <strong>Coordinador AIP/PIP</strong> tu certificación de 120h cubre el soporte técnico integral. Si también das clases en alguna sección, esa actividad la coordinas con el equipo EMC pero la certificación principal es la AIP/PIP.</p>
+        </div>
+      `;
+    }
+
     modal.innerHTML = `
       <div class="intake-progress"><div class="intake-dot done"></div><div class="intake-dot done"></div><div class="intake-dot active"></div></div>
       <div class="intake-step">
@@ -1031,16 +1124,37 @@ function renderIntake() {
           <div class="result-hours">${p.hours}<span style="font-size:24px;"> h</span></div>
           <div class="result-hours-label">Horas pedagógicas</div>
         </div>
-        <p style="font-size:14.5px; margin-top:14px;">Antes de empezar, dinos tu nombre (opcional, aparecerá en tu certificado de inducción):</p>
-        <input type="text" class="intake-input" id="userNameInput" placeholder="Tu nombre completo" value="${state.userName||''}">
+        ${multiRoleNote}
+        <p style="font-size:14.5px; margin-top:14px; font-weight:600;">Tus datos para el certificado y registro:</p>
+        <input type="text" class="intake-input" id="userNameInput" placeholder="Nombre completo *" value="${state.userName||''}">
+        <input type="text" class="intake-input" id="userDniInput" placeholder="DNI *" value="${state.userDni||''}" maxlength="12">
+        <input type="text" class="intake-input" id="userSchoolInput" placeholder="Institución educativa *" value="${state.userSchool||''}">
         <div style="display:flex; gap:8px;">
-          <button class="btn btn-secondary" onclick="state.intakeStep=2; saveState(); renderIntake();">Atrás</button>
+          <button class="btn btn-secondary" onclick="state.intakeStep=2; state.pathKey=null; saveState(); renderIntake();">Atrás</button>
           <button class="btn btn-primary" style="flex:1;" onclick="finishIntake()">Empezar curso →</button>
         </div>
         <p style="font-size:12px; color:var(--text-muted); margin-top:14px;"><a href="#" onclick="resetState(); return false;" style="color:var(--text-muted);">Restablecer datos del curso</a></p>
       </div>
     `;
   }
+}
+
+// Helpers for the new multi-role intake
+function toggleRole(role) {
+  const roles = state.intakeAnswers.roles || [];
+  const i = roles.indexOf(role);
+  if (i >= 0) roles.splice(i, 1);
+  else roles.push(role);
+  state.intakeAnswers.roles = roles;
+  saveState();
+  renderIntake();
+}
+
+function setSections(role, n) {
+  if (role === 'mat') state.intakeAnswers.matSections = n;
+  if (role === 'tut') state.intakeAnswers.tutSections = n;
+  saveState();
+  renderIntake();
 }
 
 function setIntakeAnswer(key, val) {
@@ -1060,10 +1174,20 @@ function advanceIntake() {
 
 function finishIntake() {
   const name = document.getElementById('userNameInput').value.trim();
-  if (name) state.userName = name;
+  const dni = document.getElementById('userDniInput').value.trim();
+  const school = document.getElementById('userSchoolInput').value.trim();
+  if (!name || !dni || !school) {
+    alert('Por favor completa todos los campos: nombre, DNI e institución educativa.');
+    return;
+  }
+  state.userName = name;
+  state.userDni = dni;
+  state.userSchool = school;
   state.started = true;
   state.currentModule = 0;
   saveState();
+  // Track enrollment to Google Sheets
+  trackProgress('ENROLLED', 'Inscripción al curso de inducción');
   document.getElementById('welcomeOverlay').classList.add('hidden');
   MODULES = buildModules(state.pathKey);
   renderModule();
@@ -1253,6 +1377,9 @@ function answerQuiz(moduleId, answerIdx, correctIdx) {
   if (state.completed[moduleId]) return;
   state.completed[moduleId] = { answer: answerIdx, correct: answerIdx === correctIdx };
   saveState();
+  // Track module completion
+  var m = MODULES.find(function(x){ return x.id === moduleId; });
+  trackProgress('MOD-' + moduleId, m ? m.title : moduleId);
   renderModule();
   renderSidebar();
   renderProgress();
@@ -1282,7 +1409,17 @@ function closeSidebarMobile() { if (window.innerWidth <= 900) document.getElemen
 
 // Final quiz
 let finalQuizState = { current: 0 };
-function startFinalQuiz() { finalQuizState = { current: 0 }; renderFinalQuestion(); }
+function startFinalQuiz() {
+  finalQuizState = { current: 0 };
+  state.finalAnswers = {};
+  saveState();
+  renderFinalQuestion();
+  // Auto-scroll to the first question after rendering
+  setTimeout(function() {
+    var c = document.getElementById('finalQuizContainer');
+    if (c) c.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+}
 function renderFinalQuestion() {
   const i = finalQuizState.current;
   const q = FINAL_QUIZ[i];
@@ -1317,7 +1454,14 @@ function renderFinalQuestion() {
   `;
 }
 function answerFinal(idx) { state.finalAnswers[finalQuizState.current] = idx; saveState(); renderFinalQuestion(); }
-function nextFinalQuestion() { finalQuizState.current++; renderFinalQuestion(); }
+function nextFinalQuestion() {
+  finalQuizState.current++;
+  renderFinalQuestion();
+  setTimeout(function() {
+    var c = document.getElementById('finalQuizContainer');
+    if (c) c.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+}
 function countCorrect(answers, quiz) { let c = 0; quiz.forEach((q, i) => { if (answers[i] === q.c) c++; }); return c; }
 function finishFinalQuiz() {
   const correct = countCorrect(state.finalAnswers, FINAL_QUIZ);
@@ -1326,6 +1470,8 @@ function finishFinalQuiz() {
   state.finalCompleted = true;
   state.completed['final'] = { answer: 0, correct: passed };
   saveState();
+  // Track final quiz result
+  trackProgress(passed ? 'CERTIFIED' : 'FINAL-FAILED', 'Evaluación final: ' + correct + '/' + total);
   const container = document.getElementById('finalQuizContainer');
   if (passed) {
     showCertificate(correct);
