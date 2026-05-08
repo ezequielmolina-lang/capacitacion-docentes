@@ -465,44 +465,70 @@ function buildModules(pathKey) {
       eyebrow: 'Módulo 2 de 9',
       duration: '~5 min',
       content: () => {
-        if (!p) return '<p>Por favor completa primero el cuestionario inicial.</p>';
-        const moduleListHtml = p.moduleList.map(m => `
-          <div class="module-row">
-            <div class="module-num-sm">${m.n}</div>
-            <div class="module-info"><h5>${m.name}</h5><p>${m.desc}</p></div>
-            <span class="module-hours">${m.h}</span>
-          </div>
-        `).join('') + `
-          <div class="module-row total-row">
-            <div class="module-num-sm" style="background:var(--accent);color:var(--primary)">∑</div>
+        const keys = state.pathKeys || (state.pathKey ? [state.pathKey] : []);
+        if (keys.length === 0) return '<p>Por favor completa primero el cuestionario inicial.</p>';
+        const isMulti = keys.length > 1;
+        let allHtml = '';
+        keys.forEach(function(k, idx) {
+          const cp = getPath(k);
+          const moduleListHtml = cp.moduleList.map(function(m) {
+            return `<div class="module-row">
+              <div class="module-num-sm">${m.n}</div>
+              <div class="module-info"><h5>${m.name}</h5><p>${m.desc}</p></div>
+              <span class="module-hours">${m.h}</span>
+            </div>`;
+          }).join('') + `<div class="module-row total-row">
+            <div class="module-num-sm" style="background:var(--primary-light);color:var(--text-dark)">∑</div>
             <div class="module-info"><h5>TOTAL</h5><p>Horas pedagógicas certificadas por DRELM y Banco Mundial</p></div>
-            <span class="module-hours">${p.hours} h</span>
-          </div>
-        `;
-        return `
-          <div class="result-card">
-            <span class="result-tag">Tu plan de certificación</span>
-            <h3>${p.icon} ${p.name}</h3>
-            <p class="result-sub">${p.type} · ${p.sections}</p>
-            <div class="result-hours">${p.hours}<span style="font-size:24px;"> h</span></div>
-            <div class="result-hours-label">Horas pedagógicas</div>
-          </div>
-          <div class="lesson">
-            <h3>Estructura completa de módulos</h3>
-            <p>Tu certificación se compone de los siguientes módulos:</p>
-            <div class="module-list">${moduleListHtml}</div>
-            <h3>Competencias del MBDD</h3>
-            <p>Tu plan está alineado con las siguientes competencias del Marco de Buen Desempeño Docente: <strong>${p.competencias}</strong>.</p>
-            <div class="callout callout-info">
-              <p><span class="callout-icon">📥</span><strong>Documentos oficiales:</strong> Al final del curso (Módulo 9) encontrarás la sección de descargas con el sílabo/plan de estudios completo y la planilla Excel de certificación. ¡Recuerda guardarlos!</p>
+            <span class="module-hours">${cp.hours} h</span>
+          </div>`;
+          allHtml += `
+            <div class="result-card" style="margin-bottom:12px;">
+              <span class="result-tag">${isMulti ? 'Certificación ' + (idx+1) + ' de ' + keys.length : 'Tu plan'}</span>
+              <h3>${cp.icon} ${cp.name}</h3>
+              <p class="result-sub">${cp.type} · ${cp.sections}</p>
+              <div class="result-hours">${cp.hours}<span style="font-size:24px;"> h</span></div>
+              <div class="result-hours-label">Horas pedagógicas</div>
             </div>
+            <div class="lesson" style="margin-bottom:24px;">
+              <h4 style="margin-top:14px;">Estructura de módulos — ${cp.shortName}</h4>
+              <div class="module-list">${moduleListHtml}</div>
+              <p style="margin-top:8px;"><strong>Competencias MBDD:</strong> ${cp.competencias}</p>
+            </div>
+          `;
+        });
+        const introNote = isMulti ?
+          `<div class="callout callout-tip"><p><span class="callout-icon">💡</span><strong>Tienes ${keys.length} certificaciones</strong> porque cumples ${keys.length} roles distintos en el programa. Cada certificación es independiente y tiene su propio sílabo/plan de estudios. <strong>Las descargas de los ${keys.length} documentos están al final del curso.</strong></p></div>`
+          : '';
+        return introNote + allHtml + `
+          <div class="callout callout-info">
+            <p><span class="callout-icon">📥</span><strong>Documentos oficiales:</strong> Al final del curso (Módulo 9) encontrarás la sección de descargas con el sílabo/plan de estudios completo y la planilla Excel de certificación de cada uno de tus roles.</p>
           </div>
         `;
       },
       quiz: () => {
-        if (!p) return null;
-        const isAIP = p.isAIP;
-        const is120 = p.hours === '120';
+        const keys = state.pathKeys || (state.pathKey ? [state.pathKey] : []);
+        if (keys.length === 0) return null;
+        // Multi-role gets a specific quiz
+        if (keys.length > 1) {
+          return {
+            question: 'Tienes roles combinados (' + keys.length + ' certificaciones). ¿Qué significa esto?',
+            options: [
+              'Recibo una sola certificación por todo',
+              'Recibo una certificación independiente por cada rol que cumplo',
+              'Recibo solo la certificación con más horas',
+              'Tengo que elegir cuál quiero'
+            ],
+            correct: 1,
+            feedback: {
+              correct: '¡Exacto! Recibes una certificación independiente por cada rol. Las horas se acumulan: ' + keys.reduce(function(s,k){return s + parseInt(getPath(k).hours);}, 0) + 'h totales en tu caso.',
+              incorrect: 'Cuando tienes <strong>roles combinados</strong>, recibes <strong>una certificación independiente por cada rol</strong>. No es una sola combinada ni hay que elegir.'
+            }
+          };
+        }
+        const cp = getPath(keys[0]);
+        const isAIP = cp.isAIP;
+        const is120 = cp.hours === '120';
         if (isAIP) {
           return {
             question: 'Como Coordinador AIP/PIP, ¿cuál es tu rol principal en el componente de "demostración audiovisual"?',
@@ -647,60 +673,39 @@ function buildModules(pathKey) {
       eyebrow: 'Módulo 5 de 9',
       duration: '~5 min',
       content: () => {
-        if (!p) return '<p>Completa el cuestionario inicial.</p>';
+        const keys = state.pathKeys || (state.pathKey ? [state.pathKey] : []);
+        if (keys.length === 0) return '<p>Completa el cuestionario inicial.</p>';
+        const isMulti = keys.length > 1;
+        let intro = isMulti ?
+          `<p>Como tienes <strong>${keys.length} certificaciones</strong>, tienes productos específicos para <strong>cada rol</strong>. Aquí los detalles para cada uno:</p>` :
+          `<p>Tu certificación tiene productos específicos según tu rol. Esta es tu lista personalizada:</p>`;
+
+        let perRoleHtml = keys.map(function(k) {
+          const cp = getPath(k);
+          return `
+            <div class="info-card" style="border-left:4px solid var(--primary);margin-bottom:18px;">
+              <h4>${cp.icon} Productos para: ${cp.shortName}</h4>
+              <p style="font-size:14.5px;"><strong>Producto principal:</strong> ${cp.productKey} (${cp.productHours}h)</p>
+              <p style="font-size:14px;color:var(--text-muted);">${cp.productDetail}</p>
+              <div style="margin-top:10px;">
+                ${cp.perfHours > 0 ? `<div style="font-size:13.5px;margin-bottom:4px;"><strong>•</strong> Curso de perfeccionamiento docente — <strong>${cp.perfHours}h</strong> (asincrónico en eligiendomicamino.org)</div>` : ''}
+                <div style="font-size:13.5px;margin-bottom:4px;"><strong>•</strong> ${cp.isAIP ? 'Protocolos de soporte técnico + apoyo a docentes en grabación' : 'Sesiones de aprendizaje'} — <strong>${cp.productHours}h</strong></div>
+                ${!cp.isAIP ? `<div style="font-size:13.5px;margin-bottom:4px;"><strong>•</strong> Demostración práctica (video/audio) — <strong>6h</strong></div>` : ''}
+                <div style="font-size:13.5px;"><strong>•</strong> Feedback al programa (Anexo 3) — <strong>2h</strong></div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
         return `
           <div class="lesson">
-            <p>Tu certificación tiene productos específicos según tu rol. Esta es tu lista personalizada:</p>
-
-            <div class="info-card" style="border-left:4px solid var(--accent);">
-              <h4>🎯 Productos clave de tu certificación (${p.shortName})</h4>
-              <p style="font-size:15px;">Tu producto principal es: <strong>${p.productKey}</strong> (${p.productHours}h).</p>
-              <p style="font-size:14.5px;">${p.productDetail}</p>
-            </div>
-
-            <h3>Lista completa de entregas</h3>
-            ${p.perfHours > 0 ? `
-            <h4>1. Curso de perfeccionamiento docente (${p.perfHours}h)</h4>
-            <ul>
-              <li><strong>Modalidad:</strong> 100% asincrónico (sesiones grabadas / lecturas).</li>
-              <li><strong>Plataforma:</strong> eligiendomicamino.org</li>
-              <li><strong>Cómo se acredita:</strong> automáticamente al completarlo en la plataforma.</li>
-            </ul>
-            ` : ''}
-
-            <h4>${p.perfHours > 0 ? '2' : '1'}. ${p.isAIP ? 'Protocolos de soporte técnico' : 'Sesiones de aprendizaje'} (${p.productHours}h)</h4>
-            <ul>
-              ${p.isAIP ? `
-                <li>Documentas <strong>protocolos de soporte técnico</strong> para incidencias frecuentes (conectividad, contraseñas, equipos).</li>
-                <li>Apoyas a los docentes en la grabación de su evidencia audiovisual.</li>
-                <li>Cómo entregar: envío al correo <strong>eligiendomicamino@worldbankgroup.org</strong></li>
-              ` : `
-                <li>Diseñas <strong>${p.productKey}</strong>.</li>
-                <li>Las entregas progresivamente al correo del programa.</li>
-                <li>Los docentes con OV elaboran 12 sesiones (una por cada sesión del Orientador Vocacional). Los de matemáticas diseñan sesiones para uso de plataforma + actividades complementarias sin plataforma.</li>
-              `}
-            </ul>
-
-            ${!p.isAIP ? `
-            <h4>${p.perfHours > 0 ? '3' : '2'}. Demostración práctica (audiovisual) — 6h</h4>
-            <ul>
-              <li><strong>Formato:</strong> video o audio breve (5–15 min).</li>
-              <li><strong>Contenido:</strong> tú implementando una sesión del programa en tu laboratorio.</li>
-              <li>No necesitas calidad profesional, basta con que se entienda.</li>
-            </ul>
-            ` : ''}
-
-            <h4>${p.isAIP ? '3' : (p.perfHours > 0 ? '4' : '3')}. Encuesta de retroalimentación final — 2h (Anexo 3)</h4>
-            <ul>
-              <li>Plantilla con escalas 1–5 sobre plataforma, capacitación, implementación e impacto.</li>
-              <li>Más secciones de texto abierto.</li>
-              <li>Tu feedback nos ayuda a mejorar el programa para próximas cohortes.</li>
-            </ul>
+            ${intro}
+            ${perRoleHtml}
 
             <h3>¿Cómo entrego todo?</h3>
             <div class="callout callout-info"><p><span class="callout-icon">📧</span>Todos los productos se envían al correo:<br><strong>eligiendomicamino@worldbankgroup.org</strong></p></div>
-
             <div class="callout callout-tip"><p><span class="callout-icon">💡</span>Recuerda: el componente de <strong>presencia (50%)</strong> se registra automáticamente en uDocz, no tienes que enviar nada para esa parte.</p></div>
+            ${isMulti ? `<div class="callout callout-warning"><p><span class="callout-icon">⚠️</span>Como tienes <strong>${keys.length} certificaciones</strong>, debes entregar los productos de <strong>cada una</strong> por separado. Indica claramente en el correo a cuál corresponde cada entrega.</p></div>` : ''}
           </div>
         `;
       },
@@ -889,6 +894,7 @@ function loadState() {
       finalCompleted: s.finalCompleted || false,
       userName: s.userName || '',
       pathKey: s.pathKey || null,
+      pathKeys: s.pathKeys || null,
       intakeStep: s.intakeStep || 0,
       intakeAnswers: s.intakeAnswers || {},
       started: s.started || false,
@@ -896,7 +902,7 @@ function loadState() {
       userSchool: s.userSchool || ''
     };
   } catch(e) {
-    return { currentModule:0, completed:{}, finalAnswers:{}, finalCompleted:false, userName:'', pathKey:null, intakeStep:0, intakeAnswers:{}, started:false, userDni:'', userSchool:'' };
+    return { currentModule:0, completed:{}, finalAnswers:{}, finalCompleted:false, userName:'', pathKey:null, pathKeys:null, intakeStep:0, intakeAnswers:{}, started:false, userDni:'', userSchool:'' };
   }
 }
 
@@ -1092,54 +1098,64 @@ function renderIntake() {
 
   // Step 4: show result + start
   if (step === 4) {
-    if (!state.pathKey) {
-      const roles = state.intakeAnswers.roles || [];
-      const matSec = state.intakeAnswers.matSections || 0;
-      const tutSec = state.intakeAnswers.tutSections || 0;
-      const totalSec = matSec + tutSec;
-      if (roles.includes('aip')) {
-        state.pathKey = 'aip-120';
-      } else if (totalSec === 0) {
-        state.pathKey = 'mat-80';
-      } else if (totalSec === 1) {
-        state.pathKey = matSec === 1 ? 'mat-80' : 'tut-80';
-      } else {
-        state.pathKey = matSec >= tutSec ? 'mat-120' : 'tut-120';
-      }
+    if (!state.pathKeys || state.pathKeys.length === 0) {
+      state.pathKeys = computePathKeys();
+      // backwards compat: keep pathKey as the primary one
+      state.pathKey = state.pathKeys[0];
       saveState();
     }
-    const p = getPath(state.pathKey);
-    const roles = state.intakeAnswers.roles || [];
-    const isMultiRole = roles.length > 1 && !roles.includes('aip');
+    const paths = state.pathKeys.map(getPath);
+    const totalHours = paths.reduce(function(s, p){ return s + parseInt(p.hours); }, 0);
+    const isMulti = paths.length > 1;
 
-    let multiRoleNote = '';
-    if (isMultiRole) {
-      multiRoleNote = `<div class="callout callout-tip" style="margin-top:14px;"><p><span class="callout-icon">💡</span><strong>Tienes roles combinados.</strong> Recibes <strong>una sola certificación</strong> según el rol con más secciones (en empate, prevalece Matemáticas). Tus horas de implementación incluyen todas tus secciones.</p></div>`;
-    }
-    if (roles.includes('aip') && roles.length > 1) {
-      multiRoleNote = `<div class="callout callout-tip" style="margin-top:14px;"><p><span class="callout-icon">📌</span>Como <strong>Coordinador AIP/PIP</strong> tu certificación de 120h cubre el soporte técnico integral. Si también das clases en alguna sección, esa actividad la coordinas con el equipo EMC pero la certificación principal es la AIP/PIP.</p></div>`;
+    let cardsHtml = paths.map(function(p) {
+      return `<div class="result-card" style="margin-top:12px;">
+        <span class="result-tag">${p.icon} Certificación</span>
+        <h3 style="margin:8px 0 4px;">${p.name}</h3>
+        <p class="result-sub">${p.type} · ${p.sections}</p>
+        <div class="result-hours">${p.hours}<span style="font-size:24px;"> h</span></div>
+        <div class="result-hours-label">Horas pedagógicas</div>
+      </div>`;
+    }).join('');
+
+    let note = '';
+    if (isMulti) {
+      note = `<div class="callout callout-tip" style="margin-top:14px;"><p><span class="callout-icon">💡</span><strong>Recibirás ${paths.length} certificaciones independientes</strong> — una por cada rol que cumples en el programa. En total: <strong>${totalHours} horas</strong> pedagógicas. Este curso de inducción cubre los detalles de las 3 (información para los ${paths.length} planes).</p></div>`;
     }
 
     modal.innerHTML = `
       <div class="intake-progress"><div class="intake-dot done"></div><div class="intake-dot done"></div><div class="intake-dot done"></div><div class="intake-dot active"></div></div>
       <div class="intake-step">
-        <h3>¡Listo, ${state.userName.split(' ')[0]}! Esta es tu certificación</h3>
-        <div class="result-card" style="margin-top:16px;">
-          <span class="result-tag">${p.icon} Tu certificación</span>
-          <h3 style="margin:8px 0 4px;">${p.name}</h3>
-          <p class="result-sub">${p.type} · ${p.sections}</p>
-          <div class="result-hours">${p.hours}<span style="font-size:24px;"> h</span></div>
-          <div class="result-hours-label">Horas pedagógicas</div>
-        </div>
-        ${multiRoleNote}
+        <h3>¡Listo, ${state.userName.split(' ')[0]}! ${isMulti ? 'Estas son tus certificaciones' : 'Esta es tu certificación'}</h3>
+        ${cardsHtml}
+        ${note}
         <div style="display:flex; gap:8px; margin-top:18px;">
-          <button class="btn btn-secondary" onclick="state.intakeStep=3; state.pathKey=null; saveState(); renderIntake();">Atrás</button>
+          <button class="btn btn-secondary" onclick="state.intakeStep=3; state.pathKey=null; state.pathKeys=null; saveState(); renderIntake();">Atrás</button>
           <button class="btn btn-primary" style="flex:1;" onclick="finishIntake()">Empezar curso →</button>
         </div>
         <p style="font-size:12px; color:var(--text-muted); margin-top:14px;"><a href="#" onclick="resetState(); return false;" style="color:var(--text-muted);">Restablecer datos del curso</a></p>
       </div>
     `;
   }
+}
+
+// Compute the list of path keys based on roles + sections
+function computePathKeys() {
+  const roles = state.intakeAnswers.roles || [];
+  const matSec = state.intakeAnswers.matSections || 0;
+  const tutSec = state.intakeAnswers.tutSections || 0;
+  const out = [];
+  if (roles.includes('mat') && matSec > 0) {
+    out.push(matSec >= 2 ? 'mat-120' : 'mat-80');
+  }
+  if (roles.includes('tut') && tutSec > 0) {
+    out.push(tutSec >= 2 ? 'tut-120' : 'tut-80');
+  }
+  if (roles.includes('aip')) {
+    out.push('aip-120');
+  }
+  if (out.length === 0) out.push('mat-80'); // fallback
+  return out;
 }
 
 // Helpers for personal data step
@@ -1221,13 +1237,20 @@ function renderSidebar() {
   const list = document.getElementById('navList');
   const pathBox = document.getElementById('myPathBox');
   list.innerHTML = '';
-  if (state.pathKey) {
-    const p = getPath(state.pathKey);
+  const keys = state.pathKeys || (state.pathKey ? [state.pathKey] : []);
+  if (keys.length > 0) {
+    const paths = keys.map(getPath);
+    const totalH = paths.reduce(function(s,p){ return s + parseInt(p.hours); }, 0);
+    const label = paths.length > 1 ? `Tus ${paths.length} certificaciones` : 'Tu plan';
+    let pathsHtml = paths.map(function(p) {
+      return `<div class="my-path-name" style="margin-bottom:4px;">${p.icon} ${p.shortName}</div>`;
+    }).join('');
+    const totalLabel = paths.length > 1 ? `${totalH} h totales` : `${paths[0].hours} horas pedagógicas`;
     pathBox.innerHTML = `
       <div class="my-path">
-        <div class="my-path-label">Tu plan</div>
-        <div class="my-path-name">${p.icon} ${p.shortName}</div>
-        <div class="my-path-hours">${p.hours} horas pedagógicas</div>
+        <div class="my-path-label">${label}</div>
+        ${pathsHtml}
+        <div class="my-path-hours">${totalLabel}</div>
         <a href="#" onclick="if(confirm('\u00bfReiniciar el curso? Esto borrar\u00e1 tu progreso y volver\u00e1s al cuestionario inicial.')) resetState(); return false;" style="display:block;margin-top:8px;font-size:11px;color:var(--primary-dark);text-decoration:none;font-weight:600;"><i class="fas fa-rotate-left" style="margin-right:4px;"></i>Cambiar plan / reiniciar</a>
       </div>
       <div class="nav-section-title">Módulos del curso</div>
@@ -1350,7 +1373,7 @@ function renderNavButtons() {
 function renderDownloads() {
   const grid = document.getElementById('downloadGrid');
   if (!grid) return;
-  const p = getPath(state.pathKey);
+  const myKeys = state.pathKeys || (state.pathKey ? [state.pathKey] : []);
   const allFiles = [
     {key:'mat-80', silabo:'Silabo_80h_Matematica_v6.docx', excel:'Certificacion_80h_Matematica.xlsx', name:'Sílabo 80h: Matemáticas'},
     {key:'tut-80', silabo:'Silabo_80h_Tutores_OV_v6.docx', excel:'Certificacion_80h_Tutores_OV.xlsx', name:'Sílabo 80h: Tutores OV'},
@@ -1360,30 +1383,31 @@ function renderDownloads() {
   ];
 
   let html = '';
-  // Recommended (own path)
-  const own = allFiles.find(f => f.key === state.pathKey);
-  if (own) {
+  // Recommended for ALL my paths
+  myKeys.forEach(function(myKey) {
+    const own = allFiles.find(function(f){ return f.key === myKey; });
+    if (!own) return;
     html += `
       <div class="download-card recommended">
         <div class="download-icon">📄</div>
         <div class="download-info">
-          <h4>Tu sílabo / plan de estudios <span class="recommended-badge">RECOMENDADO</span></h4>
-          <p>${own.name} — Word (.docx)</p>
+          <h4>${own.name} <span class="recommended-badge">TUYO</span></h4>
+          <p>Sílabo / Plan de estudios — Word (.docx)</p>
           <a class="download-link" href="docs/${own.silabo}" download>⬇ Descargar</a>
         </div>
       </div>
       <div class="download-card recommended">
         <div class="download-icon xlsx">📊</div>
         <div class="download-info">
-          <h4>Tu planilla de certificación <span class="recommended-badge">RECOMENDADO</span></h4>
-          <p>${own.name} — Excel (.xlsx)</p>
+          <h4>${own.name} <span class="recommended-badge">TUYO</span></h4>
+          <p>Planilla de certificación — Excel (.xlsx)</p>
           <a class="download-link" href="docs/${own.excel}" download>⬇ Descargar</a>
         </div>
       </div>
     `;
-  }
-  // Others
-  allFiles.filter(f => f.key !== state.pathKey).forEach(f => {
+  });
+  // Other paths the user doesn't own
+  allFiles.filter(function(f){ return myKeys.indexOf(f.key) === -1; }).forEach(function(f) {
     html += `
       <div class="download-card">
         <div class="download-icon">📄</div>
@@ -1525,7 +1549,15 @@ function showCertificate(correct) {
   const total = FINAL_QUIZ.length;
   const name = state.userName || 'Docente Participante';
   const today = new Date().toLocaleDateString('es-PE', { day: 'numeric', month: 'long', year: 'numeric' });
-  const p = getPath(state.pathKey);
+  const keys = state.pathKeys || (state.pathKey ? [state.pathKey] : []);
+  const paths = keys.map(getPath);
+  const totalH = paths.reduce(function(s,p){ return s + parseInt(p.hours); }, 0);
+  const planText = paths.length === 1
+    ? `Plan de certificación: <strong>${paths[0].shortName}</strong>`
+    : `Planes de certificación: <strong>${paths.map(function(p){return p.shortName;}).join(' + ')}</strong> (${totalH}h totales)`;
+  const officialText = paths.length === 1
+    ? `La <strong>certificación oficial</strong> de ${paths[0].hours} horas se obtiene completando todo el programa.`
+    : `Las <strong>${paths.length} certificaciones oficiales</strong> (${totalH}h en total) se obtienen completando todo el programa.`;
   const container = document.getElementById('finalQuizContainer');
   container.innerHTML = `
     <div class="certificate">
@@ -1533,11 +1565,11 @@ function showCertificate(correct) {
       <h2 class="cert-title">Certificado de Inducción</h2>
       <div class="cert-subtitle">Programa Eligiendo Mi Camino</div>
       <div class="cert-name">${name}</div>
-      <div class="cert-body">Ha completado satisfactoriamente el <strong>módulo de inducción al proceso de certificación</strong> del programa <strong>Eligiendo Mi Camino</strong>, demostrando comprensión del proceso, los componentes de evaluación y los productos a entregar.<br><br>Plan de certificación: <strong>${p.shortName}</strong></div>
+      <div class="cert-body">Ha completado satisfactoriamente el <strong>módulo de inducción al proceso de certificación</strong> del programa <strong>Eligiendo Mi Camino</strong>, demostrando comprensión del proceso, los componentes de evaluación y los productos a entregar.<br><br>${planText}</div>
       <div class="cert-seal">Resultado evaluación final: <strong>${correct}/${total}</strong> &nbsp;·&nbsp; ${today}<br>DRELM · Banco Mundial · uDocz · UPC</div>
     </div>
     <div class="callout callout-success">
-      <p><span class="callout-icon">✅</span><strong>¡Listo!</strong> Ahora puedes empezar tu implementación. Recuerda: este es solo el módulo de inducción. La <strong>certificación oficial</strong> de ${p.hours} horas se obtiene completando todo el programa.</p>
+      <p><span class="callout-icon">✅</span><strong>¡Listo!</strong> Ahora puedes empezar tu implementación. Recuerda: este es solo el módulo de inducción. ${officialText}</p>
     </div>
     <button class="btn btn-secondary" style="margin-top:16px;" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
   `;
