@@ -246,7 +246,7 @@
   <aside class="sidebar" id="sidebar">
     <div class="brand">
       <div class="brand-title">Eligiendo Mi Camino</div>
-      <div class="brand-sub">Curso de inducción a la certificación</div>
+      <div class="brand-sub">Inducción a la certificación</div>
     </div>
     <div id="myPathBox"></div>
     <ul class="nav-list" id="navList"></ul>
@@ -285,14 +285,25 @@ const PATHS = {
     silabo: 'Silabo_80h_Matematica_v6.docx',
     excel: 'Certificacion_80h_Matematica.xlsx',
     productKey: 'sesiones de aprendizaje (Matemáticas)',
-    productDetail: 'Diseñas sesiones de aprendizaje para el uso de la plataforma de IA en aula y para actividades complementarias sin plataforma. Cada sesión incluye protocolo de inicio, monitoreo y cierre, basado en datos del dashboard.',
+    productDetail: 'Diseñas sesiones de aprendizaje para las clases en laboratorio (con uso del Tutor IA) y, opcionalmente, para actividades de refuerzo en el aula tradicional. Cada sesión documenta el protocolo de inicio, monitoreo y cierre de la sesión en laboratorio, basado en datos del dashboard.',
     productHours: 9,
     perfHours: 8,
     labHours: '38h (10h fase anticipada + 28h supervisión semanal)',
+    expectedLabSessions: 16,
+    minLabSessions: 11,
+    expectedDocs: 8,
+    minDocs: 5,
+    docsLabel: 'sesiones de aprendizaje',
+    productsList: [
+      {label:'Curso de perfeccionamiento docente (NUEVO)', detail:'asincrónico en eligiendomicamino.org. Es un curso nuevo, distinto al de capacitación inicial de 16h que ya hiciste en marzo.', hours:'8h', auto:true},
+      {label:'Sesiones de aprendizaje', detail:'8 sesiones esperadas (mínimo 5 para aprobar)', hours:'9h', auto:false},
+      {label:'Demostración práctica', detail:'1 video o audio de una sesión, 15–45 min', hours:'6h', auto:false},
+      {label:'Feedback al programa', detail:'Anexo 3 — encuesta de retroalimentación', hours:'2h', auto:false}
+    ],
     moduleList: [
       {n:1, name:'Inducción al curso (asincrónico)', desc:'En eligiendomicamino.org', h:'3 h'},
       {n:2, name:'Implementación en laboratorio', desc:'Supervisión semanal del Tutor IA', h:'38 h'},
-      {n:3, name:'Curso de perfeccionamiento docente', desc:'Sesiones asincrónicas en eligiendomicamino.org', h:'8 h'},
+      {n:3, name:'Curso de perfeccionamiento docente (NUEVO)', desc:'Sesiones asincrónicas en eligiendomicamino.org — curso nuevo, distinto a la capacitación inicial de 16h', h:'8 h'},
       {n:4, name:'Acompañamiento pedagógico', desc:'3 llamadas mensuales con EMC', h:'4 h'},
       {n:5, name:'Sesiones de aprendizaje', desc:'Diseño de sesiones con y sin plataforma', h:'9 h'},
       {n:6, name:'Demostración práctica', desc:'Video o audio de implementación', h:'6 h'},
@@ -310,15 +321,26 @@ const PATHS = {
     competencias: 'MBDD 3, 5, 6, 9',
     silabo: 'Silabo_80h_Tutores_OV_v6.docx',
     excel: 'Certificacion_80h_Tutores_OV.xlsx',
-    productKey: '12 sesiones de aprendizaje (una por cada sesión OV)',
-    productDetail: 'Diseñas 12 sesiones de aprendizaje, una por cada sesión del Orientador Vocacional, adaptadas al contexto de tu sección. Cada sesión incluye objetivo, actividades previas, protocolo de acompañamiento, cierre y reflexión.',
+    productKey: 'sesiones de aprendizaje OV (hasta 12, una por cada sesión OV)',
+    productDetail: 'Diseñas sesiones de aprendizaje para el Orientador Vocacional, adaptadas al contexto de tu sección. Cada sesión incluye objetivo, actividades previas, protocolo de acompañamiento, cierre y reflexión. El programa OV tiene 12 sesiones; entregas las que efectivamente facilitas.',
     productHours: 19,
     perfHours: 12,
     labHours: '24h (6h fase anticipada + 18h sesiones OV 4-12)',
+    expectedLabSessions: 12,
+    minLabSessions: 8,
+    expectedDocs: 8,
+    minDocs: 5,
+    docsLabel: 'sesiones de aprendizaje OV',
+    productsList: [
+      {label:'Curso de perfeccionamiento docente (NUEVO)', detail:'asincrónico en eligiendomicamino.org. Es un curso nuevo, distinto al de capacitación inicial de 16h que ya hiciste en marzo.', hours:'12h', auto:true},
+      {label:'Sesiones de aprendizaje OV', detail:'8 sesiones esperadas (mínimo 5 para aprobar)', hours:'19h', auto:false},
+      {label:'Demostración práctica', detail:'1 video o audio de una sesión OV, 15–45 min', hours:'6h', auto:false},
+      {label:'Feedback al programa', detail:'Anexo 3 — encuesta de retroalimentación', hours:'2h', auto:false}
+    ],
     moduleList: [
       {n:1, name:'Inducción al curso (asincrónico)', desc:'En eligiendomicamino.org', h:'3 h'},
       {n:2, name:'Implementación: 12 sesiones OV', desc:'Facilitación de sesiones OV 1-12', h:'24 h'},
-      {n:3, name:'Curso de perfeccionamiento docente', desc:'Técnicas de OV, manejo de sesgos, acompañamiento socioemocional', h:'12 h'},
+      {n:3, name:'Curso de perfeccionamiento docente (NUEVO)', desc:'Técnicas de OV, manejo de sesgos, acompañamiento socioemocional — curso nuevo, distinto a la capacitación inicial', h:'12 h'},
       {n:4, name:'Acompañamiento pedagógico', desc:'3 llamadas mensuales con EMC', h:'4 h'},
       {n:5, name:'12 sesiones de aprendizaje', desc:'Una por cada sesión OV', h:'19 h'},
       {n:6, name:'Demostración práctica', desc:'Video o audio de sesión OV', h:'6 h'},
@@ -337,14 +359,25 @@ const PATHS = {
     silabo: 'Plan_Estudios_120h_Matematica_v3.docx',
     excel: 'Certificacion_120h_Matematica.xlsx',
     productKey: 'sesiones de aprendizaje',
-    productDetail: 'Diseñas sesiones de aprendizaje para el uso de la plataforma en aula y actividades complementarias sin plataforma, considerando la diversidad de tus secciones.',
+    productDetail: 'Diseñas sesiones de aprendizaje para las clases en laboratorio. Las planificaciones son únicas (no se duplican por sección): documentas el protocolo de inicio, monitoreo y cierre de la sesión en laboratorio.',
     productHours: 11,
     perfHours: 8,
     labHours: '76h (16h fase anticipada + 60h supervisión 2 secciones)',
+    expectedLabSessions: 32,
+    minLabSessions: 22,
+    expectedDocs: 8,
+    minDocs: 5,
+    docsLabel: 'sesiones de aprendizaje',
+    productsList: [
+      {label:'Curso de perfeccionamiento docente (NUEVO)', detail:'asincrónico en eligiendomicamino.org. Es un curso nuevo, distinto al de capacitación inicial de 16h que ya hiciste en marzo.', hours:'8h', auto:true},
+      {label:'Sesiones de aprendizaje', detail:'8 sesiones esperadas (mínimo 5 para aprobar)', hours:'11h', auto:false},
+      {label:'Demostración práctica', detail:'1 video o audio de una sesión, 15–45 min', hours:'6h', auto:false},
+      {label:'Feedback al programa', detail:'Anexo 3 — encuesta de retroalimentación', hours:'2h', auto:false}
+    ],
     moduleList: [
       {n:1, name:'Inducción al curso (asincrónico)', desc:'En eligiendomicamino.org', h:'3 h'},
       {n:2, name:'Implementación en laboratorio', desc:'Supervisión semanal en 2+ secciones', h:'76 h'},
-      {n:3, name:'Curso de perfeccionamiento docente', desc:'Sesiones asincrónicas en eligiendomicamino.org', h:'8 h'},
+      {n:3, name:'Curso de perfeccionamiento docente (NUEVO)', desc:'Sesiones asincrónicas en eligiendomicamino.org — curso nuevo, distinto a la capacitación inicial de 16h', h:'8 h'},
       {n:4, name:'Acompañamiento pedagógico', desc:'3 llamadas mensuales con EMC', h:'4 h'},
       {n:5, name:'Sesiones de aprendizaje', desc:'Diseño de sesiones', h:'11 h'},
       {n:6, name:'Demostración práctica', desc:'Video o audio de implementación', h:'6 h'},
@@ -362,15 +395,27 @@ const PATHS = {
     competencias: 'MBDD 3, 5, 6, 9',
     silabo: 'Plan_Estudios_120h_Tutores_OV_v3.docx',
     excel: 'Certificacion_120h_Tutores_OV.xlsx',
-    productKey: '12 sesiones de aprendizaje + sesiones complementarias',
-    productDetail: 'Diseñas las 12 sesiones de aprendizaje (una por cada sesión OV) y además realizas sesiones complementarias y apoyo individual a estudiantes (seguimiento del proceso vocacional, apoyo en investigación de carreras, conversaciones con familias).',
+    productKey: 'sesiones de aprendizaje OV + sesiones complementarias',
+    productDetail: 'Diseñas las sesiones de aprendizaje OV (planificaciones únicas, no duplicadas por sección) y además realizas actividades complementarias y apoyo individual a estudiantes (seguimiento del proceso vocacional, apoyo en investigación de carreras, conversaciones con familias).',
     productHours: 35,
     perfHours: 12,
     labHours: '48h (12h fase anticipada + 36h sesiones OV en 2 secciones)',
+    expectedLabSessions: 24,
+    minLabSessions: 17,
+    expectedDocs: 8,
+    minDocs: 5,
+    docsLabel: 'sesiones de aprendizaje OV',
+    productsList: [
+      {label:'Curso de perfeccionamiento docente (NUEVO)', detail:'asincrónico en eligiendomicamino.org. Es un curso nuevo, distinto al de capacitación inicial de 16h que ya hiciste en marzo.', hours:'12h', auto:true},
+      {label:'Sesiones de aprendizaje OV', detail:'8 sesiones esperadas (mínimo 5 para aprobar)', hours:'19h', auto:false},
+      {label:'Sesiones complementarias y apoyo', detail:'Seguimiento individual, investigación de carreras, conversaciones con familias', hours:'16h', auto:false},
+      {label:'Demostración práctica', detail:'1 video o audio de una sesión OV, 15–45 min', hours:'6h', auto:false},
+      {label:'Feedback al programa', detail:'Anexo 3 — encuesta de retroalimentación', hours:'2h', auto:false}
+    ],
     moduleList: [
       {n:1, name:'Inducción al curso (asincrónico)', desc:'En eligiendomicamino.org', h:'3 h'},
       {n:2, name:'Implementación: 12 sesiones OV × 2 secciones', desc:'Facilitación en 2 secciones', h:'48 h'},
-      {n:3, name:'Curso de perfeccionamiento docente', desc:'Técnicas de OV, sesgos, acompañamiento', h:'12 h'},
+      {n:3, name:'Curso de perfeccionamiento docente (NUEVO)', desc:'Técnicas de OV, sesgos, acompañamiento — curso nuevo, distinto a la capacitación inicial', h:'12 h'},
       {n:4, name:'Acompañamiento pedagógico', desc:'3 llamadas mensuales con EMC', h:'4 h'},
       {n:5, name:'12 sesiones de aprendizaje', desc:'Una por cada sesión OV', h:'19 h'},
       {n:6, name:'Sesiones complementarias y apoyo', desc:'Seguimiento individual, investigación de carreras, conversaciones con familias', h:'16 h'},
@@ -395,6 +440,17 @@ const PATHS = {
     perfHours: 0,
     labHours: '90h soporte integral a todas las secciones (Mat + OV)',
     isAIP: true,
+    expectedLabSessions: null,
+    minLabSessions: null,
+    labPercentTarget: '≥ 75% de las sesiones del programa en tu IE',
+    expectedDocs: 5,
+    minDocs: 4,
+    docsLabel: 'protocolos de soporte técnico',
+    productsList: [
+      {label:'Protocolos de soporte técnico', detail:'5 protocolos esperados (mínimo 4 para aprobar): conectividad, accesos/contraseñas, equipos, evaluaciones, escalamiento', hours:'5h', auto:false},
+      {label:'Apoyo a docentes en grabación', detail:'Coordinación + asistencia técnica durante las grabaciones de los docentes', hours:'8h', auto:false},
+      {label:'Feedback al programa', detail:'Anexo 3 — encuesta de retroalimentación', hours:'2h', auto:false}
+    ],
     moduleList: [
       {n:1, name:'Inducción al curso (asincrónico)', desc:'En eligiendomicamino.org', h:'3 h'},
       {n:2, name:'Soporte técnico en laboratorio', desc:'Soporte integral a todas las secciones', h:'90 h'},
@@ -424,7 +480,7 @@ function buildModules(pathKey) {
       content: () => `
         <div class="welcome-hero">
           <h2>¡Bienvenido al programa Eligiendo Mi Camino!</h2>
-          <p>Este curso de inducción te explicará todo lo que necesitas saber sobre tu certificación: cuál te corresponde, cómo se evalúa, qué debes entregar y cuándo.</p>
+          <p>Esta inducción te explicará todo lo que necesitas saber sobre tu certificación: cuál te corresponde, cómo se evalúa, qué debes entregar y cuándo. <strong>Completarla suma a tu nota</strong> (componente Acompañamiento, 20%).</p>
           <div class="welcome-stats">
             <div class="stat"><div class="stat-num">88</div><div class="stat-label">IIEE Lima</div></div>
             <div class="stat"><div class="stat-num">5to</div><div class="stat-label">Año secundaria</div></div>
@@ -441,11 +497,12 @@ function buildModules(pathKey) {
           <h3>¿Por qué esta certificación es importante?</h3>
           <ul>
             <li>Es emitida por la DRELM en convenio con el Banco Mundial.</li>
-            <li>Es válida para tu <strong>escalafón magisterial (POK)</strong>.</li>
+            <li>Es válida para tu <strong>escalafón magisterial</strong> mediante el <strong>POK</strong> — Portal de Oferta Formativa de Calidad del MINEDU.</li>
             <li>Reconoce tu trabajo activo durante el primer semestre 2026.</li>
-            <li>Es independiente y complementaria a la certificación de 16h de la capacitación inicial.</li>
+            <li>Es <strong>separada</strong> de la certificación de 16h presencial que ya recibiste en marzo (capacitación inicial). Las dos suman a tu escalafón.</li>
           </ul>
           <div class="callout callout-tip"><p><span class="callout-icon">💡</span><strong>Buena noticia:</strong> La mayor parte de las evidencias se recopilan automáticamente. Tu carga administrativa es mínima.</p></div>
+          <div class="callout callout-info"><p><span class="callout-icon">📐</span><strong>El sistema te da margen.</strong> No necesitas hacer el 100% de cada cosa para certificarte: los mínimos están en aproximadamente 70% por componente. Si pierdes algunas semanas por imprevistos del calendario (Semana Santa, gestión, elecciones, enfermedad), igual puedes aprobar.</p></div>
         </div>
       `,
       quiz: {
@@ -500,9 +557,28 @@ function buildModules(pathKey) {
         const introNote = isMulti ?
           `<div class="callout callout-tip"><p><span class="callout-icon">💡</span><strong>Tienes ${keys.length} certificaciones</strong> porque cumples ${keys.length} roles distintos en el programa. Cada certificación es independiente y tiene su propio sílabo/plan de estudios. <strong>Las descargas de los ${keys.length} documentos están al final del curso.</strong></p></div>`
           : '';
+        // Build inline downloads preview (so docente can grab the silabo from the start)
+        let docsPreview = '';
+        keys.forEach(function(k) {
+          const p = getPath(k);
+          const docTypeLabel = p.hours === '120' ? 'Plan de estudios de 120h' : 'Sílabo de 80h';
+          docsPreview += `<div style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:#fffaeb;border:1px solid var(--primary-light);border-radius:10px;margin-bottom:10px;">
+            <div style="font-size:28px;">${p.icon}</div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-weight:700;color:var(--text-dark);font-size:14.5px;">${p.shortName}</div>
+              <div style="font-size:12.5px;color:var(--text-muted);">${docTypeLabel} (Word) + Planilla de certificación (Excel)</div>
+            </div>
+            <a href="docs/${p.silabo}" download class="download-link" style="white-space:nowrap;">⬇ Sílabo</a>
+            <a href="docs/${p.excel}" download class="download-link" style="white-space:nowrap;">⬇ Excel</a>
+          </div>`;
+        });
+
         return introNote + allHtml + `
+          <h3>Documentos clave — descárgalos ahora</h3>
+          <p style="font-size:14.5px;">Estos son los documentos oficiales de tu certificación. <strong>Tenelos a mano desde el inicio</strong>: contienen el cronograma referencial (Anexo 1), el Informe de Implementación Anticipada (Anexo 2) y la encuesta de retroalimentación (Anexo 3).</p>
+          ${docsPreview}
           <div class="callout callout-info">
-            <p><span class="callout-icon">📥</span><strong>Documentos oficiales:</strong> Al final del curso (Módulo 9) encontrarás la sección de descargas con el sílabo/plan de estudios completo y la planilla Excel de certificación de cada uno de tus roles.</p>
+            <p><span class="callout-icon">📥</span>También están disponibles al final de esta inducción (Módulo 9) por si los pierdes.</p>
           </div>
         `;
       },
@@ -582,52 +658,128 @@ function buildModules(pathKey) {
       id: 'evaluacion',
       title: 'Cómo se evalúa (50 / 30 / 20)',
       eyebrow: 'Módulo 3 de 9',
-      duration: '~4 min',
-      content: () => `
+      duration: '~5 min',
+      content: () => {
+        const keys = state.pathKeys || (state.pathKey ? [state.pathKey] : []);
+        const cp = keys.length > 0 ? getPath(keys[0]) : null;
+        const isAIP = cp && cp.isAIP;
+        const expectedLab = cp && cp.expectedLabSessions ? cp.expectedLabSessions : 16;
+        const minLab = cp && cp.minLabSessions ? cp.minLabSessions : 11;
+        const expectedDocs = cp && cp.expectedDocs ? cp.expectedDocs : 8;
+        const minDocs = cp && cp.minDocs ? cp.minDocs : 5;
+        const docsLabel = cp && cp.docsLabel ? cp.docsLabel : 'sesiones de aprendizaje';
+        const roleShort = cp ? cp.shortName : 'tu plan';
+
+        // Pick a realistic mid-case example for the calc
+        const exLab = Math.max(minLab, Math.round(expectedLab * 0.85)); // 85% facilitadas
+        const exLabNote = Math.round((exLab / expectedLab) * 200) / 10; // /20 scale
+        const exDocs = Math.max(minDocs, Math.round(expectedDocs * 0.75)); // 75% entregadas
+        // Productos blended: curso (auto 100%) + docs (exDocs/expected) + demo (1/1)
+        const cursoCumpl = cp && cp.perfHours > 0 ? 1 : null;
+        const docsCumpl = exDocs / expectedDocs;
+        const demoCumpl = isAIP ? null : 1;
+        const productCumplArr = [cursoCumpl, docsCumpl, demoCumpl].filter(function(v){return v !== null;});
+        const exProductsCumpl = productCumplArr.reduce(function(s,v){return s+v;}, 0) / productCumplArr.length;
+        const exProductsNote = Math.round(exProductsCumpl * 200) / 10;
+        const exAcompNote = 18; // ejemplo: 4.5 de 5 hitos = 18
+        const presPond = Math.round(exLabNote * 0.5 * 100) / 100;
+        const prodPond = Math.round(exProductsNote * 0.3 * 100) / 100;
+        const acompPond = Math.round(exAcompNote * 0.2 * 100) / 100;
+        const finalNote = Math.round((presPond + prodPond + acompPond) * 100) / 100;
+
+        const labRowExample = isAIP
+          ? `<li>Soporte a <strong>≥ 75%</strong> de las sesiones del programa en tu IE → equivalente a <strong>20 / 20</strong> en presencia (registro automático en uDocz).</li>`
+          : `<li>Facilita <strong>${exLab} de ${expectedLab}</strong> sesiones esperadas. Nota = (${exLab} ÷ ${expectedLab}) × 20 = <strong>${exLabNote.toFixed(1)} / 20</strong>.</li>`;
+
+        const labComponentExplain = isAIP
+          ? `<p>Como Coordinador AIP/PIP, tu presencia se mide por el <strong>porcentaje de sesiones del programa de tu IE en las que brindaste soporte</strong>. Mínimo aprobatorio: <strong>≥ 75%</strong> de las sesiones programadas.</p>`
+          : `<p>Para tu plan (<strong>${roleShort}</strong>), se esperan <strong>~${expectedLab} sesiones</strong> facilitadas en el período mayo–julio (descontando Semana Santa, Día del Maestro, Fiestas Patrias y semanas de gestión). El <strong>mínimo aprobatorio en este componente es ${minLab} sesiones</strong> (~70%) — eso te da margen si pierdes algunas semanas por imprevistos.</p>`;
+
+        const productExplain = isAIP
+          ? `<p>Tu rol no incluye demostración propia. Tus productos son <strong>5 protocolos de soporte técnico</strong> (mínimo 4 para aprobar) + <strong>apoyo a las grabaciones de los docentes</strong>.</p>`
+          : `<p>Tus productos son: el <strong>curso de perfeccionamiento docente NUEVO</strong> (asincrónico, registro automático — es un curso nuevo, no el de capacitación inicial de 16h), <strong>${expectedDocs} ${docsLabel}</strong> (mínimo ${minDocs} para aprobar — <strong>~70%</strong>, no 100%), y <strong>1 demostración audiovisual</strong> (video o audio de 15–45 min de una sesión).</p>`;
+
+        return `
         <div class="lesson">
-          <p>La evaluación se calcula con un <strong>promedio ponderado</strong> de tres componentes, en escala vigesimal (0–20). La <strong>nota mínima aprobatoria es 14</strong>.</p>
+          <p>La nota se calcula con un <strong>promedio ponderado</strong> de tres componentes en <strong>escala vigesimal peruana (0 a 20)</strong>. La <strong>nota mínima aprobatoria es 14</strong>.</p>
+
+          <div class="callout callout-warning">
+            <p><span class="callout-icon">⚠️</span><strong>Importante para entender los números:</strong> "18 de 20" significa <strong>una nota de 18 puntos sobre 20</strong> (escala MINEDU), <strong>NO 18 evidencias de 20 evidencias</strong>. La cantidad real de evidencias que pedimos por componente está más abajo.</p>
+          </div>
+
           <h3>Los tres componentes</h3>
+
           <div class="info-card">
             <h4>📊 50% — Presencia en laboratorio</h4>
-            <p>Es el componente más grande. Se calcula a partir de tu asistencia y facilitación de las sesiones del programa. <strong>Se registra automáticamente</strong> en la plataforma uDocz cuando facilitas una sesión.</p>
-            <p><strong>Tú no tienes que llenar reportes.</strong> El sistema lleva el conteo.</p>
+            ${labComponentExplain}
+            <p style="font-size:13.5px;color:var(--text-muted);margin-top:8px;"><strong>Registro:</strong> automático en uDocz. Tú no llenas reportes.</p>
           </div>
+
           <div class="info-card">
             <h4>📦 30% — Productos y autoestudio</h4>
-            <p>Incluye:</p>
-            <ul>
-              <li><strong>Curso de perfeccionamiento docente</strong> (asincrónico, en eligiendomicamino.org).</li>
-              <li><strong>Sesiones de aprendizaje / Protocolos</strong> que diseñas/documentas.</li>
-              <li><strong>Demostración práctica</strong> (video/audio) o <strong>apoyo a otros docentes</strong> en sus grabaciones (AIP/PIP).</li>
-            </ul>
+            ${productExplain}
+            <p style="font-size:13.5px;color:var(--text-muted);margin-top:8px;"><strong>Registro:</strong> automático para el curso de perfeccionamiento; manual (correo eligiendomicamino@worldbankgroup.org) para los demás.</p>
           </div>
+
           <div class="info-card">
             <h4>🤝 20% — Acompañamiento y evaluaciones</h4>
             <ul>
-              <li>Asistencia a las llamadas mensuales con el equipo EMC (mínimo 2 de 3).</li>
-              <li>Apoyo a las evaluaciones IPA (línea base, media, final).</li>
-              <li>Encuesta de retroalimentación final (Anexo 3).</li>
+              <li><strong>Comunicaciones EMC</strong> — mínimo 2 de 3 llamadas mensuales (registro automático).</li>
+              <li><strong>Apoyo a evaluaciones IPA</strong> — línea base (marzo), media (abril) y final (julio).</li>
+              <li><strong>Encuesta del programa</strong> — apoyo en evaluaciones aplicadas a tus estudiantes.</li>
+              <li><strong>Feedback al programa</strong> — Anexo 3 entregado.</li>
             </ul>
           </div>
-          <h3>Ejemplo de cálculo</h3>
-          <p>Imagina que un docente obtiene:</p>
-          <ul>
-            <li>Presencia: <strong>18</strong> de 20</li>
-            <li>Productos: <strong>14</strong> de 20</li>
-            <li>Acompañamiento: <strong>16</strong> de 20</li>
-          </ul>
-          <p>Promedio = (18 × 0.5) + (14 × 0.3) + (16 × 0.2) = <strong>9 + 4.2 + 3.2 = 16.4</strong></p>
-          <div class="callout callout-success"><p><span class="callout-icon">✅</span><strong>Resultado: APROBADO</strong> (16.4 está por encima de 14).</p></div>
-          <div class="callout callout-info"><p><span class="callout-icon">ℹ️</span>El componente de presencia (50%) es el más importante. Si participas regularmente, ya tienes la mayor parte del camino hecho.</p></div>
+
+          <h3>Ejemplo de cálculo realista</h3>
+          <p style="font-size:14px;color:var(--text-muted);">Caso: un docente de tu plan que perdió algunas sesiones por imprevistos del calendario y entregó la mayoría (no todas) de las ${docsLabel}.</p>
+
+          <div class="info-card" style="background:#fffaeb;border-color:var(--primary-light);">
+            <h4 style="color:var(--primary-dark);">📐 Componente 1: Presencia (50%)</h4>
+            <ul style="font-size:14.5px;">${labRowExample}</ul>
+            <p style="font-size:14.5px;margin-top:8px;"><strong>Aporte ponderado:</strong> ${exLabNote.toFixed(1)} × 0.5 = <strong>${presPond.toFixed(2)}</strong> puntos</p>
+          </div>
+
+          <div class="info-card" style="background:#fffaeb;border-color:var(--primary-light);">
+            <h4 style="color:var(--primary-dark);">📦 Componente 2: Productos (30%)</h4>
+            <ul style="font-size:14.5px;">
+              ${cp && cp.perfHours > 0 ? `<li>Curso de perfeccionamiento: <strong>completado</strong> (1/1 = 100%)</li>` : ''}
+              ${!isAIP ? `<li>${docsLabel}: <strong>${exDocs} de ${expectedDocs}</strong> entregadas (${Math.round(docsCumpl*100)}%)</li>
+              <li>Demostración audiovisual: <strong>1/1 entregada</strong> (100%)</li>` : `<li>5 de 5 protocolos entregados (100%)</li>
+              <li>Apoyo en grabaciones: completado (100%)</li>`}
+            </ul>
+            <p style="font-size:14.5px;margin-top:8px;">Promedio de cumplimiento: <strong>${(exProductsCumpl*100).toFixed(0)}%</strong> → Nota = ${(exProductsCumpl*100).toFixed(0)}% × 20 = <strong>${exProductsNote.toFixed(1)} / 20</strong></p>
+            <p style="font-size:14.5px;"><strong>Aporte ponderado:</strong> ${exProductsNote.toFixed(1)} × 0.3 = <strong>${prodPond.toFixed(2)}</strong> puntos</p>
+          </div>
+
+          <div class="info-card" style="background:#fffaeb;border-color:var(--primary-light);">
+            <h4 style="color:var(--primary-dark);">🤝 Componente 3: Acompañamiento (20%)</h4>
+            <ul style="font-size:14.5px;">
+              <li>Asistió a 2 de 3 llamadas EMC (mínimo cumplido)</li>
+              <li>Apoyó las 3 evaluaciones IPA (línea base, media, final)</li>
+              <li>Entregó el Anexo 3 (feedback)</li>
+            </ul>
+            <p style="font-size:14.5px;margin-top:8px;">Cumplimiento de hitos: <strong>~90%</strong> → Nota = <strong>${exAcompNote} / 20</strong></p>
+            <p style="font-size:14.5px;"><strong>Aporte ponderado:</strong> ${exAcompNote} × 0.2 = <strong>${acompPond.toFixed(2)}</strong> puntos</p>
+          </div>
+
+          <div class="callout callout-success">
+            <p><span class="callout-icon">✅</span><strong>Nota final = ${presPond.toFixed(2)} + ${prodPond.toFixed(2)} + ${acompPond.toFixed(2)} = ${finalNote.toFixed(2)} → APROBADO</strong> (≥ 14, escala 0–20).</p>
+          </div>
+
+          <div class="callout callout-tip">
+            <p><span class="callout-icon">💡</span><strong>El sistema te da margen.</strong> No necesitas hacer el 100% de cada cosa. Los mínimos están en <strong>~70%</strong> por componente para que faltar a algunas sesiones por imprevistos del calendario (Semana Santa, gestión, elecciones, enfermedad) no te impida certificarte. Si haces lo que puedes y cumples los mínimos en cada componente, apruebas.</p>
+          </div>
         </div>
-      `,
+      `;
+      },
       quiz: {
-        question: 'Un docente obtiene: presencia 12, productos 18 y acompañamiento 17. ¿Aprueba la certificación?',
-        options: ['Sí, su promedio es alto','No, su presencia es muy baja','Sí, su promedio supera 14','No, le falta cumplir un componente'],
-        correct: 2,
+        question: 'Un docente obtiene una nota de 12 en presencia, 18 en productos y 17 en acompañamiento (escala 0–20). ¿Aprueba la certificación?',
+        options: ['Sí, porque las notas son sobre 20 puntos cada una y el promedio ponderado da 14.8','No, su presencia (12) está por debajo de 14','Sí, pero solo si entregó 20 productos','No, porque le falta cumplir un componente'],
+        correct: 0,
         feedback: {
-          correct: 'Correcto. Promedio = (12×0.5) + (18×0.3) + (17×0.2) = 6 + 5.4 + 3.4 = <strong>14.8</strong> → APROBADO.',
-          incorrect: 'Calculemos: (12×0.5) + (18×0.3) + (17×0.2) = 6 + 5.4 + 3.4 = <strong>14.8</strong>. Como 14.8 ≥ 14, sí aprueba.'
+          correct: 'Correcto. Promedio ponderado = (12 × 0.5) + (18 × 0.3) + (17 × 0.2) = 6 + 5.4 + 3.4 = <strong>14.8</strong>. Como 14.8 ≥ 14, aprueba. Las notas son <strong>vigesimales (0–20)</strong>, NO conteo de evidencias.',
+          incorrect: 'Las notas son en <strong>escala 0–20 (peruana)</strong>, no son cantidades de evidencias. Calculemos: (12 × 0.5) + (18 × 0.3) + (17 × 0.2) = 6 + 5.4 + 3.4 = <strong>14.8</strong>. Como 14.8 ≥ 14, sí aprueba.'
         }
       }
     },
@@ -637,25 +789,43 @@ function buildModules(pathKey) {
       title: 'Fase anticipada y Anexo 2',
       eyebrow: 'Módulo 4 de 9',
       duration: '~4 min',
-      content: () => `
+      content: () => {
+        const keys = state.pathKeys || (state.pathKey ? [state.pathKey] : []);
+        const docTypeLabel = function(p) { return p.hours === '120' ? 'plan de estudios de 120 horas' : 'sílabo de 80 horas'; };
+        const downloads = keys.map(function(k) {
+          const p = getPath(k);
+          return `<a class="download-link" href="docs/${p.silabo}" download style="display:inline-block;margin:4px 6px 4px 0;">⬇ ${p.icon} ${docTypeLabel(p)}</a>`;
+        }).join('');
+        return `
         <div class="lesson">
           <h3>¿Por qué existe una "fase anticipada"?</h3>
-          <p>El programa empezó a implementarse en aula desde el <strong>23 de marzo de 2026</strong>, pero la aprobación formal de la certificación por parte de la DRELM toma aproximadamente 20 días hábiles. Por eso, el curso formal arranca el <strong>4 de mayo</strong>.</p>
-          <p>Para no perder las horas trabajadas entre el 23 de marzo y el 2 de mayo, existe el <strong>Informe de Implementación Anticipada (Anexo 2)</strong>.</p>
-          <div class="callout callout-tip"><p><span class="callout-icon">💡</span>El Anexo 2 es la herramienta que <strong>"recupera" las horas previas al 4 de mayo</strong> y las suma a tu certificación.</p></div>
-          <h3>¿Qué incluye el Anexo 2?</h3>
+          <p>El programa <strong>arrancó</strong> en aula el <strong>23 de marzo de 2026</strong>, pero la aprobación formal de la certificación por parte de la DRELM toma aproximadamente 20 días hábiles. Por eso, el curso formal inició el <strong>4 de mayo</strong>.</p>
+          <p>Para no perder las horas trabajadas entre el <strong>23 de marzo y el 2 de mayo</strong>, esas sesiones se acreditan mediante un informe — el <strong>Anexo 2</strong> de tu ${keys.length > 0 ? docTypeLabel(getPath(keys[0])) : 'sílabo / plan de estudios'}.</p>
+          <div class="callout callout-tip"><p><span class="callout-icon">💡</span>El Anexo 2 "recupera" las horas previas al 4 de mayo y las suma a tu certificación. Sin él, esas semanas no contarían.</p></div>
+
+          <h3>¿Qué debes registrar?</h3>
+          <p>El informe es breve. Incluye:</p>
           <ol>
-            <li><strong>Verificación de acceso a la plataforma:</strong> confirmas que tus estudiantes tienen acceso activo (no listas a cada uno por nombre, uDocz tiene esa info).</li>
-            <li><strong>Sesiones realizadas:</strong> tabla con fecha, sección y descripción breve.</li>
-            <li><strong>Qué funcionó bien y qué necesita mejorar.</strong></li>
-            <li><strong>Reflexión personal</strong> (1 página) sobre tu experiencia inicial.</li>
+            <li><strong>Verificación de acceso a la plataforma:</strong> confirmas que tus estudiantes tienen acceso activo a uDocz (la lista detallada por estudiante ya está en el reporte automático de uDocz, no la copies a mano).</li>
+            <li><strong>Sesiones realizadas:</strong> tabla con fecha, sección y descripción breve de cada sesión que facilitaste entre el 23 de marzo y el 2 de mayo.</li>
+            <li><strong>Qué funcionó bien y qué necesita mejorar:</strong> sección breve (5–10 líneas).</li>
+            <li><strong>Reflexión personal:</strong> <strong>máximo 1 página</strong>, en el mismo documento (no como archivo separado).</li>
           </ol>
-          <h3>¿Cuándo lo entrego?</h3>
-          <p>Idealmente <strong>durante mayo</strong>. Lo envías por correo a:</p>
+
+          <div class="callout callout-info">
+            <p><span class="callout-icon">♿</span><strong>Estudiantes con discapacidad cognitiva o que no acceden a la plataforma:</strong> repórtalo en el campo <em>"Observaciones adicionales"</em> del Anexo 2. Esos estudiantes <strong>no afectan tu nota</strong> — el equipo EMC los excluye del cómputo.</p>
+          </div>
+
+          <h3>¿Cómo lo registro?</h3>
+          <p>Descarga el formato del Anexo 2 que viene incluido en tu ${keys.length > 0 ? docTypeLabel(getPath(keys[0])) : 'sílabo / plan de estudios'} (segundo anexo del documento):</p>
+          ${downloads ? `<div style="margin:10px 0 16px;">${downloads}</div>` : '<p style="font-size:13px;color:var(--text-muted);">Completa primero el cuestionario inicial para ver tu descarga.</p>'}
+          <p>Una vez completo, lo envías como un solo archivo (Word o PDF) por correo a:</p>
           <p><strong>📧 eligiendomicamino@worldbankgroup.org</strong></p>
-          <div class="callout callout-info"><p><span class="callout-icon">📌</span>El Anexo 2 está incluido en tu sílabo/plan de estudios. Lo descargarás en la última sección del curso.</p></div>
+          <div class="callout callout-warning"><p><span class="callout-icon">📅</span><strong>Fecha sugerida de envío: antes del 30 de mayo de 2026</strong>. Si lo envías más tarde igual cuenta, pero conviene registrarlo a tiempo para que no se acumule trabajo al cierre del curso.</p></div>
+          <div class="callout callout-tip"><p><span class="callout-icon">✉️</span><strong>Asunto sugerido del correo:</strong><br><code style="background:#fffaeb;padding:4px 8px;border-radius:4px;font-size:13px;">Anexo 2 — [Apellido Nombre] — [IE] — [Rol: Mate / OV / AIP]</code><br>Ejemplo: <em>Anexo 2 — Pérez Juan — IE 1234 — Mate</em></p></div>
         </div>
-      `,
+      `;
+      },
       quiz: {
         question: '¿Cómo se acreditan las sesiones que realizaste entre el 23 de marzo y el 2 de mayo?',
         options: ['No se acreditan, solo cuentan las horas desde el 4 de mayo','Se acreditan automáticamente desde uDocz','Mediante el Informe de Implementación Anticipada (Anexo 2)','Hay que pedir una certificación aparte a la DRELM'],
@@ -676,35 +846,69 @@ function buildModules(pathKey) {
         const keys = state.pathKeys || (state.pathKey ? [state.pathKey] : []);
         if (keys.length === 0) return '<p>Completa el cuestionario inicial.</p>';
         const isMulti = keys.length > 1;
-        let intro = isMulti ?
-          `<p>Como tienes <strong>${keys.length} certificaciones</strong>, tienes productos específicos para <strong>cada rol</strong>. Aquí los detalles para cada uno:</p>` :
-          `<p>Tu certificación tiene productos específicos según tu rol. Esta es tu lista personalizada:</p>`;
 
         let perRoleHtml = keys.map(function(k) {
           const cp = getPath(k);
+          const items = (cp.productsList || []).map(function(it) {
+            const tag = it.auto ? `<span style="background:#e8f5e9;color:#2e7d32;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;margin-left:6px;">AUTOMÁTICO</span>` : `<span style="background:#fff3e0;color:#e65100;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;margin-left:6px;">MANUAL</span>`;
+            const isDemo = /Demostraci/i.test(it.label);
+            const demoTag = isDemo ? `<span style="background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;margin-left:6px;">⭐ EVIDENCIA CLAVE</span>` : '';
+            const rowStyle = isDemo ? 'padding:14px 16px;border:2px solid var(--primary);background:linear-gradient(135deg,#fffaeb 0%,#FFF 100%);' : 'padding:12px 14px;';
+            return `<div class="module-row" style="${rowStyle}">
+              <div class="module-num-sm" style="font-size:11px;">${it.auto ? '⚙️' : (isDemo ? '🎥' : '📨')}</div>
+              <div class="module-info">
+                <h5>${it.label}${tag}${demoTag}</h5>
+                <p>${it.detail}</p>
+              </div>
+              <span class="module-hours">${it.hours}</span>
+            </div>`;
+          }).join('');
           return `
             <div class="info-card" style="border-left:4px solid var(--primary);margin-bottom:18px;">
               <h4>${cp.icon} Productos para: ${cp.shortName}</h4>
-              <p style="font-size:14.5px;"><strong>Producto principal:</strong> ${cp.productKey} (${cp.productHours}h)</p>
-              <p style="font-size:14px;color:var(--text-muted);">${cp.productDetail}</p>
-              <div style="margin-top:10px;">
-                ${cp.perfHours > 0 ? `<div style="font-size:13.5px;margin-bottom:4px;"><strong>•</strong> Curso de perfeccionamiento docente — <strong>${cp.perfHours}h</strong> (asincrónico en eligiendomicamino.org)</div>` : ''}
-                <div style="font-size:13.5px;margin-bottom:4px;"><strong>•</strong> ${cp.isAIP ? 'Protocolos de soporte técnico + apoyo a docentes en grabación' : 'Sesiones de aprendizaje'} — <strong>${cp.productHours}h</strong></div>
-                ${!cp.isAIP ? `<div style="font-size:13.5px;margin-bottom:4px;"><strong>•</strong> Demostración práctica (video/audio) — <strong>6h</strong></div>` : ''}
-                <div style="font-size:13.5px;"><strong>•</strong> Feedback al programa (Anexo 3) — <strong>2h</strong></div>
-              </div>
+              <p style="font-size:14.5px;color:var(--text-muted);">${cp.productDetail}</p>
+              <div style="margin-top:14px;">${items}</div>
             </div>
           `;
         }).join('');
 
+        // Build the cantidad + umbral table for the main role
+        const cp0 = getPath(keys[0]);
+        const cantidadTable = cp0.isAIP
+          ? `<table class="data-table"><thead><tr><th>Componente</th><th>Cantidad esperada</th><th>Mínimo aprobatorio</th><th>Tipo registro</th></tr></thead><tbody>
+              <tr><td>Soporte en sesiones del programa</td><td>≥ 75% de las sesiones de tu IE</td><td>≥ 75%</td><td>Automático (uDocz)</td></tr>
+              <tr><td>Protocolos de soporte técnico</td><td>5 protocolos</td><td>4 protocolos</td><td>Manual (correo)</td></tr>
+              <tr><td>Apoyo a docentes en grabación</td><td>Apoyo a todos los docentes de tu IE</td><td>≥ 75%</td><td>Confirmación EMC</td></tr>
+              <tr><td>Llamadas EMC mensuales</td><td>3 llamadas</td><td>2 de 3</td><td>Automático</td></tr>
+              <tr><td>Apoyo a evaluaciones IPA</td><td>3 (línea base + media + final)</td><td>2 de 3</td><td>Firma IPA</td></tr>
+              <tr><td>Anexo 3 (feedback)</td><td>1 entregado</td><td>1 entregado</td><td>Manual (correo)</td></tr>
+            </tbody></table>`
+          : `<table class="data-table"><thead><tr><th>Componente</th><th>Cantidad esperada</th><th>Mínimo aprobatorio</th><th>Tipo registro</th></tr></thead><tbody>
+              <tr><td>Sesiones facilitadas en laboratorio</td><td>~${cp0.expectedLabSessions} sesiones</td><td><strong>${cp0.minLabSessions}</strong> sesiones (~70%)</td><td>Automático (uDocz)</td></tr>
+              <tr><td>Curso de perfeccionamiento docente</td><td>Completar 100%</td><td>Completar 100%</td><td>Automático (eligiendomicamino.org)</td></tr>
+              <tr><td>${cp0.docsLabel}</td><td>${cp0.expectedDocs} ${cp0.docsLabel}</td><td><strong>${cp0.minDocs}</strong> ${cp0.docsLabel} (~70%)</td><td>Manual (correo)</td></tr>
+              <tr><td>Demostración audiovisual</td><td>1 video o audio (15–45 min)</td><td>1 entregado</td><td>Manual (correo)</td></tr>
+              <tr><td>Llamadas EMC mensuales</td><td>3 llamadas</td><td>2 de 3</td><td>Automático</td></tr>
+              <tr><td>Apoyo a evaluaciones IPA</td><td>3 (línea base + media + final)</td><td>2 de 3</td><td>Firma IPA</td></tr>
+              <tr><td>Anexo 3 (feedback)</td><td>1 entregado</td><td>1 entregado</td><td>Manual (correo)</td></tr>
+            </tbody></table>`;
+
         return `
           <div class="lesson">
-            ${intro}
+            <div class="callout callout-tip"><p><span class="callout-icon">💡</span><strong>Recuerda:</strong> el componente de <strong>presencia (50%)</strong> se registra automáticamente en uDocz cuando facilitas una sesión — no tienes que enviar nada para esa parte. Lo de abajo son las evidencias <strong>manuales</strong> que sí debes entregar.</p></div>
+
+            ${isMulti ? `<p>Como tienes <strong>${keys.length} certificaciones</strong>, tienes productos específicos para <strong>cada rol</strong>. Aquí los detalles para cada uno:</p>` : `<p>Esta es tu lista personalizada de productos según tu rol:</p>`}
+
             ${perRoleHtml}
 
+            <h3>Cantidades exactas y mínimos para aprobar</h3>
+            <p style="font-size:14.5px;">El programa <strong>te da margen</strong>: no necesitas hacer el 100% de cada cosa para certificarte. Los mínimos están en aproximadamente <strong>70%</strong>:</p>
+            ${cantidadTable}
+            <div class="callout callout-info" style="margin-top:14px;"><p><span class="callout-icon">📌</span>Si pierdes algunas semanas por imprevistos del calendario (Semana Santa, gestión, elecciones, enfermedad, sala AIP no disponible), <strong>todavía puedes aprobar</strong> mientras te mantengas por encima de los mínimos.</p></div>
+
             <h3>¿Cómo entrego todo?</h3>
-            <div class="callout callout-info"><p><span class="callout-icon">📧</span>Todos los productos se envían al correo:<br><strong>eligiendomicamino@worldbankgroup.org</strong></p></div>
-            <div class="callout callout-tip"><p><span class="callout-icon">💡</span>Recuerda: el componente de <strong>presencia (50%)</strong> se registra automáticamente en uDocz, no tienes que enviar nada para esa parte.</p></div>
+            <div class="callout callout-info"><p><span class="callout-icon">📧</span>Las entregas manuales se envían al correo:<br><strong>eligiendomicamino@worldbankgroup.org</strong></p></div>
+            <div class="callout callout-info"><p><span class="callout-icon">📊</span>La <strong>planilla de certificación (Excel)</strong> es la herramienta que el equipo EMC y la DRELM usan para registrar tu nota final. Puedes descargarla como referencia en el módulo 9.</p></div>
             ${isMulti ? `<div class="callout callout-warning"><p><span class="callout-icon">⚠️</span>Como tienes <strong>${keys.length} certificaciones</strong>, debes entregar los productos de <strong>cada una</strong> por separado. Indica claramente en el correo a cuál corresponde cada entrega.</p></div>` : ''}
           </div>
         `;
@@ -738,8 +942,9 @@ function buildModules(pathKey) {
             </tbody>
           </table>
           <h3>Cronograma referencial</h3>
-          <p>Cada sílabo y plan de estudios tiene un <strong>Anexo 1 con un cronograma referencial</strong> de 12 semanas. Las fechas de las llamadas mensuales con EMC se coordinan durante la implementación.</p>
+          <p>Tu sílabo o plan de estudios tiene un <strong>Anexo 1</strong> con el cronograma referencial de 12 semanas (es el primer anexo del documento Word). Lo descargaste en el módulo 4 — revísalo cuando necesites confirmar fechas. Las fechas exactas de las llamadas mensuales con EMC se coordinan durante la implementación.</p>
           <div class="callout callout-warning"><p><span class="callout-icon">📅</span>Las llamadas EMC son <strong>asistencia mínima de 2 de 3</strong>. Marca tus calendarios cuando el equipo te confirme las fechas.</p></div>
+          <div class="callout callout-info"><p><span class="callout-icon">⚠️</span><strong>Semanas que no contarán como sesión:</strong> Semana Santa, Día del Maestro (6 de julio), Fiestas Patrias (28-29 de julio), y semanas de gestión escolar o elecciones. Esto ya está considerado en los mínimos aprobatorios de tu rol.</p></div>
         </div>
       `,
       quiz: {
@@ -770,11 +975,14 @@ function buildModules(pathKey) {
             </ul>
             <p><strong>¿Cuándo entras?</strong> Cada vez que llevas a tu sección al laboratorio para una sesión del programa.</p>
           </div>
+          <div class="callout callout-warning">
+            <p><span class="callout-icon">⚠️</span><strong>Importante:</strong> debes <strong>iniciar sesión en uDocz con tu usuario docente</strong> al comenzar cada clase en el laboratorio. Si los estudiantes acceden por su lado y tú no abres la sesión, esa clase <strong>no queda registrada como tuya</strong> y no cuenta para tu presencia. Es el paso más importante de cada sesión.</p>
+          </div>
           <h3>eligiendomicamino.org — la plataforma de formación</h3>
           <div class="info-card">
             <ul>
               <li>Acceso al <strong>módulo de inducción</strong> (este curso que estás haciendo).</li>
-              <li>Acceso al <strong>curso de perfeccionamiento docente</strong> (asincrónico).</li>
+              <li>Acceso al <strong>curso de perfeccionamiento docente NUEVO</strong> (asincrónico). Es un curso nuevo, distinto al de capacitación inicial de 16h (marzo).</li>
               <li>Materiales y recursos de apoyo.</li>
             </ul>
             <p><strong>¿Cuándo entras?</strong> A tu ritmo. Todo el contenido es asincrónico.</p>
@@ -795,11 +1003,11 @@ function buildModules(pathKey) {
       `,
       quiz: {
         question: '¿En qué plataforma se registra automáticamente tu presencia en el laboratorio?',
-        options: ['eligiendomicamino.org','uDocz','POK del MINEDU','En ninguna, hay que firmar manualmente'],
+        options: ['eligiendomicamino.org','uDocz (siempre que inicies sesión con tu usuario docente)','POK del MINEDU (Portal de Oferta Formativa)','En ninguna, hay que firmar manualmente'],
         correct: 1,
         feedback: {
-          correct: 'Correcto. <strong>uDocz</strong> registra automáticamente tu asistencia cuando facilitas una sesión.',
-          incorrect: 'La presencia se registra en <strong>uDocz</strong>. eligiendomicamino.org es para tu formación docente (este curso, perfeccionamiento).'
+          correct: 'Correcto. <strong>uDocz</strong> registra automáticamente tu asistencia cuando facilitas una sesión <em>iniciando sesión con tu usuario docente</em>. Si solo entran los estudiantes, no queda registro.',
+          incorrect: 'La presencia se registra en <strong>uDocz</strong>, pero solo si <strong>tú</strong> abres la sesión con tu usuario docente. eligiendomicamino.org es para tu formación (este curso, perfeccionamiento). POK es donde aparece tu certificado al final.'
         }
       }
     },
@@ -808,22 +1016,54 @@ function buildModules(pathKey) {
       id: 'faq',
       title: 'Preguntas frecuentes',
       eyebrow: 'Módulo 8 de 9',
-      duration: '~5 min',
+      duration: '~6 min',
       content: () => `
         <div class="lesson">
           <p>Estas son las dudas más comunes:</p>
           <div class="faq">
-            <details><summary>¿Necesito registrar manualmente mi asistencia?</summary><p>No. La presencia se registra automáticamente en uDocz cuando facilitas las sesiones del programa.</p></details>
-            <details><summary>¿Y si falto a una sesión por enfermedad?</summary><p>El registro es por sesión efectivamente facilitada. Las inasistencias afectan tu componente de presencia (50%). Si tienes una situación excepcional, comunícate con el equipo EMC.</p></details>
-            <details><summary>¿El curso de perfeccionamiento es en vivo?</summary><p>No. Es <strong>completamente asincrónico</strong> en eligiendomicamino.org. Cada docente lo completa a su propio ritmo.</p></details>
-            <details><summary>¿Puedo empezar el perfeccionamiento desde ya?</summary><p>Sí. Está disponible desde el inicio formal (4 de mayo). Te recomendamos avanzar progresivamente.</p></details>
-            <details><summary>¿Qué formato debe tener la demostración audiovisual?</summary><p>Video o audio breve (5–15 minutos) mostrando cómo implementas el programa en tu aula. No necesitas calidad profesional, basta con que se entienda.</p></details>
-            <details><summary>¿Puedo recibir las dos certificaciones (80h y 120h)?</summary><p>No. Cada docente recibe la que le corresponde según su perfil. Si tienes 1 sección, 80h; si tienes 2+ secciones o eres AIP/PIP, 120h.</p></details>
-            <details><summary>¿Qué pasa si no alcanzo la nota mínima de 14?</summary><p>No se emite el certificado, pero el equipo EMC contactará a tu IE para entender el caso.</p></details>
-            <details><summary>¿Cómo recibo el certificado al final?</summary><p>Es un certificado <strong>digital</strong> emitido por la DRELM en convenio con el Banco Mundial, disponible en POK. Válido para escalafón magisterial.</p></details>
+
+            <h3 style="margin-top:14px;">Asistencia y presencia</h3>
+
+            <details><summary>¿Necesito registrar manualmente mi asistencia?</summary><p>No. La presencia se registra automáticamente en uDocz cuando facilitas las sesiones del programa. <strong>Importante:</strong> debes acceder con tu usuario docente al iniciar la sesión — si los estudiantes ingresan sin que tú abras la sesión, esa clase no queda registrada como tuya.</p></details>
+
+            <details><summary>¿Y si falto a una sesión por enfermedad o porque la sala AIP no está disponible?</summary><p>Se considera caso excepcional. Reporta al equipo EMC con la fecha y motivo dentro de los <strong>5 días hábiles</strong> posteriores a la inasistencia. El sistema te da margen: el mínimo aprobatorio en presencia está en ~70% de las sesiones esperadas, así que faltar a algunas no te impide certificarte mientras estés por encima del mínimo.</p></details>
+
+            <details><summary>¿Puedo recuperar una sesión perdida en otro horario?</summary><p>Sí, si el AIP de tu IE lo permite y la sesión recuperada cae dentro del calendario del programa (mayo–julio). Coordina con el coordinador AIP/PIP de tu IE para reservar el laboratorio. Cuando facilites la sesión recuperada, queda registrada igual que las demás.</p></details>
+
+            <details><summary>¿Qué pasa con estudiantes que no pueden ingresar a la plataforma (inclusión cognitiva)?</summary><p>Repórtalos en el campo <em>"Observaciones adicionales"</em> del Anexo 2 (fase anticipada) o en tu próxima entrega de feedback. Esos estudiantes <strong>no afectan tu nota</strong> — el equipo EMC los excluye del cómputo de tu presencia y participación.</p></details>
+
+            <details><summary>¿Desde cuándo puedo avisar de una inasistencia?</summary><p>Desde la fase anticipada (23 de marzo) en adelante. Si la inasistencia ocurrió antes de saber que existía esta vía, repórtala dentro de los 5 días hábiles desde que conoces el procedimiento.</p></details>
+
+            <details><summary>¿Qué pasa si mi IE no empezó a implementar el programa el 23 de marzo?</summary><p>Sigue las <strong>indicaciones de tu facilitador EMC</strong>. El programa contempla flexibilidad de arranque: algunas IIEE empezaron más tarde por temas operativos. Tu fase anticipada se cuenta desde el día en que efectivamente facilitaste la primera sesión, no desde el 23 de marzo nominal. Documenta las fechas reales en tu Anexo 2.</p></details>
+
+            <h3 style="margin-top:24px;">Productos y entregas</h3>
+
+            <details><summary>¿Tengo que entregar el 100% de las sesiones de aprendizaje?</summary><p>No. El mínimo aprobatorio es aproximadamente <strong>70%</strong> de las esperadas para tu rol. Por ejemplo, en Matemáticas 80h se esperan 8 y el mínimo es 5. Esto te da margen real: lo importante es que las que entregues sean genuinas, no que entregues todas a último momento.</p></details>
+
+            <details><summary>¿Qué formato debe tener la demostración audiovisual?</summary><p>Video o audio de <strong>15 a 45 minutos</strong> mostrando una sesión real implementando el programa. Puede ser una sesión completa o sus momentos clave (apertura, monitoreo, cierre). No necesitas calidad profesional — basta con que se vea/escuche bien y muestre tu práctica.</p></details>
+
+            <details><summary>¿El curso de perfeccionamiento es en vivo? ¿Es el mismo de la capacitación inicial de marzo?</summary><p>No es en vivo. Es <strong>completamente asincrónico</strong> en eligiendomicamino.org y lo completas a tu ritmo. <strong>NO es el mismo</strong> de la capacitación presencial de 16 horas que ya hiciste en marzo: aquel cubrió el onboarding al programa; este profundiza en estrategias de implementación, lectura del dashboard, intervención pedagógica, etc.</p></details>
+
+            <details><summary>¿Puedo empezar el perfeccionamiento desde ya?</summary><p>Sí. Está disponible desde el inicio formal (4 de mayo). Te recomendamos avanzar progresivamente para no acumular trabajo cerca del cierre del curso (30 de julio).</p></details>
+
+            <h3 style="margin-top:24px;">Certificación</h3>
+
+            <details><summary>¿Qué es POK?</summary><p>POK es el <strong>Portal de Oferta Formativa de Calidad del MINEDU</strong>. Ahí queda registrada tu certificación y desde ahí la usas para tu escalafón magisterial. Tu certificado digital de DRELM/Banco Mundial aparece allí después del cierre del curso.</p></details>
+
+            <details><summary>¿Puedo recibir las dos certificaciones (80h y 120h)?</summary><p>No para el mismo rol. Cada docente recibe la que le corresponde según el número de secciones: 1 sección → 80h, 2+ secciones o AIP/PIP → 120h. Si cumples <strong>varios roles distintos</strong> (ej: docente de Matemáticas + tutor OV), sí recibes una certificación independiente por cada rol.</p></details>
+
+            <details><summary>¿Qué pasa si no alcanzo la nota mínima de 14?</summary><p>No se emite el certificado, pero el equipo EMC contactará a tu IE para entender el caso. La mayoría de los casos en riesgo se resuelven coordinando entregas pendientes antes del cierre.</p></details>
+
+            <details><summary>¿Cómo recibo el certificado al final?</summary><p>Es un certificado <strong>digital</strong> emitido por la DRELM en convenio con el Banco Mundial, disponible en <strong>POK (Portal de Oferta Formativa de Calidad del MINEDU)</strong>. Válido para escalafón magisterial.</p></details>
+
             <details><summary>¿Cuándo me llega el certificado?</summary><p>Después del cierre (30 de julio), DRELM procesa los resultados. Los certificados se emiten típicamente en agosto.</p></details>
-            <details><summary>¿Las llamadas mensuales son obligatorias?</summary><p>Mínimo 2 de 3. Cuentan para el componente de acompañamiento (20%). El equipo EMC te confirmará las fechas.</p></details>
-            <details><summary>¿A quién contacto para dudas?</summary><p>Dudas administrativas o sobre la certificación: <strong>eligiendomicamino@worldbankgroup.org</strong>. Dudas técnicas sobre la plataforma o el laboratorio: tu Coordinador AIP/PIP.</p></details>
+
+            <h3 style="margin-top:24px;">Acompañamiento y dudas</h3>
+
+            <details><summary>¿Las llamadas mensuales son obligatorias?</summary><p>Mínimo 2 de 3. Cuentan para el componente de acompañamiento (20%). El equipo EMC te confirmará las fechas durante la implementación.</p></details>
+
+            <details><summary>¿A quién contacto para dudas?</summary><p>Según el tipo de duda:</p><ul style="margin:8px 0 0 0;font-size:14.5px;"><li><strong>Certificación, calendario, productos:</strong> eligiendomicamino@worldbankgroup.org</li><li><strong>Plataforma uDocz (login, dashboard, errores técnicos):</strong> soporte@udocz.com</li><li><strong>Laboratorio (equipos, conectividad en tu IE):</strong> tu Coordinador AIP/PIP</li><li><strong>Tu facilitador EMC asignado:</strong> coordina las llamadas mensuales y resuelve dudas operativas</li></ul></details>
+
           </div>
         </div>
       `,
@@ -853,8 +1093,8 @@ function buildModules(pathKey) {
             <div class="callout callout-info"><p><span class="callout-icon">💡</span>Guarda estos archivos en un lugar accesible. Los necesitarás durante todo el curso.</p></div>
 
             <h3>📝 Evaluación final</h3>
-            <p>Para obtener tu certificado de inducción, responde correctamente al menos <strong>6 de 8 preguntas</strong>. Si dudas, revisa los módulos anteriores.</p>
-            <button class="btn btn-primary" onclick="startFinalQuiz()" style="margin-top:8px;">Empezar evaluación final</button>
+            <p>Para registrar los <strong>puntos de inducción</strong> en tu certificación (suman al componente Acompañamiento, 20%), responde correctamente al menos <strong>6 de 8 preguntas</strong>. Si dudas, revisa los módulos anteriores.</p>
+            <button class="btn btn-primary" id="startFinalBtn" onclick="startFinalQuiz()" style="margin-top:8px;display:${state.finalCompleted ? 'none' : 'inline-block'};">Empezar evaluación final</button>
             <div id="finalQuizContainer"></div>
           </div>
         `;
@@ -869,12 +1109,12 @@ function buildModules(pathKey) {
 const FINAL_QUIZ = [
   {q:'¿Quién emite la certificación del programa?',o:['uDocz','DRELM en convenio con el Banco Mundial','El MINEDU directamente','La UPC'],c:1},
   {q:'Soy tutor de orientación vocacional con 3 secciones de 5to. ¿Qué certificación recibo?',o:['Sílabo de 80 horas','Plan de Estudios de 120 horas','Tres sílabos separados','Solo certificado de capacitación inicial'],c:1},
-  {q:'¿Cuál es el peso del componente "Presencia en laboratorio" en la evaluación?',o:['20%','30%','50%','70%'],c:2},
+  {q:'En el ejemplo de cálculo, "presencia 18 de 20" significa:',o:['18 sesiones facilitadas de 20 sesiones totales','Una nota de 18 puntos sobre 20 (escala vigesimal peruana)','18 productos entregados de 20','Una calificación cualitativa'],c:1},
   {q:'¿Cuál es la nota mínima aprobatoria?',o:['10','11','13','14'],c:3},
+  {q:'¿Tengo que entregar el 100% de las sesiones de aprendizaje para aprobar?',o:['Sí, todas son obligatorias','No, el mínimo aprobatorio está alrededor del 70%','Sí, pero solo para el 80h','Solo el 50%'],c:1},
   {q:'¿Para qué sirve el Anexo 2?',o:['Es un examen final','Para acreditar las sesiones realizadas entre el 23 de marzo y el 2 de mayo','Para inscribirse en el curso','Es opcional'],c:1},
-  {q:'¿Dónde se registra automáticamente tu presencia en el laboratorio?',o:['eligiendomicamino.org','uDocz','En tu correo personal','Tienes que firmar un acta cada vez'],c:1},
-  {q:'El curso de perfeccionamiento docente es:',o:['En vivo, todos los miércoles','Asincrónico, en eligiendomicamino.org','Presencial, en la sede de la DRELM','Opcional'],c:1},
-  {q:'¿A qué correo envías tus productos?',o:['soporte@udocz.com','pok@minedu.gob.pe','eligiendomicamino@worldbankgroup.org','Se suben a la plataforma'],c:2}
+  {q:'¿Qué pasa si los estudiantes acceden a uDocz pero yo no inicio sesión con mi usuario docente?',o:['No importa, igual queda registrada mi presencia','La sesión NO se registra como mía y no cuenta para mi nota','Cuenta solo si la coordinadora AIP firma','Tengo que llenar un formulario en papel'],c:1},
+  {q:'El curso de perfeccionamiento docente del módulo 3 de tu sílabo es:',o:['El mismo curso de 16 horas presencial que hiciste en marzo','Un curso nuevo, asincrónico en eligiendomicamino.org, distinto al de marzo','Sesiones en vivo los miércoles','Opcional'],c:1}
 ];
 
 // ============================================================================
@@ -945,14 +1185,14 @@ function renderIntake() {
   if (step === 0) {
     modal.innerHTML = `
       <div style="font-size:48px; margin-bottom:8px;">🎓</div>
-      <h2>Bienvenido al curso de inducción</h2>
-      <p>Curso asincrónico para entender tu proceso de certificación en <strong>Eligiendo Mi Camino</strong>.</p>
+      <h2>Inducción a tu certificación</h2>
+      <p>Módulo asincrónico para entender tu proceso de certificación en <strong>Eligiendo Mi Camino</strong>. <strong>Completarlo suma puntos</strong> al componente de Acompañamiento (20%) de tu certificación.</p>
       <div class="stat-row">
-        <div class="stat-block"><div class="stat-block-num">9</div><div class="stat-block-label">Módulos</div></div>
+        <div class="stat-block"><div class="stat-block-num">9</div><div class="stat-block-label">Pasos</div></div>
         <div class="stat-block"><div class="stat-block-num">~30 min</div><div class="stat-block-label">Duración</div></div>
         <div class="stat-block"><div class="stat-block-num">14/20</div><div class="stat-block-label">Nota mínima</div></div>
       </div>
-      <p style="font-size:13.5px;">Responderás un breve cuestionario inicial para identificar tu plan de certificación. Tu progreso se guarda automáticamente.</p>
+      <p style="font-size:13.5px;">Responderás un breve cuestionario inicial para identificar tu plan de certificación. Tu progreso se guarda y se registra automáticamente.</p>
       <button class="btn btn-primary btn-block" onclick="state.intakeStep=1; saveState(); renderIntake();">Empezar</button>
     `;
     return;
@@ -1375,15 +1615,15 @@ function renderDownloads() {
   if (!grid) return;
   const myKeys = state.pathKeys || (state.pathKey ? [state.pathKey] : []);
   const allFiles = [
-    {key:'mat-80', silabo:'Silabo_80h_Matematica_v6.docx', excel:'Certificacion_80h_Matematica.xlsx', name:'Sílabo 80h: Matemáticas'},
-    {key:'tut-80', silabo:'Silabo_80h_Tutores_OV_v6.docx', excel:'Certificacion_80h_Tutores_OV.xlsx', name:'Sílabo 80h: Tutores OV'},
-    {key:'mat-120', silabo:'Plan_Estudios_120h_Matematica_v3.docx', excel:'Certificacion_120h_Matematica.xlsx', name:'Plan 120h: Matemáticas'},
-    {key:'tut-120', silabo:'Plan_Estudios_120h_Tutores_OV_v3.docx', excel:'Certificacion_120h_Tutores_OV.xlsx', name:'Plan 120h: Tutores OV'},
-    {key:'aip-120', silabo:'Plan_Estudios_120h_Coordinadores_AIP_v3.docx', excel:'Certificacion_120h_Coordinadores_AIP.xlsx', name:'Plan 120h: Coordinador AIP/PIP'}
+    {key:'mat-80', silabo:'Silabo_80h_Matematica_v6.docx', excel:'Certificacion_80h_Matematica.xlsx', name:'Sílabo 80h: Matemáticas', docType:'Sílabo de 80 horas'},
+    {key:'tut-80', silabo:'Silabo_80h_Tutores_OV_v6.docx', excel:'Certificacion_80h_Tutores_OV.xlsx', name:'Sílabo 80h: Tutores OV', docType:'Sílabo de 80 horas'},
+    {key:'mat-120', silabo:'Plan_Estudios_120h_Matematica_v3.docx', excel:'Certificacion_120h_Matematica.xlsx', name:'Plan 120h: Matemáticas', docType:'Plan de Estudios de 120 horas'},
+    {key:'tut-120', silabo:'Plan_Estudios_120h_Tutores_OV_v3.docx', excel:'Certificacion_120h_Tutores_OV.xlsx', name:'Plan 120h: Tutores OV', docType:'Plan de Estudios de 120 horas'},
+    {key:'aip-120', silabo:'Plan_Estudios_120h_Coordinadores_AIP_v3.docx', excel:'Certificacion_120h_Coordinadores_AIP.xlsx', name:'Plan 120h: Coordinador AIP/PIP', docType:'Plan de Estudios de 120 horas'}
   ];
 
   let html = '';
-  // Recommended for ALL my paths
+  // ONLY the user's own files — no others to avoid comparisons
   myKeys.forEach(function(myKey) {
     const own = allFiles.find(function(f){ return f.key === myKey; });
     if (!own) return;
@@ -1392,7 +1632,7 @@ function renderDownloads() {
         <div class="download-icon">📄</div>
         <div class="download-info">
           <h4>${own.name} <span class="recommended-badge">TUYO</span></h4>
-          <p>Sílabo / Plan de estudios — Word (.docx)</p>
+          <p>${own.docType} — Word (.docx). Incluye Anexo 1 (cronograma), Anexo 2 (informe fase anticipada) y Anexo 3 (encuesta).</p>
           <a class="download-link" href="docs/${own.silabo}" download>⬇ Descargar</a>
         </div>
       </div>
@@ -1400,21 +1640,8 @@ function renderDownloads() {
         <div class="download-icon xlsx">📊</div>
         <div class="download-info">
           <h4>${own.name} <span class="recommended-badge">TUYO</span></h4>
-          <p>Planilla de certificación — Excel (.xlsx)</p>
+          <p>Planilla de certificación — Excel (.xlsx). La usa DRELM para registrar tu nota final; descárgala como referencia.</p>
           <a class="download-link" href="docs/${own.excel}" download>⬇ Descargar</a>
-        </div>
-      </div>
-    `;
-  });
-  // Other paths the user doesn't own
-  allFiles.filter(function(f){ return myKeys.indexOf(f.key) === -1; }).forEach(function(f) {
-    html += `
-      <div class="download-card">
-        <div class="download-icon">📄</div>
-        <div class="download-info">
-          <h4>${f.name}</h4>
-          <p>Word (.docx) + Excel (.xlsx)</p>
-          <a class="download-link" href="docs/${f.silabo}" download>⬇ Sílabo</a> &nbsp; <a class="download-link" href="docs/${f.excel}" download>⬇ Excel</a>
         </div>
       </div>
     `;
@@ -1471,6 +1698,8 @@ function startFinalQuiz() {
   finalQuizState = { current: 0 };
   state.finalAnswers = {};
   saveState();
+  var btn = document.getElementById('startFinalBtn');
+  if (btn) btn.style.display = 'none';
   renderFinalQuestion();
   // Auto-scroll to the first question after rendering
   setTimeout(function() {
@@ -1562,14 +1791,17 @@ function showCertificate(correct) {
   container.innerHTML = `
     <div class="certificate">
       <div class="cert-icon">🎓</div>
-      <h2 class="cert-title">Certificado de Inducción</h2>
+      <h2 class="cert-title">Puntos de Inducción Acreditados</h2>
       <div class="cert-subtitle">Programa Eligiendo Mi Camino</div>
       <div class="cert-name">${name}</div>
-      <div class="cert-body">Ha completado satisfactoriamente el <strong>módulo de inducción al proceso de certificación</strong> del programa <strong>Eligiendo Mi Camino</strong>, demostrando comprensión del proceso, los componentes de evaluación y los productos a entregar.<br><br>${planText}</div>
+      <div class="cert-body">Ha completado satisfactoriamente la <strong>inducción al proceso de certificación</strong> del programa <strong>Eligiendo Mi Camino</strong>, demostrando comprensión del proceso, los componentes de evaluación y los productos a entregar.<br><br>${planText}</div>
       <div class="cert-seal">Resultado evaluación final: <strong>${correct}/${total}</strong> &nbsp;·&nbsp; ${today}<br>DRELM · Banco Mundial · uDocz · UPC</div>
     </div>
     <div class="callout callout-success">
-      <p><span class="callout-icon">✅</span><strong>¡Listo!</strong> Ahora puedes empezar tu implementación. Recuerda: este es solo el módulo de inducción. ${officialText}</p>
+      <p><span class="callout-icon">✅</span><strong>Tu resultado se registró automáticamente</strong> en el sistema. No necesitas enviar nada — los puntos de esta inducción ya están sumando al componente Acompañamiento (20%) de tu certificación oficial.</p>
+    </div>
+    <div class="callout callout-info">
+      <p><span class="callout-icon">📌</span>Este comprobante es <strong>solo para tu registro personal</strong>. ${officialText}</p>
     </div>
     <button class="btn btn-secondary" style="margin-top:16px;" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
   `;

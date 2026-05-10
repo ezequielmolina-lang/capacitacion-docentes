@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Curso de Perfeccionamiento Docente — Orientación Vocacional — Eligiendo Mi Camino</title>
+<meta name="description" content="Curso asincrónico de perfeccionamiento para tutores de Orientación Vocacional del programa Eligiendo Mi Camino. 12 horas pedagógicas. DRELM + Banco Mundial.">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root{
+    --primary:#f39300; --primary-dark:#f75a00; --primary-light:#fdd026;
+    --bg-cream:#fffbf0; --bg:#fffbf0; --surface:#FFFFFF; --border:#f0e8d8;
+    --text:#242c32; --text-dark:#242c32; --text-muted:#666;
+    --ov-bg:#E8F5E9; --ov-color:#2E7D32;
+    --success:#2E7D32; --error:#C62828; --info:#1565C0; --warning:#F57C00;
+    --accent:#fdd026;
+    --shadow-sm:0 1px 4px rgba(0,0,0,.05);
+    --shadow:0 2px 12px rgba(0,0,0,.08);
+    --shadow-lg:0 10px 30px rgba(243,147,0,.15), 0 4px 12px rgba(0,0,0,.08);
+    --radius:12px;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  body{margin:0;font-family:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,h4{color:var(--text-dark);font-family:'Montserrat',sans-serif;font-weight:700}
+
+  .app{display:grid;grid-template-columns:320px 1fr;grid-template-rows:64px 1fr;grid-template-areas:"sidebar topbar" "sidebar main";min-height:100vh}
+  .topbar{grid-area:topbar;background:var(--surface);border-bottom:2px solid var(--primary-light);display:flex;align-items:center;padding:0 32px;gap:16px;position:sticky;top:0;z-index:10;box-shadow:var(--shadow-sm)}
+  .topbar-title{font-size:16px;font-weight:700;color:var(--text-dark)}
+  .progress-wrap{flex:1;max-width:400px;margin:0 16px}
+  .progress-text{font-size:12px;color:var(--text-muted);margin-bottom:4px;font-weight:500}
+  .progress-bar{height:8px;background:#f0e8d8;border-radius:4px;overflow:hidden}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--primary-dark));border-radius:4px;transition:width .4s ease}
+  .topbar-meta{font-size:13px;color:var(--text-muted);display:flex;gap:16px}
+  .menu-btn{display:none;background:none;border:none;cursor:pointer;padding:8px;font-size:22px;color:var(--primary)}
+
+  .sidebar{grid-area:sidebar;background:var(--surface);border-right:1px solid var(--border);padding:24px 16px;overflow-y:auto;position:sticky;top:0;height:100vh}
+  .brand{padding:0 12px 20px;border-bottom:2px solid var(--primary-light);margin-bottom:16px}
+  .brand-title{font-size:15px;font-weight:800;color:var(--primary);line-height:1.3}
+  .brand-sub{font-size:12px;color:var(--text-muted);margin-top:4px;font-weight:500}
+  .my-path{background:linear-gradient(135deg,#fffaeb 0%,#fff4d4 100%);border:2px solid var(--primary-light);border-radius:10px;padding:14px;margin:12px 0;font-size:12.5px}
+  .my-path-label{font-size:10.5px;color:var(--primary-dark);text-transform:uppercase;letter-spacing:.5px;font-weight:700;margin-bottom:4px}
+  .my-path-name{font-weight:700;color:var(--text-dark);font-size:13.5px;line-height:1.3}
+  .my-path-hours{margin-top:6px;font-weight:700;color:var(--primary-dark);font-size:14px}
+
+  .nav-list{list-style:none;padding:0;margin:0}
+  .nav-item{display:flex;align-items:flex-start;gap:12px;padding:10px 12px;border-radius:8px;cursor:pointer;margin-bottom:2px;transition:all .15s;font-size:13.5px;font-weight:500}
+  .nav-item:hover{background:#fff8e1}
+  .nav-item.active{background:linear-gradient(90deg,#fff4d4 0%,#fffaeb 100%);border-left:3px solid var(--primary);padding-left:9px}
+  .nav-item.active .nav-title{color:var(--primary-dark);font-weight:700}
+  .nav-num{width:26px;height:26px;border-radius:50%;background:#f0e8d8;color:var(--text-muted);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+  .nav-item.completed .nav-num{background:var(--success);color:white}
+  .nav-item.completed .nav-num::before{content:'\f00c';font-family:'Font Awesome 6 Free';font-weight:900;font-size:11px}
+  .nav-item.completed .nav-num span{display:none}
+  .nav-item.active .nav-num{background:var(--primary);color:white}
+  .nav-item.active.completed .nav-num{background:var(--success)}
+  .nav-content{flex:1;min-width:0}
+  .nav-title{color:var(--text);line-height:1.3}
+  .nav-meta{font-size:10.5px;color:var(--text-muted);margin-top:2px}
+
+  .nav-section-title{font-size:10.5px;color:var(--primary-dark);text-transform:uppercase;letter-spacing:.5px;font-weight:700;margin:18px 12px 8px}
+
+  .main{grid-area:main;padding:40px 56px 80px;max-width:920px}
+  .module-header{margin-bottom:32px}
+  .module-eyebrow{color:var(--primary-light);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+  .module-title{font-size:32px;margin:0 0 8px;line-height:1.2}
+  .module-meta{color:var(--text-muted);font-size:14px}
+
+  .lesson{margin-bottom:28px}
+  .lesson p{margin:0 0 16px;font-size:16px}
+  .lesson h3{font-size:20px;margin:28px 0 12px}
+  .lesson h4{font-size:17px;margin:20px 0 8px}
+  .lesson ul,.lesson ol{padding-left:22px;margin:0 0 16px}
+  .lesson li{margin-bottom:6px}
+  .lesson strong{color:var(--primary)}
+
+  .info-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:20px 0;box-shadow:var(--shadow-sm)}
+  .info-card h4{margin:0 0 12px;color:var(--text-dark)}
+
+  .callout{border-radius:var(--radius);padding:16px 20px;margin:20px 0;border-left:4px solid}
+  .callout-info{background:#E3F2FD;border-color:#1565C0}
+  .callout-info strong{color:#1565C0}
+  .callout-warning{background:#FFF8E1;border-color:var(--warning)}
+  .callout-warning strong{color:#E65100}
+  .callout-success{background:var(--ov-bg);border-color:var(--success)}
+  .callout-success strong{color:var(--success)}
+  .callout-tip{background:#fff4d4;border-color:var(--primary)}
+  .callout-tip strong{color:var(--primary-dark)}
+  .callout p{margin:0;color:var(--text-dark)}
+  .callout-icon{font-size:20px;margin-right:6px}
+
+  table.data-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px;background:var(--surface);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm)}
+  table.data-table th{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;padding:12px 14px;text-align:left;font-weight:700}
+  table.data-table td{padding:12px 14px;border-bottom:1px solid var(--border);vertical-align:top}
+  table.data-table tr:last-child td{border-bottom:none}
+  table.data-table tr:nth-child(even){background:#fffaeb}
+
+  .session-card{display:grid;grid-template-columns:60px 1fr;gap:16px;align-items:start;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px;box-shadow:var(--shadow-sm)}
+  .session-num{background:linear-gradient(135deg,var(--ov-color),#1B5E20);color:white;width:48px;height:48px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800}
+  .session-content h4{margin:0 0 4px;color:var(--text-dark);font-size:15.5px}
+  .session-content p{margin:0;font-size:13.5px;color:var(--text-muted)}
+
+  .quiz{background:linear-gradient(135deg,#fffaeb 0%,#FFF 100%);border:2px solid var(--primary-light);border-radius:var(--radius);padding:28px;margin:32px 0 24px;box-shadow:var(--shadow-sm)}
+  .quiz-header{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+  .quiz-badge{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;padding:5px 14px;border-radius:999px;font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+  .quiz h3{margin:0;font-size:19px}
+  .quiz-question{font-size:16px;font-weight:600;margin:16px 0 14px;color:var(--text)}
+  .quiz-options{display:grid;gap:10px;margin-bottom:16px}
+  .quiz-option{background:white;border:2px solid var(--border);border-radius:10px;padding:14px 16px;cursor:pointer;transition:all .15s;font-size:15px;text-align:left;display:flex;align-items:center;gap:12px;width:100%;font-family:inherit;color:var(--text);font-weight:500}
+  .quiz-option:hover:not(:disabled){border-color:var(--primary);background:#fffaeb;transform:translateX(2px)}
+  .quiz-option:disabled{cursor:default}
+  .quiz-option .option-letter{width:30px;height:30px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--text-muted);flex-shrink:0;background:#fffaeb}
+  .quiz-option.correct{border-color:var(--success);background:var(--ov-bg)}
+  .quiz-option.correct .option-letter{background:var(--success);color:white;border-color:var(--success)}
+  .quiz-option.incorrect{border-color:var(--error);background:#FFEBEE}
+  .quiz-option.incorrect .option-letter{background:var(--error);color:white;border-color:var(--error)}
+  .quiz-feedback{padding:14px 16px;border-radius:10px;margin-top:12px;font-size:14.5px;display:none}
+  .quiz-feedback.show{display:block}
+  .quiz-feedback.correct{background:var(--ov-bg);border-left:4px solid var(--success);color:#1B5E20}
+  .quiz-feedback.incorrect{background:#FFEBEE;border-left:4px solid var(--error);color:#B71C1C}
+
+  .btn{display:inline-block;padding:13px 28px;border-radius:999px;font-weight:700;cursor:pointer;border:none;font-size:14.5px;transition:all .2s;text-decoration:none;font-family:inherit;letter-spacing:.3px}
+  .btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
+  .btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;box-shadow:0 4px 12px rgba(243,147,0,.25)}
+  .btn-secondary{background:white;color:var(--primary-dark);border:2px solid var(--primary-light)}
+  .btn-block{width:100%;padding:14px}
+
+  .nav-buttons{display:flex;justify-content:space-between;align-items:center;margin-top:40px;padding-top:24px;border-top:1px solid var(--border);gap:12px;flex-wrap:wrap}
+
+  .quiz-progress{background:#f0e8d8;border-radius:4px;height:6px;overflow:hidden;margin:0 0 24px}
+  .quiz-progress-fill{background:linear-gradient(90deg,var(--primary),var(--primary-dark));height:100%;transition:width .3s}
+
+  .certificate{background:linear-gradient(135deg,#FFFEF5 0%,#FFF 100%);border:8px double var(--primary);padding:50px 32px;text-align:center;border-radius:var(--radius);margin:30px 0;box-shadow:var(--shadow-lg);position:relative}
+  .certificate::before{content:'';position:absolute;top:-1px;left:-1px;right:-1px;height:6px;background:linear-gradient(90deg,var(--primary-light),var(--primary),var(--primary-dark));border-radius:var(--radius) var(--radius) 0 0}
+  .cert-icon{font-size:54px;margin-bottom:14px;color:var(--primary)}
+  .cert-title{font-size:30px;color:var(--primary-dark);margin:0 0 4px}
+  .cert-subtitle{color:var(--text-muted);font-size:14px;font-weight:600}
+  .cert-name{font-size:26px;font-weight:800;color:var(--text-dark);margin:26px 0 8px;font-family:'Montserrat',serif}
+  .cert-body{font-size:15.5px;max-width:500px;margin:0 auto;line-height:1.7}
+  .cert-seal{margin-top:26px;padding-top:18px;border-top:2px solid var(--primary-light);font-size:13px;color:var(--text-muted)}
+
+  .welcome-overlay{position:fixed;inset:0;background:linear-gradient(135deg,rgba(46,125,50,.85) 0%,rgba(27,94,32,.9) 100%);display:flex;align-items:center;justify-content:center;z-index:100;backdrop-filter:blur(4px);padding:20px;overflow-y:auto}
+  .welcome-modal{background:white;border-radius:var(--radius);padding:40px 36px;max-width:580px;width:100%;text-align:center;box-shadow:var(--shadow-lg);max-height:90vh;overflow-y:auto;position:relative}
+  .welcome-modal::before{content:'';position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,var(--ov-color),var(--success),#1B5E20);border-radius:var(--radius) var(--radius) 0 0}
+  .welcome-modal h2{font-size:24px;margin:0 0 12px}
+  .welcome-modal>p{font-size:15px;color:var(--text-muted);margin:0 0 22px}
+  .welcome-modal .stat-row{display:flex;justify-content:center;gap:24px;margin:24px 0}
+  .welcome-modal .stat-block{text-align:center}
+  .welcome-modal .stat-block-num{font-size:28px;font-weight:800;color:var(--ov-color)}
+  .welcome-modal .stat-block-label{font-size:11.5px;color:var(--text-muted);text-transform:uppercase;font-weight:600}
+  .intake-input{width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-size:15px;font-family:inherit;margin-bottom:18px}
+  .intake-input:focus{outline:none;border-color:var(--ov-color)}
+
+  .welcome-hero{background:linear-gradient(135deg,var(--ov-color) 0%,#1B5E20 100%);color:white;padding:36px 32px;border-radius:var(--radius);margin-bottom:28px;position:relative;overflow:hidden;box-shadow:var(--shadow-lg)}
+  .welcome-hero::after{content:'';position:absolute;top:-50%;right:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(253,208,38,.2) 0%,transparent 70%);pointer-events:none}
+  .welcome-hero h2{color:white;margin:0 0 10px;font-size:28px;font-weight:800;position:relative;z-index:1}
+  .welcome-hero p{font-size:16px;opacity:.95;margin:0;font-weight:500;position:relative;z-index:1}
+  .welcome-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px;position:relative;z-index:1}
+  .stat{background:rgba(255,255,255,.15);border-radius:10px;padding:12px;text-align:center;backdrop-filter:blur(4px)}
+  .stat-num{font-size:24px;font-weight:800;color:var(--primary-light)}
+  .stat-label{font-size:11.5px;opacity:.95;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+
+  .reflection-area{width:100%;min-height:200px;padding:14px;border:2px solid var(--border);border-radius:var(--radius);font-family:inherit;font-size:15px;resize:vertical;margin-bottom:12px}
+  .reflection-area:focus{outline:none;border-color:var(--ov-color)}
+
+  @media (max-width:900px){
+    .app{grid-template-columns:1fr;grid-template-areas:"topbar" "main"}
+    .sidebar{position:fixed;top:64px;left:0;width:280px;height:calc(100vh - 64px);transform:translateX(-100%);transition:transform .3s;z-index:9;box-shadow:var(--shadow-lg)}
+    .sidebar.open{transform:translateX(0)}
+    .menu-btn{display:block}
+    .main{padding:24px 20px 60px}
+    .module-title{font-size:24px}
+    .topbar{padding:0 16px}
+    .topbar-meta{display:none}
+    .welcome-modal{padding:28px 22px}
+  }
+  .hidden{display:none!important}
+  @media print{.sidebar,.topbar,.nav-buttons,.btn{display:none!important}.app{display:block}.main{padding:20px}}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-title">Eligiendo Mi Camino</div>
+      <div class="brand-sub">Curso de perfeccionamiento docente — Orientación Vocacional</div>
+    </div>
+    <div class="my-path">
+      <div class="my-path-label">Curso de perfeccionamiento</div>
+      <div class="my-path-name">🧭 Orientador Vocacional con IA</div>
+      <div class="my-path-hours">12 horas pedagógicas · asincrónico</div>
+    </div>
+    <div class="nav-section-title">Módulos del curso</div>
+    <ul class="nav-list" id="navList"></ul>
+  </aside>
+
+  <header class="topbar">
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+    <div class="topbar-title" id="topbarTitle">Cargando…</div>
+    <div class="progress-wrap">
+      <div class="progress-text" id="progressText">0% completado</div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    </div>
+    <div class="topbar-meta"><span>🧭 OV · 12h</span></div>
+  </header>
+
+  <main class="main" id="main"></main>
+</div>
+
+<div class="welcome-overlay" id="welcomeOverlay">
+  <div class="welcome-modal" id="welcomeModalContent"></div>
+</div>
+
+<script>
+const MODULES = [
+  {
+    id: 'marco',
+    title: 'Marco contemporáneo de OV',
+    eyebrow: 'Módulo 1 de 7',
+    duration: '~2 h',
+    content: () => `
+      <div class="welcome-hero">
+        <h2>Curso de Perfeccionamiento Docente</h2>
+        <p>Orientación Vocacional con IA. Profundiza en cómo acompañar el proceso vocacional de tus estudiantes de 5to. Este curso es <strong>distinto</strong> de la capacitación inicial: aquí trabajamos sobre el <em>cómo</em> facilitar bien.</p>
+        <div class="welcome-stats">
+          <div class="stat"><div class="stat-num">12 h</div><div class="stat-label">Pedagógicas</div></div>
+          <div class="stat"><div class="stat-num">7</div><div class="stat-label">Módulos</div></div>
+          <div class="stat"><div class="stat-num">30%</div><div class="stat-label">De tu nota final</div></div>
+        </div>
+      </div>
+      <div class="lesson">
+        <h3>De la "vocación" a la "construcción de carrera"</h3>
+        <p>Por décadas, la orientación vocacional se entendió como <strong>descubrir una vocación preexistente</strong>: como si cada persona tuviera "lo suyo" y el rol del orientador fuera ayudarlo a encontrarlo. Esa visión está superada.</p>
+        <p>El marco contemporáneo (Savickas, 2005) propone que las personas <strong>construyen</strong> su carrera en interacción con su contexto, sus oportunidades y su historia. No "descubren" — <em>construyen</em>. Esto cambia todo lo que haces como orientador.</p>
+
+        <div class="info-card">
+          <h4>📜 Las cuatro tareas del orientador contemporáneo</h4>
+          <ol>
+            <li><strong>Autoconocimiento:</strong> ayudar al estudiante a articular sus intereses, valores, capacidades.</li>
+            <li><strong>Conocimiento del contexto:</strong> qué carreras existen, qué retornos económicos tienen, qué requieren.</li>
+            <li><strong>Toma de decisiones:</strong> cómo elegir bien con información incompleta y bajo incertidumbre.</li>
+            <li><strong>Construcción de plan:</strong> el "cómo llego" — pasos accionables, plan B, redes de apoyo.</li>
+          </ol>
+        </div>
+
+        <h3>El contexto peruano</h3>
+        <p>Tus estudiantes de 5to en IIEE públicas de Lima Metropolitana viven realidades muy distintas a las que asumen muchos materiales de orientación vocacional internacionales. Ten presente:</p>
+        <ul>
+          <li><strong>Solo el 30% continúa a educación superior</strong> después de 5to. La mayoría no.</li>
+          <li><strong>La presión económica es real</strong>: muchos estudian y trabajan, o el primer ingreso al hogar es prioritario sobre estudiar.</li>
+          <li><strong>El mapa de carreras es desconocido para muchas familias.</strong> "Ingeniero", "doctora", "abogado" — y a veces hasta ahí.</li>
+          <li><strong>Los retornos por carrera varían enormemente</strong>. La plataforma <em>Ponte en Carrera</em> tiene esos datos por carrera × institución.</li>
+        </ul>
+
+        <div class="callout callout-tip"><p><span class="callout-icon">💡</span><strong>Tu rol no es decirles qué carrera elegir.</strong> Tu rol es darles las herramientas para que puedan elegir bien. Esa diferencia es enorme — y es lo que separa orientación profesional de "consejos bien intencionados".</p></div>
+
+        <h3>Qué aporta la IA en este marco</h3>
+        <p>El Orientador Vocacional con IA del programa hace bien tres cosas: (1) conversación 1:1 con cada estudiante a su ritmo, (2) tests de intereses validados (Holland, Kuder), (3) acceso a información actualizada de carreras. Lo que <strong>no hace</strong>: contención socioemocional, lectura del grupo, criterio profesional sobre situaciones complejas. Eso es tuyo.</p>
+      </div>
+    `,
+    quiz: {
+      question: 'Según el marco contemporáneo de orientación vocacional, ¿cuál es el rol principal del orientador?',
+      options: [
+        'Descubrir la vocación que cada estudiante tiene en su interior',
+        'Recomendar la carrera con mayor retorno económico',
+        'Acompañar al estudiante en la construcción de su decisión, dándole herramientas para autoconocimiento, conocimiento del contexto, decisión y plan',
+        'Convencer al estudiante de continuar a educación superior'
+      ],
+      correct: 2,
+      feedback: {
+        correct: 'Exacto. El marco constructivista (Savickas) entiende que la persona construye su carrera, no la descubre. El orientador da herramientas, no respuestas.',
+        incorrect: 'El marco contemporáneo entiende que la carrera <strong>se construye, no se descubre</strong>. El orientador no recomienda — facilita las cuatro tareas: autoconocimiento, conocimiento del contexto, decisión y plan.'
+      }
+    }
+  },
+
+  {
+    id: 'sesiones',
+    title: 'Recorrido de las 12 sesiones OV',
+    eyebrow: 'Módulo 2 de 7',
+    duration: '~2 h',
+    content: () => `
+      <div class="lesson">
+        <p>El programa OV tiene <strong>12 sesiones fijas</strong>, organizadas en <strong>4 bloques de 3 sesiones cada uno</strong>. Conocer la lógica del recorrido te permite preparar cada sesión mejor.</p>
+
+        <h3>Bloque 1: Autoconocimiento (sesiones 1-3)</h3>
+        <p>Las primeras 3 sesiones se hacen durante la <strong>fase anticipada (marzo-abril)</strong>. Establecen la base.</p>
+
+        <div class="session-card"><div class="session-num">1</div><div class="session-content"><h4>Presentación del programa y reflexión sobre identidad</h4><p>Apertura. Los estudiantes se presentan, comparten algo identitario, conocen los 8 pasos. Tu trabajo: crear un clima seguro para que después se animen a compartir cosas más personales.</p></div></div>
+
+        <div class="session-card"><div class="session-num">2</div><div class="session-content"><h4>Autodescripción con IA: ¿quién soy?</h4><p>Diario virtual. Conversación con la IA sobre intereses, valores, momentos de orgullo. Tu trabajo: respetar la privacidad — no leer lo que escribieron salvo que ellos compartan.</p></div></div>
+
+        <div class="session-card"><div class="session-num">3</div><div class="session-content"><h4>Mitos y realidades sobre educación superior</h4><p>Aterrizaje del contexto. "Si no estudio una carrera tradicional, no soy nadie", "los técnicos ganan menos", etc. Tu trabajo: no rebatir con sermones — usar datos.</p></div></div>
+
+        <h3>Bloque 2: Rutas, intereses y ocupaciones (sesiones 4-6)</h3>
+
+        <div class="session-card"><div class="session-num">4</div><div class="session-content"><h4>Datos de retornos por carrera (Ponte en Carrera)</h4><p>Trabajo con datos reales: salarios promedio por carrera, empleabilidad, oferta. Tu trabajo: aterrizar la tabla — los promedios esconden mucha varianza.</p></div></div>
+
+        <div class="session-card"><div class="session-num">5</div><div class="session-content"><h4>Test de intereses Holland/Kuder y tarjetas de ocupaciones</h4><p>Aplicación del test (formato adaptado). Devolución del perfil RIASEC. Tu trabajo: explicar que el test orienta, no sentencia.</p></div></div>
+
+        <div class="session-card"><div class="session-num">6</div><div class="session-content"><h4>Conversación con la IA sobre intereses</h4><p>Cada estudiante explora con la IA carreras alineadas a su perfil. Tu trabajo: monitorear que la conversación no sea solo "carreras famosas".</p></div></div>
+
+        <h3>Bloque 3: Investigación y decisión (sesiones 7-9)</h3>
+
+        <div class="session-card"><div class="session-num">7</div><div class="session-content"><h4>Investigación autónoma de instituciones</h4><p>Universidades, IES públicos, becas (Beca 18, Pronabec). Cada estudiante elige 2-3 opciones para investigar a fondo.</p></div></div>
+
+        <div class="session-card"><div class="session-num">8</div><div class="session-content"><h4>Análisis comparativo de opciones con IA</h4><p>Comparar 2-3 opciones reales: costo, distancia, modalidad, prestigio, requisitos de admisión. Construir matriz de decisión.</p></div></div>
+
+        <div class="session-card"><div class="session-num">9</div><div class="session-content"><h4>Reporte "Quién soy y a dónde quiero ir"</h4><p>Cada estudiante redacta un mini-informe integrando todo lo trabajado. Te lo comparte si quiere — privacidad respetada.</p></div></div>
+
+        <h3>Bloque 4: Plan de vida y cierre (sesiones 10-12)</h3>
+
+        <div class="session-card"><div class="session-num">10</div><div class="session-content"><h4>Mensaje familiar: comunicar la decisión vocacional</h4><p>Cómo conversar con la familia sobre su elección. Particularmente importante cuando la elección no coincide con expectativas familiares. <strong>Sesión emocionalmente cargada</strong>.</p></div></div>
+
+        <div class="session-card"><div class="session-num">11</div><div class="session-content"><h4>Construcción del Plan A</h4><p>Plan accionable: pasos concretos, fechas (postulación, beca, prueba). Plan B real, no decorativo. Red de apoyo.</p></div></div>
+
+        <div class="session-card"><div class="session-num">12</div><div class="session-content"><h4>Presentación del plan de vida y cierre</h4><p>Cada estudiante presenta brevemente su plan. Cierre del programa. Algunos lo van a agradecer mucho — recibir bien ese agradecimiento.</p></div></div>
+
+        <div class="callout callout-tip"><p><span class="callout-icon">💡</span><strong>El programa es una espiral, no una línea recta.</strong> A veces un estudiante "retrocede" de la sesión 10 a la 4 cuando se da cuenta de algo nuevo. Eso es bueno — significa que está pensando.</p></div>
+      </div>
+    `,
+    quiz: {
+      question: 'En la sesión 10 (Mensaje familiar), un estudiante te cuenta que su familia presiona para que estudie una carrera distinta a la que él quiere. ¿Cuál es la respuesta más adecuada del orientador?',
+      options: [
+        'Decirle al estudiante que obedezca a su familia',
+        'Decirle que ignore a su familia y siga su pasión',
+        'Acompañarlo a pensar cómo conversar con su familia: qué argumentos tiene, qué información le serviría compartir, qué espacio de negociación existe',
+        'Llamar a la familia y mediar directamente'
+      ],
+      correct: 2,
+      feedback: {
+        correct: 'Exacto. El rol del orientador no es tomar partido por el estudiante o por la familia, sino ayudarlo a desarrollar la capacidad de tener esa conversación con respeto y argumentos sólidos. La decisión final es del estudiante en diálogo con su familia.',
+        incorrect: 'El rol del orientador no es elegir por el estudiante ni mediar con la familia. Es ayudarlo a desarrollar la capacidad de tener esa conversación: argumentos, información que sirva compartir, espacios de negociación. Es un proceso, no un veredicto.'
+      }
+    }
+  },
+
+  {
+    id: 'sesgos',
+    title: 'Sesgos de género y socioeconómicos',
+    eyebrow: 'Módulo 3 de 7',
+    duration: '~2 h',
+    content: () => `
+      <div class="lesson">
+        <p>Los sesgos en orientación vocacional están bien documentados — y es muy fácil reproducirlos sin darse cuenta. Este módulo te da herramientas para reconocerlos y compensarlos.</p>
+
+        <h3>Sesgos de género frecuentes</h3>
+
+        <div class="info-card">
+          <h4>🔍 Lo que dice la evidencia</h4>
+          <ul>
+            <li>Las mujeres están <strong>subrepresentadas en STEM</strong> (ciencia, tecnología, ingeniería, matemática) en Perú y a nivel global. La brecha empieza en la elección vocacional, no en la capacidad.</li>
+            <li>Los hombres están <strong>subrepresentados en cuidado, educación y salud</strong> (excepto medicina).</li>
+            <li>Las niñas reciben <strong>menos retroalimentación de capacidad matemática</strong> desde primaria, aunque rinden igual o mejor.</li>
+            <li>Los hombres son <strong>más reforzados socialmente para tomar riesgos vocacionales</strong>; las mujeres, para "ser realistas".</li>
+          </ul>
+        </div>
+
+        <h3>Los sesgos del orientador</h3>
+        <p>Aún sin proponérselo, los orientadores reproducimos sesgos. Algunos ejemplos comunes:</p>
+        <table class="data-table">
+          <thead><tr><th>Sesgo</th><th>Cómo se manifiesta</th><th>Cómo compensar</th></tr></thead>
+          <tbody>
+            <tr><td>Confirmación de género</td><td>"Para una mujer, enfermería es una linda opción"</td><td>Hablar de carreras sin etiquetar género ("para alguien con tu perfil…")</td></tr>
+            <tr><td>"Realismo" diferenciado</td><td>Sugerir carreras "más realistas" más a mujeres que a hombres con perfiles similares</td><td>Misma exigencia y mismo estímulo a todos</td></tr>
+            <tr><td>Stereotype threat</td><td>Recordar la brecha de género justo antes del test desincentiva a las mujeres</td><td>No recordarles que "las mujeres son menos en…" justo antes de elegir</td></tr>
+            <tr><td>Autoridad de la familia</td><td>Reforzar la presión familiar como "criterio de adultos"</td><td>Validar la decisión del estudiante como suya, ofrecer apoyo a la conversación familiar</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Sesgos socioeconómicos</h3>
+        <p>Tus estudiantes vienen de IIEE públicas. Eso a veces los enfrenta a comentarios como:</p>
+        <ul>
+          <li>"No vas a poder pagar esa universidad" (sin información real sobre becas, IES públicos, programas duales).</li>
+          <li>"Esa carrera no es para gente como nosotros" (mensaje familiar, internalizado).</li>
+          <li>"Mejor algo seguro que aspiraciones grandes" (aversión al riesgo no calibrada con información).</li>
+        </ul>
+
+        <div class="info-card">
+          <h4>🛠️ Herramientas concretas</h4>
+          <ul>
+            <li><strong>Beca 18 (Pronabec):</strong> el estudiante de 5to en IE pública con buen desempeño es prácticamente la población objetivo. Asegúrate de que <strong>todos lo conozcan</strong>.</li>
+            <li><strong>IES públicos:</strong> SENATI, IPAEs, institutos pedagógicos — formación técnica de calidad sin costo prohibitivo.</li>
+            <li><strong>Universidades públicas:</strong> San Marcos, UNI, La Cantuta, etc. — examen exigente pero gratuito.</li>
+            <li><strong>Programas duales:</strong> aprenden trabajando, ingreso desde el primer año.</li>
+          </ul>
+        </div>
+
+        <div class="callout callout-warning"><p><span class="callout-icon">⚠️</span><strong>Lo que NO debes hacer:</strong> bajar las aspiraciones. Si un estudiante quiere ser médico y tiene los cimientos, tu rol es ayudarle a construir el plan, no a "ser realista".</p></div>
+
+        <h3>El test Holland/Kuder en este contexto</h3>
+        <p>Los tests RIASEC son herramientas, no diagnósticos. Algunas precauciones:</p>
+        <ul>
+          <li>El test refleja los <strong>intereses actuales</strong> — moldeados por la exposición previa. Una niña que nunca codeó probablemente no marque "investigador" en STEM aunque tenga el perfil.</li>
+          <li>Un perfil "Realista + Investigador" se adapta a muchas carreras: ingeniería, enfermería, medicina, agronomía. <strong>El test orienta, no decide.</strong></li>
+          <li>Devolver resultados con frase: <em>"esto sugiere que…"</em>, no <em>"tu perfil es…"</em>.</li>
+        </ul>
+      </div>
+    `,
+    quiz: {
+      question: 'Una estudiante mujer con buen rendimiento en matemática te dice que está pensando ingeniería pero "su mamá dice que no es para mujeres". ¿Qué respuesta es la mejor?',
+      options: [
+        '"Tu mamá tiene razón, ingeniería es muy difícil"',
+        '"Ignora a tu mamá, sigue tus sueños"',
+        '"Me interesa lo que dices. ¿Quieres que veamos juntas datos sobre mujeres en ingeniería en Perú, becas para mujeres en STEM, y cómo abordar la conversación con tu mamá?"',
+        '"Mejor elige una carrera más femenina"'
+      ],
+      correct: 2,
+      feedback: {
+        correct: 'Exacto. La respuesta integra autoconocimiento (sus intereses), información de contexto (datos reales), apoyo a la decisión y construcción del plan (incluyendo conversación familiar). No toma partido por nadie pero le da herramientas.',
+        incorrect: 'El orientador no toma partido. Reproducir el sesgo de la mamá lo perpetúa; ignorar a la familia tampoco ayuda. Lo correcto es integrar las cuatro tareas: validar el interés, dar datos, ayudar a construir argumentos para la conversación familiar, plan accionable.'
+      }
+    }
+  },
+
+  {
+    id: 'socioemocional',
+    title: 'Acompañamiento socioemocional',
+    eyebrow: 'Módulo 4 de 7',
+    duration: '~2 h',
+    content: () => `
+      <div class="lesson">
+        <p>Las decisiones vocacionales son emocionales antes que racionales. El estudiante de 5to está atravesando una transición vital — el cierre de la escuela, la presión de "decidir", la mirada de la familia. Tu rol incluye sostener ese proceso.</p>
+
+        <h3>Lo que es razonable esperar (y lo que no)</h3>
+        <table class="data-table">
+          <thead><tr><th>Se espera</th><th>NO se espera</th></tr></thead>
+          <tbody>
+            <tr><td>Acompañamiento empático</td><td>Que hagas terapia psicológica</td></tr>
+            <tr><td>Detección de señales de alarma</td><td>Que evalúes diagnósticos clínicos</td></tr>
+            <tr><td>Derivación cuando algo te excede</td><td>Que cargues solo casos complejos</td></tr>
+            <tr><td>Confidencialidad razonable</td><td>Confidencialidad absoluta si hay riesgo</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Las emociones más frecuentes en este programa</h3>
+
+        <div class="info-card">
+          <h4>😰 Ansiedad por "decidir bien"</h4>
+          <p><strong>Síntoma:</strong> "no sé qué quiero, todos saben menos yo, voy a equivocarme y arruinar mi vida". Muy común. Lo que ayuda: normalizar la incertidumbre. Las decisiones vocacionales se ajustan, no son irreversibles. Mucha gente cambia de carrera. Lo importante es <strong>elegir bien con la información que se tiene</strong>, no elegir perfectamente.</p>
+        </div>
+
+        <div class="info-card">
+          <h4>😔 Desánimo / "para qué"</h4>
+          <p><strong>Síntoma:</strong> "no voy a poder, no me da, no puedo pagar". Mezcla de ansiedad con falta de información. Lo que ayuda: dato concreto. "Veamos los costos reales de Beca 18", "veamos los puntajes de admisión de los últimos 3 años". A veces el desánimo viene de información mal estimada (creer que todo cuesta 5,000 al mes).</p>
+        </div>
+
+        <div class="info-card">
+          <h4>😡 Conflicto familiar</h4>
+          <p><strong>Síntoma:</strong> "mi papá quiere que sea X y yo quiero Y". Frecuente y emocionalmente cargado. Lo que ayuda: no tomar partido. Trabajar en cómo el estudiante puede tener esa conversación con argumentos, no en convencerlo de "cuál tiene razón".</p>
+        </div>
+
+        <div class="info-card">
+          <h4>🤐 Cierre emocional</h4>
+          <p><strong>Síntoma:</strong> el estudiante no participa, no escribe en el diario, da respuestas mínimas. No siempre es desinterés — a veces es protección. Lo que ayuda: no presionar. Ofrecer alternativas (escribir en lugar de hablar, tarea individual sin compartir). Confianza se gana, no se exige.</p>
+        </div>
+
+        <h3>Señales de alarma que requieren derivación</h3>
+        <p><strong>Si detectas alguna de estas, escala al equipo psicopedagógico de tu IE o al equipo EMC:</strong></p>
+        <ul>
+          <li>Ideación suicida (frases como "no quiero seguir", "todo sería mejor sin mí").</li>
+          <li>Cambios bruscos de comportamiento (aislamiento severo, irritabilidad extrema, deterioro académico repentino).</li>
+          <li>Indicios de violencia familiar.</li>
+          <li>Consumo problemático de sustancias.</li>
+          <li>Cualquier situación que <strong>te excede o no sabes manejar</strong>. No esperes a estar seguro: deriva temprano.</li>
+        </ul>
+
+        <div class="callout callout-warning"><p><span class="callout-icon">⚠️</span><strong>No tienes que cargar solo:</strong> el equipo psicopedagógico de tu IE, el EMC y la línea 113 del MINSA están para apoyarte. Derivar no es fallar — es buena práctica.</p></div>
+
+        <h3>Tres herramientas concretas</h3>
+        <ol>
+          <li><strong>Escucha activa:</strong> repetir lo que el estudiante dijo en otras palabras antes de responder. "Si entiendo bien, lo que te preocupa es…". Suele ser suficiente para que el estudiante se sienta escuchado.</li>
+          <li><strong>Validación emocional:</strong> "Tiene sentido que te sientas así". No invalidar (<em>"no es para tanto"</em>) ni magnificar (<em>"qué horrible lo que vives"</em>).</li>
+          <li><strong>Acción mínima viable:</strong> cerrar cada conversación difícil con un paso pequeño y concreto. "¿Qué te gustaría hacer en los próximos 3 días?". El movimiento alivia.</li>
+        </ol>
+      </div>
+    `,
+    quiz: {
+      question: 'Una estudiante te dice durante la sesión 9: "no sé para qué hago todo esto, no voy a poder pagar la universidad". ¿Cuál es la mejor primera respuesta?',
+      options: [
+        '"No te preocupes, todo va a salir bien"',
+        '"Tienes que ser positiva, hay muchas oportunidades"',
+        'Validar lo que siente, escuchar más, y recién después aterrizar información concreta sobre becas y costos reales',
+        'Enviarla a hablar con su tutor de aula'
+      ],
+      correct: 2,
+      feedback: {
+        correct: 'Exacto. Validar primero, escuchar más, aterrizar información concreta después. "Decir que no se preocupe" o "ser positiva" no aterriza nada y suele cerrar la conversación. La derivación es válida si después de escuchar te excede el caso.',
+        incorrect: 'La primera respuesta debe ser <strong>validar y escuchar</strong>, no minimizar. Después aterrizar con información concreta (Beca 18, costos reales, IES públicos). Derivar es válido si te excede, pero no de primera, sin haber escuchado.'
+      }
+    }
+  },
+
+  {
+    id: 'dinamicas',
+    title: 'Facilitación de dinámicas grupales',
+    eyebrow: 'Módulo 5 de 7',
+    duration: '~1.5 h',
+    content: () => `
+      <div class="lesson">
+        <p>El programa OV no es solo trabajo individual con la IA. Cada sesión tiene momentos de discusión grupal donde tu facilitación es la diferencia entre un intercambio enriquecedor y un silencio incómodo.</p>
+
+        <h3>Estructura general de cada sesión OV</h3>
+        <p>Aunque las 12 sesiones son distintas, tienen una estructura común:</p>
+        <ol>
+          <li><strong>Apertura</strong> (5 min): tema de la sesión, recuerdo breve de la anterior.</li>
+          <li><strong>Activación</strong> (10 min): pregunta gatillo grupal que conecta con el tema.</li>
+          <li><strong>Trabajo individual con IA / herramienta</strong> (60 min): el "core" de la sesión.</li>
+          <li><strong>Puesta en común</strong> (10 min): ¿qué descubrieron? Voluntario.</li>
+          <li><strong>Cierre</strong> (5 min): tarea / próxima sesión.</li>
+        </ol>
+
+        <h3>Cómo abrir una sesión sin generar resistencia</h3>
+        <div class="info-card">
+          <h4>✅ Apertura que funciona</h4>
+          <p><em>"Hoy vamos a trabajar sobre [tema]. Probablemente algunos lo tienen muy claro y otros no — eso es normal. Vamos a usar X minutos con la IA para explorar individualmente, y al final compartiremos lo que cada uno quiera. Nadie tiene que compartir lo que no quiere."</em></p>
+          <p>Por qué funciona: anuncia el tema, normaliza la diversidad de puntos de partida, da control al estudiante sobre qué comparte.</p>
+        </div>
+
+        <div class="info-card">
+          <h4>❌ Apertura que cierra</h4>
+          <p><em>"A ver, ¿quién quiere empezar contándonos qué quiere ser cuando sea grande?"</em></p>
+          <p>Por qué cierra: presiona, asume que todos tienen claridad, expone al primero que hable, los demás van a copiar para no destacar.</p>
+        </div>
+
+        <h3>La pregunta gatillo</h3>
+        <p>En el momento de activación (10 min), una buena pregunta gatillo dispara reflexión sin obligar a nadie a contestar. Ejemplos por bloque:</p>
+        <table class="data-table">
+          <thead><tr><th>Bloque</th><th>Pregunta gatillo de ejemplo</th></tr></thead>
+          <tbody>
+            <tr><td>Autoconocimiento</td><td>"Si el dinero no fuera un problema, ¿qué harías el lunes?"</td></tr>
+            <tr><td>Rutas e intereses</td><td>"¿Qué carrera conocían sus padres a su edad? ¿Y ustedes hoy?"</td></tr>
+            <tr><td>Investigación y decisión</td><td>"¿Qué le preguntarían a alguien que ya hace lo que ustedes quieren hacer?"</td></tr>
+            <tr><td>Plan de vida</td><td>"¿Cómo sabrán dentro de 5 años que tomaron una buena decisión?"</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Manejo del silencio</h3>
+        <p>El silencio incomoda al docente más que al estudiante. <strong>Aprende a sostenerlo</strong>: si haces una pregunta y nadie contesta, espera 10 segundos sin reformular. Casi siempre alguien rompe el silencio. Si reformulas a los 3 segundos, los estás entrenando a esperar que tú te conteste solo.</p>
+
+        <h3>Manejo de comentarios problemáticos</h3>
+        <p>Eventualmente alguien va a decir algo problemático: machismo, clasismo, comentario despectivo. Tu reacción importa.</p>
+        <ul>
+          <li><strong>No ignorar.</strong> Si callas, el grupo entiende que esa frase es aceptable.</li>
+          <li><strong>No humillar.</strong> Atacar al estudiante lo cierra y al grupo lo polariza.</li>
+          <li><strong>Cuestionar el contenido, no la persona.</strong> "Es interesante lo que dices. Veamos los datos sobre eso".</li>
+          <li><strong>Devolver al grupo.</strong> "¿Alguien piensa distinto? Me interesa escuchar."</li>
+        </ul>
+
+        <div class="callout callout-tip"><p><span class="callout-icon">💡</span><strong>Tu credibilidad como facilitador</strong> se construye en cómo manejas los momentos incómodos, no en cómo manejas los fáciles. Los estudiantes leen rápido si pueden confiar en ti.</p></div>
+
+        <h3>Cierre que conecta</h3>
+        <p>Termina cada sesión con una frase que conecte con la próxima. Ej: "La próxima sesión vamos a ver datos reales de salarios y empleabilidad. Trae 3 carreras que te llamen la atención y veremos sus números." Esto da continuidad y motivación.</p>
+      </div>
+    `,
+    quiz: {
+      question: 'Acabas de hacer una pregunta gatillo y nadie contesta. Han pasado 4 segundos. ¿Qué haces?',
+      options: [
+        'Reformulas la pregunta inmediatamente — claramente no se entendió',
+        'Esperas en silencio 10–15 segundos más; el silencio incomoda al docente más que al grupo, casi siempre alguien rompe el silencio',
+        'Eliges a un estudiante específico y le pides que conteste',
+        'Cambias de tema'
+      ],
+      correct: 1,
+      feedback: {
+        correct: 'Exacto. Si reformulas a los 4 segundos, entrenas al grupo a esperar que tú mismo contestes. Esperar 10-15 segundos da espacio para que el grupo procese. Casi siempre alguien rompe el silencio.',
+        incorrect: 'El silencio en facilitación grupal es una herramienta, no un fracaso. Si reformulas a los 4 segundos, los estudiantes aprenden que pueden esperar y tú mismo contestarás. Esperar 10-15 segundos suele alcanzar para que alguien hable. Elegir a un estudiante específico funciona puntualmente, pero usado de rutina genera ansiedad.'
+      }
+    }
+  },
+
+  {
+    id: 'dashboard',
+    title: 'Uso del dashboard del Orientador Vocacional',
+    eyebrow: 'Módulo 6 de 7',
+    duration: '~1.5 h',
+    content: () => `
+      <div class="lesson">
+        <p>El dashboard del Orientador Vocacional es distinto al de Matemática. No te muestra "errores conceptuales": te muestra <strong>el avance del proceso vocacional</strong> de cada estudiante. Saber leerlo te ahorra trabajo y te enfoca donde más hace falta.</p>
+
+        <h3>Indicadores clave del dashboard OV</h3>
+        <table class="data-table">
+          <thead><tr><th>Indicador</th><th>Qué te dice</th><th>Cuándo lo usas</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Avance en los 8 pasos</strong></td><td>En qué etapa del proceso está cada estudiante</td><td>Inicio de cada sesión</td></tr>
+            <tr><td><strong>Cantidad de entradas en el diario</strong></td><td>Si participan o si solo "están"</td><td>Mid-programa, para detectar desconectados</td></tr>
+            <tr><td><strong>Tiempo en conversación con IA</strong></td><td>Profundidad del intercambio</td><td>Para identificar quiénes exploran y quiénes responden mínimo</td></tr>
+            <tr><td><strong>Áreas RIASEC del test</strong></td><td>Perfil de intereses</td><td>Después de la sesión 5</td></tr>
+            <tr><td><strong>Carreras exploradas</strong></td><td>Si están considerando opciones diversas o solo lo familiar</td><td>Después de la sesión 6</td></tr>
+            <tr><td><strong>Sentimiento de las entradas</strong></td><td>Tono general (la IA lo categoriza)</td><td>Para detectar señales emocionales</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Patrones que vale la pena identificar</h3>
+
+        <div class="info-card">
+          <h4>📉 El "fantasma": entra pero no participa</h4>
+          <p>El estudiante asiste a las sesiones (presencia registrada en uDocz) pero el diario está casi vacío y la conversación con IA es mínima. <strong>Acción:</strong> conversación corta 1:1 después de una sesión. Pregunta no qué le pasa, sino qué le ayudaría a sentirse cómodo participando.</p>
+        </div>
+
+        <div class="info-card">
+          <h4>🎯 El "muy claro": ya decidió antes de empezar</h4>
+          <p>El estudiante dice desde la sesión 1 "yo voy a estudiar X" y no explora otras opciones. <strong>Acción:</strong> respetar la decisión, pero asegurarse de que la haya pensado: pedirle que en la sesión 8 compare su opción con 2 alternativas. Si después de eso sigue convencido, valídalo.</p>
+        </div>
+
+        <div class="info-card">
+          <h4>🌪️ El "perdido": cambia constantemente</h4>
+          <p>El estudiante en la sesión 3 quería ser médico, en la 5 abogado, en la 7 ingeniero. <strong>Acción:</strong> normal en exploración. Lo problemático no es cambiar, es no anclar nunca en datos. En la sesión 8 ayúdalo a comparar sus 2-3 opciones con criterios concretos.</p>
+        </div>
+
+        <div class="info-card">
+          <h4>😶 El "minimal": respuestas cortas, sentimiento neutral</h4>
+          <p>El estudiante completa todo, pero con respuestas mínimas. La IA marca sentimiento neutral o evasivo. <strong>Acción:</strong> a veces es protección emocional. No forzar. Ofrecer alternativas (entrega escrita personal en lugar de oral). Confianza se gana lentamente.</p>
+        </div>
+
+        <h3>Privacidad: lo que puedes y no puedes ver</h3>
+        <p>El dashboard te muestra <strong>indicadores agregados</strong>: cantidad, tiempo, áreas RIASEC, sentimiento. <strong>NO</strong> te muestra el contenido literal del diario ni de las conversaciones con la IA, salvo que el estudiante explícitamente comparta algo. Esto es por diseño.</p>
+        <ul>
+          <li>Si un estudiante quiere compartir algo de su diario, puede exportarlo y entregártelo.</li>
+          <li>Si necesitas leer algo específico (ej: para un caso de derivación), debes pedírselo y explicar por qué.</li>
+          <li><strong>No intentes acceder a contenidos privados.</strong> Es violación del marco del programa.</li>
+        </ul>
+
+        <div class="callout callout-tip"><p><span class="callout-icon">💡</span>Lo que el dashboard te dice es suficiente para identificar dónde intervenir. Si ves un estudiante "fantasma" o un cambio brusco de patrón, conversación 1:1 — no espionaje al contenido.</p></div>
+
+        <h3>Las sesiones de aprendizaje (tu producto entregable)</h3>
+        <p>Para tu certificación necesitas entregar <strong>~8 sesiones de aprendizaje documentadas</strong> (mínimo 5 para aprobar). Cada documento describe una sesión OV real que facilitaste. Estructura sugerida:</p>
+        <ol>
+          <li><strong>Datos:</strong> sesión OV correspondiente (1-12), fecha, sección.</li>
+          <li><strong>Pregunta gatillo usada</strong> y reacción del grupo.</li>
+          <li><strong>Trabajo con IA:</strong> qué patrones viste en el dashboard durante esa sesión.</li>
+          <li><strong>Momento de puesta en común:</strong> qué se compartió, cómo manejaste comentarios complejos si hubo.</li>
+          <li><strong>Reflexión:</strong> qué funcionó, qué cambiarías, qué te llevas.</li>
+        </ol>
+        <p><strong>Hazlo progresivo:</strong> una al final de cada sesión, mientras está fresca. Te ahorra trabajo en julio.</p>
+      </div>
+    `,
+    quiz: {
+      question: 'En el dashboard ves que un estudiante asiste a todas las sesiones pero su diario está casi vacío y sus conversaciones con la IA son muy breves. ¿Qué haces?',
+      options: [
+        'Le bajo la nota de participación',
+        'Le pido al estudiante que comparta su diario para revisarlo (entrar a leer su contenido)',
+        'Tengo una conversación corta 1:1 después de una sesión: pregunto qué le ayudaría a sentirse cómodo participando',
+        'Lo expongo frente al grupo para "motivarlo"'
+      ],
+      correct: 2,
+      feedback: {
+        correct: 'Exacto. Un patrón "fantasma" suele indicar incomodidad o desconexión. Una conversación 1:1 respetuosa es la mejor herramienta. No accedes al contenido privado sin permiso, no expones, no penalizas sin entender.',
+        incorrect: 'El dashboard muestra patrones, no contenido literal — no puedes pedir leer el diario. Exponerlo lo cierra más. Bajar la nota sin entender no enseña. Lo correcto es <strong>conversación 1:1 respetuosa</strong>: a veces el patrón es protección emocional, otras desconexión, y la respuesta es distinta en cada caso.'
+      }
+    }
+  },
+
+  {
+    id: 'final',
+    title: 'Quiz final + reflexión',
+    eyebrow: 'Módulo 7 de 7',
+    duration: '~1 h',
+    isFinal: true,
+    content: () => `
+      <div class="lesson">
+        <p>Para acreditar el curso de perfeccionamiento docente y registrarlo en tu certificación (componente 30% productos):</p>
+        <ol>
+          <li><strong>Responde correctamente al menos 6 de 8 preguntas</strong> del quiz final.</li>
+          <li><strong>Escribe una reflexión breve</strong> (1–2 párrafos) sobre cómo aplicarás algo de este curso en tu próxima sesión OV.</li>
+        </ol>
+        <p>Una vez completes ambas partes, tu progreso queda registrado automáticamente en eligiendomicamino.org.</p>
+
+        <h3>Evaluación final</h3>
+        <button class="btn btn-primary" onclick="startFinalQuiz()" id="startBtn">Empezar quiz final</button>
+        <div id="finalQuizContainer"></div>
+
+        <h3 id="reflexionTitle" style="display:none;">Reflexión</h3>
+        <div id="reflexionContainer"></div>
+      </div>
+    `
+  }
+];
+
+const FINAL_QUIZ = [
+  {q:'Según el marco contemporáneo (Savickas), ¿cuál es el rol del orientador vocacional?',o:['Descubrir la vocación preexistente del estudiante','Recomendar la mejor carrera según el test','Acompañar la construcción de la decisión, dando herramientas para autoconocimiento, contexto, decisión y plan','Convencer al estudiante de seguir educación superior'],c:2},
+  {q:'Cuando un estudiante dice algo problemático en clase (machismo, clasismo), ¿qué debe hacer el orientador?',o:['Ignorar para no generar conflicto','Humillar al estudiante para que aprenda','Cuestionar el contenido (no la persona) y devolver la pregunta al grupo','Sancionar al estudiante'],c:2},
+  {q:'Para tu certificación de 80h ¿cuántas sesiones de aprendizaje OV documentadas necesitas como mínimo?',o:['12','8','5','3'],c:2},
+  {q:'En el dashboard ves a un estudiante con avance bajo y conversación mínima con la IA. ¿Qué haces?',o:['Le bajo la nota','Accedo a leer su diario sin pedírselo','Conversación corta 1:1 para entender qué le ayudaría a participar más','Lo expongo en clase'],c:2},
+  {q:'Una estudiante mujer con buen rendimiento en matemática tiene interés en ingeniería pero su mamá se opone. ¿Cuál es la mejor respuesta?',o:['Validar la preocupación de la mamá','Decirle que ignore a su familia','Acompañarla a ver datos reales sobre mujeres en STEM, becas, y cómo abordar la conversación familiar con argumentos','Sugerirle una carrera "más femenina"'],c:2},
+  {q:'Detectas señales de ideación suicida en un estudiante. ¿Qué haces?',o:['Le digo que se anime y siga adelante','Lo derivo inmediatamente al equipo psicopedagógico de la IE y al equipo EMC','Espero a ver si pasa','Le bajo la dificultad de las actividades'],c:1},
+  {q:'En la facilitación grupal, haces una pregunta gatillo y nadie contesta a los 4 segundos. ¿Qué es mejor?',o:['Reformular la pregunta inmediatamente','Esperar en silencio 10-15 segundos más','Pedir a un estudiante específico que conteste','Cambiar de tema'],c:1},
+  {q:'¿Cuándo sumás al componente "Productos y autoestudio" (30%) por completar este curso de perfeccionamiento?',o:['Solo al aprobar el quiz final','Al aprobar el quiz final con 6/8 mínimo Y entregar tu reflexión escrita','Al hacer click en "completar"','El curso es opcional, no suma'],c:1}
+];
+
+const STORAGE_KEY = 'emc_perf_ov_v1';
+let state = loadState();
+
+function loadState() {
+  try {
+    const s = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    return {
+      currentModule: s.currentModule || 0,
+      completed: s.completed || {},
+      finalAnswers: s.finalAnswers || {},
+      finalCompleted: s.finalCompleted || false,
+      reflexion: s.reflexion || '',
+      userName: s.userName || '',
+      userDni: s.userDni || '',
+      userSchool: s.userSchool || '',
+      started: s.started || false
+    };
+  } catch(e) {
+    return { currentModule:0, completed:{}, finalAnswers:{}, finalCompleted:false, reflexion:'', userName:'', userDni:'', userSchool:'', started:false };
+  }
+}
+
+var TRACKING_URL = 'https://script.google.com/macros/s/AKfycbyUeu-Q_wesHnr9Df_OKWgfM6_o7pOMPP2Z5tlxATllORSfAYTDSYKcm-JsqJjS2Rd7/exec';
+function trackProgress(moduleId, stepTitle) {
+  if (!state.userName || !state.userDni) return;
+  var data = {
+    timestamp: new Date().toISOString(),
+    name: state.userName,
+    dni: state.userDni,
+    school: state.userSchool || '',
+    materia: 'tut',
+    track: 'PERF-OV',
+    moduleId: moduleId,
+    stepTitle: stepTitle || '',
+    status: 'COMPLETED'
+  };
+  var params = Object.keys(data).map(function(k) { return k + '=' + encodeURIComponent(data[k]); }).join('&');
+  try { fetch(TRACKING_URL + '?' + params, { mode: 'no-cors' }).catch(function(){}); } catch(e){}
+}
+function saveState() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+function resetState() {
+  localStorage.removeItem(STORAGE_KEY);
+  state = loadState();
+  window.location.href = window.location.pathname + '?reset=1';
+}
+
+function renderIntake() {
+  const overlay = document.getElementById('welcomeOverlay');
+  const modal = document.getElementById('welcomeModalContent');
+  overlay.classList.remove('hidden');
+  const ready = state.userName && state.userDni && state.userSchool;
+  modal.innerHTML = `
+    <div style="font-size:48px;margin-bottom:8px;">🧭</div>
+    <h2>Curso de perfeccionamiento docente</h2>
+    <p>Orientación Vocacional con IA. <strong>12 horas pedagógicas asincrónicas</strong>. Tu progreso queda registrado para tu certificación.</p>
+    <div class="stat-row">
+      <div class="stat-block"><div class="stat-block-num">7</div><div class="stat-block-label">Módulos</div></div>
+      <div class="stat-block"><div class="stat-block-num">~9 h</div><div class="stat-block-label">Reales</div></div>
+      <div class="stat-block"><div class="stat-block-num">6/8</div><div class="stat-block-label">Quiz mínimo</div></div>
+    </div>
+    <input type="text" class="intake-input" id="userNameInput" placeholder="Nombre completo *" value="${state.userName||''}" oninput="onPersonalInput()">
+    <input type="text" class="intake-input" id="userDniInput" placeholder="DNI *" value="${state.userDni||''}" maxlength="12" oninput="onPersonalInput()">
+    <input type="text" class="intake-input" id="userSchoolInput" placeholder="Institución educativa *" value="${state.userSchool||''}" oninput="onPersonalInput()">
+    <button class="btn btn-primary btn-block" id="startBtnIntake" ${!ready?'disabled':''} onclick="startCourse()">Empezar curso →</button>
+  `;
+}
+function onPersonalInput() {
+  const name = (document.getElementById('userNameInput')||{}).value || '';
+  const dni = (document.getElementById('userDniInput')||{}).value || '';
+  const school = (document.getElementById('userSchoolInput')||{}).value || '';
+  const btn = document.getElementById('startBtnIntake');
+  if (btn) btn.disabled = !(name.trim() && dni.trim() && school.trim());
+}
+function startCourse() {
+  const name = document.getElementById('userNameInput').value.trim();
+  const dni = document.getElementById('userDniInput').value.trim();
+  const school = document.getElementById('userSchoolInput').value.trim();
+  if (!name || !dni || !school) return;
+  state.userName = name; state.userDni = dni; state.userSchool = school;
+  state.started = true; state.currentModule = 0;
+  saveState();
+  trackProgress('ENROLLED', 'Inscripción al curso de perfeccionamiento OV');
+  document.getElementById('welcomeOverlay').classList.add('hidden');
+  renderModule(); renderSidebar(); renderProgress();
+}
+function renderSidebar() {
+  const list = document.getElementById('navList');
+  list.innerHTML = '';
+  MODULES.forEach((m, i) => {
+    const li = document.createElement('li');
+    li.className = 'nav-item';
+    if (i === state.currentModule) li.classList.add('active');
+    if (state.completed[m.id]) li.classList.add('completed');
+    li.innerHTML = `
+      <div class="nav-num"><span>${i + 1}</span></div>
+      <div class="nav-content">
+        <div class="nav-title">${m.title}</div>
+        <div class="nav-meta">${m.duration}</div>
+      </div>
+    `;
+    li.onclick = () => goToModule(i);
+    list.appendChild(li);
+  });
+}
+function renderProgress() {
+  const total = MODULES.length;
+  const done = MODULES.filter(m => state.completed[m.id]).length;
+  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${done} de ${total} módulos completados (${pct}%)`;
+}
+function renderModule(opts) {
+  opts = opts || {};
+  const savedScroll = opts.preserveScroll ? window.scrollY : 0;
+  const m = MODULES[state.currentModule];
+  document.getElementById('topbarTitle').textContent = m.title;
+  const main = document.getElementById('main');
+  const contentHtml = typeof m.content === 'function' ? m.content() : m.content;
+  let html = `
+    <div class="module-header">
+      <div class="module-eyebrow">${m.eyebrow} · ${m.duration}</div>
+      <h1 class="module-title">${m.title}</h1>
+    </div>
+    ${contentHtml}
+  `;
+  if (!m.isFinal && m.quiz) {
+    html += renderQuiz(m.id, m.quiz, state.completed[m.id]);
+  }
+  html += renderNavButtons();
+  main.innerHTML = html;
+  if (opts.preserveScroll) window.scrollTo(0, savedScroll); else window.scrollTo(0, 0);
+  if (m.isFinal && state.finalCompleted) {
+    const correct = countCorrect(state.finalAnswers, FINAL_QUIZ);
+    if (correct >= 6 && state.reflexion) showCertificate(correct);
+  }
+}
+function renderQuiz(moduleId, quiz, completed) {
+  const savedAnswer = completed ? completed.answer : undefined;
+  let optionsHtml = quiz.options.map((opt, i) => {
+    let cls = 'quiz-option';
+    let disabled = '';
+    if (savedAnswer !== undefined) {
+      disabled = 'disabled';
+      if (i === quiz.correct) cls += ' correct';
+      else if (i === savedAnswer) cls += ' incorrect';
+    }
+    return `<button class="${cls}" ${disabled} onclick="answerQuiz('${moduleId}', ${i}, ${quiz.correct})"><div class="option-letter">${String.fromCharCode(65 + i)}</div><span>${opt}</span></button>`;
+  }).join('');
+  let feedbackHtml = '';
+  if (savedAnswer !== undefined) {
+    const isCorrect = savedAnswer === quiz.correct;
+    feedbackHtml = `<div class="quiz-feedback ${isCorrect ? 'correct' : 'incorrect'} show"><strong>${isCorrect ? '✅ ¡Correcto!' : '❌ No es la respuesta correcta.'}</strong><br>${isCorrect ? quiz.feedback.correct : quiz.feedback.incorrect}</div>`;
+  }
+  return `
+    <div class="quiz">
+      <div class="quiz-header"><span class="quiz-badge">Comprueba tu comprensión</span></div>
+      <div class="quiz-question">${quiz.question}</div>
+      <div class="quiz-options">${optionsHtml}</div>
+      ${feedbackHtml}
+    </div>
+  `;
+}
+function renderNavButtons() {
+  const isLast = state.currentModule === MODULES.length - 1;
+  const isFirst = state.currentModule === 0;
+  const m = MODULES[state.currentModule];
+  const completed = state.completed[m.id];
+  const canAdvance = m.isFinal ? (state.finalCompleted && state.reflexion) : completed;
+  return `
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="prevModule()" ${isFirst ? 'disabled' : ''}>← Anterior</button>
+      ${!isLast ? `<button class="btn btn-primary" onclick="nextModule()" ${!canAdvance ? 'disabled' : ''}>${canAdvance ? 'Siguiente módulo →' : 'Responde para continuar'}</button>` : `<span style="color:var(--text-muted); font-size:14px;">${canAdvance ? '🎉 ¡Curso completado!' : ''}</span>`}
+    </div>
+  `;
+}
+function answerQuiz(moduleId, answerIdx, correctIdx) {
+  if (state.completed[moduleId]) return;
+  state.completed[moduleId] = { answer: answerIdx, correct: answerIdx === correctIdx };
+  saveState();
+  var m = MODULES.find(function(x){ return x.id === moduleId; });
+  trackProgress('MOD-' + moduleId, m ? m.title : moduleId);
+  renderModule({preserveScroll: true});
+  renderSidebar(); renderProgress();
+  setTimeout(function() {
+    var fb = document.querySelector('.quiz-feedback.show');
+    if (fb) fb.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 50);
+}
+function nextModule() { if (state.currentModule < MODULES.length - 1) { state.currentModule++; saveState(); renderModule(); renderSidebar(); renderProgress(); closeSidebarMobile(); } }
+function prevModule() { if (state.currentModule > 0) { state.currentModule--; saveState(); renderModule(); renderSidebar(); renderProgress(); closeSidebarMobile(); } }
+function goToModule(i) { state.currentModule = i; saveState(); renderModule(); renderSidebar(); renderProgress(); closeSidebarMobile(); }
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
+function closeSidebarMobile() { if (window.innerWidth <= 900) document.getElementById('sidebar').classList.remove('open'); }
+
+let finalQuizState = { current: 0 };
+function startFinalQuiz() {
+  finalQuizState = { current: 0 };
+  state.finalAnswers = {};
+  saveState();
+  document.getElementById('startBtn').style.display = 'none';
+  renderFinalQuestion();
+  setTimeout(function() {
+    var c = document.getElementById('finalQuizContainer');
+    if (c) c.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+}
+function renderFinalQuestion() {
+  const i = finalQuizState.current;
+  const q = FINAL_QUIZ[i];
+  const total = FINAL_QUIZ.length;
+  const container = document.getElementById('finalQuizContainer');
+  const answered = state.finalAnswers[i];
+  let opts = q.o.map((opt, idx) => {
+    let cls = 'quiz-option', dis = '';
+    if (answered !== undefined) {
+      dis = 'disabled';
+      if (idx === q.c) cls += ' correct';
+      else if (idx === answered) cls += ' incorrect';
+    }
+    return `<button class="${cls}" ${dis} onclick="answerFinal(${idx})"><div class="option-letter">${String.fromCharCode(65 + idx)}</div><span>${opt}</span></button>`;
+  }).join('');
+  let fb = '';
+  let nextBtn = '';
+  if (answered !== undefined) {
+    fb = `<div class="quiz-feedback ${answered === q.c ? 'correct' : 'incorrect'} show"><strong>${answered === q.c ? '✅ Correcto' : '❌ Incorrecto'}</strong></div>`;
+    nextBtn = i < total - 1
+      ? `<button class="btn btn-primary" style="margin-top:16px;" onclick="nextFinalQuestion()">Siguiente pregunta →</button>`
+      : `<button class="btn btn-primary" style="margin-top:16px;" onclick="finishFinalQuiz()">Ver resultado</button>`;
+  }
+  container.innerHTML = `
+    <div class="quiz" style="margin-top:20px;">
+      <div class="quiz-progress"><div class="quiz-progress-fill" style="width:${((i+1)/total)*100}%"></div></div>
+      <div style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">Pregunta ${i+1} de ${total}</div>
+      <div class="quiz-question">${q.q}</div>
+      <div class="quiz-options">${opts}</div>
+      ${fb}${nextBtn}
+    </div>
+  `;
+}
+function answerFinal(idx) { state.finalAnswers[finalQuizState.current] = idx; saveState(); renderFinalQuestion(); }
+function nextFinalQuestion() {
+  finalQuizState.current++;
+  renderFinalQuestion();
+  setTimeout(function() {
+    var c = document.getElementById('finalQuizContainer');
+    if (c) c.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+}
+function countCorrect(answers, quiz) { let c = 0; quiz.forEach((q, i) => { if (answers[i] === q.c) c++; }); return c; }
+function finishFinalQuiz() {
+  const correct = countCorrect(state.finalAnswers, FINAL_QUIZ);
+  const total = FINAL_QUIZ.length;
+  const passed = correct >= 6;
+  const container = document.getElementById('finalQuizContainer');
+  if (passed) {
+    state.finalCompleted = true;
+    saveState();
+    container.innerHTML = `<div class="callout callout-success" style="margin-top:20px;"><p><span class="callout-icon">✅</span><strong>Quiz aprobado: ${correct}/${total}</strong>. Falta solo escribir tu reflexión abajo.</p></div>`;
+    showReflexion();
+  } else {
+    container.innerHTML = `
+      <div class="callout callout-warning" style="margin-top:24px;">
+        <p><span class="callout-icon">📚</span><strong>Tu resultado: ${correct}/${total}</strong></p>
+        <p>Necesitas al menos 6 respuestas correctas. Te recomendamos revisar los módulos anteriores y volver a intentar.</p>
+      </div>
+      <button class="btn btn-primary" style="margin-top:16px;" onclick="state.finalAnswers={}; saveState(); startFinalQuiz();">Intentar de nuevo</button>
+      <button class="btn btn-secondary" style="margin-top:16px;" onclick="goToModule(0)">Volver al inicio</button>
+    `;
+  }
+}
+function showReflexion() {
+  document.getElementById('reflexionTitle').style.display = '';
+  const cont = document.getElementById('reflexionContainer');
+  cont.innerHTML = `
+    <p>Escribe 1–2 párrafos: ¿qué de este curso aplicarás concretamente en tu próxima sesión OV? ¿Qué te resultó más útil?</p>
+    <textarea class="reflection-area" id="reflectionInput" placeholder="Tu reflexión...">${state.reflexion || ''}</textarea>
+    <button class="btn btn-primary" onclick="submitReflexion()">Guardar y completar curso</button>
+  `;
+  setTimeout(function() { document.getElementById('reflectionInput').focus(); }, 100);
+}
+function submitReflexion() {
+  const text = document.getElementById('reflectionInput').value.trim();
+  if (text.length < 80) {
+    alert('Por favor escribe al menos un par de oraciones (mínimo 80 caracteres).');
+    return;
+  }
+  state.reflexion = text;
+  state.completed['final'] = { answer: 0, correct: true };
+  saveState();
+  const correct = countCorrect(state.finalAnswers, FINAL_QUIZ);
+  trackProgress('CERTIFIED', 'Curso de perfeccionamiento OV completado: ' + correct + '/' + FINAL_QUIZ.length);
+  showCertificate(correct);
+  renderSidebar(); renderProgress();
+}
+function showCertificate(correct) {
+  const total = FINAL_QUIZ.length;
+  const name = state.userName || 'Docente Participante';
+  const today = new Date().toLocaleDateString('es-PE', { day: 'numeric', month: 'long', year: 'numeric' });
+  const container = document.getElementById('reflexionContainer');
+  container.innerHTML = `
+    <div class="certificate">
+      <div class="cert-icon">🎓</div>
+      <h2 class="cert-title">Curso de Perfeccionamiento Docente</h2>
+      <div class="cert-subtitle">Orientación Vocacional con IA · 12 horas pedagógicas</div>
+      <div class="cert-name">${name}</div>
+      <div class="cert-body">Ha completado satisfactoriamente el <strong>curso de perfeccionamiento docente</strong> del programa <strong>Eligiendo Mi Camino</strong>, profundizando en el marco contemporáneo de orientación vocacional, las 12 sesiones del programa, manejo de sesgos, acompañamiento socioemocional, facilitación grupal y uso del dashboard.</div>
+      <div class="cert-seal">Resultado del quiz final: <strong>${correct}/${total}</strong> &nbsp;·&nbsp; ${today}<br>DRELM · Banco Mundial · uDocz · UPC</div>
+    </div>
+    <div class="callout callout-success">
+      <p><span class="callout-icon">✅</span><strong>Curso completado.</strong> Suma al componente "Productos y autoestudio" (30%) de tu certificación oficial.</p>
+    </div>
+    <button class="btn btn-secondary" style="margin-top:16px;" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
+  `;
+}
+function init() {
+  if (window.location.search.indexOf('reset') !== -1) {
+    localStorage.removeItem(STORAGE_KEY);
+    state = loadState();
+    history.replaceState({}, '', window.location.pathname);
+  }
+  if (state.started) {
+    document.getElementById('welcomeOverlay').classList.add('hidden');
+    renderModule(); renderSidebar(); renderProgress();
+  } else {
+    renderIntake();
+  }
+}
+init();
+</script>
+</body>
+</html>

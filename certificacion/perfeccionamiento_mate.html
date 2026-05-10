@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Curso de Perfeccionamiento Docente — Matemáticas — Eligiendo Mi Camino</title>
+<meta name="description" content="Curso asincrónico de perfeccionamiento para docentes de Matemáticas que implementan el Tutor de IA del programa Eligiendo Mi Camino. 8 horas pedagógicas. DRELM + Banco Mundial.">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root{
+    --primary:#f39300; --primary-dark:#f75a00; --primary-light:#fdd026;
+    --bg-cream:#fffbf0; --bg:#fffbf0; --surface:#FFFFFF; --border:#f0e8d8;
+    --text:#242c32; --text-dark:#242c32; --text-muted:#666;
+    --math-bg:#FFEBEE; --math-color:#C62828;
+    --success:#2E7D32; --error:#C62828; --info:#1565C0; --warning:#F57C00;
+    --accent:#fdd026;
+    --shadow-sm:0 1px 4px rgba(0,0,0,.05);
+    --shadow:0 2px 12px rgba(0,0,0,.08);
+    --shadow-lg:0 10px 30px rgba(243,147,0,.15), 0 4px 12px rgba(0,0,0,.08);
+    --radius:12px;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  body{margin:0;font-family:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,h4{color:var(--text-dark);font-family:'Montserrat',sans-serif;font-weight:700}
+
+  .app{display:grid;grid-template-columns:320px 1fr;grid-template-rows:64px 1fr;grid-template-areas:"sidebar topbar" "sidebar main";min-height:100vh}
+  .topbar{grid-area:topbar;background:var(--surface);border-bottom:2px solid var(--primary-light);display:flex;align-items:center;padding:0 32px;gap:16px;position:sticky;top:0;z-index:10;box-shadow:var(--shadow-sm)}
+  .topbar-title{font-size:16px;font-weight:700;color:var(--text-dark)}
+  .progress-wrap{flex:1;max-width:400px;margin:0 16px}
+  .progress-text{font-size:12px;color:var(--text-muted);margin-bottom:4px;font-weight:500}
+  .progress-bar{height:8px;background:#f0e8d8;border-radius:4px;overflow:hidden}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--primary-dark));border-radius:4px;transition:width .4s ease}
+  .topbar-meta{font-size:13px;color:var(--text-muted);display:flex;gap:16px}
+  .menu-btn{display:none;background:none;border:none;cursor:pointer;padding:8px;font-size:22px;color:var(--primary)}
+
+  .sidebar{grid-area:sidebar;background:var(--surface);border-right:1px solid var(--border);padding:24px 16px;overflow-y:auto;position:sticky;top:0;height:100vh}
+  .brand{padding:0 12px 20px;border-bottom:2px solid var(--primary-light);margin-bottom:16px}
+  .brand-title{font-size:15px;font-weight:800;color:var(--primary);line-height:1.3}
+  .brand-sub{font-size:12px;color:var(--text-muted);margin-top:4px;font-weight:500}
+  .my-path{background:linear-gradient(135deg,#fffaeb 0%,#fff4d4 100%);border:2px solid var(--primary-light);border-radius:10px;padding:14px;margin:12px 0;font-size:12.5px}
+  .my-path-label{font-size:10.5px;color:var(--primary-dark);text-transform:uppercase;letter-spacing:.5px;font-weight:700;margin-bottom:4px}
+  .my-path-name{font-weight:700;color:var(--text-dark);font-size:13.5px;line-height:1.3}
+  .my-path-hours{margin-top:6px;font-weight:700;color:var(--primary-dark);font-size:14px}
+
+  .nav-list{list-style:none;padding:0;margin:0}
+  .nav-item{display:flex;align-items:flex-start;gap:12px;padding:10px 12px;border-radius:8px;cursor:pointer;margin-bottom:2px;transition:all .15s;font-size:13.5px;font-weight:500}
+  .nav-item:hover{background:#fff8e1}
+  .nav-item.active{background:linear-gradient(90deg,#fff4d4 0%,#fffaeb 100%);border-left:3px solid var(--primary);padding-left:9px}
+  .nav-item.active .nav-title{color:var(--primary-dark);font-weight:700}
+  .nav-num{width:26px;height:26px;border-radius:50%;background:#f0e8d8;color:var(--text-muted);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+  .nav-item.completed .nav-num{background:var(--success);color:white}
+  .nav-item.completed .nav-num::before{content:'\f00c';font-family:'Font Awesome 6 Free';font-weight:900;font-size:11px}
+  .nav-item.completed .nav-num span{display:none}
+  .nav-item.active .nav-num{background:var(--primary);color:white}
+  .nav-item.active.completed .nav-num{background:var(--success)}
+  .nav-content{flex:1;min-width:0}
+  .nav-title{color:var(--text);line-height:1.3}
+  .nav-meta{font-size:10.5px;color:var(--text-muted);margin-top:2px}
+
+  .nav-section-title{font-size:10.5px;color:var(--primary-dark);text-transform:uppercase;letter-spacing:.5px;font-weight:700;margin:18px 12px 8px}
+
+  .main{grid-area:main;padding:40px 56px 80px;max-width:920px}
+  .module-header{margin-bottom:32px}
+  .module-eyebrow{color:var(--primary-light);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+  .module-title{font-size:32px;margin:0 0 8px;line-height:1.2}
+  .module-meta{color:var(--text-muted);font-size:14px}
+
+  .lesson{margin-bottom:28px}
+  .lesson p{margin:0 0 16px;font-size:16px}
+  .lesson h3{font-size:20px;margin:28px 0 12px}
+  .lesson h4{font-size:17px;margin:20px 0 8px}
+  .lesson ul,.lesson ol{padding-left:22px;margin:0 0 16px}
+  .lesson li{margin-bottom:6px}
+  .lesson strong{color:var(--primary)}
+
+  .info-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:20px 0;box-shadow:var(--shadow-sm)}
+  .info-card h4{margin:0 0 12px;color:var(--text-dark)}
+
+  .callout{border-radius:var(--radius);padding:16px 20px;margin:20px 0;border-left:4px solid}
+  .callout-info{background:#E3F2FD;border-color:#1565C0}
+  .callout-info strong{color:#1565C0}
+  .callout-warning{background:#FFF8E1;border-color:var(--warning)}
+  .callout-warning strong{color:#E65100}
+  .callout-success{background:#E8F5E9;border-color:var(--success)}
+  .callout-success strong{color:var(--success)}
+  .callout-tip{background:#fff4d4;border-color:var(--primary)}
+  .callout-tip strong{color:var(--primary-dark)}
+  .callout p{margin:0;color:var(--text-dark)}
+  .callout-icon{font-size:20px;margin-right:6px}
+
+  table.data-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px;background:var(--surface);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm)}
+  table.data-table th{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;padding:12px 14px;text-align:left;font-weight:700}
+  table.data-table td{padding:12px 14px;border-bottom:1px solid var(--border);vertical-align:top}
+  table.data-table tr:last-child td{border-bottom:none}
+  table.data-table tr:nth-child(even){background:#fffaeb}
+
+  .moment-card{display:grid;grid-template-columns:80px 1fr;gap:18px;align-items:start;padding:18px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:14px;box-shadow:var(--shadow-sm)}
+  .moment-num{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800}
+  .moment-content h4{margin:0 0 6px;color:var(--text-dark);font-size:17px}
+  .moment-content p{margin:0;font-size:14.5px;color:var(--text-muted)}
+  .moment-content .moment-time{font-size:11.5px;color:var(--primary-dark);text-transform:uppercase;letter-spacing:.5px;font-weight:700;margin-bottom:4px}
+
+  .quiz{background:linear-gradient(135deg,#fffaeb 0%,#FFF 100%);border:2px solid var(--primary-light);border-radius:var(--radius);padding:28px;margin:32px 0 24px;box-shadow:var(--shadow-sm)}
+  .quiz-header{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+  .quiz-badge{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;padding:5px 14px;border-radius:999px;font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+  .quiz h3{margin:0;font-size:19px}
+  .quiz-question{font-size:16px;font-weight:600;margin:16px 0 14px;color:var(--text)}
+  .quiz-options{display:grid;gap:10px;margin-bottom:16px}
+  .quiz-option{background:white;border:2px solid var(--border);border-radius:10px;padding:14px 16px;cursor:pointer;transition:all .15s;font-size:15px;text-align:left;display:flex;align-items:center;gap:12px;width:100%;font-family:inherit;color:var(--text);font-weight:500}
+  .quiz-option:hover:not(:disabled){border-color:var(--primary);background:#fffaeb;transform:translateX(2px)}
+  .quiz-option:disabled{cursor:default}
+  .quiz-option .option-letter{width:30px;height:30px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--text-muted);flex-shrink:0;background:#fffaeb}
+  .quiz-option.correct{border-color:var(--success);background:#E8F5E9}
+  .quiz-option.correct .option-letter{background:var(--success);color:white;border-color:var(--success)}
+  .quiz-option.incorrect{border-color:var(--error);background:var(--math-bg)}
+  .quiz-option.incorrect .option-letter{background:var(--error);color:white;border-color:var(--error)}
+  .quiz-feedback{padding:14px 16px;border-radius:10px;margin-top:12px;font-size:14.5px;display:none}
+  .quiz-feedback.show{display:block}
+  .quiz-feedback.correct{background:#E8F5E9;border-left:4px solid var(--success);color:#1B5E20}
+  .quiz-feedback.incorrect{background:var(--math-bg);border-left:4px solid var(--error);color:#B71C1C}
+
+  .btn{display:inline-block;padding:13px 28px;border-radius:999px;font-weight:700;cursor:pointer;border:none;font-size:14.5px;transition:all .2s;text-decoration:none;font-family:inherit;letter-spacing:.3px}
+  .btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
+  .btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;box-shadow:0 4px 12px rgba(243,147,0,.25)}
+  .btn-secondary{background:white;color:var(--primary-dark);border:2px solid var(--primary-light)}
+  .btn-block{width:100%;padding:14px}
+
+  .nav-buttons{display:flex;justify-content:space-between;align-items:center;margin-top:40px;padding-top:24px;border-top:1px solid var(--border);gap:12px;flex-wrap:wrap}
+
+  .quiz-progress{background:#f0e8d8;border-radius:4px;height:6px;overflow:hidden;margin:0 0 24px}
+  .quiz-progress-fill{background:linear-gradient(90deg,var(--primary),var(--primary-dark));height:100%;transition:width .3s}
+
+  .certificate{background:linear-gradient(135deg,#FFFEF5 0%,#FFF 100%);border:8px double var(--primary);padding:50px 32px;text-align:center;border-radius:var(--radius);margin:30px 0;box-shadow:var(--shadow-lg);position:relative}
+  .certificate::before{content:'';position:absolute;top:-1px;left:-1px;right:-1px;height:6px;background:linear-gradient(90deg,var(--primary-light),var(--primary),var(--primary-dark));border-radius:var(--radius) var(--radius) 0 0}
+  .cert-icon{font-size:54px;margin-bottom:14px;color:var(--primary)}
+  .cert-title{font-size:30px;color:var(--primary-dark);margin:0 0 4px}
+  .cert-subtitle{color:var(--text-muted);font-size:14px;font-weight:600}
+  .cert-name{font-size:26px;font-weight:800;color:var(--text-dark);margin:26px 0 8px;font-family:'Montserrat',serif}
+  .cert-body{font-size:15.5px;max-width:500px;margin:0 auto;line-height:1.7}
+  .cert-seal{margin-top:26px;padding-top:18px;border-top:2px solid var(--primary-light);font-size:13px;color:var(--text-muted)}
+
+  .welcome-overlay{position:fixed;inset:0;background:linear-gradient(135deg,rgba(243,147,0,.85) 0%,rgba(247,90,0,.9) 100%);display:flex;align-items:center;justify-content:center;z-index:100;backdrop-filter:blur(4px);padding:20px;overflow-y:auto}
+  .welcome-modal{background:white;border-radius:var(--radius);padding:40px 36px;max-width:580px;width:100%;text-align:center;box-shadow:var(--shadow-lg);max-height:90vh;overflow-y:auto;position:relative}
+  .welcome-modal::before{content:'';position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,var(--primary-light),var(--primary),var(--primary-dark));border-radius:var(--radius) var(--radius) 0 0}
+  .welcome-modal h2{font-size:24px;margin:0 0 12px}
+  .welcome-modal>p{font-size:15px;color:var(--text-muted);margin:0 0 22px}
+  .welcome-modal .stat-row{display:flex;justify-content:center;gap:24px;margin:24px 0}
+  .welcome-modal .stat-block{text-align:center}
+  .welcome-modal .stat-block-num{font-size:28px;font-weight:800;color:var(--primary-dark)}
+  .welcome-modal .stat-block-label{font-size:11.5px;color:var(--text-muted);text-transform:uppercase;font-weight:600}
+  .intake-input{width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-size:15px;font-family:inherit;margin-bottom:18px}
+  .intake-input:focus{outline:none;border-color:var(--primary)}
+
+  .welcome-hero{background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);color:white;padding:36px 32px;border-radius:var(--radius);margin-bottom:28px;position:relative;overflow:hidden;box-shadow:var(--shadow-lg)}
+  .welcome-hero::after{content:'';position:absolute;top:-50%;right:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(253,208,38,.2) 0%,transparent 70%);pointer-events:none}
+  .welcome-hero h2{color:white;margin:0 0 10px;font-size:28px;font-weight:800;position:relative;z-index:1}
+  .welcome-hero p{font-size:16px;opacity:.95;margin:0;font-weight:500;position:relative;z-index:1}
+  .welcome-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px;position:relative;z-index:1}
+  .stat{background:rgba(255,255,255,.15);border-radius:10px;padding:12px;text-align:center;backdrop-filter:blur(4px)}
+  .stat-num{font-size:24px;font-weight:800;color:var(--primary-light)}
+  .stat-label{font-size:11.5px;opacity:.95;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+
+  .reflection-area{width:100%;min-height:200px;padding:14px;border:2px solid var(--border);border-radius:var(--radius);font-family:inherit;font-size:15px;resize:vertical;margin-bottom:12px}
+  .reflection-area:focus{outline:none;border-color:var(--primary)}
+
+  @media (max-width:900px){
+    .app{grid-template-columns:1fr;grid-template-areas:"topbar" "main"}
+    .sidebar{position:fixed;top:64px;left:0;width:280px;height:calc(100vh - 64px);transform:translateX(-100%);transition:transform .3s;z-index:9;box-shadow:var(--shadow-lg)}
+    .sidebar.open{transform:translateX(0)}
+    .menu-btn{display:block}
+    .main{padding:24px 20px 60px}
+    .module-title{font-size:24px}
+    .topbar{padding:0 16px}
+    .topbar-meta{display:none}
+    .welcome-modal{padding:28px 22px}
+  }
+  .hidden{display:none!important}
+  @media print{.sidebar,.topbar,.nav-buttons,.btn{display:none!important}.app{display:block}.main{padding:20px}}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-title">Eligiendo Mi Camino</div>
+      <div class="brand-sub">Curso de perfeccionamiento docente — Matemáticas</div>
+    </div>
+    <div class="my-path">
+      <div class="my-path-label">Curso de perfeccionamiento</div>
+      <div class="my-path-name">📐 Tutor de IA de Matemáticas</div>
+      <div class="my-path-hours">8 horas pedagógicas · asincrónico</div>
+    </div>
+    <div class="nav-section-title">Módulos del curso</div>
+    <ul class="nav-list" id="navList"></ul>
+  </aside>
+
+  <header class="topbar">
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+    <div class="topbar-title" id="topbarTitle">Cargando…</div>
+    <div class="progress-wrap">
+      <div class="progress-text" id="progressText">0% completado</div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    </div>
+    <div class="topbar-meta"><span>📐 Mate · 8h</span></div>
+  </header>
+
+  <main class="main" id="main"></main>
+</div>
+
+<div class="welcome-overlay" id="welcomeOverlay">
+  <div class="welcome-modal" id="welcomeModalContent"></div>
+</div>
+
+<script>
+const MODULES = [
+  {
+    id: 'bienvenida',
+    title: 'Bienvenida y los 5 momentos',
+    eyebrow: 'Módulo 1 de 6',
+    duration: '~1 h',
+    content: () => `
+      <div class="welcome-hero">
+        <h2>Curso de Perfeccionamiento Docente</h2>
+        <p>Profundiza en la implementación del Tutor de IA de Matemáticas en el aula. Este curso es <strong>diferente</strong> de la capacitación inicial de 16h: aquí trabajamos sobre cómo hacerlo bien, con datos, y de forma diferenciada.</p>
+        <div class="welcome-stats">
+          <div class="stat"><div class="stat-num">8 h</div><div class="stat-label">Pedagógicas</div></div>
+          <div class="stat"><div class="stat-num">6</div><div class="stat-label">Módulos</div></div>
+          <div class="stat"><div class="stat-num">30%</div><div class="stat-label">De tu nota final</div></div>
+        </div>
+      </div>
+      <div class="lesson">
+        <h3>¿Por qué este curso?</h3>
+        <p>Este curso forma parte del <strong>componente "Productos y autoestudio" (30%)</strong> de tu certificación. Cuando lo completes, queda registrado automáticamente en eligiendomicamino.org y suma a tu nota.</p>
+        <p>El objetivo no es repetir lo que ya viste en marzo. Es darte herramientas concretas para los <strong>5 momentos de cada sesión en laboratorio</strong> con el Tutor de IA.</p>
+
+        <h3>Los 5 momentos de la sesión con Tutor IA</h3>
+        <p>Toda sesión bien implementada tiene estructura. Estos cinco momentos son la base operativa. Memorízalos — son el esqueleto de tu protocolo.</p>
+
+        <div class="moment-card">
+          <div class="moment-num">1</div>
+          <div class="moment-content">
+            <div class="moment-time">~5 min · Apertura</div>
+            <h4>Bienvenida y conexión</h4>
+            <p>Recibes a tus estudiantes, te aseguras de que <strong>todos accedan a uDocz</strong> con sus credenciales (no las suyas, las del programa) y verificas que tú también iniciaste sesión con tu usuario docente — sin ese paso, la sesión no se registra.</p>
+          </div>
+        </div>
+
+        <div class="moment-card">
+          <div class="moment-num">2</div>
+          <div class="moment-content">
+            <div class="moment-time">~5 min · Encuadre</div>
+            <h4>Objetivo y expectativa</h4>
+            <p>Anuncias qué temática trabajarán esta semana y qué esperas que practiquen con el Tutor IA. <strong>Una frase corta</strong>: "Hoy seguimos con razones trigonométricas; vamos a llegar al menos al ejercicio 3 del bloque".</p>
+          </div>
+        </div>
+
+        <div class="moment-card">
+          <div class="moment-num">3</div>
+          <div class="moment-content">
+            <div class="moment-time">~50 min · Práctica</div>
+            <h4>Trabajo individual con monitoreo</h4>
+            <p>Los estudiantes resuelven con la IA. Tú <strong>circulas con el dashboard abierto en una laptop</strong>. Buscas patrones (errores frecuentes, estudiantes que se trabaron) e intervienes <strong>solo cuando es necesario</strong>: si la IA ya está apoyando bien al estudiante, no interrumpas.</p>
+          </div>
+        </div>
+
+        <div class="moment-card">
+          <div class="moment-num">4</div>
+          <div class="moment-content">
+            <div class="moment-time">~10 min · Intervención focalizada</div>
+            <h4>Mini-clase puntual</h4>
+            <p>Si el dashboard muestra un <strong>error conceptual frecuente</strong> en 3+ estudiantes (ej: confundir seno con coseno), pausa la práctica individual y haz una explicación rápida en pizarra para todos. Después regresan con la IA con esa idea fresca.</p>
+          </div>
+        </div>
+
+        <div class="moment-card">
+          <div class="moment-num">5</div>
+          <div class="moment-content">
+            <div class="moment-time">~10 min · Cierre</div>
+            <h4>Síntesis y próximos pasos</h4>
+            <p>Recoges con la clase qué fue lo más difícil, validas con el dashboard a quién retomar la próxima sesión y dejas tarea (con o sin plataforma). Cierra siempre con un mensaje breve sobre qué viene.</p>
+          </div>
+        </div>
+
+        <div class="callout callout-tip"><p><span class="callout-icon">💡</span><strong>Regla de oro:</strong> el Tutor IA es muy bueno en práctica individual y feedback inmediato. Tú eres mejor en intervención conceptual y manejo del grupo. <strong>No compitas con la IA, complétala.</strong></p></div>
+      </div>
+    `,
+    quiz: {
+      question: 'En el momento 3 (práctica), ¿cuándo debes intervenir directamente con un estudiante?',
+      options: [
+        'Siempre que el estudiante haga una pregunta',
+        'Solo cuando la IA no logre desbloquearlo o cuando veas un error conceptual repetido en varios',
+        'Nunca — el Tutor IA se encarga de todo',
+        'Cada 10 minutos como protocolo fijo'
+      ],
+      correct: 1,
+      feedback: {
+        correct: 'Exacto. La idea es complementar a la IA, no duplicarla. Intervén cuando aporta valor: cuando la IA no destraba al estudiante, o cuando ves un patrón colectivo que merece una mini-clase.',
+        incorrect: 'La intervención debe ser <strong>focalizada</strong>: cuando la IA no logra desbloquear al estudiante o cuando ves un error conceptual repetido en varios. Si intervienes en cada pregunta, le quitas espacio a la práctica individual con la IA.'
+      }
+    }
+  },
+
+  {
+    id: 'dashboard',
+    title: 'Lectura del dashboard',
+    eyebrow: 'Módulo 2 de 6',
+    duration: '~1.5 h',
+    content: () => `
+      <div class="lesson">
+        <p>El dashboard del docente es la herramienta más subutilizada del programa. Bien usado, te ahorra horas de corrección y te dice exactamente qué intervención hacer. Mal usado, es solo una pantalla con números.</p>
+
+        <h3>Qué muestra el dashboard</h3>
+        <table class="data-table">
+          <thead><tr><th>Indicador</th><th>Qué te dice</th><th>Cuándo lo miras</th></tr></thead>
+          <tbody>
+            <tr><td><strong>% Avance por estudiante</strong></td><td>Quién va al ritmo y quién se quedó atrás</td><td>Inicio y fin de cada sesión</td></tr>
+            <tr><td><strong>Tiempo promedio por ejercicio</strong></td><td>Si están leyendo o si hacen click sin pensar</td><td>Mid-sesión — si es muy bajo, alerta</td></tr>
+            <tr><td><strong>Errores conceptuales frecuentes</strong></td><td>Patrones de equivocación del grupo</td><td>Mid-sesión y al final</td></tr>
+            <tr><td><strong>Intentos hasta acertar</strong></td><td>Quiénes están adivinando vs. razonando</td><td>Al final de la sesión</td></tr>
+            <tr><td><strong>Conversaciones con la IA</strong></td><td>Si los estudiantes piden ayuda o solo respuestas</td><td>Periódicamente</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Errores conceptuales frecuentes en Matemática 5to</h3>
+        <p>Estos son los patrones más comunes que vas a ver en el dashboard. Cuando aparecen, son señal de hacer una intervención focalizada (Momento 4).</p>
+
+        <div class="info-card">
+          <h4>🔢 En álgebra y funciones</h4>
+          <ul>
+            <li><strong>Confundir variable con incógnita:</strong> tratan x como un número desconocido fijo cuando es una variable.</li>
+            <li><strong>Distribución incorrecta:</strong> (a+b)² = a² + b² (les falta el doble producto).</li>
+            <li><strong>Cancelación errónea:</strong> "tachar" letras en numerador y denominador sin verificar factor común.</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h4>📐 En trigonometría</h4>
+          <ul>
+            <li><strong>Confundir seno y coseno:</strong> recordar que seno es opuesto/hipotenusa, no adyacente.</li>
+            <li><strong>Ángulos en grados vs. radianes:</strong> el aplicar fórmulas con la unidad equivocada.</li>
+            <li><strong>Confundir razones inversas:</strong> sec ≠ sen⁻¹.</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h4>📊 En probabilidad y estadística</h4>
+          <ul>
+            <li><strong>Eventos independientes vs. mutuamente excluyentes</strong>: confundir cuándo se suman y cuándo se multiplican probabilidades.</li>
+            <li><strong>Diferencia entre media, mediana y moda</strong> en distribuciones asimétricas.</li>
+            <li><strong>Falacia del jugador:</strong> creer que después de varias caras "toca" sello.</li>
+          </ul>
+        </div>
+
+        <h3>Cómo leer el dashboard en 60 segundos</h3>
+        <ol>
+          <li><strong>Mira primero el bloque rojo</strong> (avance bajo, intentos altos): ahí están los estudiantes que más necesitan tu atención individual.</li>
+          <li><strong>Después el bloque amarillo</strong> (errores conceptuales repetidos): ahí está tu próxima mini-clase grupal.</li>
+          <li><strong>Por último el verde</strong>: estos estudiantes están bien. Confirma con una pregunta corta y déjalos avanzar a su ritmo.</li>
+        </ol>
+
+        <div class="callout callout-warning"><p><span class="callout-icon">⚠️</span><strong>No lo uses como "vigilancia":</strong> los estudiantes notan si miras el dashboard solo para regañar. Úsalo como herramienta para apoyarlos, y diles que es eso. Pueden ver su propio dashboard también.</p></div>
+      </div>
+    `,
+    quiz: {
+      question: 'Ves en el dashboard que 4 estudiantes tienen "tiempo promedio por ejercicio: 8 segundos". ¿Qué interpretas?',
+      options: [
+        'Son los más rápidos — déjalos avanzar',
+        'Probablemente están haciendo click sin leer, pidiendo respuesta a la IA o adivinando',
+        'El sistema tiene un error',
+        'No hay forma de saberlo desde el dashboard'
+      ],
+      correct: 1,
+      feedback: {
+        correct: 'Correcto. 8 segundos es muy poco para leer un enunciado y razonar. Suele indicar adivinanza o uso pasivo de la IA. Vale acercarse a esos estudiantes y pedirles que te expliquen un ejercicio resuelto.',
+        incorrect: 'Un tiempo de ~8 segundos por ejercicio en Matemática es demasiado bajo para leer y resolver. Probablemente están adivinando, haciendo click rápido o pidiéndole la respuesta directa a la IA. Vale acercarse y pedirles que expliquen un ejercicio resuelto.'
+      }
+    }
+  },
+
+  {
+    id: 'intervencion',
+    title: 'Estrategias de intervención',
+    eyebrow: 'Módulo 3 de 6',
+    duration: '~1.5 h',
+    content: () => `
+      <div class="lesson">
+        <p>Una intervención pedagógica diferenciada significa que <strong>no todos los estudiantes reciben la misma respuesta</strong>. El dashboard te dice quién necesita qué.</p>
+
+        <h3>Tres tipos de intervención</h3>
+
+        <div class="info-card">
+          <h4>🎯 1. Intervención individual focalizada</h4>
+          <p><strong>Cuándo:</strong> 1–2 estudiantes específicos están trabados con un concepto que el grupo en general entiende.</p>
+          <p><strong>Cómo:</strong> te acercas, te sientas a su lado, no le das la respuesta. Le pides que te explique qué intentó. Le haces preguntas que lo lleven a notar el error: "¿qué le falta a este lado de la ecuación?". 2–3 minutos máximo. Si no destrabas, déjale una idea concreta y vuelve después.</p>
+          <p><strong>No haces:</strong> resolver tú el ejercicio, dictar pasos.</p>
+        </div>
+
+        <div class="info-card">
+          <h4>🧑‍🏫 2. Mini-clase grupal (Momento 4)</h4>
+          <p><strong>Cuándo:</strong> el dashboard muestra un error conceptual repetido en 3+ estudiantes.</p>
+          <p><strong>Cómo:</strong> pausas la práctica con una frase tipo "espera 2 minutos, hagamos algo juntos". Vas a la pizarra, planteas un ejemplo del error (sin nombrar a nadie) y muestras dos caminos — el incorrecto y el correcto. Pides que un voluntario explique en sus palabras. Vuelven a la práctica con la IA llevándose esa idea fresca. <strong>Máximo 10 minutos.</strong></p>
+        </div>
+
+        <div class="info-card">
+          <h4>👥 3. Tutoría entre pares</h4>
+          <p><strong>Cuándo:</strong> hay un estudiante que terminó temprano y otro que se trabó.</p>
+          <p><strong>Cómo:</strong> emparejas. La regla: el que ya terminó <strong>no le da la respuesta</strong>, le hace preguntas. Tú supervisás 30 segundos para asegurar que la dinámica funciona, y los dejas. Aprenden los dos.</p>
+        </div>
+
+        <h3>Marco de decisión rápida</h3>
+        <p>Cuando estás en sesión y ves algo, usá este árbol:</p>
+        <table class="data-table">
+          <thead><tr><th>Lo que ves en el dashboard</th><th>Tu intervención</th></tr></thead>
+          <tbody>
+            <tr><td>1 estudiante trabado, el resto avanza</td><td>Intervención individual focalizada (2–3 min)</td></tr>
+            <tr><td>3+ con el mismo error conceptual</td><td>Mini-clase grupal (~10 min)</td></tr>
+            <tr><td>Un grupo que terminó, varios trabados</td><td>Tutoría entre pares</td></tr>
+            <tr><td>Tiempo bajo + intentos altos en pocos</td><td>Sentarte con cada uno y pedirle que te explique un ejercicio</td></tr>
+            <tr><td>Todo en verde</td><td>No intervengas. Confirma con preguntas, no perturbés el flujo.</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-tip"><p><span class="callout-icon">💡</span><strong>El error más común del docente:</strong> intervenir en TODOS por igual. Si la IA está haciendo bien su trabajo con un estudiante, déjala. Tu tiempo y energía son finitos. Inviértelos donde marcan diferencia.</p></div>
+
+        <h3>Lenguaje que ayuda y lenguaje que no ayuda</h3>
+        <table class="data-table">
+          <thead><tr><th>Evita</th><th>Mejor</th></tr></thead>
+          <tbody>
+            <tr><td>"Está mal"</td><td>"Mira otra vez este paso, ¿qué notás?"</td></tr>
+            <tr><td>"Te lo explico"</td><td>"Contame qué intentaste"</td></tr>
+            <tr><td>"Es fácil"</td><td>"Es un tema que cuesta a muchos, vamos despacio"</td></tr>
+            <tr><td>"La IA te lo va a explicar"</td><td>"Probemos juntos primero, después confirmamos con la IA"</td></tr>
+          </tbody>
+        </table>
+      </div>
+    `,
+    quiz: {
+      question: 'Ves en el dashboard que un estudiante lleva 12 minutos en el mismo ejercicio, con 4 intentos. La IA le ha dado pistas. ¿Qué haces?',
+      options: [
+        'Le dicto la respuesta para que avance',
+        'Lo dejo, la IA está haciendo su trabajo',
+        'Me siento al lado, le pido que me explique qué intentó, le hago preguntas que lo lleven al error',
+        'Llamo al grupo entero para resolver el ejercicio en pizarra'
+      ],
+      correct: 2,
+      feedback: {
+        correct: 'Exacto. Es una intervención individual focalizada: la IA ya intentó (4 intentos, pistas) y no destrabó. Tu valor está en hacer preguntas que el estudiante pueda responder.',
+        incorrect: 'La IA ya intentó (4 intentos, pistas) y no destrabó. Es momento de intervención individual focalizada: sentarte, pedirle que te explique, hacerle preguntas. Dictar la respuesta no enseña; ignorarlo lo frustra; parar al grupo es excesivo si solo es un caso.'
+      }
+    }
+  },
+
+  {
+    id: 'curricular',
+    title: 'Integración con tu programación curricular',
+    eyebrow: 'Módulo 4 de 6',
+    duration: '~1.5 h',
+    content: () => `
+      <div class="lesson">
+        <p>El Tutor de IA no reemplaza tu programación curricular del área de Matemática del 5to año. <strong>La complementa.</strong> Este módulo te da el marco para integrar las dos cosas sin duplicar trabajo.</p>
+
+        <h3>Qué hace bien la IA y qué hacés vos</h3>
+        <table class="data-table">
+          <thead><tr><th>El Tutor IA</th><th>Tú (docente)</th></tr></thead>
+          <tbody>
+            <tr><td>Práctica individualizada con feedback inmediato</td><td>Conexión del tema con la realidad del estudiante</td></tr>
+            <tr><td>Detección automática de errores comunes</td><td>Conducción del grupo, manejo de aula, motivación</td></tr>
+            <tr><td>Disponibilidad ilimitada para resolver dudas básicas</td><td>Evaluación cualitativa del razonamiento</td></tr>
+            <tr><td>Adaptación del nivel al ritmo del estudiante</td><td>Decisión pedagógica sobre qué temas profundizar</td></tr>
+            <tr><td>Registro de progreso para el dashboard</td><td>Diseño de evaluaciones y proyectos integradores</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Mapeo del programa EMC con tu currículo</h3>
+        <p>El Tutor IA cubre los temas centrales del currículo nacional para 5to año. Tu trabajo es mapearlos a tu programación. Esta es una guía de mapeo:</p>
+        <table class="data-table">
+          <thead><tr><th>Bloque del currículo nacional</th><th>Cobertura del Tutor IA</th><th>Lo que conviene complementar</th></tr></thead>
+          <tbody>
+            <tr><td>Funciones (lineales, cuadráticas, exponenciales)</td><td>Alta</td><td>Modelado de problemas reales</td></tr>
+            <tr><td>Trigonometría</td><td>Alta</td><td>Aplicaciones (alturas, ángulos en contexto)</td></tr>
+            <tr><td>Geometría analítica</td><td>Media</td><td>Construcciones con regla y compás</td></tr>
+            <tr><td>Probabilidad y estadística</td><td>Alta</td><td>Análisis de datos de su entorno</td></tr>
+            <tr><td>Sucesiones y progresiones</td><td>Media</td><td>Patrones culturales / financieros</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Modelo semanal sugerido</h3>
+        <div class="info-card">
+          <h4>📅 1 sesión de Tutor IA por semana (~2h)</h4>
+          <p>Práctica individual con la IA + tu monitoreo + intervenciones focalizadas. Es la sesión de aprendizaje principal del programa EMC.</p>
+        </div>
+        <div class="info-card">
+          <h4>📅 1–2 clases tradicionales por semana</h4>
+          <p>Aquí trabajas: introducción de un tema nuevo, conexión con problemas reales del estudiante, evaluación formativa, dinámicas grupales que la IA no puede hacer.</p>
+        </div>
+        <div class="info-card">
+          <h4>📅 Tarea (con o sin plataforma)</h4>
+          <p>Para los temas donde el Tutor IA tiene cobertura alta, deja tarea en la plataforma — el sistema te dará el reporte. Para los temas más contextuales, tarea tradicional.</p>
+        </div>
+
+        <h3>Las sesiones de aprendizaje (tu producto entregable)</h3>
+        <p>Recuerda: para tu certificación necesitas entregar <strong>~8 sesiones de aprendizaje documentadas</strong> (mínimo 5). Cada documento describe una sesión real que facilitaste. Estructura sugerida:</p>
+        <ol>
+          <li><strong>Datos:</strong> fecha, sección, semana del programa, competencia MBDD trabajada (de las 4 que aplican: 2, 4, 5, 8).</li>
+          <li><strong>Tema y subtema</strong>: ej. "Razones trigonométricas — seno y coseno en triángulo rectángulo".</li>
+          <li><strong>Protocolo de la sesión:</strong> los 5 momentos aplicados con detalle.</li>
+          <li><strong>Datos del dashboard al cierre:</strong> qué viste, qué intervención hiciste.</li>
+          <li><strong>Reflexión breve:</strong> qué funcionó, qué cambiarías.</li>
+        </ol>
+
+        <div class="callout callout-tip"><p><span class="callout-icon">💡</span>No tenés que entregar las 8 al final. <strong>Hacelo progresivo</strong>: una al final de cada semana, mientras la sesión está fresca. Te ahorra trabajo en julio.</p></div>
+      </div>
+    `,
+    quiz: {
+      question: 'Para tu certificación de 80h, debes entregar sesiones de aprendizaje documentadas. ¿Cuál es el enfoque correcto?',
+      options: [
+        'Acumular todas las sesiones y entregar las 8 en la última semana',
+        'Entregar 8 inventadas, no necesitan ser de sesiones reales',
+        'Documentar progresivamente las que efectivamente facilitas (~1 por semana), entregar al menos 5 para aprobar',
+        'Solo entregar las que me salieron bien'
+      ],
+      correct: 2,
+      feedback: {
+        correct: 'Exacto. La idea es documentar tu práctica real, no inventar. Hacerlo progresivo (una por semana) las distribuye y mantiene la información fresca. Mínimo aprobatorio: 5 de las 8 esperadas.',
+        incorrect: 'El objetivo es <strong>documentar tu práctica real, progresivamente</strong>: una al final de cada semana mientras la sesión está fresca. Mínimo aprobatorio = 5 de las 8 esperadas. Acumular todas para el final genera trabajo de última hora; inventar no documenta tu práctica; entregar solo "las buenas" pierde el sentido pedagógico.'
+      }
+    }
+  },
+
+  {
+    id: 'casos',
+    title: 'Casos de estudio y troubleshooting',
+    eyebrow: 'Módulo 5 de 6',
+    duration: '~1 h',
+    content: () => `
+      <div class="lesson">
+        <p>Estos son los escenarios más reportados por docentes del piloto en su primer mes de implementación, con resoluciones probadas.</p>
+
+        <h3>Caso 1: "El Tutor IA le da la respuesta directa"</h3>
+        <div class="info-card">
+          <h4>🎯 Síntoma</h4>
+          <p>Un estudiante le pregunta a la IA "¿cuánto da?" y la IA responde con el resultado.</p>
+          <h4>📋 Diagnóstico</h4>
+          <p>El estudiante está aprendiendo a "extraer respuestas" en vez de razonar. Es un patrón de uso pasivo.</p>
+          <h4>✅ Resolución</h4>
+          <p>Tres movimientos: (1) recordar al grupo al inicio que la IA es para apoyar el razonamiento, no para dar respuestas; (2) pedirle al estudiante que te explique cómo llegó a la respuesta antes de avanzar; (3) si persiste, mover al estudiante a tutoría entre pares.</p>
+        </div>
+
+        <h3>Caso 2: "Se cayó el internet a mitad de sesión"</h3>
+        <div class="info-card">
+          <h4>🎯 Síntoma</h4>
+          <p>El laboratorio pierde conexión y los estudiantes no pueden seguir con la IA.</p>
+          <h4>✅ Resolución</h4>
+          <p>Tener siempre <strong>una actividad de respaldo offline</strong> (5 ejercicios en hoja, problema abierto, dinámica de tutoría entre pares). Que el coordinador AIP repare la conexión y mientras tanto trabajen en eso. La sesión todavía cuenta como facilitada — repórtalo en el dashboard cuando vuelva la red.</p>
+        </div>
+
+        <h3>Caso 3: "Estudiantes que terminan muy temprano"</h3>
+        <div class="info-card">
+          <h4>🎯 Síntoma</h4>
+          <p>Dos o tres estudiantes terminan su bloque a los 30 minutos y empiezan a aburrirse.</p>
+          <h4>✅ Resolución</h4>
+          <p>Opciones: (1) tutoría entre pares con compañeros trabados; (2) ejercicios de extensión que tengas preparados (el Tutor IA tiene un nivel "desafío"); (3) pedirles que escriban una explicación de un concepto en sus palabras como si fueran a enseñarlo. Lo que NO conviene: dejarlos sin tarea porque empiezan a distraer al resto.</p>
+        </div>
+
+        <h3>Caso 4: "Un estudiante se rehúsa a usar la IA"</h3>
+        <div class="info-card">
+          <h4>🎯 Síntoma</h4>
+          <p>Un estudiante dice "esto no sirve", "prefiero el cuaderno", se cruza de brazos.</p>
+          <h4>✅ Resolución</h4>
+          <p>No forzar. Hablar después de la sesión, escuchar la razón (a veces es ansiedad, a veces es legítimo escepticismo). Si la razón es ansiedad, ofrecer empezar con un ejercicio fácil para que vea cómo funciona. Si es escepticismo razonado, escucharlo y proponer un período de prueba de 2 sesiones. La presencia se registra igual aunque no haya completado todo.</p>
+        </div>
+
+        <h3>Caso 5: "Estudiantes con dificultades de comprensión lectora"</h3>
+        <div class="info-card">
+          <h4>🎯 Síntoma</h4>
+          <p>El estudiante no entiende el enunciado del problema (no es problema matemático, es lectura).</p>
+          <h4>✅ Resolución</h4>
+          <p>Es muy común en 5to. La IA puede reformular el enunciado si el estudiante le pide. Enseñarles a usar esa función ("dime esto en palabras más simples") es una intervención de alto impacto. Marcar al estudiante para seguimiento individual: la dificultad lectora afecta toda su escolaridad, no solo Matemática.</p>
+        </div>
+
+        <h3>Caso 6: "Estudiantes con discapacidad cognitiva (inclusión)"</h3>
+        <div class="info-card">
+          <h4>🎯 Síntoma</h4>
+          <p>Un estudiante de inclusión no logra acceder a los contenidos del Tutor IA.</p>
+          <h4>✅ Resolución</h4>
+          <p>Reportar el caso en tu Anexo 2 (fase anticipada) o en tu próximo feedback. <strong>Estos estudiantes no afectan tu nota</strong> — el equipo EMC los excluye del cómputo. Tu trabajo con ellos puede ser distinto: actividades adaptadas en paralelo, sin presionar por completar la plataforma.</p>
+        </div>
+
+        <h3>Cuándo escalar al equipo EMC</h3>
+        <p>No todo lo resolvés solo. Llamá al equipo EMC cuando:</p>
+        <ul>
+          <li>El problema técnico persiste más de 1 sesión completa.</li>
+          <li>Detectas un comportamiento sistemático del Tutor IA (ej: respuestas incorrectas en un tema específico).</li>
+          <li>Tienes un caso de inclusión o socioemocional que necesita criterio externo.</li>
+          <li>Cualquier situación que afecte la seguridad o bienestar de un estudiante.</li>
+        </ul>
+        <p><strong>Correo:</strong> eligiendomicamino@worldbankgroup.org</p>
+      </div>
+    `,
+    quiz: {
+      question: 'Tu coordinador AIP te avisa que la sala se cayó del internet 20 minutos después de iniciar la sesión. Ya pasaron 30 min y no la levantan. ¿Qué decides?',
+      options: [
+        'Cancelar la sesión y enviar a los estudiantes a sus aulas',
+        'Activar la actividad de respaldo offline que tenías preparada — la sesión todavía cuenta',
+        'Esperar en silencio hasta que vuelva el internet',
+        'Pedir a los estudiantes que vayan a la biblioteca a esperar'
+      ],
+      correct: 1,
+      feedback: {
+        correct: 'Exacto. Tener un plan B offline (5 ejercicios, problema abierto, tutoría entre pares) es parte de la profesionalidad docente. La sesión sigue siendo formativa y se acredita igual.',
+        incorrect: 'Lo correcto es <strong>activar tu actividad de respaldo offline</strong>: hojas con ejercicios, problema abierto, tutoría entre pares. La sesión sigue siendo formativa y queda registrada cuando vuelve la red. Cancelar pierde la oportunidad pedagógica; esperar en silencio frustra a los estudiantes.'
+      }
+    }
+  },
+
+  {
+    id: 'final',
+    title: 'Quiz final + reflexión',
+    eyebrow: 'Módulo 6 de 6',
+    duration: '~30 min',
+    isFinal: true,
+    content: () => `
+      <div class="lesson">
+        <p>Para acreditar el curso de perfeccionamiento docente y que se registre tu cumplimiento (componente 30% productos):</p>
+        <ol>
+          <li><strong>Responde correctamente al menos 6 de 8 preguntas</strong> del quiz final.</li>
+          <li><strong>Escribe una reflexión breve</strong> (1–2 párrafos) sobre cómo aplicarás algo de este curso en tu próxima sesión.</li>
+        </ol>
+        <p>Una vez completes ambas partes, tu progreso queda registrado automáticamente en eligiendomicamino.org.</p>
+
+        <h3>Evaluación final</h3>
+        <button class="btn btn-primary" onclick="startFinalQuiz()" id="startBtn">Empezar quiz final</button>
+        <div id="finalQuizContainer"></div>
+
+        <h3 id="reflexionTitle" style="display:none;">Reflexión</h3>
+        <div id="reflexionContainer"></div>
+      </div>
+    `
+  }
+];
+
+const FINAL_QUIZ = [
+  {q:'¿Cuál es el objetivo del Momento 4 (intervención focalizada)?',o:['Reemplazar a la IA en la enseñanza individual','Hacer una mini-clase grupal cuando el dashboard muestra un error conceptual repetido en varios estudiantes','Cancelar la sesión','Repasar la tarea de la semana anterior'],c:1},
+  {q:'En el dashboard ves un estudiante con tiempo promedio por ejercicio de 7 segundos. ¿Qué te dice eso?',o:['Es un genio','Probablemente está adivinando o pidiendo respuestas a la IA sin razonar','El sistema está fallando','No es información útil'],c:1},
+  {q:'Para tu certificación de 80h ¿cuántas sesiones de aprendizaje documentadas necesitas como mínimo?',o:['8','16','5','3'],c:2},
+  {q:'¿Cuándo deberías hacer una intervención individual focalizada con un estudiante?',o:['En cada pregunta que haga','Cuando la IA ya intentó y no logró desbloquearlo, o cuando el dashboard muestra dificultad sostenida','Solo al inicio de la sesión','Cuando el estudiante pide ayuda en voz alta'],c:1},
+  {q:'Un estudiante de inclusión cognitiva no logra acceder a los contenidos del Tutor IA. ¿Qué efecto tiene en tu nota?',o:['Reduce tu nota porque el estudiante no avanzó','No afecta tu nota — el equipo EMC excluye estos casos del cómputo si los reportas','Te impide certificarte','Solo afecta si son varios estudiantes'],c:1},
+  {q:'Si se cae el internet a mitad de sesión, ¿qué debes hacer?',o:['Cancelar la sesión','Activar una actividad de respaldo offline; la sesión sigue contando como facilitada','Enviar a los estudiantes a sus casas','Mover la sesión al sábado'],c:1},
+  {q:'¿Cuál de estas frases es la mejor intervención cuando un estudiante se equivoca?',o:['"Está mal, mira."','"Te lo explico de nuevo."','"Mira otra vez este paso, ¿qué notás?"','"Es fácil, no entiendo cómo no lo haces."'],c:2},
+  {q:'¿Cuál es la regla general sobre cuándo NO intervenir?',o:['Nunca, siempre interviene','Cuando los estudiantes están trabajando bien con la IA y el dashboard muestra avance — no perturbes el flujo','Solo si hay menos de 5 estudiantes','Cuando la sesión ya pasó la mitad'],c:1}
+];
+
+const STORAGE_KEY = 'emc_perf_mate_v1';
+let state = loadState();
+
+function loadState() {
+  try {
+    const s = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    return {
+      currentModule: s.currentModule || 0,
+      completed: s.completed || {},
+      finalAnswers: s.finalAnswers || {},
+      finalCompleted: s.finalCompleted || false,
+      reflexion: s.reflexion || '',
+      userName: s.userName || '',
+      userDni: s.userDni || '',
+      userSchool: s.userSchool || '',
+      started: s.started || false
+    };
+  } catch(e) {
+    return { currentModule:0, completed:{}, finalAnswers:{}, finalCompleted:false, reflexion:'', userName:'', userDni:'', userSchool:'', started:false };
+  }
+}
+
+var TRACKING_URL = 'https://script.google.com/macros/s/AKfycbyUeu-Q_wesHnr9Df_OKWgfM6_o7pOMPP2Z5tlxATllORSfAYTDSYKcm-JsqJjS2Rd7/exec';
+function trackProgress(moduleId, stepTitle) {
+  if (!state.userName || !state.userDni) return;
+  var data = {
+    timestamp: new Date().toISOString(),
+    name: state.userName,
+    dni: state.userDni,
+    school: state.userSchool || '',
+    materia: 'mat',
+    track: 'PERF-MATE',
+    moduleId: moduleId,
+    stepTitle: stepTitle || '',
+    status: 'COMPLETED'
+  };
+  var params = Object.keys(data).map(function(k) { return k + '=' + encodeURIComponent(data[k]); }).join('&');
+  try { fetch(TRACKING_URL + '?' + params, { mode: 'no-cors' }).catch(function(){}); } catch(e){}
+}
+function saveState() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+function resetState() {
+  localStorage.removeItem(STORAGE_KEY);
+  state = loadState();
+  window.location.href = window.location.pathname + '?reset=1';
+}
+
+function renderIntake() {
+  const overlay = document.getElementById('welcomeOverlay');
+  const modal = document.getElementById('welcomeModalContent');
+  overlay.classList.remove('hidden');
+  const ready = state.userName && state.userDni && state.userSchool;
+  modal.innerHTML = `
+    <div style="font-size:48px;margin-bottom:8px;">📐</div>
+    <h2>Curso de perfeccionamiento docente</h2>
+    <p>Matemáticas — Tutor de IA en el aula. <strong>8 horas pedagógicas asincrónicas</strong>. Tu progreso queda registrado para tu certificación.</p>
+    <div class="stat-row">
+      <div class="stat-block"><div class="stat-block-num">6</div><div class="stat-block-label">Módulos</div></div>
+      <div class="stat-block"><div class="stat-block-num">~6 h</div><div class="stat-block-label">Reales</div></div>
+      <div class="stat-block"><div class="stat-block-num">6/8</div><div class="stat-block-label">Quiz mínimo</div></div>
+    </div>
+    <input type="text" class="intake-input" id="userNameInput" placeholder="Nombre completo *" value="${state.userName||''}" oninput="onPersonalInput()">
+    <input type="text" class="intake-input" id="userDniInput" placeholder="DNI *" value="${state.userDni||''}" maxlength="12" oninput="onPersonalInput()">
+    <input type="text" class="intake-input" id="userSchoolInput" placeholder="Institución educativa *" value="${state.userSchool||''}" oninput="onPersonalInput()">
+    <button class="btn btn-primary btn-block" id="startBtnIntake" ${!ready?'disabled':''} onclick="startCourse()">Empezar curso →</button>
+  `;
+}
+
+function onPersonalInput() {
+  const name = (document.getElementById('userNameInput')||{}).value || '';
+  const dni = (document.getElementById('userDniInput')||{}).value || '';
+  const school = (document.getElementById('userSchoolInput')||{}).value || '';
+  const btn = document.getElementById('startBtnIntake');
+  if (btn) btn.disabled = !(name.trim() && dni.trim() && school.trim());
+}
+
+function startCourse() {
+  const name = document.getElementById('userNameInput').value.trim();
+  const dni = document.getElementById('userDniInput').value.trim();
+  const school = document.getElementById('userSchoolInput').value.trim();
+  if (!name || !dni || !school) return;
+  state.userName = name; state.userDni = dni; state.userSchool = school;
+  state.started = true; state.currentModule = 0;
+  saveState();
+  trackProgress('ENROLLED', 'Inscripción al curso de perfeccionamiento Mate');
+  document.getElementById('welcomeOverlay').classList.add('hidden');
+  renderModule(); renderSidebar(); renderProgress();
+}
+
+function renderSidebar() {
+  const list = document.getElementById('navList');
+  list.innerHTML = '';
+  MODULES.forEach((m, i) => {
+    const li = document.createElement('li');
+    li.className = 'nav-item';
+    if (i === state.currentModule) li.classList.add('active');
+    if (state.completed[m.id]) li.classList.add('completed');
+    li.innerHTML = `
+      <div class="nav-num"><span>${i + 1}</span></div>
+      <div class="nav-content">
+        <div class="nav-title">${m.title}</div>
+        <div class="nav-meta">${m.duration}</div>
+      </div>
+    `;
+    li.onclick = () => goToModule(i);
+    list.appendChild(li);
+  });
+}
+
+function renderProgress() {
+  const total = MODULES.length;
+  const done = MODULES.filter(m => state.completed[m.id]).length;
+  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${done} de ${total} módulos completados (${pct}%)`;
+}
+
+function renderModule(opts) {
+  opts = opts || {};
+  const savedScroll = opts.preserveScroll ? window.scrollY : 0;
+  const m = MODULES[state.currentModule];
+  document.getElementById('topbarTitle').textContent = m.title;
+  const main = document.getElementById('main');
+  const contentHtml = typeof m.content === 'function' ? m.content() : m.content;
+  let html = `
+    <div class="module-header">
+      <div class="module-eyebrow">${m.eyebrow} · ${m.duration}</div>
+      <h1 class="module-title">${m.title}</h1>
+    </div>
+    ${contentHtml}
+  `;
+  if (!m.isFinal && m.quiz) {
+    html += renderQuiz(m.id, m.quiz, state.completed[m.id]);
+  }
+  html += renderNavButtons();
+  main.innerHTML = html;
+  if (opts.preserveScroll) window.scrollTo(0, savedScroll); else window.scrollTo(0, 0);
+  if (m.isFinal && state.finalCompleted) {
+    const correct = countCorrect(state.finalAnswers, FINAL_QUIZ);
+    if (correct >= 6 && state.reflexion) showCertificate(correct);
+  }
+}
+
+function renderQuiz(moduleId, quiz, completed) {
+  const savedAnswer = completed ? completed.answer : undefined;
+  let optionsHtml = quiz.options.map((opt, i) => {
+    let cls = 'quiz-option';
+    let disabled = '';
+    if (savedAnswer !== undefined) {
+      disabled = 'disabled';
+      if (i === quiz.correct) cls += ' correct';
+      else if (i === savedAnswer) cls += ' incorrect';
+    }
+    return `<button class="${cls}" ${disabled} onclick="answerQuiz('${moduleId}', ${i}, ${quiz.correct})"><div class="option-letter">${String.fromCharCode(65 + i)}</div><span>${opt}</span></button>`;
+  }).join('');
+  let feedbackHtml = '';
+  if (savedAnswer !== undefined) {
+    const isCorrect = savedAnswer === quiz.correct;
+    feedbackHtml = `<div class="quiz-feedback ${isCorrect ? 'correct' : 'incorrect'} show"><strong>${isCorrect ? '✅ ¡Correcto!' : '❌ No es la respuesta correcta.'}</strong><br>${isCorrect ? quiz.feedback.correct : quiz.feedback.incorrect}</div>`;
+  }
+  return `
+    <div class="quiz">
+      <div class="quiz-header"><span class="quiz-badge">Comprueba tu comprensión</span></div>
+      <div class="quiz-question">${quiz.question}</div>
+      <div class="quiz-options">${optionsHtml}</div>
+      ${feedbackHtml}
+    </div>
+  `;
+}
+
+function renderNavButtons() {
+  const isLast = state.currentModule === MODULES.length - 1;
+  const isFirst = state.currentModule === 0;
+  const m = MODULES[state.currentModule];
+  const completed = state.completed[m.id];
+  const canAdvance = m.isFinal ? (state.finalCompleted && state.reflexion) : completed;
+  return `
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="prevModule()" ${isFirst ? 'disabled' : ''}>← Anterior</button>
+      ${!isLast ? `<button class="btn btn-primary" onclick="nextModule()" ${!canAdvance ? 'disabled' : ''}>${canAdvance ? 'Siguiente módulo →' : 'Responde para continuar'}</button>` : `<span style="color:var(--text-muted); font-size:14px;">${canAdvance ? '🎉 ¡Curso completado!' : ''}</span>`}
+    </div>
+  `;
+}
+
+function answerQuiz(moduleId, answerIdx, correctIdx) {
+  if (state.completed[moduleId]) return;
+  state.completed[moduleId] = { answer: answerIdx, correct: answerIdx === correctIdx };
+  saveState();
+  var m = MODULES.find(function(x){ return x.id === moduleId; });
+  trackProgress('MOD-' + moduleId, m ? m.title : moduleId);
+  renderModule({preserveScroll: true});
+  renderSidebar(); renderProgress();
+  setTimeout(function() {
+    var fb = document.querySelector('.quiz-feedback.show');
+    if (fb) fb.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 50);
+}
+
+function nextModule() { if (state.currentModule < MODULES.length - 1) { state.currentModule++; saveState(); renderModule(); renderSidebar(); renderProgress(); closeSidebarMobile(); } }
+function prevModule() { if (state.currentModule > 0) { state.currentModule--; saveState(); renderModule(); renderSidebar(); renderProgress(); closeSidebarMobile(); } }
+function goToModule(i) { state.currentModule = i; saveState(); renderModule(); renderSidebar(); renderProgress(); closeSidebarMobile(); }
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
+function closeSidebarMobile() { if (window.innerWidth <= 900) document.getElementById('sidebar').classList.remove('open'); }
+
+let finalQuizState = { current: 0 };
+function startFinalQuiz() {
+  finalQuizState = { current: 0 };
+  state.finalAnswers = {};
+  saveState();
+  document.getElementById('startBtn').style.display = 'none';
+  renderFinalQuestion();
+  setTimeout(function() {
+    var c = document.getElementById('finalQuizContainer');
+    if (c) c.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+}
+function renderFinalQuestion() {
+  const i = finalQuizState.current;
+  const q = FINAL_QUIZ[i];
+  const total = FINAL_QUIZ.length;
+  const container = document.getElementById('finalQuizContainer');
+  const answered = state.finalAnswers[i];
+  let opts = q.o.map((opt, idx) => {
+    let cls = 'quiz-option', dis = '';
+    if (answered !== undefined) {
+      dis = 'disabled';
+      if (idx === q.c) cls += ' correct';
+      else if (idx === answered) cls += ' incorrect';
+    }
+    return `<button class="${cls}" ${dis} onclick="answerFinal(${idx})"><div class="option-letter">${String.fromCharCode(65 + idx)}</div><span>${opt}</span></button>`;
+  }).join('');
+  let fb = '';
+  let nextBtn = '';
+  if (answered !== undefined) {
+    fb = `<div class="quiz-feedback ${answered === q.c ? 'correct' : 'incorrect'} show"><strong>${answered === q.c ? '✅ Correcto' : '❌ Incorrecto'}</strong></div>`;
+    nextBtn = i < total - 1
+      ? `<button class="btn btn-primary" style="margin-top:16px;" onclick="nextFinalQuestion()">Siguiente pregunta →</button>`
+      : `<button class="btn btn-primary" style="margin-top:16px;" onclick="finishFinalQuiz()">Ver resultado</button>`;
+  }
+  container.innerHTML = `
+    <div class="quiz" style="margin-top:20px;">
+      <div class="quiz-progress"><div class="quiz-progress-fill" style="width:${((i+1)/total)*100}%"></div></div>
+      <div style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">Pregunta ${i+1} de ${total}</div>
+      <div class="quiz-question">${q.q}</div>
+      <div class="quiz-options">${opts}</div>
+      ${fb}${nextBtn}
+    </div>
+  `;
+}
+function answerFinal(idx) { state.finalAnswers[finalQuizState.current] = idx; saveState(); renderFinalQuestion(); }
+function nextFinalQuestion() {
+  finalQuizState.current++;
+  renderFinalQuestion();
+  setTimeout(function() {
+    var c = document.getElementById('finalQuizContainer');
+    if (c) c.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+}
+function countCorrect(answers, quiz) { let c = 0; quiz.forEach((q, i) => { if (answers[i] === q.c) c++; }); return c; }
+function finishFinalQuiz() {
+  const correct = countCorrect(state.finalAnswers, FINAL_QUIZ);
+  const total = FINAL_QUIZ.length;
+  const passed = correct >= 6;
+  const container = document.getElementById('finalQuizContainer');
+  if (passed) {
+    state.finalCompleted = true;
+    saveState();
+    container.innerHTML = `<div class="callout callout-success" style="margin-top:20px;"><p><span class="callout-icon">✅</span><strong>Quiz aprobado: ${correct}/${total}</strong>. Falta solo escribir tu reflexión abajo.</p></div>`;
+    showReflexion();
+  } else {
+    container.innerHTML = `
+      <div class="callout callout-warning" style="margin-top:24px;">
+        <p><span class="callout-icon">📚</span><strong>Tu resultado: ${correct}/${total}</strong></p>
+        <p>Necesitas al menos 6 respuestas correctas. Te recomendamos revisar los módulos anteriores y volver a intentar.</p>
+      </div>
+      <button class="btn btn-primary" style="margin-top:16px;" onclick="state.finalAnswers={}; saveState(); startFinalQuiz();">Intentar de nuevo</button>
+      <button class="btn btn-secondary" style="margin-top:16px;" onclick="goToModule(0)">Volver al inicio</button>
+    `;
+  }
+}
+function showReflexion() {
+  document.getElementById('reflexionTitle').style.display = '';
+  const cont = document.getElementById('reflexionContainer');
+  cont.innerHTML = `
+    <p>Escribe 1–2 párrafos: ¿qué de este curso aplicarás concretamente en tu próxima sesión? ¿Qué te resultó más útil?</p>
+    <textarea class="reflection-area" id="reflectionInput" placeholder="Tu reflexión...">${state.reflexion || ''}</textarea>
+    <button class="btn btn-primary" onclick="submitReflexion()">Guardar y completar curso</button>
+  `;
+  setTimeout(function() { document.getElementById('reflectionInput').focus(); }, 100);
+}
+function submitReflexion() {
+  const text = document.getElementById('reflectionInput').value.trim();
+  if (text.length < 80) {
+    alert('Por favor escribe al menos un par de oraciones (mínimo 80 caracteres).');
+    return;
+  }
+  state.reflexion = text;
+  state.completed['final'] = { answer: 0, correct: true };
+  saveState();
+  const correct = countCorrect(state.finalAnswers, FINAL_QUIZ);
+  trackProgress('CERTIFIED', 'Curso de perfeccionamiento Mate completado: ' + correct + '/' + FINAL_QUIZ.length);
+  showCertificate(correct);
+  renderSidebar(); renderProgress();
+}
+function showCertificate(correct) {
+  const total = FINAL_QUIZ.length;
+  const name = state.userName || 'Docente Participante';
+  const today = new Date().toLocaleDateString('es-PE', { day: 'numeric', month: 'long', year: 'numeric' });
+  const container = document.getElementById('reflexionContainer');
+  container.innerHTML = `
+    <div class="certificate">
+      <div class="cert-icon">🎓</div>
+      <h2 class="cert-title">Curso de Perfeccionamiento Docente</h2>
+      <div class="cert-subtitle">Matemáticas — Tutor de IA · 8 horas pedagógicas</div>
+      <div class="cert-name">${name}</div>
+      <div class="cert-body">Ha completado satisfactoriamente el <strong>curso de perfeccionamiento docente</strong> del programa <strong>Eligiendo Mi Camino</strong>, profundizando en los 5 momentos de la sesión, lectura del dashboard, intervención pedagógica diferenciada e integración con la programación curricular del área de Matemática.</div>
+      <div class="cert-seal">Resultado del quiz final: <strong>${correct}/${total}</strong> &nbsp;·&nbsp; ${today}<br>DRELM · Banco Mundial · uDocz · UPC</div>
+    </div>
+    <div class="callout callout-success">
+      <p><span class="callout-icon">✅</span><strong>Curso completado.</strong> Suma al componente "Productos y autoestudio" (30%) de tu certificación oficial.</p>
+    </div>
+    <button class="btn btn-secondary" style="margin-top:16px;" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
+  `;
+}
+
+function init() {
+  if (window.location.search.indexOf('reset') !== -1) {
+    localStorage.removeItem(STORAGE_KEY);
+    state = loadState();
+    history.replaceState({}, '', window.location.pathname);
+  }
+  if (state.started) {
+    document.getElementById('welcomeOverlay').classList.add('hidden');
+    renderModule(); renderSidebar(); renderProgress();
+  } else {
+    renderIntake();
+  }
+}
+init();
+</script>
+</body>
+</html>
