@@ -291,19 +291,19 @@ const PATHS = {
     labHours: '38h (10h fase anticipada + 28h supervisión semanal)',
     expectedLabSessions: 16,
     minLabSessions: 11,
-    expectedDocs: 8,
-    minDocs: 5,
+    expectedDocs: 4,
+    minDocs: 3,
     docsLabel: 'sesiones de aprendizaje',
     productsList: [
-      {label:'Curso de perfeccionamiento docente (NUEVO)', detail:'asincrónico en eligiendomicamino.org. Es un curso nuevo, distinto al de capacitación inicial de 16h que ya hiciste en marzo.', hours:'8h', auto:true},
-      {label:'Sesiones de aprendizaje', detail:'8 sesiones esperadas (mínimo 5 para aprobar)', hours:'9h', auto:false},
+      {label:'Curso de perfeccionamiento docente', detail:'asincrónico en eligiendomicamino.org. Distinto del curso presencial de 16h que hiciste en marzo: este profundiza en estrategias de implementación.', hours:'8h', auto:true},
+      {label:'Sesiones de aprendizaje', detail:'4 sesiones esperadas (1 por competencia MBDD: 2, 4, 5, 8). Mínimo 3 para aprobar.', hours:'9h', auto:false},
       {label:'Demostración práctica', detail:'1 video o audio de una sesión, 15–45 min', hours:'6h', auto:false},
       {label:'Feedback al programa', detail:'Anexo 3 — encuesta de retroalimentación', hours:'2h', auto:false}
     ],
     moduleList: [
       {n:1, name:'Inducción al curso (asincrónico)', desc:'En eligiendomicamino.org', h:'3 h'},
       {n:2, name:'Implementación en laboratorio', desc:'Supervisión semanal del Tutor IA', h:'38 h'},
-      {n:3, name:'Curso de perfeccionamiento docente (NUEVO)', desc:'Sesiones asincrónicas en eligiendomicamino.org — curso nuevo, distinto a la capacitación inicial de 16h', h:'8 h'},
+      {n:3, name:'Curso de perfeccionamiento docente', desc:'Sesiones asincrónicas en eligiendomicamino.org — distinto del curso presencial de 16h de marzo', h:'8 h'},
       {n:4, name:'Acompañamiento pedagógico', desc:'3 llamadas mensuales con EMC', h:'4 h'},
       {n:5, name:'Sesiones de aprendizaje', desc:'Diseño de sesiones con y sin plataforma', h:'9 h'},
       {n:6, name:'Demostración práctica', desc:'Video o audio de implementación', h:'6 h'},
@@ -321,26 +321,28 @@ const PATHS = {
     competencias: 'MBDD 3, 5, 6, 9',
     silabo: 'Silabo_80h_Tutores_OV_v6.docx',
     excel: 'Certificacion_80h_Tutores_OV.xlsx',
-    productKey: 'sesiones de aprendizaje OV (hasta 12, una por cada sesión OV)',
-    productDetail: 'Diseñas sesiones de aprendizaje para el Orientador Vocacional, adaptadas al contexto de tu sección. Cada sesión incluye objetivo, actividades previas, protocolo de acompañamiento, cierre y reflexión. El programa OV tiene 12 sesiones; entregas las que efectivamente facilitas.',
+    productKey: 'sesiones de aprendizaje OV (12, una por cada sesión OV)',
+    productDetail: 'El cuaderno del tutor ya contiene las 12 sesiones de aprendizaje estructuradas. Tu trabajo es <strong>descargar una copia, adaptarla al contexto de tu sección</strong> (no escribirlas desde cero) y documentar la facilitación.',
     productHours: 19,
     perfHours: 12,
     labHours: '24h (6h fase anticipada + 18h sesiones OV 4-12)',
     expectedLabSessions: 12,
     minLabSessions: 8,
-    expectedDocs: 8,
-    minDocs: 5,
+    expectedDocs: 12,
+    minDocs: 8,
     docsLabel: 'sesiones de aprendizaje OV',
+    cuadernoTutorUrl: 'https://drive.google.com/drive/folders/1_rmwiz9m8PlzobrKqwPsNQZjTUyRVMED',
+    sesionesUrl: 'https://docs.google.com/spreadsheets/d/1DoJoDR0jtKBuHgTpiUc57eIklD6ny1v1/edit?gid=2050347648#gid=2050347648',
     productsList: [
-      {label:'Curso de perfeccionamiento docente (NUEVO)', detail:'asincrónico en eligiendomicamino.org. Es un curso nuevo, distinto al de capacitación inicial de 16h que ya hiciste en marzo.', hours:'12h', auto:true},
-      {label:'Sesiones de aprendizaje OV', detail:'8 sesiones esperadas (mínimo 5 para aprobar)', hours:'19h', auto:false},
+      {label:'Curso de perfeccionamiento docente', detail:'asincrónico en eligiendomicamino.org. Distinto del curso presencial de 16h que hiciste en marzo: este profundiza en técnicas de OV, manejo de sesgos y acompañamiento socioemocional.', hours:'12h', auto:true},
+      {label:'Sesiones de aprendizaje OV', detail:'Las 12 sesiones están estructuradas en la <a href="https://drive.google.com/drive/folders/1_rmwiz9m8PlzobrKqwPsNQZjTUyRVMED" target="_blank" rel="noopener" style="color:var(--primary-dark);text-decoration:underline;">guía del tutor</a> y la <a href="https://docs.google.com/spreadsheets/d/1DoJoDR0jtKBuHgTpiUc57eIklD6ny1v1/edit?gid=2050347648" target="_blank" rel="noopener" style="color:var(--primary-dark);text-decoration:underline;">hoja con las 12 sesiones</a>. <strong>Descargá una copia</strong> (no edites el original) y adaptala a tu sección. Mínimo 8 de 12 para aprobar.', hours:'19h', auto:false},
       {label:'Demostración práctica', detail:'1 video o audio de una sesión OV, 15–45 min', hours:'6h', auto:false},
       {label:'Feedback al programa', detail:'Anexo 3 — encuesta de retroalimentación', hours:'2h', auto:false}
     ],
     moduleList: [
       {n:1, name:'Inducción al curso (asincrónico)', desc:'En eligiendomicamino.org', h:'3 h'},
       {n:2, name:'Implementación: 12 sesiones OV', desc:'Facilitación de sesiones OV 1-12', h:'24 h'},
-      {n:3, name:'Curso de perfeccionamiento docente (NUEVO)', desc:'Técnicas de OV, manejo de sesgos, acompañamiento socioemocional — curso nuevo, distinto a la capacitación inicial', h:'12 h'},
+      {n:3, name:'Curso de perfeccionamiento docente', desc:'Técnicas de OV, manejo de sesgos, acompañamiento socioemocional — distinto del curso presencial de 16h de marzo', h:'12 h'},
       {n:4, name:'Acompañamiento pedagógico', desc:'3 llamadas mensuales con EMC', h:'4 h'},
       {n:5, name:'12 sesiones de aprendizaje', desc:'Una por cada sesión OV', h:'19 h'},
       {n:6, name:'Demostración práctica', desc:'Video o audio de sesión OV', h:'6 h'},
@@ -365,19 +367,19 @@ const PATHS = {
     labHours: '76h (16h fase anticipada + 60h supervisión 2 secciones)',
     expectedLabSessions: 32,
     minLabSessions: 22,
-    expectedDocs: 8,
-    minDocs: 5,
+    expectedDocs: 4,
+    minDocs: 3,
     docsLabel: 'sesiones de aprendizaje',
     productsList: [
-      {label:'Curso de perfeccionamiento docente (NUEVO)', detail:'asincrónico en eligiendomicamino.org. Es un curso nuevo, distinto al de capacitación inicial de 16h que ya hiciste en marzo.', hours:'8h', auto:true},
-      {label:'Sesiones de aprendizaje', detail:'8 sesiones esperadas (mínimo 5 para aprobar)', hours:'11h', auto:false},
+      {label:'Curso de perfeccionamiento docente', detail:'asincrónico en eligiendomicamino.org. Distinto del curso presencial de 16h que hiciste en marzo: este profundiza en estrategias de implementación.', hours:'8h', auto:true},
+      {label:'Sesiones de aprendizaje', detail:'4 sesiones esperadas (1 por competencia MBDD: 2, 4, 5, 8). Mínimo 3 para aprobar.', hours:'11h', auto:false},
       {label:'Demostración práctica', detail:'1 video o audio de una sesión, 15–45 min', hours:'6h', auto:false},
       {label:'Feedback al programa', detail:'Anexo 3 — encuesta de retroalimentación', hours:'2h', auto:false}
     ],
     moduleList: [
       {n:1, name:'Inducción al curso (asincrónico)', desc:'En eligiendomicamino.org', h:'3 h'},
       {n:2, name:'Implementación en laboratorio', desc:'Supervisión semanal en 2+ secciones', h:'76 h'},
-      {n:3, name:'Curso de perfeccionamiento docente (NUEVO)', desc:'Sesiones asincrónicas en eligiendomicamino.org — curso nuevo, distinto a la capacitación inicial de 16h', h:'8 h'},
+      {n:3, name:'Curso de perfeccionamiento docente', desc:'Sesiones asincrónicas en eligiendomicamino.org — distinto del curso presencial de 16h de marzo', h:'8 h'},
       {n:4, name:'Acompañamiento pedagógico', desc:'3 llamadas mensuales con EMC', h:'4 h'},
       {n:5, name:'Sesiones de aprendizaje', desc:'Diseño de sesiones', h:'11 h'},
       {n:6, name:'Demostración práctica', desc:'Video o audio de implementación', h:'6 h'},
@@ -396,18 +398,20 @@ const PATHS = {
     silabo: 'Plan_Estudios_120h_Tutores_OV_v3.docx',
     excel: 'Certificacion_120h_Tutores_OV.xlsx',
     productKey: 'sesiones de aprendizaje OV + sesiones complementarias',
-    productDetail: 'Diseñas las sesiones de aprendizaje OV (planificaciones únicas, no duplicadas por sección) y además realizas actividades complementarias y apoyo individual a estudiantes (seguimiento del proceso vocacional, apoyo en investigación de carreras, conversaciones con familias).',
+    productDetail: 'El cuaderno del tutor contiene las 12 sesiones de aprendizaje estructuradas. Tu trabajo es <strong>descargar una copia, adaptarla a las 2+ secciones que llevas</strong> (planificaciones únicas, no duplicadas) y realizar actividades complementarias (seguimiento individual, investigación de carreras, conversaciones con familias).',
     productHours: 35,
     perfHours: 12,
     labHours: '48h (12h fase anticipada + 36h sesiones OV en 2 secciones)',
     expectedLabSessions: 24,
     minLabSessions: 17,
-    expectedDocs: 8,
-    minDocs: 5,
+    expectedDocs: 12,
+    minDocs: 8,
     docsLabel: 'sesiones de aprendizaje OV',
+    cuadernoTutorUrl: 'https://drive.google.com/drive/folders/1_rmwiz9m8PlzobrKqwPsNQZjTUyRVMED',
+    sesionesUrl: 'https://docs.google.com/spreadsheets/d/1DoJoDR0jtKBuHgTpiUc57eIklD6ny1v1/edit?gid=2050347648#gid=2050347648',
     productsList: [
-      {label:'Curso de perfeccionamiento docente (NUEVO)', detail:'asincrónico en eligiendomicamino.org. Es un curso nuevo, distinto al de capacitación inicial de 16h que ya hiciste en marzo.', hours:'12h', auto:true},
-      {label:'Sesiones de aprendizaje OV', detail:'8 sesiones esperadas (mínimo 5 para aprobar)', hours:'19h', auto:false},
+      {label:'Curso de perfeccionamiento docente', detail:'asincrónico en eligiendomicamino.org. Distinto del curso presencial de 16h que hiciste en marzo: este profundiza en técnicas de OV, manejo de sesgos y acompañamiento socioemocional.', hours:'12h', auto:true},
+      {label:'Sesiones de aprendizaje OV', detail:'Las 12 sesiones están estructuradas en la <a href="https://drive.google.com/drive/folders/1_rmwiz9m8PlzobrKqwPsNQZjTUyRVMED" target="_blank" rel="noopener" style="color:var(--primary-dark);text-decoration:underline;">guía del tutor</a> y la <a href="https://docs.google.com/spreadsheets/d/1DoJoDR0jtKBuHgTpiUc57eIklD6ny1v1/edit?gid=2050347648" target="_blank" rel="noopener" style="color:var(--primary-dark);text-decoration:underline;">hoja con las 12 sesiones</a>. <strong>Descargá una copia</strong> (no edites el original) y adaptala a tu sección. Mínimo 8 de 12 para aprobar.', hours:'19h', auto:false},
       {label:'Sesiones complementarias y apoyo', detail:'Seguimiento individual, investigación de carreras, conversaciones con familias', hours:'16h', auto:false},
       {label:'Demostración práctica', detail:'1 video o audio de una sesión OV, 15–45 min', hours:'6h', auto:false},
       {label:'Feedback al programa', detail:'Anexo 3 — encuesta de retroalimentación', hours:'2h', auto:false}
@@ -415,7 +419,7 @@ const PATHS = {
     moduleList: [
       {n:1, name:'Inducción al curso (asincrónico)', desc:'En eligiendomicamino.org', h:'3 h'},
       {n:2, name:'Implementación: 12 sesiones OV × 2 secciones', desc:'Facilitación en 2 secciones', h:'48 h'},
-      {n:3, name:'Curso de perfeccionamiento docente (NUEVO)', desc:'Técnicas de OV, sesgos, acompañamiento — curso nuevo, distinto a la capacitación inicial', h:'12 h'},
+      {n:3, name:'Curso de perfeccionamiento docente', desc:'Técnicas de OV, sesgos, acompañamiento — distinto del curso presencial de 16h de marzo', h:'12 h'},
       {n:4, name:'Acompañamiento pedagógico', desc:'3 llamadas mensuales con EMC', h:'4 h'},
       {n:5, name:'12 sesiones de aprendizaje', desc:'Una por cada sesión OV', h:'19 h'},
       {n:6, name:'Sesiones complementarias y apoyo', desc:'Seguimiento individual, investigación de carreras, conversaciones con familias', h:'16 h'},
@@ -697,7 +701,7 @@ function buildModules(pathKey) {
 
         const productExplain = isAIP
           ? `<p>Tu rol no incluye demostración propia. Tus productos son <strong>5 protocolos de soporte técnico</strong> (mínimo 4 para aprobar) + <strong>apoyo a las grabaciones de los docentes</strong>.</p>`
-          : `<p>Tus productos son: el <strong>curso de perfeccionamiento docente NUEVO</strong> (asincrónico, registro automático — es un curso nuevo, no el de capacitación inicial de 16h), <strong>${expectedDocs} ${docsLabel}</strong> (mínimo ${minDocs} para aprobar — <strong>~70%</strong>, no 100%), y <strong>1 demostración audiovisual</strong> (video o audio de 15–45 min de una sesión).</p>`;
+          : `<p>Tus productos son: el <strong>curso de perfeccionamiento docente</strong> (asincrónico, registro automático — distinto del curso presencial de 16h que hiciste en marzo), <strong>${expectedDocs} ${docsLabel}</strong> (mínimo ${minDocs} para aprobar — <strong>~70%</strong>, no 100%), y <strong>1 demostración audiovisual</strong> (video o audio de 15–45 min de una sesión).</p>`;
 
         return `
         <div class="lesson">
@@ -914,7 +918,7 @@ function buildModules(pathKey) {
         `;
       },
       quiz: {
-        question: '¿A qué correo se envían las sesiones de aprendizaje, la demostración audiovisual y el feedback final?',
+        question: '¿A qué correo se envían tus productos (sesiones de aprendizaje o protocolos, demostración audiovisual y feedback final)?',
         options: ['soporte@udocz.com','certificacion@drelm.gob.pe','eligiendomicamino@worldbankgroup.org','A través de un formulario de Google'],
         correct: 2,
         feedback: {
@@ -982,7 +986,7 @@ function buildModules(pathKey) {
           <div class="info-card">
             <ul>
               <li>Acceso al <strong>módulo de inducción</strong> (este curso que estás haciendo).</li>
-              <li>Acceso al <strong>curso de perfeccionamiento docente NUEVO</strong> (asincrónico). Es un curso nuevo, distinto al de capacitación inicial de 16h (marzo).</li>
+              <li>Acceso al <strong>curso de perfeccionamiento docente</strong> (asincrónico). Distinto del curso presencial de 16h que hiciste en marzo.</li>
               <li>Materiales y recursos de apoyo.</li>
             </ul>
             <p><strong>¿Cuándo entras?</strong> A tu ritmo. Todo el contenido es asincrónico.</p>
@@ -1038,7 +1042,7 @@ function buildModules(pathKey) {
 
             <h3 style="margin-top:24px;">Productos y entregas</h3>
 
-            <details><summary>¿Tengo que entregar el 100% de las sesiones de aprendizaje?</summary><p>No. El mínimo aprobatorio es aproximadamente <strong>70%</strong> de las esperadas para tu rol. Por ejemplo, en Matemáticas 80h se esperan 8 y el mínimo es 5. Esto te da margen real: lo importante es que las que entregues sean genuinas, no que entregues todas a último momento.</p></details>
+            <details><summary>¿Tengo que entregar el 100% de las sesiones de aprendizaje (o protocolos, si sos AIP)?</summary><p>No. El mínimo aprobatorio depende de tu rol:</p><ul style="margin:8px 0 0 0;font-size:14.5px;"><li><strong>Matemáticas (80h o 120h):</strong> 4 esperadas, mínimo <strong>3</strong> para aprobar (~75%). Una por competencia MBDD: 2, 4, 5 y 8.</li><li><strong>Orientación Vocacional (80h o 120h):</strong> 12 esperadas (las 12 sesiones OV adaptadas de la guía del tutor), mínimo <strong>8</strong> para aprobar (~67%).</li><li><strong>Coordinador AIP/PIP:</strong> 5 protocolos de soporte técnico esperados, mínimo <strong>4</strong> para aprobar.</li></ul><p style="margin-top:8px;">Esto te da margen real: lo importante es que las que entregues sean genuinas, no que entregues todas a último momento.</p></details>
 
             <details><summary>¿Qué formato debe tener la demostración audiovisual?</summary><p>Video o audio de <strong>15 a 45 minutos</strong> mostrando una sesión real implementando el programa. Puede ser una sesión completa o sus momentos clave (apertura, monitoreo, cierre). No necesitas calidad profesional — basta con que se vea/escuche bien y muestre tu práctica.</p></details>
 
