@@ -821,12 +821,21 @@ function buildModules(pathKey) {
           </div>
 
           <h3>¿Cómo lo registro?</h3>
-          <p>Descarga el formato del Anexo 2 que viene incluido en tu ${keys.length > 0 ? docTypeLabel(getPath(keys[0])) : 'sílabo / plan de estudios'} (segundo anexo del documento):</p>
-          ${downloads ? `<div style="margin:10px 0 16px;">${downloads}</div>` : '<p style="font-size:13px;color:var(--text-muted);">Completa primero el cuestionario inicial para ver tu descarga.</p>'}
-          <p>Una vez completo, lo envías como un solo archivo (Word o PDF) por correo a:</p>
-          <p><strong>📧 eligiendomicamino@worldbankgroup.org</strong></p>
-          <div class="callout callout-warning"><p><span class="callout-icon">📅</span><strong>Fecha sugerida de envío: antes del 30 de mayo de 2026</strong>. Si lo envías más tarde igual cuenta, pero conviene registrarlo a tiempo para que no se acumule trabajo al cierre del curso.</p></div>
-          <div class="callout callout-tip"><p><span class="callout-icon">✉️</span><strong>Asunto sugerido del correo:</strong><br><code style="background:#fffaeb;padding:4px 8px;border-radius:4px;font-size:13px;">Anexo 2 — [Apellido Nombre] — [IE] — [Rol: Mate / OV / AIP]</code><br>Ejemplo: <em>Anexo 2 — Pérez Juan — IE 1234 — Mate</em></p></div>
+          <p><strong>Opción recomendada — Formulario online (5 minutos):</strong></p>
+          <p style="margin:10px 0 16px;"><a class="download-link" href="https://docs.google.com/forms/d/e/1FAIpQLScMpd_O8iYNoXNDvxi7paAmFwzAkJbVN3VwDhghc-tYNg9GMw/viewform" target="_blank" rel="noopener" style="display:inline-block;background:var(--primary);color:#fff;padding:10px 18px;border-radius:6px;font-weight:600;text-decoration:none;">📝 Completar Anexo 2 online</a></p>
+          <p style="font-size:13.5px;color:var(--text-muted);margin-top:-6px;">Las respuestas se guardan automáticamente. Recibís copia por correo al enviarlo. Tu informe llega directo al equipo EMC — no tenés que mandar nada por email.</p>
+
+          <details style="margin-top:18px;border:1px solid var(--border);border-radius:6px;padding:8px 14px;">
+            <summary style="cursor:pointer;font-weight:600;font-size:14px;">Alternativa: Word/PDF por correo</summary>
+            <div style="padding-top:10px;">
+              <p>Si preferís trabajar offline, descargá el formato del Anexo 2 que viene incluido en tu ${keys.length > 0 ? docTypeLabel(getPath(keys[0])) : 'sílabo / plan de estudios'} (segundo anexo del documento):</p>
+              ${downloads ? `<div style="margin:10px 0 16px;">${downloads}</div>` : '<p style="font-size:13px;color:var(--text-muted);">Completa primero el cuestionario inicial para ver tu descarga.</p>'}
+              <p>Una vez completo, enviálo como un solo archivo (Word o PDF) por correo a <strong>📧 eligiendomicamino@worldbankgroup.org</strong> con el asunto:</p>
+              <p><code style="background:#fffaeb;padding:4px 8px;border-radius:4px;font-size:13px;">Anexo 2 — [Apellido Nombre] — [IE] — [Rol: Mate / OV / AIP]</code><br><em>Ejemplo: Anexo 2 — Pérez Juan — IE 1234 — Mate</em></p>
+            </div>
+          </details>
+
+          <div class="callout callout-warning" style="margin-top:14px;"><p><span class="callout-icon">📅</span><strong>Fecha sugerida de envío: antes del 30 de mayo de 2026</strong>. Si lo enviás más tarde igual cuenta, pero conviene registrarlo a tiempo para que no se acumule trabajo al cierre del curso.</p></div>
         </div>
       `;
       },
