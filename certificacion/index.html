@@ -848,9 +848,14 @@ function buildModules(pathKey) {
         let perRoleHtml = keys.map(function(k) {
           const cp = getPath(k);
           const items = (cp.productsList || []).map(function(it) {
-            const tag = it.auto ? `<span style="background:#e8f5e9;color:#2e7d32;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;margin-left:6px;">AUTOMÁTICO</span>` : `<span style="background:#fff3e0;color:#e65100;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;margin-left:6px;">MANUAL</span>`;
+            const isPerf = /Perfeccionamiento/i.test(it.label);
             const isDemo = /Demostraci/i.test(it.label);
-            const icon = it.auto ? '⚙️' : (isDemo ? '🎥' : '📨');
+            const tag = isPerf
+              ? `<span style="background:#e3f2fd;color:#1565c0;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;margin-left:6px;">ONLINE</span>`
+              : it.auto
+                ? `<span style="background:#e8f5e9;color:#2e7d32;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;margin-left:6px;">AUTOMÁTICO</span>`
+                : `<span style="background:#fff3e0;color:#e65100;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;margin-left:6px;">MANUAL</span>`;
+            const icon = isPerf ? '💻' : (it.auto ? '⚙️' : (isDemo ? '🎥' : '📨'));
             return `<div class="module-row" style="padding:12px 14px;">
               <div class="module-num-sm" style="font-size:11px;">${icon}</div>
               <div class="module-info">
