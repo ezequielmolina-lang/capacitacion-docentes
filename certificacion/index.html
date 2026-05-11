@@ -216,7 +216,6 @@
   .download-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;display:flex;align-items:flex-start;gap:14px;transition:all .2s;box-shadow:var(--shadow-sm)}
   .download-card:hover{border-color:var(--primary);box-shadow:var(--shadow);transform:translateY(-2px)}
   .download-icon{width:46px;height:46px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;font-weight:700}
-  .download-icon.xlsx{background:linear-gradient(135deg,#2E7D32,#1B5E20)}
   .download-info{flex:1;min-width:0}
   .download-info h4{margin:0 0 4px;font-size:14.5px;line-height:1.3;color:var(--text-dark)}
   .download-info p{margin:0;font-size:12.5px;color:var(--text-muted)}
@@ -283,7 +282,6 @@ const PATHS = {
     sections: '1 sección',
     competencias: 'MBDD 2, 4, 5, 8',
     silabo: 'Silabo_80h_Matematica_v6.docx',
-    excel: 'Certificacion_80h_Matematica.xlsx',
     productKey: 'sesiones de aprendizaje (Matemáticas)',
     productDetail: 'Diseñas sesiones de aprendizaje para las clases en laboratorio (con uso del Tutor IA) y, opcionalmente, para actividades de refuerzo en el aula tradicional. Cada sesión documenta el protocolo de inicio, monitoreo y cierre de la sesión en laboratorio, basado en datos del dashboard.',
     productHours: 9,
@@ -320,7 +318,6 @@ const PATHS = {
     sections: '1 sección',
     competencias: 'MBDD 3, 5, 6, 9',
     silabo: 'Silabo_80h_Tutores_OV_v6.docx',
-    excel: 'Certificacion_80h_Tutores_OV.xlsx',
     productKey: 'sesiones de aprendizaje OV (12, una por cada sesión OV)',
     productDetail: 'El cuaderno del tutor ya contiene las 12 sesiones de aprendizaje estructuradas. Tu trabajo es <strong>descargar una copia, adaptarla al contexto de tu sección</strong> (no escribirlas desde cero) y documentar la facilitación.',
     productHours: 19,
@@ -359,7 +356,6 @@ const PATHS = {
     sections: '2+ secciones',
     competencias: 'MBDD 2, 4, 5, 8',
     silabo: 'Plan_Estudios_120h_Matematica_v3.docx',
-    excel: 'Certificacion_120h_Matematica.xlsx',
     productKey: 'sesiones de aprendizaje',
     productDetail: 'Diseñas sesiones de aprendizaje para las clases en laboratorio. Las planificaciones son únicas (no se duplican por sección): documentas el protocolo de inicio, monitoreo y cierre de la sesión en laboratorio.',
     productHours: 11,
@@ -396,7 +392,6 @@ const PATHS = {
     sections: '2+ secciones',
     competencias: 'MBDD 3, 5, 6, 9',
     silabo: 'Plan_Estudios_120h_Tutores_OV_v3.docx',
-    excel: 'Certificacion_120h_Tutores_OV.xlsx',
     productKey: 'sesiones de aprendizaje OV + sesiones complementarias',
     productDetail: 'El cuaderno del tutor contiene las 12 sesiones de aprendizaje estructuradas. Tu trabajo es <strong>descargar una copia, adaptarla a las 2+ secciones que llevas</strong> (planificaciones únicas, no duplicadas) y realizar actividades complementarias (seguimiento individual, investigación de carreras, conversaciones con familias).',
     productHours: 35,
@@ -437,7 +432,6 @@ const PATHS = {
     sections: 'Todas las secciones',
     competencias: 'MBDD 6, 7, 8',
     silabo: 'Plan_Estudios_120h_Coordinadores_AIP_v3.docx',
-    excel: 'Certificacion_120h_Coordinadores_AIP.xlsx',
     productKey: 'protocolos de soporte técnico + apoyo a docentes en grabaciones',
     productDetail: 'En lugar de hacer tu propia demostración, apoyas a los docentes para que puedan grabar sus evidencias audiovisuales. También documentas protocolos de soporte técnico (conectividad, accesos, equipos, escalamiento al equipo EMC).',
     productHours: 13,
@@ -570,10 +564,9 @@ function buildModules(pathKey) {
             <div style="font-size:28px;">${p.icon}</div>
             <div style="flex:1;min-width:0;">
               <div style="font-weight:700;color:var(--text-dark);font-size:14.5px;">${p.shortName}</div>
-              <div style="font-size:12.5px;color:var(--text-muted);">${docTypeLabel} (Word) + Planilla de certificación (Excel)</div>
+              <div style="font-size:12.5px;color:var(--text-muted);">${docTypeLabel} (Word)</div>
             </div>
-            <a href="docs/${p.silabo}" download class="download-link" style="white-space:nowrap;">⬇ Sílabo</a>
-            <a href="docs/${p.excel}" download class="download-link" style="white-space:nowrap;">⬇ Excel</a>
+            <a href="docs/${p.silabo}" download class="download-link" style="white-space:nowrap;">⬇ Descargar</a>
           </div>`;
         });
 
@@ -921,7 +914,6 @@ function buildModules(pathKey) {
 
             <h3>¿Cómo entrego todo?</h3>
             <div class="callout callout-info"><p><span class="callout-icon">📧</span>Las entregas manuales se envían al correo:<br><strong>eligiendomicamino@worldbankgroup.org</strong></p></div>
-            <div class="callout callout-info"><p><span class="callout-icon">📊</span>La <strong>planilla de certificación (Excel)</strong> es la herramienta que el equipo EMC y la DRELM usan para registrar tu nota final. Puedes descargarla como referencia en el módulo 9.</p></div>
             ${isMulti ? `<div class="callout callout-warning"><p><span class="callout-icon">⚠️</span>Como tienes <strong>${keys.length} certificaciones</strong>, debes entregar los productos de <strong>cada una</strong> por separado. Indica claramente en el correo a cuál corresponde cada entrega.</p></div>` : ''}
           </div>
         `;
@@ -1628,11 +1620,11 @@ function renderDownloads() {
   if (!grid) return;
   const myKeys = state.pathKeys || (state.pathKey ? [state.pathKey] : []);
   const allFiles = [
-    {key:'mat-80', silabo:'Silabo_80h_Matematica_v6.docx', excel:'Certificacion_80h_Matematica.xlsx', name:'Sílabo 80h: Matemáticas', docType:'Sílabo de 80 horas'},
-    {key:'tut-80', silabo:'Silabo_80h_Tutores_OV_v6.docx', excel:'Certificacion_80h_Tutores_OV.xlsx', name:'Sílabo 80h: Tutores OV', docType:'Sílabo de 80 horas'},
-    {key:'mat-120', silabo:'Plan_Estudios_120h_Matematica_v3.docx', excel:'Certificacion_120h_Matematica.xlsx', name:'Plan 120h: Matemáticas', docType:'Plan de Estudios de 120 horas'},
-    {key:'tut-120', silabo:'Plan_Estudios_120h_Tutores_OV_v3.docx', excel:'Certificacion_120h_Tutores_OV.xlsx', name:'Plan 120h: Tutores OV', docType:'Plan de Estudios de 120 horas'},
-    {key:'aip-120', silabo:'Plan_Estudios_120h_Coordinadores_AIP_v3.docx', excel:'Certificacion_120h_Coordinadores_AIP.xlsx', name:'Plan 120h: Coordinador AIP/PIP', docType:'Plan de Estudios de 120 horas'}
+    {key:'mat-80', silabo:'Silabo_80h_Matematica_v6.docx', name:'Sílabo 80h: Matemáticas', docType:'Sílabo de 80 horas'},
+    {key:'tut-80', silabo:'Silabo_80h_Tutores_OV_v6.docx', name:'Sílabo 80h: Tutores OV', docType:'Sílabo de 80 horas'},
+    {key:'mat-120', silabo:'Plan_Estudios_120h_Matematica_v3.docx', name:'Plan 120h: Matemáticas', docType:'Plan de Estudios de 120 horas'},
+    {key:'tut-120', silabo:'Plan_Estudios_120h_Tutores_OV_v3.docx', name:'Plan 120h: Tutores OV', docType:'Plan de Estudios de 120 horas'},
+    {key:'aip-120', silabo:'Plan_Estudios_120h_Coordinadores_AIP_v3.docx', name:'Plan 120h: Coordinador AIP/PIP', docType:'Plan de Estudios de 120 horas'}
   ];
 
   let html = '';
@@ -1647,14 +1639,6 @@ function renderDownloads() {
           <h4>${own.name} <span class="recommended-badge">TUYO</span></h4>
           <p>${own.docType} — Word (.docx). Incluye Anexo 1 (cronograma), Anexo 2 (informe fase anticipada) y Anexo 3 (encuesta).</p>
           <a class="download-link" href="docs/${own.silabo}" download>⬇ Descargar</a>
-        </div>
-      </div>
-      <div class="download-card recommended">
-        <div class="download-icon xlsx">📊</div>
-        <div class="download-info">
-          <h4>${own.name} <span class="recommended-badge">TUYO</span></h4>
-          <p>Planilla de certificación — Excel (.xlsx). La usa DRELM para registrar tu nota final; descárgala como referencia.</p>
-          <a class="download-link" href="docs/${own.excel}" download>⬇ Descargar</a>
         </div>
       </div>
     `;
