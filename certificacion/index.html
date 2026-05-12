@@ -805,54 +805,51 @@ function buildModules(pathKey) {
 
     {
       id: 'fase-anticipada',
-      title: 'Fase anticipada y Anexo 2',
+      title: 'Reportar tu fase anticipada',
       eyebrow: 'Módulo 4 de 9',
       duration: '~4 min',
       content: () => {
-        const keys = state.pathKeys || (state.pathKey ? [state.pathKey] : []);
-        const docTypeLabel = function(p) { return p.hours === '120' ? 'plan de estudios de 120 horas' : 'sílabo de 80 horas'; };
-        const downloads = keys.map(function(k) {
-          const p = getPath(k);
-          return `<a class="download-link" href="docs/${p.silabo}" download style="display:inline-block;margin:4px 6px 4px 0;">⬇ ${p.icon} ${docTypeLabel(p)}</a>`;
-        }).join('');
         return `
         <div class="lesson">
-          <h3>¿Por qué existe una "fase anticipada"?</h3>
+          <h3>¿Qué es la "fase anticipada"?</h3>
           <p>El programa <strong>arrancó</strong> en aula el <strong>23 de marzo de 2026</strong>, pero la aprobación formal de la certificación por parte de la DRELM toma aproximadamente 20 días hábiles. Por eso, el curso formal inició el <strong>4 de mayo</strong>.</p>
-          <p>Para no perder las horas trabajadas entre el <strong>23 de marzo y el 2 de mayo</strong>, esas sesiones se acreditan mediante un informe — el <strong>Anexo 2</strong> de tu ${keys.length > 0 ? docTypeLabel(getPath(keys[0])) : 'sílabo / plan de estudios'}.</p>
-          <div class="callout callout-tip"><p><span class="callout-icon">💡</span>El Anexo 2 "recupera" las horas previas al 4 de mayo y las suma a tu certificación. Sin él, esas semanas no contarían.</p></div>
+          <p>Las sesiones que facilitaste entre el <strong>23 de marzo y el 2 de mayo</strong> se acreditan con un <strong>informe corto online</strong> que completás una sola vez.</p>
+          <div class="callout callout-tip"><p><span class="callout-icon">💡</span>Este informe "recupera" las horas previas al 4 de mayo y las suma a tu certificación. Sin él, esas semanas no contarían.</p></div>
 
-          <h3>¿Qué debes registrar?</h3>
-          <p>El informe es breve. Incluye:</p>
+          <h3>¿Qué te van a preguntar?</h3>
+          <p>El formulario es corto. Te pide:</p>
           <ol>
-            <li><strong>Verificación de acceso a la plataforma:</strong> confirmas que tus estudiantes tienen acceso activo a uDocz (la lista detallada por estudiante ya está en el reporte automático de uDocz, no la copies a mano).</li>
-            <li><strong>Sesiones realizadas:</strong> tabla con fecha, sección y descripción breve de cada sesión que facilitaste entre el 23 de marzo y el 2 de mayo.</li>
-            <li><strong>Qué funcionó bien y qué necesita mejorar:</strong> sección breve (5–10 líneas).</li>
-            <li><strong>Reflexión personal:</strong> <strong>máximo 1 página</strong>, en el mismo documento (no como archivo separado).</li>
+            <li><strong>Datos básicos</strong> — tu nombre, DNI, IE, UGEL y rol en el programa (2 minutos).</li>
+            <li><strong>Verificación de acceso a la plataforma</strong> — confirmás que tus estudiantes tienen acceso activo a uDocz (la lista detallada por estudiante ya está en el reporte automático de uDocz, no la copiás a mano).</li>
+            <li><strong>Sesiones que facilitaste</strong> entre el 23 de marzo y el 2 de mayo — fecha, sección y descripción breve de cada una.</li>
+            <li><strong>Qué funcionó bien y qué necesita mejorar</strong> — unas pocas líneas.</li>
+            <li><strong>Reflexión personal</strong> sobre la experiencia inicial — máximo 1 página.</li>
           </ol>
 
           <div class="callout callout-info">
-            <p><span class="callout-icon">♿</span><strong>Estudiantes con discapacidad cognitiva o que no acceden a la plataforma:</strong> repórtalo en el campo <em>"Observaciones adicionales"</em> del Anexo 2. Esos estudiantes <strong>no afectan tu nota</strong> — el equipo EMC los excluye del cómputo.</p>
+            <p><span class="callout-icon">♿</span><strong>Estudiantes con discapacidad cognitiva o que no acceden a la plataforma:</strong> reportalos en el campo <em>"Observaciones adicionales"</em> del formulario. Esos estudiantes <strong>no afectan tu nota</strong> — el equipo EMC los excluye del cómputo.</p>
           </div>
 
           <h3>¿Cómo lo registro?</h3>
-          <p style="font-size:15px;">Completá el <strong>formulario online del Anexo 2</strong>. Toma <strong>~5 minutos</strong>, las respuestas se guardan automáticamente y recibís copia por correo al enviarlo. Tu informe llega directo al equipo EMC.</p>
+          <p style="font-size:15px;">Completá el formulario online. Te toma <strong>~5 minutos</strong>, las respuestas se guardan automáticamente y recibís copia por correo al enviarlo. Tu informe llega directo al equipo EMC.</p>
           <div style="text-align:center;margin:24px 0 8px;">
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLScMpd_O8iYNoXNDvxi7paAmFwzAkJbVN3VwDhghc-tYNg9GMw/viewform" target="_blank" rel="noopener" style="display:inline-block;background:var(--primary);color:#fff;padding:18px 36px;border-radius:10px;font-weight:700;font-size:17px;text-decoration:none;box-shadow:0 4px 14px rgba(243,147,0,0.35);">📝 Completar Anexo 2 online →</a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLScMpd_O8iYNoXNDvxi7paAmFwzAkJbVN3VwDhghc-tYNg9GMw/viewform" target="_blank" rel="noopener" style="display:inline-block;background:var(--primary);color:#fff;padding:18px 36px;border-radius:10px;font-weight:700;font-size:17px;text-decoration:none;box-shadow:0 4px 14px rgba(243,147,0,0.35);">📝 Completar informe online →</a>
           </div>
           <p style="text-align:center;font-size:13px;color:var(--text-muted);margin-top:4px;">Único método de envío — no aceptamos Word ni PDF por correo.</p>
 
           <div class="callout callout-warning" style="margin-top:14px;"><p><span class="callout-icon">📅</span><strong>Fecha sugerida de envío: antes del 30 de mayo de 2026</strong>. Si lo enviás más tarde igual cuenta, pero conviene registrarlo a tiempo para que no se acumule trabajo al cierre del curso.</p></div>
+
+          <p style="font-size:12.5px;color:var(--text-muted);margin-top:16px;">💼 <em>Nombre formal: "Anexo 2 — Informe de Implementación Anticipada". Si lo escuchás en correos o reuniones, es esto mismo.</em></p>
         </div>
       `;
       },
       quiz: {
-        question: '¿Cómo se acreditan las sesiones que realizaste entre el 23 de marzo y el 2 de mayo?',
-        options: ['No se acreditan, solo cuentan las horas desde el 4 de mayo','Se acreditan automáticamente desde uDocz','Mediante el Informe de Implementación Anticipada (Anexo 2)','Hay que pedir una certificación aparte a la DRELM'],
+        question: '¿Cómo se acreditan las sesiones que facilitaste entre el 23 de marzo y el 2 de mayo?',
+        options: ['No se acreditan, solo cuentan las horas desde el 4 de mayo','Se acreditan automáticamente desde uDocz','Con un informe corto online que completás una sola vez','Hay que pedir una certificación aparte a la DRELM'],
         correct: 2,
         feedback: {
-          correct: 'Exacto. El Anexo 2 acredita las horas trabajadas durante la fase anticipada. Sin él, esas horas se perderían.',
-          incorrect: 'La respuesta correcta es el <strong>Anexo 2 (Informe de Implementación Anticipada)</strong>. Es la herramienta para que las sesiones previas al 4 de mayo cuenten.'
+          correct: 'Exacto. El informe online (formalmente "Anexo 2") acredita las horas trabajadas durante la fase anticipada. Sin él, esas horas se perderían.',
+          incorrect: 'La respuesta correcta es el <strong>informe online de fase anticipada</strong> (formalmente llamado "Anexo 2 — Informe de Implementación Anticipada"). Es la herramienta para que las sesiones previas al 4 de mayo cuenten.'
         }
       }
     },
@@ -899,34 +896,39 @@ function buildModules(pathKey) {
         // Build the cantidad + umbral table for the main role
         const cp0 = getPath(keys[0]);
         const cantidadTable = cp0.isAIP
-          ? `<table class="data-table"><thead><tr><th>Componente</th><th>Cantidad esperada</th><th>Mínimo aprobatorio</th><th>Tipo registro</th></tr></thead><tbody>
-              <tr><td>Soporte en sesiones del programa</td><td>≥ 75% de las sesiones de tu IE</td><td>≥ 75%</td><td>Automático (uDocz)</td></tr>
-              <tr><td>Protocolos de soporte técnico</td><td>5 protocolos</td><td>4 protocolos</td><td>Manual (correo)</td></tr>
+          ? `<table class="data-table"><thead><tr><th>Componente</th><th>Cantidad esperada</th><th>Mínimo aprobatorio</th><th>Cómo se registra</th></tr></thead><tbody>
+              <tr><td>Soporte en sesiones del programa</td><td>≥ 75% de las sesiones de tu IE</td><td>≥ 75%</td><td>Automático en uDocz</td></tr>
+              <tr><td>Protocolos de soporte técnico</td><td>5 protocolos</td><td>4 protocolos</td><td>Manual (correo a EMC)</td></tr>
               <tr><td>Apoyo a docentes en grabación</td><td>Apoyo a todos los docentes de tu IE</td><td>≥ 75%</td><td>Confirmación EMC</td></tr>
               <tr><td>Llamadas EMC mensuales</td><td>3 llamadas</td><td>2 de 3</td><td>Automático</td></tr>
               <tr><td>Apoyo a evaluaciones IPA</td><td>3 (línea base + media + final)</td><td>Las 3 cubiertas por la IE</td><td>Firma IPA</td></tr>
-              <tr><td>Anexo 3 (feedback)</td><td>1 entregado</td><td>1 entregado</td><td>Link enviado por correo (julio)</td></tr>
+              <tr><td>Encuesta de retroalimentación final</td><td>1 entregada</td><td>1 entregada</td><td>Link online (te llega por correo en julio)</td></tr>
             </tbody></table>`
-          : `<table class="data-table"><thead><tr><th>Componente</th><th>Cantidad esperada</th><th>Mínimo aprobatorio</th><th>Tipo registro</th></tr></thead><tbody>
-              <tr><td>Sesiones facilitadas en laboratorio</td><td>~${cp0.expectedLabSessions} sesiones</td><td><strong>${cp0.minLabSessions}</strong> sesiones (~70%)</td><td>Automático (uDocz)</td></tr>
-              <tr><td>Curso de perfeccionamiento docente</td><td>Completar 100%</td><td>Completar 100%</td><td>Automático (eligiendomicamino.org)</td></tr>
-              <tr><td>${cp0.docsLabel}</td><td>${cp0.expectedDocs} ${cp0.docsLabel}</td><td><strong>${cp0.minDocs}</strong> ${cp0.docsLabel} (~70%)</td><td>Manual (correo)</td></tr>
-              <tr><td>Demostración audiovisual</td><td>1 video o audio (15–45 min)</td><td>1 entregado</td><td>Manual (correo)</td></tr>
+          : `<table class="data-table"><thead><tr><th>Componente</th><th>Cantidad esperada</th><th>Mínimo aprobatorio</th><th>Cómo se registra</th></tr></thead><tbody>
+              <tr><td>Sesiones facilitadas en laboratorio</td><td>~${cp0.expectedLabSessions} sesiones</td><td><strong>${cp0.minLabSessions}</strong> sesiones (~70%)</td><td>Automático en uDocz</td></tr>
+              <tr><td>Curso de perfeccionamiento docente</td><td>Completar 100%</td><td>Completar 100%</td><td>Online (eligiendomicamino.org)</td></tr>
+              <tr><td>${cp0.docsLabel}</td><td>${cp0.expectedDocs} ${cp0.docsLabel}</td><td><strong>${cp0.minDocs}</strong> ${cp0.docsLabel} (~70%)</td><td>Manual (correo a EMC)</td></tr>
+              <tr><td>Demostración audiovisual</td><td>1 video o audio (15–45 min)</td><td>1 entregado</td><td>Manual (te ayuda el PIP de tu IE)</td></tr>
               <tr><td>Llamadas EMC mensuales</td><td>3 llamadas</td><td>2 de 3</td><td>Automático</td></tr>
               <tr><td>Apoyo a evaluaciones IPA</td><td>3 (línea base + media + final)</td><td>Las 3 cubiertas por la IE</td><td>Firma IPA</td></tr>
-              <tr><td>Anexo 3 (feedback)</td><td>1 entregado</td><td>1 entregado</td><td>Link enviado por correo (julio)</td></tr>
+              <tr><td>Encuesta de retroalimentación final</td><td>1 entregada</td><td>1 entregada</td><td>Link online (te llega por correo en julio)</td></tr>
             </tbody></table>`;
 
         return `
           <div class="lesson">
-            <div class="callout callout-tip"><p><span class="callout-icon">💡</span><strong>Recuerda:</strong> el componente de <strong>presencia (50%)</strong> se registra automáticamente en uDocz cuando facilitas una sesión — no tienes que enviar nada para esa parte. Lo de abajo son las evidencias <strong>manuales</strong> que sí debes entregar.</p></div>
+            <div class="callout callout-tip"><p><span class="callout-icon">💡</span><strong>Buena noticia primero:</strong> la <strong>presencia en laboratorio (50% de tu nota)</strong> se registra <strong>automáticamente</strong> en uDocz cada vez que facilitás una sesión iniciando sesión con tu usuario docente. <strong>No entregás nada para esa parte.</strong></p>
+            <p style="margin-top:8px;">Abajo están los <strong>productos que sí tenés que generar o completar</strong>. Cada uno tiene su etiqueta para que sepas cómo se entrega:</p>
+            <ul style="margin:6px 0 0 22px;font-size:14px;">
+              <li><span style="background:#e3f2fd;color:#1565c0;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;">ONLINE</span> &mdash; lo hacés en una plataforma web; se acredita solo al completarlo.</li>
+              <li><span style="background:#fff3e0;color:#e65100;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;">MANUAL</span> &mdash; lo enviás por correo (o usás un formulario online que te enviamos).</li>
+            </ul></p></div>
 
-            ${isMulti ? `<p>Como tienes <strong>${keys.length} certificaciones</strong>, tienes productos específicos para <strong>cada rol</strong>. Aquí los detalles para cada uno:</p>` : `<p>Esta es tu lista personalizada de productos según tu rol:</p>`}
+            ${isMulti ? `<p>Como tenés <strong>${keys.length} certificaciones</strong>, tenés productos específicos para <strong>cada rol</strong>. Aquí los detalles para cada uno:</p>` : `<p>Esta es tu lista personalizada de productos según tu rol:</p>`}
 
             ${perRoleHtml}
 
-            <h3>Cantidades exactas y mínimos para aprobar</h3>
-            <p style="font-size:14.5px;">El programa <strong>te da margen</strong>: no necesitas hacer el 100% de cada cosa para certificarte. Los mínimos están en aproximadamente <strong>70%</strong>:</p>
+            <h3>Resumen completo: todo lo que cuenta para tu nota final</h3>
+            <p style="font-size:14.5px;">Esta tabla incluye <strong>los tres componentes</strong> (presencia + productos + acompañamiento) — no solo los productos de arriba, sino todo lo que suma a tu certificación. El programa <strong>te da margen</strong>: no necesitás hacer el 100% de cada cosa, los mínimos están en aproximadamente <strong>70%</strong>.</p>
             ${cantidadTable}
 
             <div class="callout callout-info" style="margin-top:14px;"><p><span class="callout-icon">📊</span><strong>¿Qué son las evaluaciones IPA?</strong><br><strong>IPA</strong> (<a href="https://poverty-action.org/es" target="_blank" rel="noopener" style="color:var(--primary-dark);text-decoration:underline;">Innovations for Poverty Action</a>) es la organización independiente que <strong>nos ayuda a recoger información</strong> de tus estudiantes durante el ciclo — separada del equipo EMC, uDocz y la DRELM. Su función es levantar los datos de forma neutral y profesional; el equipo del programa después usa esa información para entender cómo está funcionando y dónde mejorar.<br><br>Aplican <strong>3 evaluaciones a tus estudiantes</strong> durante el ciclo:</p>
@@ -967,7 +969,7 @@ function buildModules(pathKey) {
           <table class="data-table">
             <thead><tr><th>Fecha</th><th>Hito</th><th>Qué pasa</th></tr></thead>
             <tbody>
-              <tr><td><strong>23 mar – 2 may</strong></td><td>Fase anticipada</td><td>Las sesiones se acreditan con el Anexo 2.</td></tr>
+              <tr><td><strong>23 mar – 2 may</strong></td><td>Fase anticipada</td><td>Las sesiones se acreditan con un informe online corto (módulo 4).</td></tr>
               <tr><td><strong>4 de mayo</strong></td><td>Inicio formal</td><td>Disponible la inducción asincrónica en eligiendomicamino.org.</td></tr>
               <tr><td><strong>Mayo – julio</strong></td><td>Implementación</td><td>Supervisión semanal, perfeccionamiento, entregas progresivas.</td></tr>
               <tr><td><strong>30 de julio</strong></td><td>Cierre del curso</td><td>Entregas finales, encuesta de retroalimentación.</td></tr>
@@ -984,7 +986,7 @@ function buildModules(pathKey) {
         options: ['23 de marzo de 2026','4 de mayo de 2026','1 de junio de 2026','30 de julio de 2026'],
         correct: 1,
         feedback: {
-          correct: 'Exacto. El inicio formal es el <strong>4 de mayo</strong>. Las actividades anteriores se acreditan con el Anexo 2.',
+          correct: 'Exacto. El inicio formal es el <strong>4 de mayo</strong>. Las actividades anteriores se acreditan con el informe online de fase anticipada (módulo 4).',
           incorrect: 'El inicio formal es el <strong>4 de mayo de 2026</strong>. El 23 de marzo es la fase anticipada y el 30 de julio es el cierre.'
         }
       }
@@ -1062,11 +1064,11 @@ function buildModules(pathKey) {
 
             <details><summary>¿Puedo recuperar una sesión perdida en otro horario?</summary><p>Sí, si el AIP de tu IE lo permite y la sesión recuperada cae dentro del calendario del programa (mayo–julio). Coordina con el coordinador AIP/PIP de tu IE para reservar el laboratorio. Cuando facilites la sesión recuperada, queda registrada igual que las demás.</p></details>
 
-            <details><summary>¿Qué pasa con estudiantes que no pueden ingresar a la plataforma (inclusión cognitiva)?</summary><p>Repórtalos en el campo <em>"Observaciones adicionales"</em> del Anexo 2 (fase anticipada) o en tu próxima entrega de feedback. Esos estudiantes <strong>no afectan tu nota</strong> — el equipo EMC los excluye del cómputo de tu presencia y participación.</p></details>
+            <details><summary>¿Qué pasa con estudiantes que no pueden ingresar a la plataforma (inclusión cognitiva)?</summary><p>Reportalos en el campo <em>"Observaciones adicionales"</em> del informe online de fase anticipada (módulo 4) o en tu próxima entrega de feedback. Esos estudiantes <strong>no afectan tu nota</strong> — el equipo EMC los excluye del cómputo de tu presencia y participación.</p></details>
 
             <details><summary>¿Desde cuándo puedo avisar de una inasistencia?</summary><p>Desde la fase anticipada (23 de marzo) en adelante. Si la inasistencia ocurrió antes de saber que existía esta vía, repórtala dentro de los 5 días hábiles desde que conoces el procedimiento.</p></details>
 
-            <details><summary>¿Qué pasa si mi IE no empezó a implementar el programa el 23 de marzo?</summary><p>Sigue las <strong>indicaciones de tu facilitador EMC</strong>. El programa contempla flexibilidad de arranque: algunas IIEE empezaron más tarde por temas operativos. Tu fase anticipada se cuenta desde el día en que efectivamente facilitaste la primera sesión, no desde el 23 de marzo nominal. Documenta las fechas reales en tu Anexo 2.</p></details>
+            <details><summary>¿Qué pasa si mi IE no empezó a implementar el programa el 23 de marzo?</summary><p>Seguí las <strong>indicaciones de tu facilitador EMC</strong>. El programa contempla flexibilidad de arranque: algunas IIEE empezaron más tarde por temas operativos. Tu fase anticipada se cuenta desde el día en que efectivamente facilitaste la primera sesión, no desde el 23 de marzo nominal. Documentá las fechas reales en el informe online (módulo 4).</p></details>
 
             <h3 style="margin-top:24px;">Productos y entregas</h3>
 
@@ -1144,7 +1146,7 @@ const FINAL_QUIZ = [
   {q:'En el ejemplo de cálculo, "presencia 18 de 20" significa:',o:['18 sesiones facilitadas de 20 sesiones totales','Una nota de 18 puntos sobre 20 (escala vigesimal peruana)','18 productos entregados de 20','Una calificación cualitativa'],c:1},
   {q:'¿Cuál es la nota mínima aprobatoria?',o:['10','11','13','14'],c:3},
   {q:'¿Tengo que entregar el 100% de las sesiones de aprendizaje para aprobar?',o:['Sí, todas son obligatorias','No, el mínimo aprobatorio está alrededor del 70%','Sí, pero solo para el 80h','Solo el 50%'],c:1},
-  {q:'¿Para qué sirve el Anexo 2?',o:['Es un examen final','Para acreditar las sesiones realizadas entre el 23 de marzo y el 2 de mayo','Para inscribirse en el curso','Es opcional'],c:1},
+  {q:'¿Para qué sirve el informe online de fase anticipada (formalmente "Anexo 2")?',o:['Es un examen final','Para acreditar las sesiones que facilitaste entre el 23 de marzo y el 2 de mayo','Para inscribirse en el curso','Es opcional'],c:1},
   {q:'¿Qué pasa si los estudiantes acceden a uDocz pero yo no inicio sesión con mi usuario docente?',o:['No importa, igual queda registrada mi presencia','La sesión NO se registra como mía y no cuenta para mi nota','Cuenta solo si la coordinadora AIP firma','Tengo que llenar un formulario en papel'],c:1},
   {q:'El curso de perfeccionamiento docente del módulo 3 de tu sílabo es:',o:['El mismo curso de 16 horas presencial que hiciste en marzo','Un curso nuevo, asincrónico en eligiendomicamino.org, distinto al de marzo','Sesiones en vivo los miércoles','Opcional'],c:1}
 ];
