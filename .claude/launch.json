@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "capacitacion",
-      "runtimeExecutable": "npx",
-      "runtimeArgs": ["http-server", "C:\\Users\\cosmo\\Downloads\\capacitacion-docentes", "-p", "8091", "-c-1"],
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8091", "--directory", "C:\\Users\\cosmo\\Downloads\\capacitacion-docentes"],
       "port": 8091
     }
   ]
