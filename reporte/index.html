@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#f39300" />
+  <title>Pregúntale al gallito — Eligiendo Mi Camino</title>
+  <meta name="description" content="Conversa con el gallito de Eligiendo Mi Camino sobre el reporte de tu escuela." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600;1,700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --primary: #f39300;
+      --primary-dark: #f75a00;
+      --primary-light: #fdd026;
+      --bg-cream: #fffbf0;
+      --bg-cream-2: #fff5e0;
+      --text-dark: #242c32;
+      --text-gray: #6a6a6a;
+      --math-color: #C62828;
+      --math-bg: #FFEBEE;
+      --ov-color: #2E7D32;
+      --ov-bg: #E8F5E9;
+      --pip-color: #1565C0;
+      --pip-bg: #E3F2FD;
+      --card-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      --card-shadow-strong: 0 6px 24px rgba(0,0,0,0.12);
+      --radius: 14px;
+      --radius-sm: 10px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body { height: 100%; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--bg-cream);
+      color: var(--text-dark);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
+    }
+
+    .serif { font-family: 'Cormorant Garamond', Georgia, serif; }
+    .italic-serif { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; }
+
+    /* Layout shell */
+    .app {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Views — only one visible at a time */
+    .view { display: none; flex: 1; }
+    .view.active {
+      display: flex;
+      flex-direction: column;
+      animation: fadeUp 0.4s ease-out;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============================================================
+       Pantalla 1 — Bienvenida
+       ============================================================ */
+    #view-welcome {
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+      text-align: center;
+    }
+    .welcome-card {
+      max-width: 520px;
+      width: 100%;
+    }
+    .gallito-hero {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 24px;
+      animation: bobble 4s ease-in-out infinite;
+    }
+    @keyframes bobble {
+      0%, 100% { transform: translateY(0) rotate(-1deg); }
+      50%      { transform: translateY(-6px) rotate(1deg); }
+    }
+    .welcome-eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+    .welcome-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: clamp(2rem, 6vw, 2.8rem);
+      line-height: 1.1;
+      color: var(--text-dark);
+      margin-bottom: 14px;
+    }
+    .welcome-title em {
+      font-style: italic;
+      color: var(--primary-dark);
+    }
+    .welcome-sub {
+      font-size: 1.05rem;
+      color: var(--text-gray);
+      margin-bottom: 32px;
+      max-width: 420px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 14px 32px;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(243,147,0,0.32);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(243,147,0,0.42); }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    .btn-ghost {
+      background: transparent;
+      border: 1.5px solid rgba(36,44,50,0.15);
+      color: var(--text-dark);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding: 10px 20px;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+    .btn-ghost:hover { background: rgba(243,147,0,0.06); border-color: var(--primary); }
+
+    .footer-note {
+      margin-top: 12px;
+      font-size: 0.8rem;
+      color: var(--text-gray);
+      max-width: 360px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .footer-note a { color: var(--primary-dark); text-decoration: none; }
+    .period-badge {
+      margin-top: 24px;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--primary-dark);
+      min-height: 1.4em;
+    }
+    .period-badge:empty { display: none; }
+
+    /* ============================================================
+       Pantalla 2 — ¿Quién eres?
+       ============================================================ */
+    #view-role {
+      padding: 32px 24px 60px;
+      align-items: center;
+      justify-content: center;
+    }
+    .step-back {
+      align-self: flex-start;
+      margin-bottom: 24px;
+      background: none;
+      border: none;
+      color: var(--text-gray);
+      font-family: inherit;
+      font-size: 0.9rem;
+      cursor: pointer;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .step-back:hover { color: var(--primary-dark); }
+    .step-back::before { content: "← "; }
+
+    .step-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    .step-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      font-size: clamp(1.7rem, 5vw, 2.2rem);
+      line-height: 1.15;
+      text-align: center;
+      margin-bottom: 32px;
+      max-width: 600px;
+    }
+    .step-title em { font-style: italic; color: var(--primary-dark); }
+
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      width: 100%;
+      max-width: 760px;
+    }
+    .role-card {
+      background: #fff;
+      border: 2px solid rgba(36,44,50,0.08);
+      border-radius: var(--radius);
+      padding: 28px 22px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.18s ease;
+      box-shadow: var(--card-shadow);
+    }
+    .role-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--primary);
+      box-shadow: var(--card-shadow-strong);
+    }
+    .role-icon {
+      font-size: 2.2rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .role-card.director .role-icon { color: var(--primary); }
+    .role-card.matematica .role-icon { color: var(--math-color); }
+    .role-card.tutoria .role-icon { color: var(--ov-color); }
+    .role-card.pip .role-icon { color: var(--pip-color); }
+    .role-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 1.35rem;
+      margin-bottom: 6px;
+      color: var(--text-dark);
+    }
+    .role-desc {
+      font-size: 0.85rem;
+      color: var(--text-gray);
+      line-height: 1.4;
+    }
+
+    /* ============================================================
+       Pantalla 3 — ¿Tu escuela?
+       ============================================================ */
+    #view-school {
+      padding: 32px 24px 60px;
+      align-items: center;
+    }
+    .school-form {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .field { display: flex; flex-direction: column; gap: 8px; }
+    .field label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: var(--text-gray);
+    }
+    .field select, .field input {
+      font-family: inherit;
+      font-size: 1rem;
+      padding: 12px 14px;
+      border: 2px solid rgba(36,44,50,0.12);
+      border-radius: var(--radius-sm);
+      background: #fff;
+      color: var(--text-dark);
+      transition: border-color 0.15s ease;
+      width: 100%;
+    }
+    .field select:focus, .field input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    .field select:disabled, .field input:disabled {
+      opacity: 0.5;
+      background: #f6f3eb;
+    }
+
+    .field-help {
+      font-size: 0.82rem;
+      color: var(--text-gray);
+      margin-top: -2px;
+    }
+    .field-error {
+      font-size: 0.85rem;
+      color: var(--math-color);
+      margin-top: 4px;
+      display: none;
+    }
+    .field-error.visible { display: block; }
+
+    .form-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    /* ============================================================
+       Pantalla 3.5 — Soft gate
+       ============================================================ */
+    #view-namegate {
+      padding: 32px 24px 60px;
+      align-items: center;
+    }
+    .gate-card {
+      width: 100%;
+      max-width: 480px;
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      box-shadow: var(--card-shadow);
+      text-align: center;
+    }
+    .gate-gallito {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 16px;
+    }
+    .gate-school {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 1.4rem;
+      margin-bottom: 6px;
+      color: var(--text-dark);
+      line-height: 1.2;
+    }
+    .gate-meta {
+      font-size: 0.85rem;
+      color: var(--text-gray);
+      margin-bottom: 24px;
+    }
+    .gate-prompt {
+      font-size: 1.02rem;
+      margin-bottom: 18px;
+      color: var(--text-dark);
+    }
+    .gate-input {
+      width: 100%;
+      font-family: inherit;
+      font-size: 1.1rem;
+      padding: 14px 16px;
+      border: 2px solid rgba(36,44,50,0.12);
+      border-radius: var(--radius-sm);
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .gate-input:focus { outline: none; border-color: var(--primary); }
+    .gate-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ============================================================
+       Pantalla 4 — Chat
+       ============================================================ */
+    #view-chat { padding: 0; }
+    .chat-app {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      max-width: 760px;
+      margin: 0 auto;
+      width: 100%;
+      min-height: 100vh;
+    }
+    .chat-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      background: #fff;
+      border-bottom: 1px solid rgba(36,44,50,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .chat-header-gallito {
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+    }
+    .chat-header-info { flex: 1; min-width: 0; }
+    .chat-header-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--text-dark);
+      line-height: 1.15;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .chat-header-meta {
+      font-size: 0.8rem;
+      color: var(--text-gray);
+      margin-top: 2px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .chat-header-change {
+      background: none;
+      border: none;
+      color: var(--primary-dark);
+      font-family: inherit;
+      font-size: 0.85rem;
+      cursor: pointer;
+      padding: 6px 10px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .chat-header-change:hover { background: rgba(243,147,0,0.08); }
+
+    .chat-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .chat-intro {
+      text-align: center;
+      padding: 8px 0 12px;
+    }
+    .chat-intro-line {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--text-gray);
+      margin-bottom: 18px;
+    }
+    .chat-intro-line .gname { color: var(--primary-dark); font-weight: 600; font-style: italic; }
+    .suggested-questions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    @media (min-width: 640px) {
+      .suggested-questions { grid-template-columns: repeat(3, 1fr); }
+    }
+    .suggested {
+      background: #fff;
+      border: 1.5px solid rgba(36,44,50,0.10);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      font-family: inherit;
+      font-size: 0.88rem;
+      text-align: left;
+      cursor: pointer;
+      color: var(--text-dark);
+      transition: all 0.15s ease;
+      line-height: 1.35;
+    }
+    .suggested:hover { border-color: var(--primary); background: #fff8e7; }
+
+    .msg-row { display: flex; gap: 10px; }
+    .msg-row.user { justify-content: flex-end; }
+    .msg-bubble {
+      max-width: min(78%, 540px);
+      padding: 11px 16px;
+      border-radius: 18px;
+      font-size: 0.97rem;
+      line-height: 1.5;
+      word-wrap: break-word;
+      white-space: pre-wrap;
+    }
+    .msg-bubble.user {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      border-bottom-right-radius: 4px;
+    }
+    .msg-bubble.gallito {
+      background: #fff;
+      color: var(--text-dark);
+      border: 1px solid rgba(36,44,50,0.08);
+      border-bottom-left-radius: 4px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+    .msg-bubble.gallito strong { color: var(--primary-dark); }
+    .msg-bubble.gallito p { margin: 0; }
+    .msg-bubble.gallito p + p { margin-top: 0.6em; }
+    .msg-bubble.gallito ul, .msg-bubble.gallito ol { margin: 0.4em 0 0.4em 1.3em; padding: 0; }
+    .msg-bubble.gallito li { margin: 2px 0; }
+    .msg-bubble.error {
+      background: #FFF3E0;
+      color: var(--math-color);
+      border: 1px solid #FFCDD2;
+    }
+    .gallito-avatar {
+      width: 32px;
+      height: 32px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      align-self: flex-start;
+    }
+    .typing { display: inline-flex; gap: 4px; align-items: center; }
+    .typing-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--primary);
+      animation: typing 1.4s infinite;
+    }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typing {
+      0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+      30% { opacity: 1; transform: translateY(-3px); }
+    }
+
+    .chat-input-zone {
+      border-top: 1px solid rgba(36,44,50,0.08);
+      background: var(--bg-cream);
+      padding: 12px 14px 14px;
+      position: sticky;
+      bottom: 0;
+    }
+    .chat-input-row {
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .chat-input {
+      flex: 1;
+      font-family: inherit;
+      font-size: 1rem;
+      padding: 12px 14px;
+      border: 2px solid rgba(36,44,50,0.12);
+      border-radius: 20px;
+      background: #fff;
+      resize: none;
+      max-height: 140px;
+      line-height: 1.4;
+    }
+    .chat-input:focus { outline: none; border-color: var(--primary); }
+    .chat-send {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      border: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(243,147,0,0.32);
+      transition: transform 0.1s ease;
+    }
+    .chat-send:hover:not(:disabled) { transform: scale(1.05); }
+    .chat-send:disabled { opacity: 0.4; cursor: not-allowed; }
+    .chat-send svg { width: 18px; height: 18px; }
+
+    .chat-footer-actions {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      padding: 6px 14px 0;
+      max-width: 720px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+    .chat-footer-actions a, .chat-footer-actions button {
+      background: none;
+      border: none;
+      color: var(--text-gray);
+      font-family: inherit;
+      font-size: 0.78rem;
+      cursor: pointer;
+      text-decoration: none;
+      padding: 4px 6px;
+    }
+    .chat-footer-actions a:hover, .chat-footer-actions button:hover {
+      color: var(--primary-dark);
+    }
+
+    /* Mobile tweaks */
+    @media (max-width: 640px) {
+      .gallito-hero { width: 150px; height: 150px; }
+      .welcome-card { max-width: 100%; }
+      .chat-app { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- ============================================================
+         Pantalla 1 — Bienvenida
+         ============================================================ -->
+    <section class="view active" id="view-welcome">
+      <div class="welcome-card">
+        <img src="../img/gallito-pip.png" alt="" class="gallito-hero" />
+        <div class="welcome-eyebrow">Eligiendo Mi Camino</div>
+        <h1 class="welcome-title">Hola, soy el <em>gallito</em>.</h1>
+        <p class="welcome-sub">Te ayudo a entender tu reporte y a decidir qué hacer esta quincena. Conversemos.</p>
+        <button class="btn-primary" data-goto="role">Empezar</button>
+        <p class="period-badge" id="period-badge"></p>
+        <p class="footer-note">Solo para directores, docentes de matemática y tutores del programa. Tus mensajes no se guardan.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         Pantalla 2 — ¿Quién eres?
+         ============================================================ -->
+    <section class="view" id="view-role">
+      <button class="step-back" data-back="welcome">Volver</button>
+      <div style="display:flex; flex-direction:column; align-items:center; flex:1;">
+        <div class="step-eyebrow">Paso 1 de 3</div>
+        <h2 class="step-title">¿Quién <em>eres</em>?</h2>
+        <div class="role-grid">
+          <div class="role-card director" data-role="director">
+            <span class="role-icon">📋</span>
+            <div class="role-name">Director(a)</div>
+            <div class="role-desc">Tienes el reporte general de tu escuela.</div>
+          </div>
+          <div class="role-card matematica" data-role="matematica">
+            <span class="role-icon">📐</span>
+            <div class="role-name">Docente de Matemática</div>
+            <div class="role-desc">Tienes un reporte por sección.</div>
+          </div>
+          <div class="role-card tutoria" data-role="tutoria">
+            <span class="role-icon">🧭</span>
+            <div class="role-name">Tutor(a) de aula</div>
+            <div class="role-desc">Tienes un reporte de tutoría vocacional por sección.</div>
+          </div>
+          <div class="role-card pip" data-role="pip">
+            <span class="role-icon">🔬</span>
+            <div class="role-name">Docente PIP</div>
+            <div class="role-desc">Acompañas la escuela de forma transversal.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         Pantalla 3 — ¿Tu escuela?
+         ============================================================ -->
+    <section class="view" id="view-school">
+      <button class="step-back" data-back="role">Volver</button>
+      <div style="display:flex; flex-direction:column; align-items:center; flex:1; width:100%;">
+        <div class="step-eyebrow">Paso 2 de 3</div>
+        <h2 class="step-title">¿Cuál es <em>tu escuela</em>?</h2>
+        <form class="school-form" id="school-form" onsubmit="return false;">
+          <div class="field">
+            <label for="sel-ugel">UGEL</label>
+            <select id="sel-ugel" required>
+              <option value="">— Elige tu UGEL —</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="sel-school">Escuela</label>
+            <select id="sel-school" required disabled>
+              <option value="">— Primero elige una UGEL —</option>
+            </select>
+          </div>
+          <div class="field" id="field-seccion" style="display:none;">
+            <label for="sel-seccion">Sección</label>
+            <select id="sel-seccion" required>
+              <option value="">— Elige tu sección —</option>
+            </select>
+          </div>
+          <div class="field-error" id="school-error"></div>
+          <div class="form-footer">
+            <span></span>
+            <button type="submit" class="btn-primary" id="btn-school-continue" disabled>Continuar</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         Pantalla 3.5 — Soft gate
+         ============================================================ -->
+    <section class="view" id="view-namegate">
+      <button class="step-back" data-back="school">Volver</button>
+      <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; flex:1; width:100%;">
+        <div class="step-eyebrow">Paso 3 de 3</div>
+        <div class="gate-card">
+          <img src="../img/gallito-pip.png" alt="" class="gate-gallito" />
+          <div class="gate-school" id="gate-school"></div>
+          <div class="gate-meta" id="gate-meta"></div>
+          <p class="gate-prompt" id="gate-prompt">Escribe tu primer nombre <em>tal como aparece</em> en tu reporte, donde dice "Hola, ___."</p>
+          <form id="gate-form" onsubmit="return false;">
+            <input type="text" class="gate-input" id="gate-input" placeholder="Tu primer nombre" autocomplete="off" autocorrect="off" autocapitalize="words" />
+            <div class="field-error" id="gate-error">No reconozco ese nombre. Revisa la primera página del PDF — el saludo "Hola, ___" tiene el nombre correcto.</div>
+            <div class="gate-actions">
+              <button type="submit" class="btn-primary" id="btn-gate">Abrir reporte</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         Pantalla 4 — Chat
+         ============================================================ -->
+    <section class="view" id="view-chat">
+      <div class="chat-app">
+        <header class="chat-header">
+          <img src="../img/gallito-pip.png" alt="" class="chat-header-gallito" />
+          <div class="chat-header-info">
+            <div class="chat-header-name" id="chat-school-name"></div>
+            <div class="chat-header-meta" id="chat-school-meta"></div>
+          </div>
+          <button class="chat-header-change" data-action="change-report">Cambiar reporte</button>
+        </header>
+
+        <div class="chat-body" id="chat-body">
+          <!-- Intro + suggested questions, replaced by messages as they come in -->
+          <div class="chat-intro" id="chat-intro">
+            <div class="chat-intro-line" id="intro-line">Hola, <span class="gname" id="intro-name"></span>. ¿En qué <em>te</em> ayudo?</div>
+            <div class="suggested-questions" id="suggested-questions"></div>
+          </div>
+        </div>
+
+        <div class="chat-input-zone">
+          <div class="chat-input-row">
+            <textarea class="chat-input" id="chat-input" rows="1" placeholder="Escribe tu pregunta..." autocomplete="off"></textarea>
+            <button class="chat-send" id="chat-send" disabled aria-label="Enviar">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+            </button>
+          </div>
+          <div class="chat-footer-actions">
+            <a id="link-whatsapp" href="#" target="_blank" rel="noopener" style="display:none">WhatsApp a mi acompañante</a>
+            <button data-action="change-report">Cambiar reporte</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+  // ============================================================
+  // EMC "Pregúntale al gallito" — frontend script
+  // ============================================================
+  // Architecture: single-page, no framework, no build step.
+  // State machine: welcome → role → school → namegate → chat.
+  // Backend: a Vercel Edge function (set in API_URL below) hides the
+  // Anthropic API key and proxies streaming chat requests.
+
+  // The Vercel proxy holds the API key AND the report data. The browser never
+  // fetches report JSONs directly — they live behind a name-check gate on the
+  // server, so an attacker who guesses a school's codigo still can't read it.
+  const API_BASE = window.EMC_REPORTE_API_URL
+    || "https://emc-reporte-api.vercel.app";
+  const API_CHAT = `${API_BASE}/api/chat`;
+  const API_VERIFY = `${API_BASE}/api/verify`;
+  const API_SCHOOLS = `${API_BASE}/api/schools`;
+
+  const state = {
+    role: null,           // "director" | "matematica" | "tutoria" | "pip"
+    ugel: null,           // e.g. "UGEL_01_SJ_MIRAFLORES"
+    codigo: null,         // school codigo
+    school_name: null,
+    ugel_label: null,
+    seccion: null,
+    typed_name: null,     // validated name — sent with every chat message
+    whatsapp: null,       // revealed by /api/verify on a successful gate
+    messages: [],         // [{role: 'user'|'assistant', content: string}]
+    sending: false,
+  };
+
+  let INDEX = null;       // loaded once on first need
+
+  const SUGGESTED = {
+    director: [
+      "¿Qué destaca de mi escuela?",
+      "¿Qué debo priorizar esta semana?",
+      "Compárame con mi UGEL",
+    ],
+    matematica: [
+      "¿Cómo va mi sección?",
+      "¿Qué estudiantes necesitan atención?",
+      "Ideas para mi próxima clase",
+    ],
+    tutoria: [
+      "Explícame los perfiles RIASEC de mi sección",
+      "¿Qué hago en la próxima sesión?",
+      "¿Con quiénes necesito conversar?",
+    ],
+    pip: [
+      "¿Qué destaca de la escuela?",
+      "¿Qué priorizar esta semana?",
+      "Compárame con la UGEL",
+    ],
+  };
+
+  const ROLE_LABEL = {
+    director: "Director(a)",
+    matematica: "Docente de Matemática",
+    tutoria: "Tutor(a) de aula",
+    pip: "Docente PIP",
+  };
+
+  // Roles that use the director report (no per-section view of their own).
+  const USES_DIRECTOR_REPORT = new Set(["director", "pip"]);
+
+  // ----- view switching -----
+  function showView(name) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.getElementById('view-' + name).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  // ----- INDEX load -----
+  async function loadIndex() {
+    if (INDEX) return INDEX;
+    const res = await fetch(API_SCHOOLS);
+    if (!res.ok) throw new Error("No se pudo cargar el índice de reportes.");
+    INDEX = await res.json();
+    if (INDEX.period_label) {
+      const el = document.getElementById('period-badge');
+      if (el) el.textContent = `Reporte del ${INDEX.period_label}`;
+    }
+    return INDEX;
+  }
+
+  // Load the index eagerly on page load so the period badge is populated
+  // before the user even clicks Empezar.
+  loadIndex().catch(() => { /* silently ignore — will retry on Empezar */ });
+
+  // ----- Pantalla 2: rol -----
+  document.querySelectorAll('.role-card').forEach(card => {
+    card.addEventListener('click', async () => {
+      state.role = card.dataset.role;
+      // director + pip don't need section; mate/tutoría do
+      document.getElementById('field-seccion').style.display =
+        USES_DIRECTOR_REPORT.has(state.role) ? 'none' : '';
+      await populateUgelDropdown();
+      showView('school');
+    });
+  });
+
+  // ----- Pantalla 3: escuela -----
+  async function populateUgelDropdown() {
+    const idx = await loadIndex();
+    const sel = document.getElementById('sel-ugel');
+    // clear existing (keep placeholder)
+    sel.innerHTML = '<option value="">— Elige tu UGEL —</option>';
+    for (const u of idx.ugels) {
+      const opt = document.createElement('option');
+      opt.value = u.id;
+      opt.textContent = u.label;
+      sel.appendChild(opt);
+    }
+    document.getElementById('sel-school').innerHTML =
+      '<option value="">— Primero elige una UGEL —</option>';
+    document.getElementById('sel-school').disabled = true;
+    document.getElementById('sel-seccion').innerHTML =
+      '<option value="">— Elige tu sección —</option>';
+    document.getElementById('btn-school-continue').disabled = true;
+    document.getElementById('school-error').classList.remove('visible');
+  }
+
+  document.getElementById('sel-ugel').addEventListener('change', e => {
+    const ugel_id = e.target.value;
+    const schoolSel = document.getElementById('sel-school');
+    schoolSel.innerHTML = '<option value="">— Elige tu escuela —</option>';
+    if (!ugel_id) {
+      schoolSel.disabled = true;
+      validateSchoolForm();
+      return;
+    }
+    const ugel = INDEX.ugels.find(u => u.id === ugel_id);
+    const eligible = ugel.schools.filter(s => {
+      if (USES_DIRECTOR_REPORT.has(state.role)) return s.roles_available.director;
+      if (state.role === 'matematica') return s.roles_available.matematica.length > 0;
+      if (state.role === 'tutoria') return s.roles_available.tutoria.length > 0;
+      return true;
+    });
+    // sort by name for nicer UX
+    eligible.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+    for (const s of eligible) {
+      const opt = document.createElement('option');
+      opt.value = s.codigo;
+      opt.textContent = s.name || s.codigo;
+      schoolSel.appendChild(opt);
+    }
+    schoolSel.disabled = eligible.length === 0;
+    schoolSel.value = '';
+    document.getElementById('field-seccion').style.display =
+      state.role === 'director' ? 'none' : '';
+    validateSchoolForm();
+  });
+
+  document.getElementById('sel-school').addEventListener('change', e => {
+    if (USES_DIRECTOR_REPORT.has(state.role)) {
+      validateSchoolForm();
+      return;
+    }
+    // Populate sections
+    const ugel = INDEX.ugels.find(u => u.id === document.getElementById('sel-ugel').value);
+    const school = ugel.schools.find(s => s.codigo === e.target.value);
+    const sectSel = document.getElementById('sel-seccion');
+    sectSel.innerHTML = '<option value="">— Elige tu sección —</option>';
+    if (school) {
+      const list = state.role === 'matematica' ? school.roles_available.matematica : school.roles_available.tutoria;
+      for (const sec of list) {
+        const opt = document.createElement('option');
+        opt.value = sec;
+        opt.textContent = `Sección ${sec}`;
+        sectSel.appendChild(opt);
+      }
+    }
+    validateSchoolForm();
+  });
+
+  document.getElementById('sel-seccion').addEventListener('change', validateSchoolForm);
+
+  function validateSchoolForm() {
+    const ugel = document.getElementById('sel-ugel').value;
+    const school = document.getElementById('sel-school').value;
+    const sec = document.getElementById('sel-seccion').value;
+    const needsSec = !USES_DIRECTOR_REPORT.has(state.role);
+    const ok = ugel && school && (!needsSec || sec);
+    document.getElementById('btn-school-continue').disabled = !ok;
+  }
+
+  document.getElementById('school-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const btn = document.getElementById('btn-school-continue');
+    if (btn.disabled) return;
+    state.ugel = document.getElementById('sel-ugel').value;
+    state.codigo = document.getElementById('sel-school').value;
+    state.seccion = USES_DIRECTOR_REPORT.has(state.role)
+      ? null
+      : document.getElementById('sel-seccion').value;
+    const ugel = INDEX.ugels.find(u => u.id === state.ugel);
+    const school = ugel.schools.find(s => s.codigo === state.codigo);
+    state.school_name = school.name;
+    state.ugel_label = ugel.label;
+    // We don't fetch the report here anymore — the server gates it behind
+    // the name check on /api/verify.
+    openNameGate();
+  });
+
+  // ----- Pantalla 3.5: gate -----
+  function openNameGate() {
+    document.getElementById('gate-school').textContent = state.school_name;
+    const seccionLabel = state.seccion ? ` · Sección ${state.seccion}` : '';
+    document.getElementById('gate-meta').textContent =
+      `${ROLE_LABEL[state.role]}${seccionLabel} · ${state.ugel_label || ''}`;
+    const promptEl = document.getElementById('gate-prompt');
+    if (state.role === 'pip') {
+      promptEl.innerHTML = 'Para verificar tu acceso, escribe el primer nombre <em>del/de la director(a)</em> de esta escuela.';
+    } else {
+      promptEl.innerHTML = 'Escribe tu primer nombre <em>tal como aparece</em> en tu reporte, donde dice "Hola, ___."';
+    }
+    document.getElementById('gate-input').value = '';
+    document.getElementById('gate-error').classList.remove('visible');
+    showView('namegate');
+    setTimeout(() => document.getElementById('gate-input').focus(), 80);
+  }
+
+  document.getElementById('gate-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const typed = document.getElementById('gate-input').value.trim();
+    if (!typed) return;
+
+    const btn = document.getElementById('btn-gate');
+    btn.disabled = true;
+    btn.textContent = 'Verificando...';
+
+    try {
+      const res = await fetch(API_VERIFY, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          role: state.role,
+          codigo: state.codigo,
+          seccion: state.seccion,
+          typed_name: typed,
+        }),
+      });
+      if (res.status === 403) {
+        document.getElementById('gate-error').classList.add('visible');
+        document.getElementById('gate-input').focus();
+        document.getElementById('gate-input').select();
+        return;
+      }
+      if (!res.ok) {
+        const errEl = document.getElementById('gate-error');
+        errEl.textContent = 'No pudimos abrir el reporte. Reintenta en un minuto.';
+        errEl.classList.add('visible');
+        return;
+      }
+      const data = await res.json();
+      state.typed_name = typed;
+      // server-confirmed values (also locks them down)
+      state.school_name = data.school_name || state.school_name;
+      state.ugel_label = data.ugel_label || state.ugel_label;
+      state.whatsapp = data.acompanante_whatsapp || null;
+      openChat();
+    } catch (err) {
+      const errEl = document.getElementById('gate-error');
+      errEl.textContent = 'No hay conexión. Revisa tu internet y vuelve a intentar.';
+      errEl.classList.add('visible');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Abrir reporte';
+    }
+  });
+
+  // ----- Pantalla 4: chat -----
+  function openChat() {
+    // header
+    document.getElementById('chat-school-name').textContent = state.school_name;
+    const seccionLabel = state.seccion ? ` · Sección ${state.seccion}` : '';
+    document.getElementById('chat-school-meta').textContent =
+      `${ROLE_LABEL[state.role]}${seccionLabel} · ${state.ugel_label || ''}`;
+    // PIP types the director's name as the gate but isn't the director, so we
+    // don't greet PIP by that name. Other roles see their own first name.
+    const introLine = document.getElementById('intro-line');
+    if (state.role === 'pip') {
+      introLine.innerHTML = '¿En qué <em>te</em> ayudo con esta escuela?';
+    } else {
+      introLine.innerHTML = `Hola, <span class="gname">${escapeHtml(state.typed_name || '')}</span>. ¿En qué <em>te</em> ayudo?`;
+    }
+
+    // suggested questions
+    const sq = document.getElementById('suggested-questions');
+    sq.innerHTML = '';
+    for (const q of (SUGGESTED[state.role] || [])) {
+      const b = document.createElement('button');
+      b.className = 'suggested';
+      b.textContent = q;
+      b.addEventListener('click', () => {
+        document.getElementById('chat-input').value = q;
+        sendMessage();
+      });
+      sq.appendChild(b);
+    }
+
+    // whatsapp link (revealed by /api/verify only after the gate passes)
+    const wa = document.getElementById('link-whatsapp');
+    const phone = state.whatsapp;
+    if (phone) {
+      const digits = phone.replace(/\D+/g, '');
+      wa.href = `https://wa.me/${digits}`;
+      wa.style.display = '';
+    } else {
+      wa.style.display = 'none';
+    }
+
+    state.messages = [];
+    const body = document.getElementById('chat-body');
+    const intro = document.getElementById('chat-intro');
+    body.innerHTML = '';
+    body.appendChild(intro);
+    intro.style.display = '';
+    showView('chat');
+    setTimeout(() => document.getElementById('chat-input').focus(), 80);
+  }
+
+  // input handling
+  const inputEl = document.getElementById('chat-input');
+  const sendBtn = document.getElementById('chat-send');
+  inputEl.addEventListener('input', () => {
+    sendBtn.disabled = !inputEl.value.trim() || state.sending;
+    // auto-grow
+    inputEl.style.height = 'auto';
+    inputEl.style.height = Math.min(inputEl.scrollHeight, 140) + 'px';
+  });
+  inputEl.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      if (!sendBtn.disabled) sendMessage();
+    }
+  });
+  sendBtn.addEventListener('click', sendMessage);
+
+  // Minimal markdown → HTML (only what Claude produces in casual prose):
+  // **bold**, *italic*, numbered lists, bullet lists, paragraphs.
+  function renderMarkdown(text) {
+    // Escape HTML first
+    const esc = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    let html = esc
+      .replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>')
+      .replace(/(?<![*\w])\*([^*\n]+)\*(?!\w)/g, '<em>$1</em>');
+    // paragraph breaks
+    html = html.split(/\n{2,}/).map(p => {
+      // bullet list?
+      if (/^\s*[-•]\s+/.test(p)) {
+        const items = p.split(/\n/).map(line => line.replace(/^\s*[-•]\s+/, '').trim()).filter(Boolean);
+        return '<ul>' + items.map(i => `<li>${i}</li>`).join('') + '</ul>';
+      }
+      // numbered list?
+      if (/^\s*\d+\.\s+/.test(p)) {
+        const items = p.split(/\n/).map(line => line.replace(/^\s*\d+\.\s+/, '').trim()).filter(Boolean);
+        return '<ol>' + items.map(i => `<li>${i}</li>`).join('') + '</ol>';
+      }
+      return '<p>' + p.replace(/\n/g, '<br>') + '</p>';
+    }).join('');
+    return html;
+  }
+
+  function appendBubble(role, text) {
+    const row = document.createElement('div');
+    row.className = `msg-row ${role}`;
+    if (role === 'gallito') {
+      const av = document.createElement('img');
+      av.src = '../img/gallito-pip.png';
+      av.alt = '';
+      av.className = 'gallito-avatar';
+      row.appendChild(av);
+    }
+    const bub = document.createElement('div');
+    bub.className = `msg-bubble ${role}`;
+    // User + error bubbles are plain text; gallito bubbles are markdown.
+    if (role === 'gallito' && text) {
+      bub.innerHTML = renderMarkdown(text);
+    } else {
+      bub.textContent = text;
+    }
+    row.appendChild(bub);
+    document.getElementById('chat-body').appendChild(row);
+    scrollToBottom();
+    return bub;
+  }
+
+  function appendTyping() {
+    const row = document.createElement('div');
+    row.className = 'msg-row gallito';
+    row.dataset.kind = 'typing';
+    const av = document.createElement('img');
+    av.src = '../img/gallito-pip.png';
+    av.alt = '';
+    av.className = 'gallito-avatar';
+    row.appendChild(av);
+    const bub = document.createElement('div');
+    bub.className = 'msg-bubble gallito';
+    bub.innerHTML = '<span class="typing"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></span>';
+    row.appendChild(bub);
+    document.getElementById('chat-body').appendChild(row);
+    scrollToBottom();
+    return row;
+  }
+
+  function scrollToBottom() {
+    const b = document.getElementById('chat-body');
+    b.scrollTop = b.scrollHeight;
+  }
+
+  async function sendMessage() {
+    const text = inputEl.value.trim();
+    if (!text || state.sending) return;
+    state.sending = true;
+    sendBtn.disabled = true;
+
+    // hide intro on first message
+    const intro = document.getElementById('chat-intro');
+    if (intro && intro.parentNode) {
+      intro.style.display = 'none';
+    }
+
+    // optimistic user bubble
+    appendBubble('user', text);
+    inputEl.value = '';
+    inputEl.style.height = 'auto';
+
+    state.messages.push({ role: 'user', content: text });
+
+    // typing indicator
+    const typingRow = appendTyping();
+
+    let assistantBubble = null;
+    let assistantText = '';
+
+    try {
+      const res = await fetch(API_CHAT, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          role: state.role,
+          codigo: state.codigo,
+          seccion: state.seccion,
+          typed_name: state.typed_name,
+          messages: state.messages,
+        }),
+      });
+      if (!res.ok) {
+        let detail = '';
+        try { const j = await res.json(); detail = j.detail || j.error || ''; } catch {}
+        if (res.status === 403) {
+          throw new Error('Tu acceso expiró. Recarga la página y vuelve a abrir el reporte.');
+        }
+        throw new Error('El gallito tuvo un problema (' + res.status + '). ' + detail);
+      }
+
+      // SSE stream from Anthropic
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        // process events split by \n\n
+        let idx;
+        while ((idx = buffer.indexOf('\n\n')) !== -1) {
+          const block = buffer.slice(0, idx);
+          buffer = buffer.slice(idx + 2);
+          const dataLines = block.split('\n').filter(l => l.startsWith('data: '));
+          for (const l of dataLines) {
+            const payload = l.slice(6).trim();
+            if (!payload || payload === '[DONE]') continue;
+            try {
+              const ev = JSON.parse(payload);
+              if (ev.type === 'content_block_delta' && ev.delta && ev.delta.type === 'text_delta') {
+                if (!assistantBubble) {
+                  // remove typing row, create real bubble
+                  typingRow.remove();
+                  assistantBubble = appendBubble('gallito', '');
+                }
+                assistantText += ev.delta.text;
+                assistantBubble.innerHTML = renderMarkdown(assistantText);
+                scrollToBottom();
+              }
+            } catch (e) {
+              // ignore unparseable lines
+            }
+          }
+        }
+      }
+
+      if (!assistantBubble) {
+        typingRow.remove();
+        assistantBubble = appendBubble('gallito', '(sin respuesta — intenta de nuevo)');
+      }
+      state.messages.push({ role: 'assistant', content: assistantText });
+    } catch (err) {
+      if (typingRow.parentNode) typingRow.remove();
+      const bub = appendBubble('gallito', '');
+      bub.classList.remove('gallito');
+      bub.classList.add('error');
+      bub.textContent = err.message || 'Ocurrió un error inesperado.';
+      // remove the last user message from state since the round failed
+      state.messages.pop();
+    } finally {
+      state.sending = false;
+      sendBtn.disabled = !inputEl.value.trim();
+      inputEl.focus();
+    }
+  }
+
+  // change-report buttons
+  document.querySelectorAll('[data-action="change-report"]').forEach(b => {
+    b.addEventListener('click', () => {
+      // keep role, reset school + gate
+      state.codigo = null;
+      state.school_name = null;
+      state.ugel_label = null;
+      state.seccion = null;
+      state.typed_name = null;
+      state.whatsapp = null;
+      state.messages = [];
+      showView('role');
+    });
+  });
+
+  function escapeHtml(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  // back buttons
+  document.querySelectorAll('[data-back]').forEach(b => {
+    b.addEventListener('click', () => showView(b.dataset.back));
+  });
+  // welcome → role
+  document.querySelectorAll('[data-goto]').forEach(b => {
+    b.addEventListener('click', () => showView(b.dataset.goto));
+  });
+  </script>
+</body>
+</html>
