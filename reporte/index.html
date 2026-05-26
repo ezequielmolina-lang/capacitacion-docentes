@@ -513,116 +513,176 @@
     .msg-bubble.gallito li { margin: 2px 0; }
 
     /* ============================================================
-       KPI cards (resumen del reporte)
+       KPI cards (resumen del reporte) — editorial style matching the PDF
        ============================================================ */
     .kpi-wrap {
-      padding: 14px 14px 6px;
+      padding: 18px 16px 8px;
       background: var(--bg-cream);
-      border-bottom: 1px solid rgba(36,44,50,0.05);
+      border-bottom: 1px solid rgba(36,44,50,0.06);
     }
     .kpi-wrap:empty { display: none; }
     .kpi-card {
-      background: #fff;
-      border: 1px solid rgba(36,44,50,0.08);
-      border-radius: var(--radius);
-      padding: 14px 16px;
-      box-shadow: var(--card-shadow);
       max-width: 720px;
       margin: 0 auto;
+      padding: 4px 2px;
     }
-    .kpi-card-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: 1.05rem;
-      color: var(--text-gray);
-      margin-bottom: 10px;
-      letter-spacing: 0.2px;
-    }
-    .kpi-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-    @media (max-width: 520px) { .kpi-grid { grid-template-columns: 1fr; } }
-    .kpi-block {
-      padding: 10px 12px;
-      border-radius: var(--radius-sm);
-      background: var(--bg-cream-2);
-    }
-    .kpi-block.mate { background: #FFF4E5; }
-    .kpi-block.ov   { background: #EAF4EA; }
-    .kpi-block.pip  { background: #E3F2FD; }
-    .kpi-block.mate .kpi-label { color: var(--math-color); }
-    .kpi-block.ov   .kpi-label { color: var(--ov-color); }
-    .kpi-block.pip  .kpi-label { color: var(--pip-color); }
-    .kpi-label {
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-      color: var(--text-gray);
-      margin-bottom: 4px;
-    }
-    .kpi-main {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 600;
-      font-size: 1.6rem;
-      line-height: 1.1;
-      color: var(--text-dark);
-    }
-    .kpi-main small {
+    .kpi-eyebrow {
       font-family: 'Montserrat', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 500;
-      color: var(--text-gray);
-      letter-spacing: 0.3px;
-      margin-left: 4px;
-    }
-    .kpi-cmp {
-      font-size: 0.78rem;
-      color: var(--text-gray);
-      margin-top: 2px;
-    }
-    .kpi-cmp.up   { color: var(--ov-color); }
-    .kpi-cmp.down { color: var(--math-color); }
-    .kpi-cmp.up::before   { content: "▲ "; }
-    .kpi-cmp.down::before { content: "▼ "; }
-    .kpi-sub {
-      font-size: 0.82rem;
-      color: var(--text-gray);
-      margin-top: 6px;
-      line-height: 1.35;
-    }
-    .kpi-sub b { color: var(--text-dark); font-weight: 600; }
-    .kpi-actions {
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px dashed rgba(36,44,50,0.12);
-    }
-    .kpi-actions-title {
       font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 1.2px;
+      font-weight: 600;
+      letter-spacing: 2.2px;
       text-transform: uppercase;
       color: var(--primary);
-      margin-bottom: 6px;
+      margin-bottom: 14px;
     }
-    .kpi-actions ul { margin: 0; padding-left: 1.1em; }
-    .kpi-actions li { font-size: 0.85rem; line-height: 1.4; margin: 3px 0; color: var(--text-dark); }
-    .kpi-collapse {
+    .kpi-eyebrow .sep { color: rgba(36,44,50,0.25); margin: 0 6px; }
+    .kpi-eyebrow .meta { color: var(--text-gray); font-weight: 500; letter-spacing: 1.2px; }
+
+    .kpi-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border-top: 1px solid rgba(36,44,50,0.18);
+      border-bottom: 1px solid rgba(36,44,50,0.18);
+      margin-bottom: 16px;
+    }
+    @media (max-width: 560px) {
+      .kpi-stats { grid-template-columns: 1fr 1fr; }
+      .kpi-stat:nth-child(odd) { border-right: 1px solid rgba(36,44,50,0.12); }
+      .kpi-stat:nth-child(3) { grid-column: 1 / -1; border-right: none; border-top: 1px solid rgba(36,44,50,0.12); }
+    }
+    @media (min-width: 561px) {
+      .kpi-stat + .kpi-stat { border-left: 1px solid rgba(36,44,50,0.12); }
+    }
+    .kpi-stat {
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .kpi-stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-size: 2.6rem;
+      line-height: 1;
+      color: var(--text-dark);
+      letter-spacing: -0.5px;
+    }
+    .kpi-stat-num.mate { color: var(--math-color); }
+    .kpi-stat-num.ov   { color: var(--ov-color); }
+    .kpi-stat-num.pip  { color: var(--pip-color); }
+    .kpi-stat-num .unit {
+      font-size: 1.2rem;
+      font-weight: 500;
+      font-style: italic;
+      color: var(--text-gray);
+      margin-left: 2px;
+    }
+    .kpi-stat-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      line-height: 1.25;
+      color: var(--text-dark);
+      margin-top: 6px;
+      max-width: 18em;
+    }
+    .kpi-stat-cmp {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.4px;
+      color: var(--text-gray);
       margin-top: 8px;
+    }
+    .kpi-stat-cmp.up   { color: var(--ov-color); }
+    .kpi-stat-cmp.down { color: var(--math-color); }
+    .kpi-stat-cmp.up::before   { content: "▲ "; font-size: 0.65rem; }
+    .kpi-stat-cmp.down::before { content: "▼ "; font-size: 0.65rem; }
+
+    .kpi-section-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+    .kpi-section-title .pilcrow {
+      color: rgba(243,147,0,0.5);
+      margin-right: 8px;
+    }
+    .kpi-actions-editorial {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      counter-reset: action;
+    }
+    .kpi-actions-editorial li {
+      counter-increment: action;
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      align-items: baseline;
+      gap: 4px;
+      padding: 8px 0;
+      border-bottom: 1px dotted rgba(36,44,50,0.15);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.02rem;
+      line-height: 1.35;
+      color: var(--text-dark);
+    }
+    .kpi-actions-editorial li:last-child { border-bottom: none; }
+    .kpi-actions-editorial li::before {
+      content: counter(action, decimal-leading-zero);
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: var(--primary-dark);
+    }
+
+    .kpi-bullets {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .kpi-bullets li {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.02rem;
+      line-height: 1.4;
+      color: var(--text-dark);
+      padding: 6px 0;
+      border-bottom: 1px dotted rgba(36,44,50,0.12);
+    }
+    .kpi-bullets li:last-child { border-bottom: none; }
+    .kpi-bullets li b { font-weight: 700; font-style: normal; color: var(--text-dark); }
+    .kpi-bullets li em.tag {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.62rem;
+      font-style: normal;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-right: 6px;
+    }
+
+    .kpi-collapse {
+      margin-top: 12px;
       background: none;
       border: none;
       color: var(--primary-dark);
-      font-family: inherit;
-      font-size: 0.78rem;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
       cursor: pointer;
       padding: 4px 0;
     }
     .kpi-wrap.collapsed .kpi-card-body { display: none; }
-    .kpi-wrap.collapsed .kpi-actions { display: none; }
-    .kpi-wrap.collapsed .kpi-collapse::after { content: " resumen ↓"; }
-    .kpi-wrap:not(.collapsed) .kpi-collapse::after { content: " ocultar resumen ↑"; }
+    .kpi-wrap.collapsed .kpi-collapse::after { content: "Ver resumen ↓"; }
+    .kpi-wrap:not(.collapsed) .kpi-collapse::after { content: "Ocultar resumen ↑"; }
     .msg-bubble.error {
       background: #FFF3E0;
       color: var(--math-color);
@@ -1443,55 +1503,74 @@
     }
   }
 
+  // --- Editorial-style helpers ---
+  function statBlock({ num, unit, label, cmp, cmpClass: cls, color }) {
+    if (num == null && !label) return '';
+    return `
+      <div class="kpi-stat">
+        <div class="kpi-stat-num${color ? ' ' + color : ''}">${num != null ? escapeHtml(String(num)) : '—'}${unit ? `<span class="unit">${escapeHtml(unit)}</span>` : ''}</div>
+        ${label ? `<div class="kpi-stat-label">${label}</div>` : ''}
+        ${cmp ? `<div class="kpi-stat-cmp ${cls || ''}">${escapeHtml(cmp)}</div>` : ''}
+      </div>`;
+  }
+
+  function eyebrow(title, meta) {
+    return `<div class="kpi-eyebrow">${escapeHtml(title)}${meta ? `<span class="sep">·</span><span class="meta">${escapeHtml(meta)}</span>` : ''}</div>`;
+  }
+
   function renderDirectorCard(wrap, s) {
     const mate = s.matematica || {};
     const tut  = s.tutoria || {};
     const actions = s.weekly_actions || [];
 
-    const mateActive = mate.active_pct_school != null
-      ? `<div class="kpi-main">${mate.active_pct_school}<small>% activos</small></div>
-         <div class="kpi-cmp ${cmpClass(mate.active_pct_school, mate.active_pct_programa)}">${fmtCmp(mate.active_pct_school, mate.active_pct_programa, 'pp')}</div>`
-      : '';
-    const mateQ = mate.q_per_student_school != null
-      ? `<div class="kpi-sub"><b>${mate.q_per_student_school}</b> preguntas/estudiante · precisión <b>${mate.precision_school ?? '—'}%</b></div>`
-      : '';
-
-    const tutPasos = tut.pasos_promedio_school ?? tut.pasos_promedio;
-    const tutMain = tutPasos != null
-      ? `<div class="kpi-main">${tutPasos}<small>/ 8 pasos</small></div>
-         <div class="kpi-cmp ${cmpClass(tutPasos, tut.pasos_promedio_programa)}">${fmtCmp(tutPasos, tut.pasos_promedio_programa, '')}</div>`
-      : '';
-    const tutSub = tut.completed_8_pct_school != null
-      ? `<div class="kpi-sub"><b>${tut.completed_8_pct_school}%</b> terminaron los 8 pasos · <b>${tut.completed_8_count ?? '—'}</b> estudiantes</div>`
-      : '';
-
-    const studentsHeader = s.students_total != null
+    const meta = s.students_total != null
       ? `${s.students_total} estudiantes${s.sections && s.sections.length ? ' · ' + s.sections.length + ' ' + (s.sections.length === 1 ? 'sección' : 'secciones') : ''}`
       : '';
 
+    const stats = [];
+    if (mate.active_pct_school != null) {
+      const diff = mate.active_pct_programa != null ? mate.active_pct_school - mate.active_pct_programa : null;
+      stats.push(statBlock({
+        num: mate.active_pct_school, unit: '%',
+        label: 'activos en <em>matemática</em>',
+        cmp: diff != null ? `${diff > 0 ? '+' : ''}${diff} vs programa` : null,
+        cmpClass: diff > 0 ? 'up' : diff < 0 ? 'down' : '',
+        color: 'mate',
+      }));
+    }
+    const tutPasos = tut.pasos_promedio_school ?? tut.pasos_promedio;
+    if (tutPasos != null) {
+      const diff = tut.pasos_promedio_programa != null ? Math.round((tutPasos - tut.pasos_promedio_programa) * 10) / 10 : null;
+      stats.push(statBlock({
+        num: tutPasos, unit: '/8',
+        label: 'pasos <em>vocacionales</em> en promedio',
+        cmp: diff != null ? `${diff > 0 ? '+' : ''}${diff} vs programa` : null,
+        cmpClass: diff > 0 ? 'up' : diff < 0 ? 'down' : '',
+        color: 'ov',
+      }));
+    }
+    if (tut.completed_8_pct_school != null) {
+      const diff = tut.completed_8_pct_programa != null ? tut.completed_8_pct_school - tut.completed_8_pct_programa : null;
+      stats.push(statBlock({
+        num: tut.completed_8_pct_school, unit: '%',
+        label: `<em>terminó</em> los 8 pasos${tut.completed_8_count != null ? ` (${tut.completed_8_count} estudiantes)` : ''}`,
+        cmp: diff != null ? `${diff > 0 ? '+' : ''}${diff} vs programa` : null,
+        cmpClass: diff > 0 ? 'up' : diff < 0 ? 'down' : '',
+      }));
+    }
+
     const actionsHTML = actions.length
-      ? `<div class="kpi-actions">
-           <div class="kpi-actions-title">3 cosas esta semana</div>
-           <ul>${actions.map(a => `<li>${escapeHtml(a)}</li>`).join('')}</ul>
-         </div>`
+      ? `<div class="kpi-section-title"><span class="pilcrow">§</span>Tres cosas esta semana</div>
+         <ol class="kpi-actions-editorial">
+           ${actions.map(a => `<li>${escapeHtml(a)}</li>`).join('')}
+         </ol>`
       : '';
 
     wrap.innerHTML = `
       <div class="kpi-card">
-        <div class="kpi-card-title">${studentsHeader || 'Resumen del reporte'}</div>
+        ${eyebrow('De un vistazo', meta)}
         <div class="kpi-card-body">
-          <div class="kpi-grid">
-            <div class="kpi-block mate">
-              <div class="kpi-label">Matemática</div>
-              ${mateActive}
-              ${mateQ}
-            </div>
-            <div class="kpi-block ov">
-              <div class="kpi-label">Tutoría vocacional</div>
-              ${tutMain}
-              ${tutSub}
-            </div>
-          </div>
+          ${stats.length ? `<div class="kpi-stats">${stats.join('')}</div>` : ''}
           ${actionsHTML}
         </div>
         <button class="kpi-collapse" type="button"></button>
@@ -1501,69 +1580,79 @@
 
   function renderMateCard(wrap, s) {
     const followup = (s.students_for_followup || []).map(n => `<b>${escapeHtml(n)}</b>`).join(' y ');
-    const topicLine = s.weak_topic
-      ? `Tema más débil: <b>${escapeHtml(s.weak_topic)}</b>`
-      : '';
-    const followupLine = followup
-      ? `Conversa con ${followup}`
-      : '';
-    const minutesLine = s.active_minutes_section != null && s.active_minutes_ugel != null
-      ? `<b>${s.active_minutes_section} min</b> activos por semana (UGEL: ${s.active_minutes_ugel})`
-      : '';
-    const budgetLine = s.time_budget_minutes
-      ? `${s.time_budget_minutes} minutos esta quincena`
+    const items = [];
+    if (s.weak_topic) {
+      items.push(`<em class="tag">Tema</em>Refuerza <b>${escapeHtml(s.weak_topic)}</b> — el de menor precisión.`);
+    }
+    if (followup) {
+      items.push(`<em class="tag">Conversa</em>Con ${followup}.`);
+    }
+
+    const minutesStat = (s.active_minutes_section != null)
+      ? `<div class="kpi-stats" style="grid-template-columns: 1fr;">
+           <div class="kpi-stat">
+             <div class="kpi-stat-num mate">${s.active_minutes_section}<span class="unit">min</span></div>
+             <div class="kpi-stat-label"><em>activos</em> por semana, por estudiante${s.active_minutes_ugel != null ? ` <span style="color:var(--text-gray)">(UGEL: ${s.active_minutes_ugel})</span>` : ''}</div>
+           </div>
+         </div>`
       : '';
 
-    const subItems = [topicLine, followupLine, minutesLine].filter(Boolean);
-    const subHTML = subItems.length
-      ? `<div class="kpi-card-body"><ul style="margin:6px 0 0 1.1em; padding:0; font-size:0.88rem; line-height:1.5; color:var(--text-dark);">
-           ${subItems.map(i => `<li>${i}</li>`).join('')}
-         </ul></div>`
-      : '';
+    const title = s.time_budget_minutes
+      ? `Tu prioridad · en ${s.time_budget_minutes} minutos`
+      : 'Resumen de tu sección';
 
     wrap.innerHTML = `
       <div class="kpi-card">
-        <div class="kpi-card-title">${budgetLine ? `Para ti, en ${budgetLine}` : 'Resumen de tu sección'}</div>
-        ${subHTML}
+        ${eyebrow(title)}
+        <div class="kpi-card-body">
+          ${items.length ? `<ul class="kpi-bullets">${items.map(i => `<li>${i}</li>`).join('')}</ul>` : ''}
+          ${minutesStat}
+        </div>
         <button class="kpi-collapse" type="button"></button>
       </div>`;
     wireCollapse(wrap);
   }
 
   function renderTutoriaCard(wrap, s) {
+    const stats = [];
     const pasos = s.pasos_promedio_section ?? s.pasos_promedio;
-    const pasosMain = pasos != null
-      ? `<div class="kpi-main">${pasos}<small>/ 8 pasos</small></div>
-         <div class="kpi-cmp ${cmpClass(pasos, s.pasos_promedio_programa)}">${fmtCmp(pasos, s.pasos_promedio_programa, '')}</div>`
-      : '';
-    const completedSub = s.completed_8_pct != null
-      ? `<div class="kpi-sub"><b>${s.completed_8_pct}%</b> terminaron los 8 · <b>${s.completed_8_count ?? '—'}</b> estudiantes</div>`
-      : '';
+    if (pasos != null) {
+      const diff = s.pasos_promedio_programa != null ? Math.round((pasos - s.pasos_promedio_programa) * 10) / 10 : null;
+      stats.push(statBlock({
+        num: pasos, unit: '/8',
+        label: 'pasos en <em>promedio</em>',
+        cmp: diff != null ? `${diff > 0 ? '+' : ''}${diff} vs programa` : null,
+        cmpClass: diff > 0 ? 'up' : diff < 0 ? 'down' : '',
+        color: 'ov',
+      }));
+    }
+    if (s.completed_8_pct != null) {
+      const diff = s.completed_8_pct_programa != null ? s.completed_8_pct - s.completed_8_pct_programa : null;
+      stats.push(statBlock({
+        num: s.completed_8_pct, unit: '%',
+        label: `<em>terminó</em> los 8 pasos${s.completed_8_count != null ? ` (${s.completed_8_count} estudiantes)` : ''}`,
+        cmp: diff != null ? `${diff > 0 ? '+' : ''}${diff} vs programa` : null,
+        cmpClass: diff > 0 ? 'up' : diff < 0 ? 'down' : '',
+      }));
+    }
+    const riasec = (s.riasec_top || []).slice(0, 3);
+    if (riasec.length) {
+      const letters = riasec.map(r => r.letter).join(' · ');
+      const counts = riasec.map(r => r.count ?? '?').join(' / ');
+      stats.push(statBlock({
+        num: letters,
+        label: `perfiles <em>RIASEC</em> dominantes (${counts})`,
+        cmp: s.ruta_p4_universidad_pct != null ? `Universidad sugerida para ${s.ruta_p4_universidad_pct}%` : null,
+        color: 'ov',
+      }));
+    }
 
-    const riasecTop = (s.riasec_top || []).slice(0, 3).map(r => {
-      const cnt = r.count != null ? ` <small style="font-weight:500;color:var(--text-gray)">${r.count}</small>` : '';
-      return `<b>${r.letter}</b>${cnt}`;
-    }).join(' · ');
-    const riasecBlock = riasecTop
-      ? `<div class="kpi-block ov" style="margin-top:10px">
-           <div class="kpi-label">Perfiles RIASEC dominantes</div>
-           <div class="kpi-main" style="font-size:1.3rem">${riasecTop}</div>
-           ${s.ruta_p4_universidad_pct != null ? `<div class="kpi-sub">Universidad sugerida para <b>${s.ruta_p4_universidad_pct}%</b> en el Paso 4</div>` : ''}
-         </div>`
-      : '';
-
+    const meta = state.seccion ? `Sección ${state.seccion}` : '';
     wrap.innerHTML = `
       <div class="kpi-card">
-        <div class="kpi-card-title">Resumen de tu sección</div>
+        ${eyebrow('De un vistazo', meta)}
         <div class="kpi-card-body">
-          <div class="kpi-grid">
-            <div class="kpi-block ov">
-              <div class="kpi-label">Viaje vocacional</div>
-              ${pasosMain}
-              ${completedSub}
-            </div>
-            ${riasecBlock || `<div class="kpi-block ov"><div class="kpi-label">Sesiones de aula</div><div class="kpi-main">${s.sesiones_aula ?? '—'}<small>/ ${s.sesiones_aula_esperadas ?? '—'}</small></div></div>`}
-          </div>
+          ${stats.length ? `<div class="kpi-stats">${stats.join('')}</div>` : ''}
         </div>
         <button class="kpi-collapse" type="button"></button>
       </div>`;
