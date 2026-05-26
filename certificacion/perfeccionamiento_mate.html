@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Curso de Perfeccionamiento Docente — Matemáticas — Eligiendo Mi Camino</title>
 <meta name="description" content="Curso asincrónico de perfeccionamiento para docentes de Matemáticas que implementan el Tutor de IA del programa Eligiendo Mi Camino. 8 horas pedagógicas. DRELM + Banco Mundial.">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
   :root{
@@ -188,6 +188,142 @@
   .obs-positive h4{color:#1B5E20}
   .obs-friction{border-left:4px solid var(--warning);background:linear-gradient(135deg,#FFF8E1 0%,#FFF 100%)}
   .obs-friction h4{color:#E65100}
+
+  /* ============================================================
+     Reporte demo (módulo 4) — visualmente idéntico al PDF real
+     Scopeado bajo .report para no contaminar el resto del curso
+  ============================================================ */
+  .report{font-family:'Inter','Helvetica Neue',Arial,sans-serif;background:#faf4e3;color:#1a1815;padding:0;margin:24px 0;border-radius:6px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.12);font-size:13px;line-height:1.5;letter-spacing:0}
+  .report-pg{background:#faf4e3;padding:38px 44px 28px;border-bottom:1px dashed #d9cfa8;position:relative;min-height:780px}
+  .report-pg:last-child{border-bottom:none}
+  .report-pg .pg-header{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:16px;border-bottom:1px solid #2a2417;margin-bottom:22px}
+  .report-pg .pg-header-left{display:flex;gap:14px;align-items:flex-start}
+  .report-pg .pg-logo{font-size:30px;line-height:1;margin-top:2px}
+  .report-pg .pg-eyebrow{font-family:'Crimson Pro',serif;font-style:italic;font-size:13px;color:#c75d2e;margin:0 0 2px}
+  .report-pg .pg-title{font-family:'Crimson Pro',serif;font-weight:700;font-size:26px;line-height:1.05;color:#1a1815;margin:0}
+  .report-pg .pg-meta{text-align:right;font-size:11px;color:#1a1815;line-height:1.55}
+  .report-pg .pg-meta .pg-meta-bold{font-weight:600;font-size:11.5px}
+  .report-pg .pg-meta .pg-meta-line{color:#766c52}
+  .report-pg .pg-footer{position:absolute;bottom:14px;left:44px;right:44px;display:flex;justify-content:space-between;font-size:10px;color:#9b9275;letter-spacing:.08em;text-transform:uppercase;border-top:1px solid #e0d6b3;padding-top:8px}
+  .report-pg .pg-footer-num{font-family:'JetBrains Mono',monospace;letter-spacing:.05em}
+
+  .report .rp-section{margin-bottom:18px}
+  .report .rp-section-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:#9b9275;letter-spacing:.05em;text-transform:uppercase;margin-right:8px}
+  .report .rp-section-title{font-family:'Crimson Pro',serif;font-weight:700;font-size:18px;color:#1a1815;display:inline}
+  .report .rp-section-title em{font-style:italic;font-weight:400;color:#c75d2e}
+  .report .rp-section-rule{height:1px;background:#d9cfa8;margin:6px 0 14px}
+  .report .rp-lead{font-size:13px;line-height:1.55;color:#1a1815;margin:0 0 10px}
+  .report .rp-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;color:#c75d2e;letter-spacing:.08em;text-transform:uppercase;margin:14px 0 4px}
+  .report .rp-eyebrow-sub{font-style:italic;color:#766c52;font-family:'Crimson Pro',serif;font-size:12px;letter-spacing:0;text-transform:none}
+
+  .report table.rp-table{width:100%;border-collapse:collapse;margin:8px 0 16px;font-size:11.5px;background:transparent}
+  .report table.rp-table th{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#9b9275;letter-spacing:.08em;text-transform:uppercase;text-align:left;padding:4px 8px 6px;font-weight:500;border-bottom:1px solid #d9cfa8}
+  .report table.rp-table th.t-right,.report table.rp-table td.t-right{text-align:right;font-variant-numeric:tabular-nums}
+  .report table.rp-table th.t-center,.report table.rp-table td.t-center{text-align:center}
+  .report table.rp-table td{padding:5px 8px;border-bottom:1px solid #ece2c0;color:#1a1815;vertical-align:top}
+  .report table.rp-table tr:last-child td{border-bottom:none}
+  .report table.rp-table td.tu-seccion{background:#f0e6c3;font-weight:600;color:#c75d2e}
+  .report table.rp-table td.warn{color:#c75d2e;font-weight:600}
+  .report table.rp-table td.muted{color:#9b9275}
+
+  .report .rp-bienvenida-grid{display:grid;grid-template-columns:1fr 1fr;gap:34px;margin-bottom:24px}
+  .report .rp-bienv-block{font-size:13px;line-height:1.55}
+  .report .rp-bienv-block h3{font-family:'Crimson Pro',serif;font-weight:700;font-size:21px;margin:0 0 12px;color:#1a1815;line-height:1.15}
+  .report .rp-bienv-block h3 em{font-style:italic;color:#c75d2e;font-weight:400}
+  .report .rp-bienv-label{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#9b9275;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}
+  .report .rp-bienv-row{display:grid;grid-template-columns:130px 1fr;gap:12px;padding:8px 0;border-bottom:1px solid #ece2c0;font-size:12px}
+  .report .rp-bienv-row:last-child{border-bottom:none}
+  .report .rp-bienv-row .l{color:#9b9275;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase}
+  .report .rp-bienv-row .l.warn{color:#c75d2e}
+
+  .report .rp-quincena-title{font-family:'Crimson Pro',serif;font-weight:400;font-size:30px;line-height:1.1;margin:18px 0 18px;color:#1a1815}
+  .report .rp-quincena-title em{font-style:italic;color:#c75d2e;font-weight:700}
+
+  .report .rp-action-list{margin:0;padding:0;list-style:none;counter-reset:rp-action}
+  .report .rp-action-list li{counter-increment:rp-action;padding:6px 0 6px 30px;position:relative;font-size:13px;line-height:1.55;border-bottom:1px solid #ece2c0}
+  .report .rp-action-list li:last-child{border-bottom:none}
+  .report .rp-action-list li::before{content:counter(rp-action);position:absolute;left:0;top:7px;font-family:'Crimson Pro',serif;font-style:italic;font-size:14px;color:#c75d2e}
+  .report .rp-action-list li strong{font-weight:700;color:#1a1815}
+
+  .report .rp-error-card{border-left:3px solid #d9cfa8;padding:10px 14px;margin:10px 0;background:transparent}
+  .report .rp-error-card.warn{border-left-color:#c75d2e}
+  .report .rp-error-card h4{font-family:'Crimson Pro',serif;font-weight:700;font-size:15px;margin:0 0 4px;color:#1a1815}
+  .report .rp-error-stats{font-family:'JetBrains Mono',monospace;font-size:10px;color:#766c52;letter-spacing:.03em;margin-bottom:8px}
+  .report .rp-error-stats .warn{color:#c75d2e;font-weight:500}
+  .report .rp-error-row{padding:4px 0;font-size:12px;line-height:1.5}
+  .report .rp-error-row .rp-eq{font-family:'JetBrains Mono',monospace;background:#f0e6c3;padding:1px 6px;border-radius:2px;font-size:11px;color:#1a1815}
+  .report .rp-error-row .rp-resp{font-family:'Crimson Pro',serif;font-style:italic;color:#766c52;font-size:12px}
+  .report .rp-error-row .rp-resp .rp-r-val{font-family:'JetBrains Mono',monospace;font-style:normal;background:#f0e6c3;padding:1px 6px;border-radius:2px;font-size:11px;color:#1a1815}
+  .report .rp-error-row .rp-resp .rp-r-count{font-family:'JetBrains Mono',monospace;color:#9b9275;font-size:10px}
+  .report .rp-error-row .rp-diag{color:#1a1815}
+
+  .report .rp-action-card{border:1px solid #d9cfa8;border-radius:4px;padding:18px 20px;background:#fcf8e6;margin:12px 0}
+  .report .rp-action-card .rp-ac-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;color:#c75d2e;letter-spacing:.08em;text-transform:uppercase;background:#1a1815;color:#faf4e3;padding:3px 10px;display:inline-block;margin-bottom:10px}
+  .report .rp-action-card .rp-ac-title{font-family:'Crimson Pro',serif;font-weight:700;font-size:18px;color:#1a1815;margin:6px 0 10px}
+  .report .rp-action-card .rp-ac-why{font-size:12.5px;line-height:1.55;margin-bottom:14px}
+  .report .rp-action-card .rp-ac-why strong{color:#1a1815}
+  .report .rp-action-card .rp-ac-step-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:#c75d2e;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+  .report .rp-action-card .rp-ac-steps{counter-reset:rp-step;list-style:none;padding:0;margin:0 0 16px}
+  .report .rp-action-card .rp-ac-steps li{counter-increment:rp-step;display:grid;grid-template-columns:32px 1fr;gap:8px;padding:5px 0;font-size:12.5px;line-height:1.5;border-bottom:1px solid #ece2c0}
+  .report .rp-action-card .rp-ac-steps li:last-child{border-bottom:none}
+  .report .rp-action-card .rp-ac-steps li::before{content:counter(rp-step,lower-roman);font-family:'Crimson Pro',serif;font-style:italic;color:#c75d2e;font-size:13px;text-align:right}
+  .report .rp-action-card .rp-ac-steps li code{font-family:'JetBrains Mono',monospace;background:#f0e6c3;padding:1px 6px;border-radius:2px;font-size:11px;color:#1a1815}
+
+  .report .rp-conv-card{border:1px solid #d9cfa8;border-left:3px solid #c75d2e;border-radius:4px;padding:16px 20px;margin:10px 0;background:transparent}
+  .report .rp-conv-card .rp-cc-name{font-family:'Crimson Pro',serif;font-weight:700;font-size:16px;color:#1a1815;display:inline}
+  .report .rp-conv-card .rp-cc-data{font-family:'JetBrains Mono',monospace;font-size:10px;color:#766c52;letter-spacing:.03em;margin-left:8px}
+  .report .rp-conv-card .rp-cc-context{font-size:12px;color:#1a1815;margin:4px 0 12px;line-height:1.5}
+  .report .rp-conv-card .rp-cc-empieza{font-family:'JetBrains Mono',monospace;font-size:10px;color:#c75d2e;letter-spacing:.08em;text-transform:uppercase}
+  .report .rp-conv-card .rp-cc-quote{font-family:'Crimson Pro',serif;font-style:italic;font-size:14px;color:#1a1815;margin:4px 0 12px;padding-left:8px;border-left:2px solid #c75d2e}
+  .report .rp-conv-card .rp-cc-si{font-family:'Crimson Pro',serif;font-style:italic;font-size:11px;color:#9b9275;margin:8px 0 4px}
+  .report .rp-conv-card .rp-cc-grid{display:grid;grid-template-columns:1fr 24px 1fr;gap:8px;font-size:12px;line-height:1.45;padding:5px 0;border-bottom:1px solid #ece2c0}
+  .report .rp-conv-card .rp-cc-grid:last-child{border-bottom:none}
+  .report .rp-conv-card .rp-cc-grid .rp-cc-respuesta{font-family:'Crimson Pro',serif;font-style:italic;color:#1a1815}
+  .report .rp-conv-card .rp-cc-grid .rp-cc-arrow{color:#c75d2e;text-align:center}
+
+  .report .rp-prioridad-card{border-radius:4px;padding:12px 16px;margin:10px 0}
+  .report .rp-prioridad-card .rp-pc-badge{display:inline-block;width:22px;height:22px;border-radius:50%;background:#c75d2e;color:#faf4e3;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;line-height:22px;margin-right:8px;vertical-align:middle}
+  .report .rp-prioridad-card .rp-pc-title{font-family:'JetBrains Mono',monospace;font-size:11px;color:#1a1815;letter-spacing:.05em;text-transform:uppercase;font-weight:500;display:inline;vertical-align:middle}
+  .report .rp-prioridad-card .rp-pc-list{margin:6px 0 0;font-size:12.5px}
+
+  .report .rp-reconoce{background:#fcf8e6;border-left:3px solid #2e7d32;padding:14px 18px;border-radius:4px;margin:10px 0;font-size:13px}
+  .report .rp-reconoce .rp-rec-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;color:#2e7d32;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+  .report .rp-reconoce strong{font-weight:700}
+
+  .report .rp-cierre{background:#fcf8e6;border:1px solid #d9cfa8;border-radius:4px;padding:16px 20px;margin:12px 0;font-size:13px;line-height:1.55}
+  .report .rp-cierre .rp-cierre-title{font-family:'JetBrains Mono',monospace;font-size:10px;color:#c75d2e;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+  .report .rp-cierre h4{font-family:'Crimson Pro',serif;font-weight:700;font-size:15px;color:#1a1815;margin:0 0 8px}
+  .report .rp-cierre ol{margin:8px 0;padding-left:20px}
+  .report .rp-cierre ol li{font-family:'Crimson Pro',serif;font-style:italic;margin-bottom:3px}
+  .report .rp-cierre .rp-cierre-contact{font-family:'JetBrains Mono',monospace;font-size:11px;color:#1a1815;margin-top:8px}
+
+  /* Page-level walk-through pedagogical panels */
+  .walkthrough{margin:20px 0 40px}
+  .walkthrough-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:18px;color:var(--text-dark);margin:24px 0 12px;display:flex;align-items:center;gap:10px}
+  .walkthrough-title .wt-pg-num{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;width:38px;height:38px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;font-family:'Montserrat';}
+  .wt-panels{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+  @media (max-width:780px){.wt-panels{grid-template-columns:1fr}}
+  .wt-panel{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px 18px;box-shadow:var(--shadow-sm)}
+  .wt-panel h5{margin:0 0 8px;color:var(--text-dark);font-size:14.5px;font-weight:700;display:flex;align-items:center;gap:8px}
+  .wt-panel p{margin:0;color:var(--text);font-size:13.5px;line-height:1.55}
+  .wt-panel ul{margin:0;padding-left:18px;font-size:13.5px;line-height:1.55}
+  .wt-panel-muestra h5{color:#1565C0}
+  .wt-panel-lee h5{color:#E65100}
+  .wt-panel-hago h5{color:#2E7D32}
+  .wt-panel-no h5{color:#C62828}
+  .wt-mini-check{background:linear-gradient(135deg,#fffaeb 0%,#FFF 100%);border:1px dashed var(--primary-light);border-radius:10px;padding:14px 18px;margin:14px 0;font-size:14px}
+  .wt-mini-check strong{color:var(--primary-dark)}
+  .wt-mini-check-q{font-weight:600;color:var(--text-dark);margin-bottom:6px}
+
+  @media (max-width:780px){
+    .report{font-size:12px}
+    .report-pg{padding:24px 22px 20px;min-height:auto}
+    .report-pg .pg-header{flex-direction:column;gap:8px}
+    .report-pg .pg-meta{text-align:left}
+    .report .rp-bienvenida-grid{grid-template-columns:1fr;gap:18px}
+    .report .rp-quincena-title{font-size:22px}
+    .report .rp-conv-card .rp-cc-grid{grid-template-columns:1fr 16px 1fr}
+  }
 
   .coming-soon{background:linear-gradient(135deg,#fffaeb 0%,#FFF 100%);border:2px dashed var(--primary-light);border-radius:var(--radius);padding:32px;text-align:center;margin:20px 0}
   .coming-soon-icon{font-size:42px;margin-bottom:8px}
@@ -471,15 +607,479 @@ const MODULES = [
     duration: '~2 h',
     content: () => `
       <div class="lesson">
-        <div class="coming-soon">
-          <div class="coming-soon-icon">📄</div>
-          <h3>Módulo en construcción</h3>
-          <p>Acá vamos a recorrer las <strong>8 páginas del reporte de aula</strong> que recibes cada quincena. Para cada página: qué muestra, cómo se lee, qué acciones tomar, y qué malinterpretar.</p>
-          <p style="margin-top:14px;font-size:13px;">Mientras tanto: <strong>el reporte ya te llega</strong>. La página 1 te explica el sentido general. Si tienes dudas, escribinos.</p>
+        <p>Cada dos semanas recibís un <strong>Reporte de Aula</strong> con los datos de tu sección. Este módulo recorre las 8 páginas del reporte. Para no exponer información real de ningún docente, trabajamos sobre un <strong>reporte demo</strong> con datos sintéticos pero idéntico en formato al que vas a recibir.</p>
+
+        <div class="callout callout-info"><p><span class="callout-icon">📄</span><strong>Cómo usar este módulo:</strong> abajo aparece el reporte demo completo (8 páginas, scrolleable). Debajo de cada página vas a encontrar el walk-through: qué muestra, cómo se lee, qué hacer con eso, y qué malinterpretar. Tomate los 5 minutos que toma leer el reporte completo primero, después volvé a cada página con el walk-through al lado.</p></div>
+
+        <h3>📊 Reporte demo — IE Ficticia 9999 · Sección A · 30 mar — 15 may 2026</h3>
+
+        <div class="report">
+          <!-- =================== PÁGINA 1 =================== -->
+          <div class="report-pg">
+            <div class="pg-header">
+              <div class="pg-header-left">
+                <div class="pg-logo">🦜</div>
+                <div>
+                  <div class="pg-eyebrow">Eligiendo Mi Camino</div>
+                  <div class="pg-title">Reporte de Aula</div>
+                </div>
+              </div>
+              <div class="pg-meta">
+                <div class="pg-meta-bold">IE 9999 · Sección A</div>
+                <div class="pg-meta-line">Profe Demo · UGEL DEMO</div>
+                <div class="pg-meta-line">30 marzo — 15 mayo 2026 · DOMINA MATEMÁTICA</div>
+              </div>
+            </div>
+
+            <div class="rp-bienvenida-grid">
+              <div class="rp-bienv-block">
+                <div class="rp-bienv-label">Bienvenida · tu primer reporte</div>
+                <h3>Hola, <em>Profe</em>.</h3>
+                <p>Este es tu primer reporte de aula. Llega cada dos semanas con base en lo que tus estudiantes hicieron en la plataforma <em>Domina Matemática</em>.</p>
+                <p>No es una evaluación tuya. Es una herramienta para ahorrarte tiempo: te dice exactamente dónde están atascados tus estudiantes y qué hacer al respecto.</p>
+                <p>Léelo en cinco minutos. Al final encontrarás un anexo con la lista completa de tus estudiantes y sus métricas del periodo.</p>
+              </div>
+              <div class="rp-bienv-block">
+                <div class="rp-bienv-label">Cómo funciona</div>
+                <div class="rp-bienv-row"><div class="l">Frecuencia</div><div>Cada dos semanas, los lunes por la mañana.</div></div>
+                <div class="rp-bienv-row"><div class="l">De dónde sale</div><div>Datos de tu sección en Domina Matemática, comparados con la UGEL y con el programa nacional.</div></div>
+                <div class="rp-bienv-row"><div class="l">Qué encontrarás</div><div>Una clase corta para enseñar (diez minutos) y dos conversaciones breves con estudiantes específicos.</div></div>
+                <div class="rp-bienv-row"><div class="l warn">Lo que no es</div><div>Una evaluación de tu desempeño. Nadie más recibe estos datos sobre tu sección.</div></div>
+                <div class="rp-bienv-row"><div class="l">Si tienes preguntas</div><div>Demo Acompañante · WhatsApp +51 999 999 999. Está para apoyarte con cualquier duda del programa.</div></div>
+              </div>
+            </div>
+
+            <div class="rp-section">
+              <span class="rp-section-num">Esta quincena, en 14 minutos</span>
+              <div class="rp-section-rule"></div>
+            </div>
+            <div class="rp-quincena-title">Una clase de <em>diez minutos</em>. Dos conversaciones de <em>dos minutos</em>.</div>
+
+            <ol class="rp-action-list">
+              <li><strong>Enseña el signo en potencias con paréntesis.</strong> En una clase. Es el error más frecuente del tema con menor precisión y aparece en varias preguntas a la vez.</li>
+              <li><strong>Habla con María y con José.</strong> María no entró a la plataforma en todo el periodo. José respondió solo 19 preguntas y solo acierta el 21%.</li>
+            </ol>
+            <p style="font-family:'Crimson Pro',serif;font-style:italic;color:#766c52;font-size:12px;margin-top:14px;">El resto del reporte explica por qué, te da el guion exacto y cierra con un anexo con todos tus estudiantes.</p>
+
+            <div class="pg-footer"><span>PRÓXIMA ENTREGA · LUNES 25 DE MAYO</span><span class="pg-footer-num">PÁGINA 1 DE 8</span></div>
+          </div>
+
+          <!-- =================== PÁGINA 2 =================== -->
+          <div class="report-pg">
+            <div class="rp-section">
+              <span class="rp-section-num">§ 01</span>
+              <span class="rp-section-title">Lo que está pasando con <em>tu sección</em></span>
+              <div class="rp-section-rule"></div>
+            </div>
+            <p class="rp-lead">En el periodo tus estudiantes activos pasaron en promedio <strong>31 minutos por semana</strong> en la plataforma, por debajo del promedio de la UGEL (44 minutos). Hay piso firme. La pregunta que sigue es cómo subir el volumen por sesión: más preguntas por estudiante, más tiempo activo. No es tema de adopción, es de ritmo. Eso sí, desde que tu sección empezó a usar la plataforma, en una de cinco semanas no entró nadie — vale la pena ver qué pasó esa semana.</p>
+
+            <div class="rp-eyebrow">Minutos en la plataforma · por estudiante activo · por semana</div>
+            <div class="rp-eyebrow-sub">Promedio de minutos que cada estudiante que entró esa semana pasó en la plataforma. Si solo entraron cinco estudiantes, es el promedio de esos cinco — no de todos los del aula.</div>
+            <table class="rp-table">
+              <thead><tr><th>Semana</th><th class="t-right">Tu sección</th><th class="t-right">UGEL DEMO</th><th class="t-right">Programa</th></tr></thead>
+              <tbody>
+                <tr><td>13 abr — 19 abr</td><td class="t-right tu-seccion">12</td><td class="t-right">44</td><td class="t-right">46</td></tr>
+                <tr><td>20 abr — 26 abr</td><td class="t-right">39</td><td class="t-right">39</td><td class="t-right">41</td></tr>
+                <tr><td>27 abr — 3 may</td><td class="t-right tu-seccion">—</td><td class="t-right">34</td><td class="t-right">39</td></tr>
+                <tr><td>4 may — 10 may</td><td class="t-right">34</td><td class="t-right">38</td><td class="t-right">39</td></tr>
+                <tr><td>11 may — 15 may</td><td class="t-right">39</td><td class="t-right">43</td><td class="t-right">49</td></tr>
+              </tbody>
+            </table>
+
+            <div class="rp-eyebrow">Preguntas respondidas · por estudiante activo · por semana</div>
+            <div class="rp-eyebrow-sub">Promedio de preguntas que cada estudiante que entró esa semana respondió. Mide volumen de práctica, no precisión.</div>
+            <table class="rp-table">
+              <thead><tr><th>Semana</th><th class="t-right">Tu sección</th><th class="t-right">UGEL DEMO</th><th class="t-right">Programa</th></tr></thead>
+              <tbody>
+                <tr><td>13 abr — 19 abr</td><td class="t-right tu-seccion">2</td><td class="t-right">31</td><td class="t-right">31</td></tr>
+                <tr><td>20 abr — 26 abr</td><td class="t-right">21</td><td class="t-right">32</td><td class="t-right">32</td></tr>
+                <tr><td>27 abr — 3 may</td><td class="t-right">—</td><td class="t-right">36</td><td class="t-right">33</td></tr>
+                <tr><td>4 may — 10 may</td><td class="t-right">28</td><td class="t-right">40</td><td class="t-right">37</td></tr>
+                <tr><td>11 may — 15 may</td><td class="t-right">39</td><td class="t-right">48</td><td class="t-right">53</td></tr>
+              </tbody>
+            </table>
+
+            <div class="rp-eyebrow">Precisión · por semana</div>
+            <div class="rp-eyebrow-sub">Porcentaje de preguntas respondidas correctamente sobre el total respondido esa semana.</div>
+            <table class="rp-table">
+              <thead><tr><th>Semana</th><th class="t-right">Tu sección</th><th class="t-right">UGEL DEMO</th><th class="t-right">Programa</th></tr></thead>
+              <tbody>
+                <tr><td>13 abr — 19 abr</td><td class="t-right tu-seccion">45%</td><td class="t-right">67%</td><td class="t-right">63%</td></tr>
+                <tr><td>20 abr — 26 abr</td><td class="t-right">53%</td><td class="t-right">64%</td><td class="t-right">63%</td></tr>
+                <tr><td>27 abr — 3 may</td><td class="t-right">—</td><td class="t-right">72%</td><td class="t-right">64%</td></tr>
+                <tr><td>4 may — 10 may</td><td class="t-right">67%</td><td class="t-right">72%</td><td class="t-right">66%</td></tr>
+                <tr><td>11 may — 15 may</td><td class="t-right">68%</td><td class="t-right">73%</td><td class="t-right">69%</td></tr>
+              </tbody>
+            </table>
+            <p style="font-family:'Crimson Pro',serif;font-style:italic;color:#766c52;font-size:11px;margin-top:8px;">— : ningún estudiante de tu sección entró a la plataforma esa semana.</p>
+
+            <div class="pg-footer"><span>PRÓXIMA ENTREGA · LUNES 25 DE MAYO</span><span class="pg-footer-num">PÁGINA 2 DE 8</span></div>
+          </div>
+
+          <!-- =================== PÁGINA 3 =================== -->
+          <div class="report-pg">
+            <div class="rp-section">
+              <span class="rp-section-num">§ 02</span>
+              <span class="rp-section-title">Errores más comunes <em>por tema</em></span>
+              <div class="rp-section-rule"></div>
+            </div>
+            <p class="rp-lead" style="font-style:italic;color:#766c52;font-family:'Crimson Pro',serif;">Los tres temas con menor precisión, con los dos errores más frecuentes de cada uno y el diagnóstico. Si un mismo error se repite, es una palanca para una clase corta.</p>
+
+            <div class="rp-error-card warn">
+              <h4>Números reales y operaciones</h4>
+              <div class="rp-error-stats">52% (665 problemas) · 42 segundos/problema · UGEL 67% <span class="warn">(tu sección está 15pp por debajo)</span> · subió de 45% a 53%</div>
+              <div class="rp-error-row">
+                <div><span class="rp-eq">(-2)⁵</span></div>
+                <div class="rp-resp">Respondió <span class="rp-r-val">32</span> <span class="rp-r-count">×9</span> &nbsp;—&nbsp; <span class="rp-diag">Calcula 2⁵ = 32 pero olvida que la base es negativa con exponente impar.</span></div>
+              </div>
+              <div class="rp-error-row">
+                <div>Expresa <span class="rp-eq">3/8</span> como número decimal.</div>
+                <div class="rp-resp">Respondió <span class="rp-r-val">0,38</span> <span class="rp-r-count">×8</span> &nbsp;—&nbsp; <span class="rp-diag">Redondea prematuramente o divide mal, obteniendo 0,38 en vez de 0,375.</span></div>
+              </div>
+            </div>
+
+            <div class="rp-error-card">
+              <h4>Variación porcentual</h4>
+              <div class="rp-error-stats">65% (723 problemas) · 31 segundos/problema · UGEL 76% <span class="warn">(tu sección está 11pp por debajo)</span></div>
+              <div class="rp-error-row">
+                <div>Una vendedora de Demo compra frutas por S/ 200 y las vende por S/ 280. ¿Cuál es su margen de ganancia?</div>
+                <div class="rp-resp">Respondió <span class="rp-r-val">40%</span> <span class="rp-r-count">×6</span> &nbsp;—&nbsp; <span class="rp-diag">Calcula 80/200 = 40%, usa el costo como base en vez del precio de venta.</span></div>
+              </div>
+              <div class="rp-error-row">
+                <div>¿Qué significa «tasa nominal anual» en el contexto de interés simple?</div>
+                <div class="rp-resp">Respondió <span class="rp-r-val">La tasa efectiva ganada al final del año</span> <span class="rp-r-count">×6</span> &nbsp;—&nbsp; <span class="rp-diag">Confunde nominal con efectiva.</span></div>
+              </div>
+            </div>
+
+            <div class="rp-error-card">
+              <h4>Potenciación y radicación</h4>
+              <div class="rp-error-stats">67% (679 problemas) · 35 segundos/problema · UGEL 70% <span class="warn">(tu sección está 3pp por debajo)</span></div>
+              <div class="rp-error-row">
+                <div><span class="rp-eq">-2⁴</span></div>
+                <div class="rp-resp">Respondió <span class="rp-r-val">16</span> <span class="rp-r-count">×10</span> &nbsp;—&nbsp; <span class="rp-diag">Confunde -2⁴ con (-2)⁴=16.</span></div>
+              </div>
+              <div class="rp-error-row">
+                <div>¿Cuál está correctamente escrito en notación científica?</div>
+                <div class="rp-resp">Respondió <span class="rp-r-val">0,5 × 10⁴</span> <span class="rp-r-count">×9</span> &nbsp;—&nbsp; <span class="rp-diag">El coeficiente 0,5 es menor que 1.</span></div>
+              </div>
+            </div>
+
+            <div class="pg-footer"><span>PRÓXIMA ENTREGA · LUNES 25 DE MAYO</span><span class="pg-footer-num">PÁGINA 3 DE 8</span></div>
+          </div>
+
+          <!-- =================== PÁGINA 4 =================== -->
+          <div class="report-pg">
+            <div class="rp-section">
+              <span class="rp-section-num">§ 03</span>
+              <span class="rp-section-title">Primera acción · enseña el signo en potencias <em>con paréntesis</em></span>
+              <div class="rp-section-rule"></div>
+            </div>
+
+            <div class="rp-action-card">
+              <div class="rp-ac-eyebrow">10 min · una clase</div>
+              <div class="rp-ac-title">Una sola regla aclara la confusión de signos.</div>
+              <div class="rp-ac-why"><strong>Por qué importa.</strong> En el problema (–2)⁵ tus estudiantes respondieron 32. Este error aparece <strong>9 veces</strong> en números reales y operaciones (el tema con menor precisión de tu sección). Una sola clase corta puede corregir el patrón antes de que se fije.</div>
+
+              <div class="rp-ac-step-label">Guión · cinco pasos</div>
+              <ol class="rp-ac-steps">
+                <li>Escribe en la pizarra: <code>(-2)⁵</code></li>
+                <li>Pregunta: <em>"¿(-3)² es 9 o -9? ¿Y -3²?"</em> Espera la respuesta antes de continuar.</li>
+                <li>Define la regla: <em>el paréntesis decide si el signo entra al exponente: (-3)² = 9, pero -3² = -9.</em></li>
+                <li>Práctica en parejas con <code>(-2)³</code> y <code>(-2)⁴</code> — pídeles comparar los signos.</li>
+                <li>Cierra con un cartel visible en el aula: <em>"Antes de entregar: ¿el paréntesis abarca el signo, o el exponente queda fuera?"</em></li>
+              </ol>
+
+              <div class="rp-ac-step-label" style="border-top:1px solid #d9cfa8;padding-top:14px;">Si pasa esto</div>
+              <div class="rp-cc-grid" style="display:grid;grid-template-columns:1fr 24px 1fr;gap:8px;padding:5px 0;font-size:12.5px;line-height:1.45;">
+                <div style="font-style:italic;font-family:'Crimson Pro',serif;color:#1a1815;">Algunos ya aplican bien la regla</div>
+                <div style="color:#c75d2e;text-align:center;">→</div>
+                <div>salta al paso iv y agrega un problema más exigente del mismo tipo.</div>
+              </div>
+              <div class="rp-cc-grid" style="display:grid;grid-template-columns:1fr 24px 1fr;gap:8px;padding:5px 0;font-size:12.5px;line-height:1.45;border-top:1px solid #ece2c0;">
+                <div style="font-style:italic;font-family:'Crimson Pro',serif;color:#1a1815;">Nadie responde en el paso ii</div>
+                <div style="color:#c75d2e;text-align:center;">→</div>
+                <div>pídeles que lo discutan en parejas treinta segundos antes de levantar la mano.</div>
+              </div>
+
+              <div style="margin-top:16px;padding-top:14px;border-top:1px solid #d9cfa8;font-family:'Crimson Pro',serif;font-style:italic;color:#1a1815;font-size:13px;">
+                <span style="color:#c75d2e;">Mi compromiso:</span> La voy a enseñar el día ______________ a las __________ hs.
+              </div>
+            </div>
+
+            <div class="pg-footer"><span>PRÓXIMA ENTREGA · LUNES 25 DE MAYO</span><span class="pg-footer-num">PÁGINA 4 DE 8</span></div>
+          </div>
+
+          <!-- =================== PÁGINA 5 =================== -->
+          <div class="report-pg">
+            <div class="rp-section">
+              <span class="rp-section-num">§ 04</span>
+              <span class="rp-section-title">Segunda acción · dos conversaciones de <em>dos minutos</em></span>
+              <div class="rp-section-rule"></div>
+            </div>
+            <p class="rp-lead">No es necesario hablar con todos. Empieza por estos dos.</p>
+
+            <div class="rp-conv-card">
+              <div><span class="rp-cc-name">María González</span><span class="rp-cc-data">no entró a la plataforma en todo el periodo</span></div>
+              <div class="rp-cc-context">Cero actividad en el periodo. Probable barrera de acceso o de motivación.</div>
+              <div class="rp-cc-empieza">Empieza con</div>
+              <div class="rp-cc-quote">"No te vi en la plataforma estas semanas. ¿Qué te pasó?"</div>
+              <div class="rp-cc-si">Si responde…</div>
+              <div class="rp-cc-grid"><div class="rp-cc-respuesta">"No me da el tiempo en clase"</div><div class="rp-cc-arrow">→</div><div>reservale los primeros 15 minutos de la próxima clase para que entre desde el aula. Asegúrate de que abra la cuenta delante tuyo.</div></div>
+              <div class="rp-cc-grid"><div class="rp-cc-respuesta">"No entiendo nada"</div><div class="rp-cc-arrow">→</div><div>siéntate con ella 5 min y resuelvan juntos el primer ejercicio. La meta es que entre, no que acierte.</div></div>
+              <div class="rp-cc-grid"><div class="rp-cc-respuesta">"Me da vergüenza que vean mis errores"</div><div class="rp-cc-arrow">→</div><div>explícale que la plataforma es privada: solo tú ves su trabajo. Nadie más en la clase.</div></div>
+            </div>
+
+            <div class="rp-conv-card">
+              <div><span class="rp-cc-name">José Demo</span><span class="rp-cc-data">19 preguntas · 56 min · 21% de precisión</span></div>
+              <div class="rp-cc-context">19 preguntas en 56 minutos, mayoría incorrectas. Riesgo alto de frustrarse y dejar de entrar.</div>
+              <div class="rp-cc-empieza">Empieza con</div>
+              <div class="rp-cc-quote">"Vi que estás intentando. ¿Qué parte te está costando más?"</div>
+              <div class="rp-cc-si">Si responde…</div>
+              <div class="rp-cc-grid"><div class="rp-cc-respuesta">"No me sale ningún ejercicio"</div><div class="rp-cc-arrow">→</div><div>míralo en pantalla resolver una. Identifica el paso concreto donde se traba y trabajen ese paso solo, no todo el problema.</div></div>
+              <div class="rp-cc-grid"><div class="rp-cc-respuesta">"Todo me sale mal"</div><div class="rp-cc-arrow">→</div><div>valida el esfuerzo, no el resultado: <em>"me importa más que sigas intentando que el porcentaje"</em>.</div></div>
+              <div class="rp-cc-grid"><div class="rp-cc-respuesta">"No sé por qué me equivoco"</div><div class="rp-cc-arrow">→</div><div>lean juntos el feedback de la última pregunta incorrecta. La plataforma le dice qué error específico cometió.</div></div>
+            </div>
+
+            <div class="pg-footer"><span>PRÓXIMA ENTREGA · LUNES 25 DE MAYO</span><span class="pg-footer-num">PÁGINA 5 DE 8</span></div>
+          </div>
+
+          <!-- =================== PÁGINA 6 =================== -->
+          <div class="report-pg">
+            <div class="rp-section">
+              <span class="rp-section-num">§ 05</span>
+              <span class="rp-section-title">Estudiantes que necesitan <em>atención</em></span>
+              <div class="rp-section-rule"></div>
+            </div>
+            <p class="rp-lead" style="font-style:italic;color:#766c52;font-family:'Crimson Pro',serif;">Empezamos por quienes no entraron y por quienes usaron poco — son los casos más urgentes. Los estudiantes con baja precisión pero buen uso los abordamos en una segunda etapa.</p>
+
+            <div class="rp-prioridad-card">
+              <span class="rp-pc-badge">1</span>
+              <span class="rp-pc-title">No usaron la plataforma en todo el periodo · dos estudiantes</span>
+              <div style="margin:8px 0 0 30px;font-family:'Crimson Pro',serif;font-style:italic;color:#1a1815;font-size:13px;">González, María &nbsp;·&nbsp; Tintor Demo, Alex</div>
+            </div>
+
+            <div class="rp-prioridad-card">
+              <span class="rp-pc-badge">2</span>
+              <span class="rp-pc-title">Entraron pero usaron muy poco</span>
+              <table class="rp-table" style="margin-top:6px;">
+                <thead><tr><th>Estudiante</th><th class="t-right">Preguntas</th><th class="t-right">Minutos</th><th class="t-right">Precisión</th><th>Tema más débil</th></tr></thead>
+                <tbody>
+                  <tr><td>Demo Pérez, Pablo</td><td class="t-right">78</td><td class="t-right warn">39</td><td class="t-right">53%</td><td>Porcentajes</td></tr>
+                  <tr><td>Laura Demo, José</td><td class="t-right">19</td><td class="t-right warn">56</td><td class="t-right warn">21%</td><td>Números reales</td></tr>
+                  <tr><td>Galarza Demo, Alfredo</td><td class="t-right">57</td><td class="t-right warn">76</td><td class="t-right">53%</td><td>Números reales</td></tr>
+                  <tr><td>Crisostomo Demo, Juan</td><td class="t-right">76</td><td class="t-right warn">79</td><td class="t-right">78%</td><td>Porcentajes</td></tr>
+                  <tr><td>Alanya Demo, Miguel</td><td class="t-right">45</td><td class="t-right warn">79</td><td class="t-right warn">27%</td><td>Proporcionalidad</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="rp-prioridad-card">
+              <span class="rp-pc-badge">3</span>
+              <span class="rp-pc-title">Usan bien pero acertando poco · es comprensión, no adopción</span>
+              <table class="rp-table" style="margin-top:6px;">
+                <thead><tr><th>Estudiante</th><th class="t-right">Preguntas</th><th class="t-right">Minutos</th><th class="t-right">Precisión</th><th>Tema más débil</th></tr></thead>
+                <tbody>
+                  <tr><td>Quispe Demo, Carmen</td><td class="t-right">106</td><td class="t-right">135</td><td class="t-right warn">29%</td><td>Potenciación</td></tr>
+                  <tr><td>Gómez Demo, Roberto</td><td class="t-right">61</td><td class="t-right">127</td><td class="t-right warn">44%</td><td>Números reales</td></tr>
+                  <tr><td>Serpa Demo, Rosa</td><td class="t-right">52</td><td class="t-right">124</td><td class="t-right warn">48%</td><td>Números reales</td></tr>
+                  <tr><td>Calle Demo, Andrea</td><td class="t-right">71</td><td class="t-right">119</td><td class="t-right warn">48%</td><td>Números reales</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="rp-section" style="margin-top:24px;">
+              <span class="rp-section-num">§ 06</span>
+              <span class="rp-section-title">Reconoce a <em>Karla</em></span>
+              <div class="rp-section-rule"></div>
+            </div>
+            <div class="rp-reconoce">
+              <div class="rp-rec-eyebrow">Treinta segundos · al final de una clase</div>
+              <p style="margin:0;"><strong>Karla Demo</strong> logró 82% de precisión en 161 problemas en el periodo. Está entre tus seis estudiantes que combinan volumen y precisión (más de 30 problemas y por encima del 80%).</p>
+              <p style="font-family:'Crimson Pro',serif;font-style:italic;margin:8px 0 0;color:#1a1815;">"Vi tu trabajo en la plataforma durante el periodo. Bien hecho."</p>
+            </div>
+
+            <div class="rp-section" style="margin-top:24px;">
+              <span class="rp-section-num">§ 07</span>
+              <span class="rp-section-title">Cerramos <em>el ciclo</em></span>
+              <div class="rp-section-rule"></div>
+            </div>
+            <div class="rp-cierre">
+              <div class="rp-cierre-title">Próximo reporte · lunes 25 de mayo</div>
+              <h4>Cuéntale en una línea a tu <em>acompañante</em> por WhatsApp.</h4>
+              <ol>
+                <li>¿Hiciste la clase de signo en potencias con paréntesis? ¿Cómo salió?</li>
+                <li>¿Qué te ayudaría a subir el volumen de práctica por estudiante? Coméntaselo a tu acompañante esta semana.</li>
+              </ol>
+              <div class="rp-cierre-contact">Demo Acompañante &nbsp;·&nbsp; WhatsApp +51 999 999 999</div>
+            </div>
+
+            <div class="pg-footer"><span>PRÓXIMA ENTREGA · LUNES 25 DE MAYO</span><span class="pg-footer-num">PÁGINA 6 DE 8</span></div>
+          </div>
+
+          <!-- =================== PÁGINA 7 =================== -->
+          <div class="report-pg">
+            <div class="rp-section">
+              <span class="rp-section-num">Anexo</span>
+              <span class="rp-section-title">Todos tus estudiantes · <em>30 en total</em></span>
+              <div class="rp-section-rule"></div>
+            </div>
+            <p class="rp-lead" style="font-style:italic;color:#766c52;font-family:'Crimson Pro',serif;">Lista completa de tu sección con preguntas respondidas, minutos en plataforma y precisión durante el periodo. Activos primero, ordenados de menor a mayor cantidad de minutos en la plataforma. Inactivos al final, ordenados alfabéticamente. 28 entraron al menos una vez · 2 no entraron nunca.</p>
+
+            <table class="rp-table">
+              <thead><tr><th>Estudiante</th><th class="t-right">Preguntas</th><th class="t-right">Minutos</th><th class="t-right">Precisión</th><th>Tema más débil</th></tr></thead>
+              <tbody>
+                <tr><td>Demo Pérez, Pablo</td><td class="t-right">78</td><td class="t-right">39</td><td class="t-right">53%</td><td>Porcentajes</td></tr>
+                <tr><td>Laura Demo, José</td><td class="t-right">19</td><td class="t-right">56</td><td class="t-right warn">21%</td><td>Números reales</td></tr>
+                <tr><td>Chamorro Demo, Sara</td><td class="t-right">83</td><td class="t-right">70</td><td class="t-right">80%</td><td>Porcentajes</td></tr>
+                <tr><td>Galarza Demo, Alfredo</td><td class="t-right">57</td><td class="t-right">76</td><td class="t-right">53%</td><td>Números reales</td></tr>
+                <tr><td>Crisostomo Demo, Juan</td><td class="t-right">76</td><td class="t-right">79</td><td class="t-right">78%</td><td>Porcentajes</td></tr>
+                <tr><td>Alanya Demo, Miguel</td><td class="t-right">45</td><td class="t-right">79</td><td class="t-right warn">27%</td><td>Proporcionalidad</td></tr>
+                <tr><td>Patricio Demo, Erik</td><td class="t-right">84</td><td class="t-right">83</td><td class="t-right">68%</td><td>Números reales</td></tr>
+                <tr><td>Arrieta Demo, Abigail</td><td class="t-right">103</td><td class="t-right">92</td><td class="t-right">79%</td><td>Números reales</td></tr>
+                <tr><td>Berrocal Demo, Nadia</td><td class="t-right">44</td><td class="t-right">103</td><td class="t-right">64%</td><td>Números reales</td></tr>
+                <tr><td>Bellido Demo, Yoel</td><td class="t-right">131</td><td class="t-right">112</td><td class="t-right">89%</td><td>Números reales</td></tr>
+                <tr><td>Gonzales Demo, Regina</td><td class="t-right">74</td><td class="t-right">113</td><td class="t-right">55%</td><td>Números reales</td></tr>
+                <tr><td>Trinidad Demo, David</td><td class="t-right">112</td><td class="t-right">114</td><td class="t-right">83%</td><td>Proporcionalidad</td></tr>
+                <tr><td>León Demo, Alex</td><td class="t-right">77</td><td class="t-right">115</td><td class="t-right">61%</td><td>Porcentajes</td></tr>
+                <tr><td>Calle Demo, Andrea</td><td class="t-right">71</td><td class="t-right">119</td><td class="t-right warn">48%</td><td>Números reales</td></tr>
+                <tr><td>Ravelo Demo, Piero</td><td class="t-right">113</td><td class="t-right">122</td><td class="t-right">58%</td><td>Números reales</td></tr>
+                <tr><td>Belito Demo, Natalia</td><td class="t-right">79</td><td class="t-right">123</td><td class="t-right">82%</td><td>Potenciación</td></tr>
+                <tr><td>Serpa Demo, Rosa</td><td class="t-right">52</td><td class="t-right">124</td><td class="t-right warn">48%</td><td>Números reales</td></tr>
+                <tr><td>Béjar Demo, Antony</td><td class="t-right">81</td><td class="t-right">125</td><td class="t-right">59%</td><td>Porcentajes</td></tr>
+                <tr><td>Cari Demo, Diego</td><td class="t-right">65</td><td class="t-right">125</td><td class="t-right">57%</td><td>Números reales</td></tr>
+                <tr><td>Pizarro Demo, Danitza</td><td class="t-right">97</td><td class="t-right">127</td><td class="t-right">80%</td><td>Números reales</td></tr>
+                <tr><td>Gómez Demo, Roberto</td><td class="t-right">61</td><td class="t-right">127</td><td class="t-right warn">44%</td><td>Números reales</td></tr>
+                <tr><td>Mesías Demo, Cristian</td><td class="t-right">111</td><td class="t-right">130</td><td class="t-right">64%</td><td>Números reales</td></tr>
+                <tr><td>Ledesma Demo, Karla</td><td class="t-right">101</td><td class="t-right">130</td><td class="t-right">67%</td><td>Números reales</td></tr>
+              </tbody>
+            </table>
+
+            <div class="pg-footer"><span>PRÓXIMA ENTREGA · LUNES 25 DE MAYO</span><span class="pg-footer-num">PÁGINA 7 DE 8</span></div>
+          </div>
+
+          <!-- =================== PÁGINA 8 =================== -->
+          <div class="report-pg">
+            <div class="rp-section">
+              <span class="rp-section-num">Anexo · cont.</span>
+              <span class="rp-section-title">Todos tus estudiantes · <em>continuación</em></span>
+              <div class="rp-section-rule"></div>
+            </div>
+
+            <table class="rp-table">
+              <thead><tr><th>Estudiante</th><th class="t-right">Preguntas</th><th class="t-right">Minutos</th><th class="t-right">Precisión</th><th>Tema más débil</th></tr></thead>
+              <tbody>
+                <tr><td>Jota Demo, Alexander</td><td class="t-right">120</td><td class="t-right">131</td><td class="t-right">50%</td><td>Porcentajes</td></tr>
+                <tr><td>Demo Solo, Hugo</td><td class="t-right">20</td><td class="t-right">132</td><td class="t-right">90%</td><td>Números reales</td></tr>
+                <tr><td>Pozo Demo, Yamile</td><td class="t-right">73</td><td class="t-right">133</td><td class="t-right">56%</td><td>Proporcionalidad</td></tr>
+                <tr><td>Quispe Demo, Carmen</td><td class="t-right">106</td><td class="t-right">135</td><td class="t-right warn">29%</td><td>Potenciación</td></tr>
+                <tr><td>Karla Demo, Sofía</td><td class="t-right">161</td><td class="t-right">135</td><td class="t-right">82%</td><td>Números reales</td></tr>
+                <tr><td>Blas Demo, Liset</td><td class="t-right">95</td><td class="t-right">139</td><td class="t-right">59%</td><td>Porcentajes</td></tr>
+                <tr><td>Castañeda Demo, Mary</td><td class="t-right">88</td><td class="t-right">141</td><td class="t-right">72%</td><td>Porcentajes</td></tr>
+                <tr><td class="muted"><em>González, María</em></td><td class="t-right muted">—</td><td class="t-right muted">—</td><td class="t-right muted">—</td><td class="muted">—</td></tr>
+                <tr><td class="muted"><em>Tintor Demo, Alex</em></td><td class="t-right muted">—</td><td class="t-right muted">—</td><td class="t-right muted">—</td><td class="muted">—</td></tr>
+              </tbody>
+            </table>
+
+            <div class="pg-footer"><span>PRÓXIMA ENTREGA · LUNES 25 DE MAYO</span><span class="pg-footer-num">PÁGINA 8 DE 8</span></div>
+          </div>
+        </div>
+
+        <!-- =================== WALK-THROUGH =================== -->
+        <h3 style="margin-top:48px;">🧭 Walk-through · una página a la vez</h3>
+        <p>Ahora pasamos por cada página explicando qué muestra, cómo se lee, qué hacer con eso, y qué malinterpretar. Volvé al reporte de arriba cuando quieras verificarlo.</p>
+
+        <div class="walkthrough">
+          <div class="walkthrough-title"><span class="wt-pg-num">1</span>Bienvenida y "Cómo funciona"</div>
+          <div class="wt-panels">
+            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>El propósito del reporte y un <strong>resumen ejecutivo</strong>: una clase corta de 10 minutos para enseñar + dos conversaciones cortas de 2 minutos. La columna derecha resume la mecánica: frecuencia, fuente de datos, qué encontrarás, y a quién contactar.</p></div>
+            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Esta página es <strong>la promesa del reporte</strong>: si solo tenés 14 minutos esta semana, hacer estas dos cosas mueve la aguja. Es lo que más rinde con menor inversión de tu tiempo.</p></div>
+            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Anotá la clase de 10 minutos en tu agenda para esta semana. Identificá mentalmente a los dos estudiantes mencionados. Si no podés con todo, <strong>al menos hacé las dos conversaciones</strong> — son las de menor costo y mayor impacto.</p></div>
+            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p><strong>No es una evaluación de tu desempeño</strong>. Nadie más recibe estos datos sobre tu sección. La página lo dice explícitamente: "Lo que no es: una evaluación tuya".</p></div>
+          </div>
+          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>Si tu semana está saturada y solo podés hacer una cosa de las dos sugeridas, ¿cuál priorizás según el reporte? <em>(Respuesta: las dos conversaciones de 2 min — son las de menor costo y mayor impacto inmediato sobre los estudiantes en riesgo.)</em></div>
+        </div>
+
+        <div class="walkthrough">
+          <div class="walkthrough-title"><span class="wt-pg-num">2</span>Lo que está pasando con tu sección</div>
+          <div class="wt-panels">
+            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>Tres tablas semana a semana: <strong>minutos en la plataforma</strong>, <strong>preguntas respondidas</strong>, y <strong>precisión</strong>. Tu sección comparada con la UGEL y con el programa nacional. El "—" significa que ningún estudiante entró esa semana.</p></div>
+            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Compará cada fila <em>contra la UGEL y el programa</em>, no contra "100%". Estar 10pp por debajo es señal de ajuste, no de fracaso. <strong>La precisión y los minutos suelen subir juntos</strong>: cuando aumenta uno, el otro tiende a seguir.</p></div>
+            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Identificá la <strong>semana con caída</strong> (la del "—"). Pensá qué pasó esa semana (feriado, semana de gestión, equipo del lab fallando) — para anticipar la próxima. Para subir el volumen: en el Momento 2, anunciá una meta concreta.</p></div>
+            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que tu sección esté "por debajo" no significa que estés mal — la UGEL tiene IIEE de contextos muy distintos. <strong>Mirá la tendencia</strong> (¿subió o bajó respecto a la semana anterior?), no la posición absoluta.</p></div>
+          </div>
+          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>El reporte demo muestra "—" en la semana del 27 abr — 3 may. ¿Es necesariamente un problema? <em>(Respuesta: no necesariamente. Esa semana fue feriado largo / Día del Trabajo en muchos casos. Lo que importa es identificarlo y verificar que la semana siguiente vuelva al ritmo.)</em></div>
+        </div>
+
+        <div class="walkthrough">
+          <div class="walkthrough-title"><span class="wt-pg-num">3</span>Errores más comunes por tema</div>
+          <div class="wt-panels">
+            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>Los <strong>3 temas con menor precisión</strong> en tu sección. Para cada uno: dos errores específicos, cuántas veces aparecieron, y el diagnóstico pedagógico (qué malentendido lo causó). El primer tema viene marcado en rojo por urgencia.</p></div>
+            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Buscá <strong>errores conceptuales repetidos</strong> — los que aparecieron 6+ veces. Esos justifican una mini-clase de 10 minutos (Momento 4). Los que solo aparecieron 1-2 veces son ruido — no organices clase para eso.</p></div>
+            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Elegí <strong>uno solo</strong> de los errores para la próxima clase (la pág. 4 te da el guion del error #1 listo). Más de uno satura. Si el tema #1 ya lo trabajaste, pasá al #2.</p></div>
+            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que tus estudiantes "no saben matemática". Significa que <strong>en este momento del programa</strong>, este patrón se repite — y se puede corregir con una clase corta. No es un diagnóstico permanente.</p></div>
+          </div>
+          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>En el demo, ¿cuál de los 6 errores listados elegirías para una clase corta esta semana? <em>(Cualquiera de los marcados ×9 o ×10 — son los más palancables: signo en potencias con paréntesis (×9), -2⁴ vs (-2)⁴ (×10), o 3/8 = 0,38 (×8).)</em></div>
+        </div>
+
+        <div class="walkthrough">
+          <div class="walkthrough-title"><span class="wt-pg-num">4</span>Primera acción · clase corta de 10 minutos</div>
+          <div class="wt-panels">
+            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>Un <strong>guion completo de 5 pasos</strong> (i-v) para la clase corta sobre el error más urgente. Más una sección "Si pasa esto" con dos variantes según cómo respondan los estudiantes. Cierra con una línea de compromiso para fijar la fecha.</p></div>
+            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Como un <strong>protocolo listo para ejecutar</strong>. No tenés que prepararla — los 5 pasos están armados. Es exactamente la mini-clase del Momento 4 que vimos en el Módulo 2.</p></div>
+            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Llená la <strong>línea "Mi compromiso"</strong> con día y hora ahora. Ejecutá la clase tal como está. La semana siguiente vas a recibir un reporte donde podés ver si bajó la frecuencia de ese error.</p></div>
+            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que el guion es obligatorio palabra por palabra. Es una <strong>plantilla</strong>: adaptá el ejemplo a las variables que usás vos. Lo importante es la estructura de 5 pasos, no las palabras exactas.</p></div>
+          </div>
+          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>¿Por qué el guion incluye un paso ii donde se pide la respuesta antes de continuar? <em>(Porque activa el conocimiento previo del estudiante; si vas directo a "la regla es X" sin que ellos hayan dudado, no aprenden, memorizan.)</em></div>
+        </div>
+
+        <div class="walkthrough">
+          <div class="walkthrough-title"><span class="wt-pg-num">5</span>Segunda acción · dos conversaciones de 2 minutos</div>
+          <div class="wt-panels">
+            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>Dos casos específicos con <strong>guion de conversación</strong>: por qué hablar con cada uno, cómo abrir la conversación, y tres respuestas posibles del estudiante con una acción concreta para cada una.</p></div>
+            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Los dos estudiantes elegidos no son al azar: son los <strong>casos más urgentes</strong> de la sección. Uno por <em>cero acceso</em> (barrera de entrada) y uno por <em>alto esfuerzo bajo resultado</em> (riesgo de frustración).</p></div>
+            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Las conversaciones son <strong>cortas (2 min cada una)</strong> y se pueden hacer en cualquier momento — entrada al aula, recreo, después de una clase. No requieren preparar nada, el guion ya está armado.</p></div>
+            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que esos dos sean tus únicos estudiantes en riesgo. Son los <strong>dos casos prioritarios para esta quincena</strong>. La página 6 muestra otros 9 estudiantes (priority 2 y 3) para la quincena siguiente.</p></div>
+          </div>
+          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>¿Por qué el guion para María empieza con "¿Qué te pasó?" y no con "¿Por qué no entraste?"? <em>(Es menos juicio, más curiosidad. "Por qué" puede sonar a reclamo; "qué te pasó" abre la conversación sin defensa.)</em></div>
+        </div>
+
+        <div class="walkthrough">
+          <div class="walkthrough-title"><span class="wt-pg-num">6</span>Estudiantes que necesitan atención · 3 prioridades + reconocimiento + cierre</div>
+          <div class="wt-panels">
+            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p><strong>Tres listas priorizadas:</strong> (1) los que no entraron, (2) los que entraron pero usaron poco, (3) los que usan bien pero acertando poco. Más un estudiante a reconocer + el cierre con dos preguntas para tu acompañante.</p></div>
+            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>El orden importa: <strong>primero los que no entraron</strong> (urgencia de acceso), <strong>después los que usaron poco</strong> (urgencia de adopción), <strong>después los de baja precisión</strong> (urgencia pedagógica, pero requieren más tiempo de tu parte).</p></div>
+            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Esta quincena: enfocarte en P1 y P2 (acceso + adopción). Próxima quincena: si ya entraron, recién entonces atender la baja precisión (P3). El <strong>reconocimiento</strong> a Karla son 30 segundos al final de una clase — no lo saltees.</p></div>
+            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que los de P3 sean "menos importantes" — son los que más probablemente <strong>se frustren y abandonen</strong> si no se sienten vistos. Pero requieren más tiempo del docente. Por eso van en segunda etapa.</p></div>
+          </div>
+          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>¿Por qué el reporte incluye explícitamente un estudiante para reconocer (Karla), incluso cuando hay otros 6 con buen rendimiento? <em>(Porque el reconocimiento dirigido a uno específico vale más que el reconocimiento genérico al grupo. Karla representa al grupo de alto rendimiento; mencionarla a ella envía la señal a todo ese grupo.)</em></div>
+        </div>
+
+        <div class="walkthrough">
+          <div class="walkthrough-title"><span class="wt-pg-num">7-8</span>Anexo · todos tus estudiantes (continúa)</div>
+          <div class="wt-panels">
+            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>La <strong>lista completa</strong> de todos los estudiantes de tu sección, con sus métricas: preguntas respondidas, minutos en plataforma, precisión, y tema más débil. Activos primero (de menor a mayor minuto), inactivos en gris al final.</p></div>
+            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Es la <strong>referencia completa</strong> — útil cuando vas a hablar con un estudiante específico y querés ver su patrón. Los marcados en rojo son los que activan alarma (precisión baja, tiempo muy bajo).</p></div>
+            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Imprimíla y tenela en el aula durante la sesión de lab. Cuando un estudiante te pregunta algo, podés mirar su fila para entender el contexto. La <strong>columna "tema más débil"</strong> te dice por dónde abrir la conversación.</p></div>
+            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que tengas que reaccionar a <strong>cada estudiante</strong> individualmente. El anexo es <em>referencia</em>, no lista de acciones. Las acciones priorizadas ya están en las páginas 4-5-6.</p></div>
+          </div>
+          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>Un estudiante te pregunta en clase por qué siempre se equivoca en porcentajes. ¿Qué hacés con el anexo? <em>(Buscás su fila, mirás la columna "tema más débil". Si dice "Porcentajes", confirma el patrón. Si dice "Números reales", tal vez está confundiendo el malestar y el problema está en otro tema.)</em></div>
         </div>
       </div>
     `,
-    quiz: null
+    quiz: {
+      question: 'Recibís el reporte un lunes a las 8 am y tenés que dar clase a las 10 am. Solo tenés 14 minutos antes de la clase. ¿Qué priorizás?',
+      options: [
+        'Leer las 8 páginas completas y memorizarlas',
+        'Saltarte el reporte y revisarlo el fin de semana',
+        'Leer la página 1 (resumen), elegir si hacés la clase corta o las dos conversaciones, y arrancar',
+        'Imprimir el reporte y entregárselo a tus estudiantes para que lo vean'
+      ],
+      correct: 2,
+      feedback: {
+        correct: 'Exacto. El reporte está diseñado para que la página 1 te dé lo esencial en menos de 5 minutos: una clase corta + dos conversaciones. Las páginas siguientes son el detalle de por qué y cómo, las leés cuando tengas tiempo.',
+        incorrect: 'La página 1 es el resumen ejecutivo del reporte — está hecha para leerse en menos de 5 minutos y darte lo prioritario para la semana. El resto del reporte es detalle para cuando tengas tiempo. No es necesario memorizar todo ni entregárselo a los estudiantes (los datos son privados de tu sección).'
+      }
+    }
   },
 
   {
