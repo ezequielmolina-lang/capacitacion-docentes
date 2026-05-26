@@ -1355,12 +1355,23 @@
     return row;
   }
 
+  // Scroll the chat-body to its bottom. Called many times per second during
+  // streaming. We do it synchronously (cheap) AND schedule a deferred pass
+  // via requestAnimationFrame so it also catches updates whose layout
+  // hadn't been computed at sync-call time.
+  let _scrollScheduled = false;
   function scrollToBottom() {
     const b = document.getElementById('chat-body');
     if (b) b.scrollTop = b.scrollHeight;
-    // Fallback in case the page itself is the scroll container (older mobile
-    // browsers or unusual viewport states).
     window.scrollTo(0, document.documentElement.scrollHeight);
+    if (_scrollScheduled) return;
+    _scrollScheduled = true;
+    requestAnimationFrame(() => {
+      _scrollScheduled = false;
+      const b2 = document.getElementById('chat-body');
+      if (b2) b2.scrollTop = b2.scrollHeight;
+      window.scrollTo(0, document.documentElement.scrollHeight);
+    });
   }
 
   async function sendMessage() {
