@@ -1089,14 +1089,388 @@ const MODULES = [
     duration: '~1 h',
     content: () => `
       <div class="lesson">
-        <div class="coming-soon">
-          <div class="coming-soon-icon">🏫</div>
-          <h3>Módulo en construcción</h3>
-          <p>Vamos a recorrer las <strong>5 páginas del reporte del director</strong> — para que entiendas qué ve tu director y cómo coordinar con él/ella alrededor del programa.</p>
+        <p>Tu director recibe <strong>su propio reporte</strong> cada quincena. No es el mismo que el tuyo — está pensado para gestión de la IE: cómo viene la escuela completa, cómo se compara entre secciones, y tres acciones puntuales para esta semana. Entenderlo te ayuda a <strong>coordinar mejor con la dirección</strong>: si sabes qué ve tu director, podés anticipar qué te va a pedir, qué te va a reconocer, y qué temas conviene levantar vos.</p>
+
+        <div class="callout callout-info"><p><span class="callout-icon">🏫</span><strong>Sobre este reporte demo:</strong> es el formato real que recibe tu director, con datos sintéticos (IE Ficticia 9999). 5 páginas. Te lo recorremos página por página debajo.</p></div>
+
+        <h3>📊 Reporte demo del director · IE Ficticia 9999</h3>
+
+        <div class="report">
+          <!-- =================== PÁGINA 1 — Bienvenida + datos IE =================== -->
+          <div class="report-pg">
+            <div class="pg-header">
+              <div class="pg-header-left">
+                <div class="pg-logo">🦜</div>
+                <div>
+                  <div class="pg-eyebrow">Eligiendo Mi Camino</div>
+                  <div class="pg-title">Reporte de su escuela</div>
+                </div>
+              </div>
+              <div class="pg-meta">
+                <div class="pg-meta-bold">PRIMER REPORTE · PERÍODO ACUMULADO</div>
+                <div class="pg-meta-line">30 marzo — 15 mayo 2026</div>
+              </div>
+            </div>
+
+            <div class="rp-bienvenida-grid">
+              <div class="rp-bienv-block">
+                <div class="rp-bienv-label">Bienvenida</div>
+                <h3>Hola, <em>Director Demo</em>.</h3>
+                <p>Este es el <em>primer reporte</em> de su escuela en el programa <em>Eligiendo Mi Camino</em>, del Banco Mundial con uDocz. Cubre todo el período acumulado desde el inicio (30-mar al 15-may); las próximas entregas serán quincenales.</p>
+                <p>Resume <em>dónde está parada su escuela</em> hoy, qué temas de matemática están practicando, cómo avanzan en el viaje vocacional, y cómo se compara con su UGEL y el programa. Léalo en cinco minutos.</p>
+              </div>
+              <div class="rp-bienv-block">
+                <div class="rp-bienv-label">Cómo funciona</div>
+                <div class="rp-bienv-row"><div class="l">Qué encontrará</div><div>Vista semanal, detalle de matemática, detalle de tutoría, y tres acciones puntuales para esta semana.</div></div>
+                <div class="rp-bienv-row"><div class="l warn">Lo que no es</div><div>Una evaluación de su gestión. Es una herramienta de seguimiento del programa para acompañar la implementación en su escuela.</div></div>
+                <div class="rp-bienv-row"><div class="l">Si tiene preguntas</div><div>Escriba por WhatsApp a su acompañante del programa (los números aparecen más abajo).</div></div>
+              </div>
+            </div>
+
+            <div style="background:#f0e6c3;padding:18px 22px;border-radius:6px;margin:14px 0;">
+              <div style="font-family:'Crimson Pro',serif;font-weight:700;font-size:24px;color:#1a1815;margin-bottom:10px;">IE FICTICIA 9999</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;font-size:12px;">
+                <div>
+                  <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#766c52;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px;">CÓDIGO MODULAR</div>
+                  <div style="margin-bottom:8px;">000000</div>
+                  <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#766c52;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px;">UGEL</div>
+                  <div>UGEL DEMO</div>
+                </div>
+                <div>
+                  <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#766c52;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px;">ESTUDIANTES</div>
+                  <div style="margin-bottom:6px;">65 de 5.º secundaria</div>
+                  <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#766c52;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px;">SECCIONES</div>
+                  <div style="margin-bottom:6px;">2 (A y B)</div>
+                  <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#766c52;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px;">DIRECTOR</div>
+                  <div>Director Demo</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="rp-eyebrow" style="margin-top:18px;">Sus acompañantes del programa</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:12.5px;margin-bottom:14px;">
+              <div style="border:1px solid #d9cfa8;border-radius:4px;padding:12px 16px;">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#766c52;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px;">MATEMÁTICA</div>
+                <div style="font-family:'Crimson Pro',serif;font-weight:600;font-size:14px;">Acompañante Mate Demo</div>
+                <div style="color:#c75d2e;font-family:'JetBrains Mono',monospace;font-size:11px;">+51 999 999 111</div>
+              </div>
+              <div style="border:1px solid #d9cfa8;border-radius:4px;padding:12px 16px;">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#766c52;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px;">TUTORÍA VOCACIONAL</div>
+                <div style="font-family:'Crimson Pro',serif;font-weight:600;font-size:14px;">Acompañante OV Demo</div>
+                <div style="color:#c75d2e;font-family:'JetBrains Mono',monospace;font-size:11px;">+51 999 999 222</div>
+              </div>
+            </div>
+
+            <div class="rp-eyebrow">Docentes de su escuela en el programa</div>
+            <table class="rp-table">
+              <thead><tr><th class="t-center" style="width:60px;">Sección</th><th>Matemática</th><th>Tutoría</th></tr></thead>
+              <tbody>
+                <tr><td class="t-center" style="font-family:'Crimson Pro',serif;font-style:italic;font-size:15px;color:#c75d2e;">A</td><td><strong>Profe Mate Demo A</strong><br><span style="color:#c75d2e;font-family:'JetBrains Mono',monospace;font-size:10px;">+51 999 999 333</span></td><td><strong>Profe OV Demo A</strong><br><span style="color:#c75d2e;font-family:'JetBrains Mono',monospace;font-size:10px;">+51 999 999 444</span></td></tr>
+                <tr><td class="t-center" style="font-family:'Crimson Pro',serif;font-style:italic;font-size:15px;color:#c75d2e;">B</td><td><strong>Profe Mate Demo B</strong><br><span style="color:#c75d2e;font-family:'JetBrains Mono',monospace;font-size:10px;">+51 999 999 555</span></td><td><strong>Profe OV Demo B</strong><br><span style="color:#c75d2e;font-family:'JetBrains Mono',monospace;font-size:10px;">+51 999 999 666</span></td></tr>
+              </tbody>
+            </table>
+
+            <div class="pg-footer"><span>IE FICTICIA 9999 · UGEL DEMO</span><span class="pg-footer-num">PÁGINA 1 DE 5</span></div>
+          </div>
+
+          <!-- =================== PÁGINA 2 — Vista general =================== -->
+          <div class="report-pg">
+            <div class="rp-section">
+              <span class="rp-section-num">§ 01</span>
+              <span class="rp-section-title">Vista general · ¿cómo viene evolucionando <em>su escuela</em>?</span>
+              <div class="rp-section-rule"></div>
+            </div>
+            <p class="rp-lead">Dos miradas semana a semana, comparadas con su UGEL y con el programa entero. Cada fila es una semana. Todas las métricas se calculan sobre el total de estudiantes provisionados en cada caso (su escuela, su UGEL y el programa), así son comparables aunque los tamaños sean distintos.</p>
+
+            <div class="rp-eyebrow">Matemática, semana a semana</div>
+            <div class="rp-eyebrow-sub"><strong>% activos</strong>: estudiantes que respondieron al menos una pregunta esa semana, sobre el total provisionado. <strong>Preguntas por estudiante</strong>: total de preguntas respondidas en la semana, dividido por estudiantes (mide intensidad de práctica).</div>
+            <table class="rp-table">
+              <thead><tr><th rowspan="2" style="vertical-align:bottom;">Semana</th><th rowspan="2" class="t-right" style="vertical-align:bottom;">Fechas</th><th colspan="3" class="t-center" style="border-bottom:1px solid #d9cfa8;">% ACTIVOS</th><th colspan="3" class="t-center" style="border-bottom:1px solid #d9cfa8;">PREGUNTAS POR ESTUDIANTE</th></tr><tr><th class="t-right">SU ESCUELA</th><th class="t-right">UGEL</th><th class="t-right">PROGRAMA</th><th class="t-right">SU ESCUELA</th><th class="t-right">UGEL</th><th class="t-right">PROGRAMA</th></tr></thead>
+              <tbody>
+                <tr><td>Sem 1</td><td class="t-right">30 mar — 5 abr</td><td class="t-right tu-seccion">0%</td><td class="t-right">35%</td><td class="t-right">23%</td><td class="t-right tu-seccion">0.0</td><td class="t-right">4.3</td><td class="t-right">3.3</td></tr>
+                <tr><td>Sem 2</td><td class="t-right">6 — 12 abr</td><td class="t-right tu-seccion">94%</td><td class="t-right">41%</td><td class="t-right">41%</td><td class="t-right tu-seccion">23.0</td><td class="t-right">6.9</td><td class="t-right">8.2</td></tr>
+                <tr><td>Sem 3</td><td class="t-right">13 — 19 abr</td><td class="t-right tu-seccion">89%</td><td class="t-right">52%</td><td class="t-right">48%</td><td class="t-right tu-seccion">31.7</td><td class="t-right">11.9</td><td class="t-right">11.9</td></tr>
+                <tr><td>Sem 4</td><td class="t-right">20 — 26 abr</td><td class="t-right tu-seccion">94%</td><td class="t-right">55%</td><td class="t-right">52%</td><td class="t-right tu-seccion">46.7</td><td class="t-right">14.8</td><td class="t-right">13.4</td></tr>
+                <tr><td>Sem 5</td><td class="t-right">27 abr — 3 may</td><td class="t-right tu-seccion">66%</td><td class="t-right">41%</td><td class="t-right">43%</td><td class="t-right tu-seccion">26.3</td><td class="t-right">9.7</td><td class="t-right">11.2</td></tr>
+                <tr><td>Sem 6</td><td class="t-right">4 — 10 may</td><td class="t-right tu-seccion">92%</td><td class="t-right">43%</td><td class="t-right">47%</td><td class="t-right tu-seccion">71.8</td><td class="t-right">14.7</td><td class="t-right">14.1</td></tr>
+                <tr><td>Sem 7</td><td class="t-right">11 — 15 may</td><td class="t-right tu-seccion">51%</td><td class="t-right">53%</td><td class="t-right">54%</td><td class="t-right tu-seccion">120.0</td><td class="t-right">23.7</td><td class="t-right">23.0</td></tr>
+              </tbody>
+            </table>
+
+            <div class="rp-eyebrow" style="margin-top:18px;">Tutoría vocacional, semana a semana</div>
+            <div class="rp-eyebrow-sub"><strong>% activos</strong>: estudiantes que entraron al menos una vez esa semana, sobre el total provisionado.</div>
+            <table class="rp-table">
+              <thead><tr><th>Semana</th><th class="t-right">Fechas</th><th class="t-right">SU ESCUELA</th><th class="t-right">UGEL</th><th class="t-right">PROGRAMA</th></tr></thead>
+              <tbody>
+                <tr><td>Sem 1</td><td class="t-right">30 mar — 5 abr</td><td class="t-right tu-seccion">0%</td><td class="t-right">14%</td><td class="t-right">14%</td></tr>
+                <tr><td>Sem 2</td><td class="t-right">6 — 12 abr</td><td class="t-right tu-seccion">10%</td><td class="t-right">36%</td><td class="t-right">38%</td></tr>
+                <tr><td>Sem 3</td><td class="t-right">13 — 19 abr</td><td class="t-right tu-seccion">92%</td><td class="t-right">58%</td><td class="t-right">47%</td></tr>
+                <tr><td>Sem 4</td><td class="t-right">20 — 26 abr</td><td class="t-right tu-seccion">92%</td><td class="t-right">67%</td><td class="t-right">52%</td></tr>
+                <tr><td>Sem 5</td><td class="t-right">27 abr — 3 may</td><td class="t-right tu-seccion">24%</td><td class="t-right">54%</td><td class="t-right">46%</td></tr>
+                <tr><td>Sem 6</td><td class="t-right">4 — 10 may</td><td class="t-right tu-seccion">77%</td><td class="t-right">47%</td><td class="t-right">39%</td></tr>
+                <tr><td>Sem 7</td><td class="t-right">11 — 15 may</td><td class="t-right tu-seccion">58%</td><td class="t-right">55%</td><td class="t-right">52%</td></tr>
+              </tbody>
+            </table>
+
+            <div class="pg-footer"><span>IE FICTICIA 9999 · VISTA GENERAL</span><span class="pg-footer-num">PÁGINA 2 DE 5</span></div>
+          </div>
+
+          <!-- =================== PÁGINA 3 — Matemática =================== -->
+          <div class="report-pg">
+            <div class="rp-section">
+              <span class="rp-section-num">§ 02</span>
+              <span class="rp-section-title">Matemática · ¿están <em>aprendiendo</em>?</span>
+              <div class="rp-section-rule"></div>
+            </div>
+            <p class="rp-lead">La plataforma combina <strong>ejercicios adaptativos</strong> (Ponte a Prueba) y un <strong>tutor de IA</strong> con dos modos: Escuela (en clase, con docente) y Casa (individual).</p>
+
+            <div class="rp-eyebrow">Cómo viene el equipo docente de matemática</div>
+            <div class="rp-conv-card" style="border-left-color:#2e7d32;margin-bottom:8px;">
+              <div><span class="rp-cc-name">Profe Mate Demo B</span><span class="rp-cc-data">· Sección B</span></div>
+              <div class="rp-cc-context">viene con <strong>97% de activos</strong>, por encima del promedio del programa (83%). Puede reconocerle el esfuerzo.</div>
+            </div>
+            <div class="rp-conv-card" style="border-left-color:#2e7d32;">
+              <div><span class="rp-cc-name">Profe Mate Demo A</span><span class="rp-cc-data">· Sección A</span></div>
+              <div class="rp-cc-context">viene con <strong>94% de activos</strong>, por encima del promedio del programa (83%). Puede reconocerle el esfuerzo.</div>
+            </div>
+
+            <div style="margin:18px 0;">
+              <div style="font-family:'Crimson Pro',serif;font-size:36px;font-weight:700;color:#c75d2e;display:inline;">96%</div>
+              <div style="font-family:'Crimson Pro',serif;font-size:14px;color:#1a1815;display:inline;"> de sus estudiantes participaron en matemática (63 de 65 respondieron ≥1 pregunta). Entre todos respondieron <strong>22 687 preguntas</strong>. Aún hay <strong>3</strong> que no respondieron ninguna pregunta.</div>
+            </div>
+            <p style="font-family:'Crimson Pro',serif;font-style:italic;color:#766c52;font-size:12px;margin-top:8px;">Si consideramos también los <strong>intentos repetidos sobre la misma pregunta</strong> (métrica que vieron los docentes en sus reportes): <strong>29 680 registros</strong> en total.</p>
+
+            <div class="rp-eyebrow">Uso del tutor de IA: Modo Escuela vs Modo Casa</div>
+            <div class="rp-eyebrow-sub">Estudiantes que conversaron con el tutor de IA en cada modo.</div>
+            <table class="rp-table">
+              <thead><tr><th>Modo</th><th class="t-right">SU ESCUELA</th><th class="t-right">UGEL DEMO</th><th class="t-right">PROGRAMA</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Modo Escuela</strong> (con docente, en clase)</td><td class="t-right tu-seccion">63 (97%)</td><td class="t-right">88%</td><td class="t-right">83%</td></tr>
+                <tr><td><strong>Modo Casa</strong> (individual, desde casa o celular)</td><td class="t-right tu-seccion">36 (55%)</td><td class="t-right">36%</td><td class="t-right">24%</td></tr>
+              </tbody>
+            </table>
+
+            <div class="rp-eyebrow">Cómo se compara su escuela</div>
+            <table class="rp-table">
+              <thead><tr><th>Indicador</th><th class="t-right">SU ESCUELA</th><th class="t-right">UGEL DEMO</th><th class="t-right">PROGRAMA</th></tr></thead>
+              <tbody>
+                <tr><td>% que respondió al menos una pregunta</td><td class="t-right tu-seccion">96%</td><td class="t-right">88%</td><td class="t-right">83%</td></tr>
+                <tr><td>Preguntas respondidas por estudiante (promedio)</td><td class="t-right">319.5</td><td class="t-right">86.0</td><td class="t-right">85.3</td></tr>
+                <tr><td>Sesiones de aula (promedio por sección)</td><td class="t-right">5.0</td><td class="t-right">3.7</td><td class="t-right">3.8</td></tr>
+                <tr><td>% de precisión</td><td class="t-right">64%</td><td class="t-right">63%</td><td class="t-right">65%</td></tr>
+                <tr><td>Tiempo activo promedio (min/estudiante)</td><td class="t-right">238</td><td class="t-right">89</td><td class="t-right">89</td></tr>
+              </tbody>
+            </table>
+
+            <div class="rp-eyebrow">Detalle por sección</div>
+            <table class="rp-table">
+              <thead><tr><th class="t-center">Sección</th><th class="t-right">Estudiantes</th><th class="t-right">Participaron</th><th class="t-right">Preguntas</th><th class="t-right">Precisión</th><th class="t-right">Tiempo activo</th></tr></thead>
+              <tbody>
+                <tr><td class="t-center" style="font-family:'Crimson Pro',serif;font-style:italic;font-size:15px;color:#c75d2e;">A</td><td class="t-right">33</td><td class="t-right">31 (94%)</td><td class="t-right">15 586</td><td class="t-right">67%</td><td class="t-right">301 min</td></tr>
+                <tr><td class="t-center" style="font-family:'Crimson Pro',serif;font-style:italic;font-size:15px;color:#c75d2e;">B</td><td class="t-right">32</td><td class="t-right">32 (97%)</td><td class="t-right">7 101</td><td class="t-right">58%</td><td class="t-right">173 min</td></tr>
+              </tbody>
+            </table>
+
+            <div class="pg-footer"><span>IE FICTICIA 9999 · MATEMÁTICA</span><span class="pg-footer-num">PÁGINA 3 DE 5</span></div>
+          </div>
+
+          <!-- =================== PÁGINA 4 — Tutoría =================== -->
+          <div class="report-pg">
+            <div class="rp-section">
+              <span class="rp-section-num">§ 03</span>
+              <span class="rp-section-title">Tutoría vocacional · ¿están <em>explorando</em> su futuro?</span>
+              <div class="rp-section-rule"></div>
+            </div>
+            <p class="rp-lead">La plataforma acompaña a los estudiantes en un viaje de <strong>8 pasos</strong>: autoconocimiento, test de intereses, rutas post-secundarias y plan de acción personalizado.</p>
+
+            <div style="margin:14px 0;">
+              <div style="font-family:'Crimson Pro',serif;font-size:36px;font-weight:700;color:#c75d2e;display:inline;">3.3 / 8</div>
+              <span style="font-family:'Crimson Pro',serif;font-size:14px;color:#1a1815;"> pasos completados en promedio por sus estudiantes en el viaje.</span>
+              <div style="font-family:'Crimson Pro',serif;font-style:italic;color:#766c52;font-size:11.5px;margin-top:2px;">Sesiones de aula realizadas: 3.5 de 7 esperadas a la fecha (programa contempla 12 en total).</div>
+            </div>
+
+            <div class="rp-eyebrow">Cómo se compara su escuela</div>
+            <table class="rp-table">
+              <thead><tr><th>Indicador</th><th class="t-right">SU ESCUELA</th><th class="t-right">UGEL DEMO</th><th class="t-right">PROGRAMA</th></tr></thead>
+              <tbody>
+                <tr><td>Sesiones de aula realizadas (promedio por sección)</td><td class="t-right tu-seccion">3.5</td><td class="t-right">3.6</td><td class="t-right">3.1</td></tr>
+                <tr><td>% que entraron al menos una vez</td><td class="t-right">96%</td><td class="t-right">90%</td><td class="t-right">84%</td></tr>
+                <tr><td>Pasos completados (sobre 8, promedio por estudiante)</td><td class="t-right">3.3</td><td class="t-right">4.3</td><td class="t-right">4.2</td></tr>
+                <tr><td>% de estudiantes que terminaron los 8 pasos</td><td class="t-right">0%</td><td class="t-right">10%</td><td class="t-right">14%</td></tr>
+              </tbody>
+            </table>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:18px 0;">
+              <div>
+                <div class="rp-eyebrow">¿En qué paso está cada estudiante?</div>
+                <div style="font-family:'Crimson Pro',serif;font-style:italic;color:#766c52;font-size:11.5px;margin-bottom:6px;">Distribución actual de los 62 estudiantes que entraron a la plataforma.</div>
+                <table class="rp-table">
+                  <tbody style="font-size:11px;">
+                    <tr><td>Paso 1 · Autoconocimiento</td><td class="t-right warn">0</td></tr>
+                    <tr><td>Paso 2 · Test RIASEC</td><td class="t-right">4</td></tr>
+                    <tr><td>Paso 3 · Mitos</td><td class="t-right">5</td></tr>
+                    <tr><td>Paso 4 · Rutas</td><td class="t-right warn">27</td></tr>
+                    <tr><td>Paso 5 · Ocupaciones</td><td class="t-right warn">26</td></tr>
+                    <tr><td>Paso 6 · Investigación</td><td class="t-right">4</td></tr>
+                    <tr><td>Paso 7 · Familia</td><td class="t-right">1</td></tr>
+                    <tr><td>Paso 8 (en curso)</td><td class="t-right">1</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div>
+                <div class="rp-eyebrow">Perfiles RIASEC dominantes</div>
+                <div style="font-family:'Crimson Pro',serif;font-style:italic;color:#766c52;font-size:11.5px;margin-bottom:6px;">Los 3 perfiles más comunes entre quienes completaron el test (Paso 2). Cada estudiante tiene 3 perfiles dominantes en su resultado.</div>
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+                  <div style="border:1px solid #d9cfa8;padding:10px 8px;border-radius:4px;text-align:center;background:#fcf8e6;"><div style="font-family:'Crimson Pro',serif;font-size:22px;font-weight:700;color:#c75d2e;">I</div><div style="font-size:10.5px;font-family:'Crimson Pro',serif;font-style:italic;color:#1a1815;">Investigador</div><div style="font-size:10px;color:#766c52;">56 estud.</div></div>
+                  <div style="border:1px solid #d9cfa8;padding:10px 8px;border-radius:4px;text-align:center;background:#fcf8e6;"><div style="font-family:'Crimson Pro',serif;font-size:22px;font-weight:700;color:#c75d2e;">S</div><div style="font-size:10.5px;font-family:'Crimson Pro',serif;font-style:italic;color:#1a1815;">Social</div><div style="font-size:10px;color:#766c52;">40 estud.</div></div>
+                  <div style="border:1px solid #d9cfa8;padding:10px 8px;border-radius:4px;text-align:center;background:#fcf8e6;"><div style="font-family:'Crimson Pro',serif;font-size:22px;font-weight:700;color:#c75d2e;">C</div><div style="font-size:10.5px;font-family:'Crimson Pro',serif;font-style:italic;color:#1a1815;">Convencional</div><div style="font-size:10px;color:#766c52;">32 estud.</div></div>
+                </div>
+
+                <div class="rp-eyebrow" style="margin-top:14px;">Rutas sugeridas · Paso 4</div>
+                <div style="font-family:'Crimson Pro',serif;font-style:italic;color:#766c52;font-size:11.5px;margin-bottom:6px;">32 de 65 completaron el Paso 4; los porcentajes son sobre esos 32.</div>
+                <div style="font-size:11.5px;">
+                  <div style="margin-bottom:4px;">Universidad: <strong>21 (66%)</strong></div>
+                  <div style="margin-bottom:4px;">Técnico / Instituto: <strong>10 (31%)</strong></div>
+                  <div>Trabajo + Estudio: <strong>1 (3%)</strong></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="rp-eyebrow">Detalle por sección</div>
+            <table class="rp-table">
+              <thead><tr><th class="t-center">Sección</th><th class="t-right">Estudiantes</th><th class="t-right">Entraron</th><th class="t-right">Sesiones aula</th><th class="t-right">Pasos compl.</th><th class="t-right">Terminaron</th></tr></thead>
+              <tbody>
+                <tr><td class="t-center" style="font-family:'Crimson Pro',serif;font-style:italic;font-size:15px;color:#c75d2e;">A</td><td class="t-right">33</td><td class="t-right">31 (94%)</td><td class="t-right">4 de 7</td><td class="t-right">3.5</td><td class="t-right">0</td></tr>
+                <tr><td class="t-center" style="font-family:'Crimson Pro',serif;font-style:italic;font-size:15px;color:#c75d2e;">B</td><td class="t-right">32</td><td class="t-right">31 (97%)</td><td class="t-right">3 de 7</td><td class="t-right">3.0</td><td class="t-right">0</td></tr>
+              </tbody>
+            </table>
+
+            <div class="pg-footer"><span>IE FICTICIA 9999 · TUTORÍA VOCACIONAL</span><span class="pg-footer-num">PÁGINA 4 DE 5</span></div>
+          </div>
+
+          <!-- =================== PÁGINA 5 — Tres acciones =================== -->
+          <div class="report-pg">
+            <div class="rp-section">
+              <span class="rp-section-num">§ 04</span>
+              <span class="rp-section-title">Tres cosas que <em>puede hacer</em> esta semana</span>
+              <div class="rp-section-rule"></div>
+            </div>
+            <p class="rp-lead">Acciones puntuales que los datos muestran que tendrían el mayor impacto en su escuela ahora mismo. Cada una toma menos de quince minutos. La línea final es para que anote cuándo lo va a hacer.</p>
+
+            <div class="rp-prioridad-card">
+              <span class="rp-pc-badge">1</span>
+              <span class="rp-pc-title">Sumar a los estudiantes que aún no practican matemática ni tutoría</span>
+              <div style="margin:8px 0 0 30px;font-size:12.5px;line-height:1.55;">
+                <strong>3 estudiantes</strong> aún no respondieron ninguna pregunta de matemática y <strong>3 estudiantes</strong> tampoco ingresaron a tutoría. Hable con los docentes para identificar a estos estudiantes (sus nombres aparecen <span style="color:#c75d2e;">en rojo</span> en el apéndice) y coordinar cómo sumarlos a la práctica.
+                <div style="margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#9b9275;">Cuándo lo voy a hacer:  ______________________</div>
+              </div>
+            </div>
+
+            <div class="rp-prioridad-card">
+              <span class="rp-pc-badge">2</span>
+              <span class="rp-pc-title">Reconocer al equipo docente y al tutor</span>
+              <div style="margin:8px 0 0 30px;font-size:12.5px;line-height:1.55;">
+                La participación viene <strong>subiendo en ambas plataformas</strong> en las últimas semanas. Un mensaje breve a los docentes refuerza el esfuerzo: <em>"Vi los datos del programa y nuestra escuela está subiendo tanto en matemática como en tutoría. Gracias al equipo por sostener el ritmo."</em>
+                <div style="margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#9b9275;">Cuándo lo voy a hacer:  ______________________</div>
+              </div>
+            </div>
+
+            <div class="rp-prioridad-card">
+              <span class="rp-pc-badge">3</span>
+              <span class="rp-pc-title">Recomendación: cruzar buenas prácticas entre las secciones (matemática)</span>
+              <div style="margin:8px 0 0 30px;font-size:12.5px;line-height:1.55;">
+                Las dos secciones se enganchan en mate con intensidad distinta: la Sección A respondió <strong>15 586 preguntas</strong> (promedio de 472 por estudiante) vs <strong>7 101</strong> en la Sección B (promedio de 222 por estudiante). Si ambos docentes intercambian qué les está funcionando, la sección con menor ritmo puede beneficiarse.
+                <div style="margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#9b9275;">Cuándo lo voy a hacer:  ______________________</div>
+              </div>
+            </div>
+
+            <div style="background:#fcf8e6;border:1px solid #d9cfa8;border-left:3px solid #c75d2e;padding:14px 18px;border-radius:4px;margin-top:18px;font-size:12.5px;">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#c75d2e;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;">AYÚDENOS A INTERPRETAR BIEN ESTOS DATOS</div>
+              <h4 style="font-family:'Crimson Pro',serif;font-weight:700;font-size:15px;color:#1a1815;margin:0 0 8px;">¿Hay estudiantes con condiciones especiales o que ya no están en la escuela?</h4>
+              <p style="margin:0;font-size:12px;line-height:1.55;">Si su escuela tiene estudiantes que <strong>no pueden usar la plataforma por discapacidad</strong> o que <strong>se retiraron de la escuela</strong>, repórtelos por acá. Sin esa información, los números de adopción se ven más bajos de lo real.</p>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#c75d2e;margin-top:8px;">→ Escanee el código QR con la cámara de su celular, o entre al link.</div>
+            </div>
+
+            <p style="font-family:'Crimson Pro',serif;font-size:12.5px;color:#1a1815;margin-top:16px;"><strong>Próximo reporte:</strong> en dos semanas, con los datos actualizados. Si tiene dudas o alguna recomendación respecto al reporte, comuníquese con sus acompañantes del programa.</p>
+
+            <div class="pg-footer"><span>IE FICTICIA 9999 · PLAN DE ACCIÓN</span><span class="pg-footer-num">PÁGINA 5 DE 5</span></div>
+          </div>
+        </div>
+
+        <!-- =================== WALK-THROUGH =================== -->
+        <h3 style="margin-top:48px;">🧭 Walk-through · una página a la vez</h3>
+        <p>Ahora pasamos por las 5 páginas. Te conviene entender qué ve tu director para saber qué te va a comentar, qué reconocimientos esperar, y dónde podés vos levantar la mano antes de que aparezca como problema.</p>
+
+        <div class="walkthrough">
+          <div class="walkthrough-title"><span class="wt-pg-num">1</span>Bienvenida + datos de la IE + contactos</div>
+          <div class="wt-panels">
+            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>Datos básicos de tu IE (código modular, UGEL, estudiantes, secciones, director), <strong>contactos directos</strong> de los acompañantes EMC del programa para mate y tutoría, y la lista de docentes con sus celulares por sección.</p></div>
+            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Esta página le da al director <strong>quién es quién en el programa para su IE</strong>: tu nombre y celular están ahí, igual que el del tutor OV. Si tu director quiere consultar algo del programa, sabe a quién llamar.</p></div>
+            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Verificá que tu número de WhatsApp esté correcto en el reporte de tu director. Si no, avisale al acompañante EMC para que lo corrijan. Es la vía principal por la cual tu director te va a contactar para asuntos del programa.</p></div>
+            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que tu director "tenga que" usar el WhatsApp de los acompañantes para hablar de vos. Es para <strong>asuntos del programa</strong>: dudas sobre métricas, escalamiento de problemas técnicos. Para temas pedagógicos cotidianos, los canales internos de la IE siguen funcionando igual.</p></div>
+          </div>
+          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>¿A quién contacta el director si una sección tiene problemas de acceso a la plataforma uDocz que duran más de una semana? <em>(Al acompañante EMC de matemática del reporte, no al equipo de soporte uDocz directamente. EMC escala con uDocz si hace falta.)</em></div>
+        </div>
+
+        <div class="walkthrough">
+          <div class="walkthrough-title"><span class="wt-pg-num">2</span>Vista general semana a semana — Mate y Tutoría</div>
+          <div class="wt-panels">
+            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>Dos tablas: <strong>% activos</strong> y <strong>preguntas por estudiante</strong> en matemática, y <strong>% activos</strong> en tutoría — semana a semana. Cada celda compara su escuela vs UGEL vs programa.</p></div>
+            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>El director ve la <strong>tendencia agregada de toda la escuela</strong>, no por sección individual. La pregunta clave para él es: "¿estamos arriba o abajo del programa? ¿estamos subiendo o bajando?". Picos y caídas semanales son normales — lo que importa es el promedio del mes.</p></div>
+            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Si ves que <strong>una semana del reporte tuya tuvo caída</strong> (la del "—" en el demo de pp. 2 del reporte del docente), revisá en esta página del director si pasó en toda la IE o solo en tu sección. Si fue toda la IE, suele ser un evento contextual (feriado, gestión). Si solo tuya, levantalo con el acompañante EMC vos mismo, antes de que el director te pregunte.</p></div>
+            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que el director vea quién faltó. Esta vista es <strong>solo agregada</strong>. No expone estudiantes ni docentes por nombre — eso vive en tu reporte y en su anexo, no en esta página del director.</p></div>
+          </div>
+          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>El demo del director muestra que en la Sem 7 el % activos cayó a 51% mientras la UGEL subió a 53%. ¿Qué interpreta el director? <em>(Que la escuela bajó respecto a su tendencia, pero NO sabe en qué sección. Si querés evitar que escale, podés mencionarlo vos en la próxima reunión: "esa semana tuvimos X, ya está resuelto".)</em></div>
+        </div>
+
+        <div class="walkthrough">
+          <div class="walkthrough-title"><span class="wt-pg-num">3</span>Matemática — ¿están aprendiendo?</div>
+          <div class="wt-panels">
+            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>El detalle de mate para toda la IE: <strong>cómo viene cada docente</strong> (reconocimientos públicos), 96% participación, uso del tutor IA en Modo Escuela vs Modo Casa, y <strong>detalle por sección</strong> (la sección A respondió 15K preguntas, la B respondió 7K).</p></div>
+            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Acá tu director <strong>te ve a vos comparado con tu colega de la otra sección</strong>. La comparación es honesta — quien tenga más volumen aparece arriba. No es para competir; es para que el director vea dónde puede pedir que se compartan buenas prácticas.</p></div>
+            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Si tu sección está <strong>arriba</strong> en volumen: prepará 2-3 cosas que estás haciendo y compartilas en la próxima reunión de área. Si tu sección está <strong>abajo</strong>: anticipá la conversación — preguntale a tu colega qué le viene funcionando. Mejor que te lo "encargue" el director.</p></div>
+            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que la sección con más preguntas sea la "mejor". <strong>El volumen depende de muchas cosas</strong>: equipos del lab, horarios, conectividad de esa semana. Volumen es señal de salud, no de calidad pedagógica.</p></div>
+          </div>
+          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>El demo muestra a "Profe Mate Demo B" reconocido con 97% de activos. Si esa fueras vos, ¿qué harías esta semana? <em>(Aprovechar el reconocimiento implícito: pedir 10 minutos al director para contarle qué estás haciendo y proponer compartirlo con el resto. Convertir reconocimiento en visibilidad genuina.)</em></div>
+        </div>
+
+        <div class="walkthrough">
+          <div class="walkthrough-title"><span class="wt-pg-num">4</span>Tutoría vocacional — ¿están explorando?</div>
+          <div class="wt-panels">
+            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>El equivalente para tutoría: cuántos pasos del viaje vocacional completaron en promedio, distribución por paso (cuántos están en Paso 1, Paso 2, etc.), <strong>perfiles RIASEC dominantes</strong> de la IE, y rutas post-secundarias sugeridas por el sistema.</p></div>
+            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Esta página le sirve al director para <strong>comprender mejor a sus estudiantes</strong>: qué intereses dominan, qué porcentaje está pensando en universidad vs instituto, qué pasos del viaje vocacional ya hicieron. Es info estratégica para la IE, no para evaluar a nadie.</p></div>
+            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Como docente de mate, sirve para <strong>contextualizar problemas</strong>: si el perfil dominante en la IE es "Investigador", podés conectar tus problemas con ciencia, ingeniería, investigación. Si dominante es "Realista", conectar con oficios, construcción, mecánica. Tu colega tutor OV te puede contar más.</p></div>
+            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que estos perfiles "determinen" lo que cada estudiante hará. Son <strong>tendencias del grupo</strong> que el sistema detectó por el test. Individualmente cada estudiante decide.</p></div>
+          </div>
+          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>El demo dice que el perfil dominante de la IE es "Investigador". ¿Qué problema de mate concreto adaptarías para sumar a sus intereses? <em>(Problemas con datos reales — análisis estadístico, modelado, "predice X según estos datos" — en vez de problemas de cálculo descontextualizado. Conectar el rigor matemático con la curiosidad investigadora.)</em></div>
+        </div>
+
+        <div class="walkthrough">
+          <div class="walkthrough-title"><span class="wt-pg-num">5</span>Tres cosas que el director puede hacer esta semana + QR de inclusión</div>
+          <div class="wt-panels">
+            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>Tres acciones priorizadas para el director: <strong>(1)</strong> sumar a estudiantes ausentes, <strong>(2)</strong> reconocer al equipo docente, <strong>(3)</strong> recomendar cruzar buenas prácticas entre secciones. Más un QR para reportar estudiantes con discapacidad o retirados (para limpiar las métricas).</p></div>
+            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Estas tres acciones son <strong>directrices muy específicas</strong>. El director va a venir a la próxima reunión con alguna de ellas en la cabeza. Si entendés cuáles son antes que él/ella las plantee, podés llegar preparado(a).</p></div>
+            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Si la acción #1 menciona estudiantes que no respondieron ninguna pregunta, esos están <strong>también en tu reporte</strong> (Priority 1, pág. 6 del tuyo). Llegá a la reunión con el director sabiendo nombres y plan: "Sé quiénes son, ya hablé con ellos / voy a hablar con ellos esta semana".</p></div>
+            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que el director "controle" exactamente cómo se ejecutan esas acciones. Las propone el reporte para darle pie a una conversación operativa con vos, no como mandato.</p></div>
+          </div>
+          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>El director menciona la acción #3 (cruzar buenas prácticas) en una reunión. ¿Qué proponés vos? <em>(Una conversación de 15 minutos con tu colega de la otra sección — sin formato pesado, sin documento — para contar 1-2 cosas que cada uno está haciendo. Si querés sumar más, ofrecé llevar lo concreto al próximo claustro.)</em></div>
         </div>
       </div>
     `,
-    quiz: null
+    quiz: {
+      question: 'Tu director te muestra el reporte que recibió y comenta que tu sección "está por debajo de la otra sección en volumen de preguntas". ¿Cuál es la mejor reacción?',
+      options: [
+        'Defender la sección argumentando que las métricas son injustas',
+        'Pedir al director que no compare entre secciones',
+        'Reconocer la diferencia, preguntar a tu colega qué le está funcionando, y proponer compartir buenas prácticas',
+        'Decir que el volumen no importa, solo la precisión'
+      ],
+      correct: 2,
+      feedback: {
+        correct: 'Exacto. La página 3 del reporte del director está diseñada para abrir esa conversación con un tono colaborativo. Reconocer la diferencia (sin defensividad) + buscar aprendizaje entre pares es la respuesta que el reporte busca activar.',
+        incorrect: 'El reporte del director está diseñado para abrir conversaciones de mejora, no para evaluar individualmente. Lo más útil es reconocer la diferencia, aprender de la sección con más volumen, y proponer compartir buenas prácticas. Defenderse o minimizar la métrica cierra la conversación; la idea es abrirla.'
+      }
+    }
   },
 
   {
@@ -1106,14 +1480,208 @@ const MODULES = [
     duration: '~1.5 h',
     content: () => `
       <div class="lesson">
-        <div class="coming-soon">
-          <div class="coming-soon-icon">🎯</div>
-          <h3>Módulo en construcción</h3>
-          <p>5 errores frecuentes en 5to (signos en potencias, decimales, porcentajes, tasa nominal vs efectiva, notación científica) — cada uno con su <strong>guion de clase corta de 10 minutos</strong> listo para imprimir.</p>
+        <p>El reporte quincenal te marca los 3 temas con menor precisión y los errores más frecuentes (lo viste en el Módulo 4, página 3 del reporte). Acá tenés un <strong>banco de 5 guiones de clase corta de 10 minutos</strong> para los errores conceptuales más típicos en 5° de secundaria peruana. Cada guion sigue la misma estructura que el reporte: 5 pasos + variantes "si pasa esto".</p>
+
+        <div class="callout callout-info"><p><span class="callout-icon">🖨️</span><strong>Cómo usar este módulo:</strong> cuando un error aparece en tu reporte, vení acá, buscá el guion correspondiente, imprimilo (o leelo en pantalla) y aplicalo en el Momento 4 de tu próxima sesión. Cada uno ya viene con ejemplos concretos — no tenés que preparar nada.</p></div>
+
+        <h3>📚 Los 5 errores y sus guiones</h3>
+
+        <div style="display:grid;gap:18px;">
+
+          <!-- ERROR 1 -->
+          <div class="info-card" style="border-left:4px solid #c75d2e;">
+            <h4 style="display:flex;align-items:baseline;gap:10px;">
+              <span style="background:#c75d2e;color:white;padding:3px 10px;border-radius:14px;font-size:12px;font-weight:700;">1</span>
+              <span>Signo en potencias con paréntesis: <code style="background:#f0e6c3;padding:2px 8px;border-radius:3px;font-family:'JetBrains Mono',monospace;">(-2)⁵</code> vs <code style="background:#f0e6c3;padding:2px 8px;border-radius:3px;font-family:'JetBrains Mono',monospace;">-2⁵</code></span>
+            </h4>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">📈 Por qué importa</div>
+            <p style="font-size:14.5px;line-height:1.55;">Es el error #1 del tema con menor precisión ("números reales y operaciones"). El estudiante calcula 2⁵ = 32 y olvida que la base negativa con exponente impar mantiene el signo. Cuando se fija, contamina todos los problemas de potenciación posteriores.</p>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">🔍 Cómo lo detectás en el dashboard</div>
+            <ul style="font-size:14.5px;margin:0;">
+              <li>Aparece como error frecuente en el reporte (5+ veces) en el tema "números reales y operaciones"</li>
+              <li>En el dashboard ves que varios estudiantes responden valores positivos a expresiones con base negativa y exponente impar</li>
+              <li>El tiempo por problema es <strong>bajo</strong> (<30s) — están aplicando la regla sin pensar el signo</li>
+            </ul>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">📝 Guion · 10 minutos · 5 pasos</div>
+            <ol style="font-size:14.5px;line-height:1.55;padding-left:22px;">
+              <li><strong>Escribí en la pizarra</strong>: <code style="background:#f0e6c3;padding:2px 8px;border-radius:3px;font-family:'JetBrains Mono',monospace;">(-2)⁵</code></li>
+              <li><strong>Preguntá</strong>: <em>"¿(-3)² es 9 o -9? ¿Y -3²?"</em> Esperá la respuesta antes de continuar.</li>
+              <li><strong>Definí la regla</strong>: el paréntesis decide si el signo entra al exponente. <code>(-3)² = 9</code> (multiplicás -3 × -3 = 9). Pero <code>-3² = -9</code> (es -(3²), no entra al exponente).</li>
+              <li><strong>Práctica en parejas</strong> con <code>(-2)³</code> y <code>(-2)⁴</code>. Pedíles comparar los signos.</li>
+              <li><strong>Cerrá con cartel</strong> visible en el aula: <em>"Antes de entregar: ¿el paréntesis abarca el signo, o el exponente queda fuera?"</em></li>
+            </ol>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">🔁 Si pasa esto</div>
+            <table class="data-table" style="font-size:14px;">
+              <tbody>
+                <tr><td>Algunos ya aplican bien la regla en el paso ii</td><td>→ saltá al paso iv y agregá <code>(-2)⁶</code> y <code>-(-2)³</code> para forzar el caso</td></tr>
+                <tr><td>Nadie responde en el paso ii</td><td>→ pedíles que lo discutan en parejas 30 segundos antes de pedir respuesta</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- ERROR 2 -->
+          <div class="info-card" style="border-left:4px solid #c75d2e;">
+            <h4 style="display:flex;align-items:baseline;gap:10px;">
+              <span style="background:#c75d2e;color:white;padding:3px 10px;border-radius:14px;font-size:12px;font-weight:700;">2</span>
+              <span>Conversión fracción → decimal + redondeo prematuro: <code style="background:#f0e6c3;padding:2px 8px;border-radius:3px;font-family:'JetBrains Mono',monospace;">3/8 = 0,375</code></span>
+            </h4>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">📈 Por qué importa</div>
+            <p style="font-size:14.5px;line-height:1.55;">Los estudiantes responden 0,38 o 0,4 cuando deberían responder 0,375. Es una mezcla de dos errores: dividir mal por la cantidad de decimales en el divisor, y redondear antes de tiempo. Contamina problemas de proporcionalidad, porcentajes y geometría.</p>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">🔍 Cómo lo detectás en el dashboard</div>
+            <ul style="font-size:14.5px;margin:0;">
+              <li>Errores en conversiones fracción-decimal con respuestas "casi correctas" (0,38 en lugar de 0,375)</li>
+              <li>Confusión entre 0,3 / 0,30 / 0,375 — toman cualquiera como equivalente</li>
+              <li>En problemas con porcentajes, errores aparecen al final del cálculo (signo de redondeo apurado)</li>
+            </ul>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">📝 Guion · 10 minutos · 5 pasos</div>
+            <ol style="font-size:14.5px;line-height:1.55;padding-left:22px;">
+              <li><strong>Escribí en la pizarra</strong>: <code style="background:#f0e6c3;padding:2px 8px;border-radius:3px;font-family:'JetBrains Mono',monospace;">3/8 = ?</code></li>
+              <li><strong>Preguntá</strong>: <em>"¿Cuántos decimales tiene la respuesta exacta? ¿Es 0,3, 0,38 o 0,375?"</em> Recibí 2-3 respuestas distintas.</li>
+              <li><strong>Resolvé en pizarra</strong> la división larga: 3 ÷ 8 = 0,375 (sin redondear). Mostrá que 3,000 ÷ 8 = 375 → 0,375. Subrayá que la respuesta termina exactamente.</li>
+              <li><strong>Práctica en parejas</strong>: <code>5/8</code>, <code>7/16</code>, <code>1/3</code> (acá sí redondean porque es infinito periódico). Pedíles que distingan los casos.</li>
+              <li><strong>Cerrá con regla</strong>: <em>"Si la fracción se puede dividir hasta llegar a 0 de resto → respuesta exacta. Si no → redondear según el problema, pero solo al final."</em></li>
+            </ol>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">🔁 Si pasa esto</div>
+            <table class="data-table" style="font-size:14px;">
+              <tbody>
+                <tr><td>Confunden 0,375 con 37,5%</td><td>→ aprovechá y conectá con porcentajes: 0,375 = 37,5% = 3/8. Tres formas de escribir lo mismo</td></tr>
+                <tr><td>Algunos no terminan la división porque "es muy larga"</td><td>→ recordales que 1/4, 1/5, 1/8, 3/8 son fracciones que <em>siempre</em> terminan. Hacelos memorizar la tabla de fracciones a decimales: 1/4=0,25 · 1/5=0,2 · 1/8=0,125 · 3/8=0,375</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- ERROR 3 -->
+          <div class="info-card" style="border-left:4px solid #c75d2e;">
+            <h4 style="display:flex;align-items:baseline;gap:10px;">
+              <span style="background:#c75d2e;color:white;padding:3px 10px;border-radius:14px;font-size:12px;font-weight:700;">3</span>
+              <span>Margen de ganancia: <strong>sobre costo</strong> vs <strong>sobre precio de venta</strong></span>
+            </h4>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">📈 Por qué importa</div>
+            <p style="font-size:14.5px;line-height:1.55;">Compra a 200, vende a 280. La ganancia es 80 — eso lo saben. Pero ¿el margen es 80/200 = 40% o 80/280 ≈ 28,6%? Los estudiantes responden 40% (sobre el costo) cuando en contexto comercial peruano "margen de ganancia" generalmente se calcula sobre el precio de venta. Es un error de base, no de cálculo.</p>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">🔍 Cómo lo detectás en el dashboard</div>
+            <ul style="font-size:14.5px;margin:0;">
+              <li>Aparece en problemas de "variación porcentual" o "interés simple"</li>
+              <li>Estudiantes con buen tiempo (no es duda, es certeza errónea)</li>
+              <li>Respuestas consistentes en 40% (no varían tipo "ah, error de cálculo")</li>
+            </ul>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">📝 Guion · 10 minutos · 5 pasos</div>
+            <ol style="font-size:14.5px;line-height:1.55;padding-left:22px;">
+              <li><strong>Escribí en la pizarra</strong>: <em>"Vendedora compra fruta a S/200, la vende a S/280. ¿Cuál es su margen de ganancia?"</em></li>
+              <li><strong>Preguntá</strong>: <em>"¿40% o ~28,6%?"</em> Probablemente la mayoría dice 40%. Anotá los dos cálculos: 80/200 = 40% vs 80/280 ≈ 28,6%.</li>
+              <li><strong>Mostrá la diferencia con un ejemplo concreto</strong>: <em>"Si en el negocio decís 'tengo 40% de margen', ¿cuántos soles ganás de cada S/100 vendidos? La respuesta de 40% asume que cada S/100 cuesta S/60 y ganás S/40. Pero si en realidad ganás 28,6% del precio de venta, ganás S/28,60 por cada S/100 vendidos."</em></li>
+              <li><strong>Definí la regla</strong>: en finanzas y comercio, <strong>"margen" se mide sobre el precio de venta (sales price)</strong>; <strong>"markup" (sobrecargo) se mide sobre el costo</strong>. Son distintos.</li>
+              <li><strong>Práctica en parejas</strong>: <em>"Compra a S/150, vende a S/200. ¿Margen y markup?"</em> (Margen: 50/200 = 25%. Markup: 50/150 ≈ 33,3%.)</li>
+            </ol>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">🔁 Si pasa esto</div>
+            <table class="data-table" style="font-size:14px;">
+              <tbody>
+                <tr><td>Insisten en que 80/200 es correcto</td><td>→ pediles que pregunten a un familiar que tenga negocio. La distinción es real, no académica.</td></tr>
+                <tr><td>Confunden margen con ganancia total en S/.</td><td>→ aclarar: ganancia en soles es 80. Margen es el porcentaje. Son dos números distintos.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- ERROR 4 -->
+          <div class="info-card" style="border-left:4px solid #c75d2e;">
+            <h4 style="display:flex;align-items:baseline;gap:10px;">
+              <span style="background:#c75d2e;color:white;padding:3px 10px;border-radius:14px;font-size:12px;font-weight:700;">4</span>
+              <span>Tasa <strong>nominal</strong> vs <strong>efectiva</strong> (interés)</span>
+            </h4>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">📈 Por qué importa</div>
+            <p style="font-size:14.5px;line-height:1.55;">Cuando un banco dice "TEA 18%", el estudiante (y mucha gente) cree que es lo mismo que "tasa nominal 18%". No es. La diferencia es cuándo se capitaliza el interés. Es un concepto que los estudiantes van a usar al hacer un préstamo, una hipoteca o una inversión.</p>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">🔍 Cómo lo detectás en el dashboard</div>
+            <ul style="font-size:14.5px;margin:0;">
+              <li>Errores en problemas que mencionan "tasa nominal anual", "TEA", "TNA"</li>
+              <li>Los estudiantes responden interpretando ambas como sinónimos</li>
+              <li>Aparece en el tema "variación porcentual" o "interés simple/compuesto"</li>
+            </ul>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">📝 Guion · 10 minutos · 5 pasos</div>
+            <ol style="font-size:14.5px;line-height:1.55;padding-left:22px;">
+              <li><strong>Escribí en la pizarra</strong>: <em>"Banco A: TEA 18%. Banco B: TNA 18% capitalizable mensual. ¿Cuál presta más caro?"</em></li>
+              <li><strong>Preguntá</strong>: <em>"¿Son lo mismo?"</em> Esperá. Probablemente la mayoría dice "es lo mismo, 18%".</li>
+              <li><strong>Resolvé en pizarra</strong>: <ul style="margin:6px 0;font-size:14px;"><li>Banco A · TEA 18% = aplicación efectiva al año = <strong>S/100 → S/118 al año</strong></li><li>Banco B · TNA 18% capitalizable mensual = 1,5% mensual durante 12 meses = (1,015)¹² ≈ <strong>1,1956 → S/100 → S/119,56 al año</strong></li></ul> Banco B presta más caro aunque diga "18%" igual.</li>
+              <li><strong>Definí la regla</strong>: <strong>tasa nominal</strong> es la tasa "publicada", no incluye el efecto de la capitalización. <strong>Tasa efectiva</strong> es la que realmente se aplica al final del periodo, incluyendo cómo se capitaliza. Para comparar tasas, siempre <strong>convertí a efectiva</strong>.</li>
+              <li><strong>Práctica en parejas</strong>: <em>"¿Cuál es más barato: TEA 12% anual o TNA 12% capitalizable semestral?"</em> (TEA 12% es más barato. TNA 12% semestral = 6% × 2 capitalizado = (1,06)² - 1 = 12,36% efectivo.)</li>
+            </ol>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">🔁 Si pasa esto</div>
+            <table class="data-table" style="font-size:14px;">
+              <tbody>
+                <tr><td>Se confunden con la fórmula de capitalización</td><td>→ no es necesario que la memoricen. La idea conceptual (efectiva ≥ nominal cuando hay capitalización intermedia) es lo que importa primero.</td></tr>
+                <tr><td>Preguntan por qué existen ambas tasas</td><td>→ regulación financiera peruana exige publicar la TEA en cualquier préstamo. Es protección al consumidor.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- ERROR 5 -->
+          <div class="info-card" style="border-left:4px solid #c75d2e;">
+            <h4 style="display:flex;align-items:baseline;gap:10px;">
+              <span style="background:#c75d2e;color:white;padding:3px 10px;border-radius:14px;font-size:12px;font-weight:700;">5</span>
+              <span>Notación científica: el coeficiente debe ser <strong>≥ 1 y &lt; 10</strong></span>
+            </h4>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">📈 Por qué importa</div>
+            <p style="font-size:14.5px;line-height:1.55;">Los estudiantes escriben <code>0,5 × 10⁴</code> y creen que es notación científica válida. No lo es: el coeficiente <strong>debe estar entre 1 (incluido) y 10 (excluido)</strong>. Si no, no es notación científica — es solo una expresión con potencia de 10. Contamina ejercicios de química, física, astronomía, biología.</p>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">🔍 Cómo lo detectás en el dashboard</div>
+            <ul style="font-size:14.5px;margin:0;">
+              <li>Problemas de "¿cuál es la notación científica correcta?" o "convertí X a notación científica"</li>
+              <li>Estudiantes responden con coeficientes <1 o ≥10</li>
+              <li>Aparece en el tema "potenciación y radicación" o en aplicaciones físicas/químicas</li>
+            </ul>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">📝 Guion · 10 minutos · 5 pasos</div>
+            <ol style="font-size:14.5px;line-height:1.55;padding-left:22px;">
+              <li><strong>Escribí en la pizarra tres opciones</strong>: <code>0,5 × 10⁴</code> · <code>5 × 10³</code> · <code>50 × 10²</code>. <em>"¿Cuáles son notación científica válida?"</em></li>
+              <li><strong>Esperá respuestas</strong>. Habitualmente algunos eligen la primera o la tercera.</li>
+              <li><strong>Definí la regla</strong>: notación científica es <code>a × 10ⁿ</code> donde <strong>1 ≤ a &lt; 10</strong>. Solo la segunda (<code>5 × 10³</code>) lo es. Las otras tres son <em>aritméticamente correctas</em> (todas valen 5000) pero <em>no</em> son notación científica.</li>
+              <li><strong>Por qué importa la convención</strong>: para comparar magnitudes rápido. Si todos los números están en notación científica, basta con comparar exponentes. Si no, hay que hacer el cálculo.</li>
+              <li><strong>Práctica en parejas</strong>: convertir <code>0,000037</code> y <code>4250000</code> a notación científica. (<code>3,7 × 10⁻⁵</code> y <code>4,25 × 10⁶</code>.)</li>
+            </ol>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">🔁 Si pasa esto</div>
+            <table class="data-table" style="font-size:14px;">
+              <tbody>
+                <tr><td>Algunos preguntan por qué la convención</td><td>→ es estándar internacional para que cualquier número se exprese de una sola forma. Permite comparar al instante: 10⁶ es 1 millón, 10⁻³ es milésima.</td></tr>
+                <tr><td>Confunden con notación de ingeniería (potencias múltiplo de 3)</td><td>→ aclarar: <strong>notación científica</strong>: 1 ≤ a &lt; 10. <strong>Notación de ingeniería</strong>: 1 ≤ a &lt; 1000 y exponente múltiplo de 3. Son distintas.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
         </div>
+
+        <div class="callout callout-tip" style="margin-top:24px;"><p><span class="callout-icon">💡</span><strong>El truco del guion de 10 minutos</strong>: el paso ii (preguntar y esperar respuesta antes de la regla) es lo que diferencia esta intervención de una explicación tradicional. Si vas directo a "la regla es X", los estudiantes memorizan; si primero dudaron, aprenden.</p></div>
       </div>
     `,
-    quiz: null
+    quiz: {
+      question: 'Tu reporte quincenal muestra que apareció 9 veces el error "(-2)⁵ = 32". ¿Cuál de estos 5 guiones del módulo usás esta semana?',
+      options: [
+        'El guion #1: signo en potencias con paréntesis',
+        'El guion #5: notación científica',
+        'El guion #4: tasa nominal vs efectiva',
+        'Ninguno — el error solo lo cometieron 9 estudiantes, no vale la pena una clase corta'
+      ],
+      correct: 0,
+      feedback: {
+        correct: 'Exacto. 9 estudiantes con el mismo error conceptual repetido es exactamente el umbral en el que conviene hacer una mini-clase grupal (Momento 4) en vez de intervenir 9 veces individualmente.',
+        incorrect: 'El error (-2)⁵ = 32 es exactamente el del guion #1 (signo en potencias con paréntesis). 9 estudiantes con el mismo error conceptual es el umbral típico para hacer la mini-clase grupal — más eficiente que intervenir individualmente con cada uno.'
+      }
+    }
   },
 
   {
