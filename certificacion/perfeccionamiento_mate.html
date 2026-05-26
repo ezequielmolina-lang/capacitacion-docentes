@@ -1691,37 +1691,232 @@ const MODULES = [
     duration: '~1 h',
     content: () => `
       <div class="lesson">
-        <div class="coming-soon">
-          <div class="coming-soon-icon">💼</div>
-          <h3>Módulo en construcción</h3>
-          <p>6 mini-casos reales (anonimizados) con diagnóstico y acción sugerida: estudiante con 0 actividad, alto volumen-baja precisión, sección con caída en una semana, etc.</p>
+        <p>Hasta acá viste el marco general (5 momentos, dashboard, reporte de aula y de director, errores conceptuales). Ahora repasamos <strong>6 casos típicos</strong> que vas a encontrar en tu reporte. Cada caso tiene un snapshot del dato, un diagnóstico (qué te dice + qué descartar), y una acción sugerida.</p>
+
+        <div class="callout callout-info"><p><span class="callout-icon">💼</span>Todos los casos son <strong>anonimizados</strong>: situaciones que el equipo EMC vio repetirse en aulas, con nombres y números cambiados.</p></div>
+
+        <h3>🧩 Los 6 casos</h3>
+
+        <div style="display:grid;gap:20px;">
+
+          <!-- CASO 1 -->
+          <div class="info-card" style="border-left:4px solid var(--primary);">
+            <h4 style="display:flex;align-items:baseline;gap:10px;">
+              <span style="background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;padding:3px 10px;border-radius:14px;font-size:12px;font-weight:700;">1</span>
+              <span>Estudiante con cero actividad en la quincena</span>
+            </h4>
+
+            <div class="rp-eyebrow" style="margin:12px 0 4px;">📸 Snapshot del reporte</div>
+            <p style="font-size:14px;background:#fffaeb;padding:10px 14px;border-radius:8px;font-family:'Crimson Pro',serif;font-style:italic;color:#1a1815;">"Ana López · — preguntas · — minutos · — % de precisión · NO USÓ LA PLATAFORMA"</p>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">🔬 Diagnóstico</div>
+            <p style="font-size:14.5px;line-height:1.55;margin:0;">Tres causas posibles, en orden de probabilidad: <strong>(1) barrera de acceso</strong> (no tiene credenciales / cuenta bloqueada / no tiene equipo en casa), <strong>(2) motivación</strong> (no entiende para qué sirve / le da vergüenza errar), <strong>(3) ausentismo</strong> (no vino a las sesiones de lab).</p>
+            <p style="font-size:14px;color:var(--text-muted);margin:8px 0 0;">⚠️ <strong>Lo primero a descartar es acceso</strong>. No empieces a hablar de motivación si la cuenta no funciona.</p>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">🎯 Acción sugerida (2 minutos)</div>
+            <p style="font-size:14.5px;line-height:1.55;margin:0;">Hablale en privado al inicio de la próxima clase con la pregunta <em>"no te vi en la plataforma estas semanas, ¿qué te pasó?"</em>. Según la respuesta:</p>
+            <ul style="font-size:14px;margin:8px 0 0;">
+              <li><strong>"No puedo entrar"</strong> → coordina con el AIP/PIP de tu IE para resolver acceso. Reservale los primeros 15 min de la próxima clase de lab.</li>
+              <li><strong>"No vine"</strong> → confirmar la asistencia con tutoría/dirección, no es problema de plataforma.</li>
+              <li><strong>"Me da vergüenza"</strong> → explicale que la plataforma es privada, solo vos ves su trabajo.</li>
+            </ul>
+          </div>
+
+          <!-- CASO 2 -->
+          <div class="info-card" style="border-left:4px solid var(--primary);">
+            <h4 style="display:flex;align-items:baseline;gap:10px;">
+              <span style="background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;padding:3px 10px;border-radius:14px;font-size:12px;font-weight:700;">2</span>
+              <span>Alto volumen, baja precisión — comprensión, no adopción</span>
+            </h4>
+
+            <div class="rp-eyebrow" style="margin:12px 0 4px;">📸 Snapshot del reporte</div>
+            <p style="font-size:14px;background:#fffaeb;padding:10px 14px;border-radius:8px;font-family:'Crimson Pro',serif;font-style:italic;color:#1a1815;">"Carlos Mendoza · 106 preguntas · 135 minutos · 29% precisión · tema más débil: Potenciación"</p>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">🔬 Diagnóstico</div>
+            <p style="font-size:14.5px;line-height:1.55;margin:0;">El estudiante <strong>entra, intenta mucho, pero no acierta</strong>. Es el caso más fácil de pasar por alto porque las métricas de adopción están bien (106 preguntas, 135 min — arriba del promedio). El problema no es de adopción sino de <strong>comprensión específica del tema</strong>.</p>
+            <p style="font-size:14px;color:var(--text-muted);margin:8px 0 0;">⚠️ Lo que es: una laguna conceptual concreta (en este caso, potenciación). Lo que NO es: pereza ni falta de esfuerzo — está poniendo el tiempo.</p>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">🎯 Acción sugerida (5 minutos en clase)</div>
+            <p style="font-size:14.5px;line-height:1.55;margin:0;">Sentate con él/ella 5 minutos en la próxima sesión de lab. Pedile que te explique un ejercicio del tema débil resuelto recientemente. Identificá el paso concreto donde se traba — no todo el problema, solo el paso. Si es <strong>signo en potencias</strong>, usá el guion #1 del módulo 6 con toda la clase (probablemente el error está en más estudiantes).</p>
+          </div>
+
+          <!-- CASO 3 -->
+          <div class="info-card" style="border-left:4px solid var(--primary);">
+            <h4 style="display:flex;align-items:baseline;gap:10px;">
+              <span style="background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;padding:3px 10px;border-radius:14px;font-size:12px;font-weight:700;">3</span>
+              <span>Sección con caída en una semana</span>
+            </h4>
+
+            <div class="rp-eyebrow" style="margin:12px 0 4px;">📸 Snapshot del reporte</div>
+            <p style="font-size:14px;background:#fffaeb;padding:10px 14px;border-radius:8px;font-family:'Crimson Pro',serif;font-style:italic;color:#1a1815;">"Semana 27 abr — 3 may · TU SECCIÓN: — (ningún estudiante entró) · UGEL DEMO: 34 min · PROGRAMA: 39 min"</p>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">🔬 Diagnóstico</div>
+            <p style="font-size:14.5px;line-height:1.55;margin:0;">Una semana con "—" puede ser <strong>tres cosas distintas</strong>:</p>
+            <ol style="font-size:14.5px;margin:8px 0 0;">
+              <li><strong>Contexto</strong>: feriado largo (Día del Trabajo), semana de gestión, elecciones, fiestas patrias regionales. Lo más probable — la UGEL también cayó pero no tanto.</li>
+              <li><strong>Operativo</strong>: lab cerrado por mantenimiento, conectividad mala en la IE esa semana, equipos rotos.</li>
+              <li><strong>Programático</strong>: vos no tuviste clase esa semana por motivo personal/profesional.</li>
+            </ol>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">🎯 Acción sugerida</div>
+            <p style="font-size:14.5px;line-height:1.55;margin:0;">No te detengas más de 30 segundos pensando en esa semana — pero <strong>anotala</strong> en tu calendario por si tu director te pregunta. Si fue operativo, levantá con el AIP/PIP la semana siguiente. <strong>Si la semana siguiente vuelve al ritmo, la caída fue contextual y no hay que hacer nada más.</strong></p>
+          </div>
+
+          <!-- CASO 4 -->
+          <div class="info-card" style="border-left:4px solid var(--primary);">
+            <h4 style="display:flex;align-items:baseline;gap:10px;">
+              <span style="background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;padding:3px 10px;border-radius:14px;font-size:12px;font-weight:700;">4</span>
+              <span>Buen volumen, alto rendimiento, pero un tema sigue débil</span>
+            </h4>
+
+            <div class="rp-eyebrow" style="margin:12px 0 4px;">📸 Snapshot del reporte</div>
+            <p style="font-size:14px;background:#fffaeb;padding:10px 14px;border-radius:8px;font-family:'Crimson Pro',serif;font-style:italic;color:#1a1815;">"Daniel Quispe · 131 preguntas · 112 minutos · 89% precisión · tema más débil: Números reales"</p>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">🔬 Diagnóstico</div>
+            <p style="font-size:14.5px;line-height:1.55;margin:0;">Estudiante <strong>de alto desempeño</strong> con una <strong>laguna específica</strong>. Probablemente buen razonamiento general pero un concepto puntual mal asentado. La diferencia con el caso 2 (Carlos): Daniel acierta el 89% global, Carlos solo el 29%. A Daniel le falta poco.</p>
+            <p style="font-size:14px;color:var(--text-muted);margin:8px 0 0;">⚠️ No lo pierdas de vista <strong>por ser bueno</strong>. Estos son los estudiantes que con 5 min focalizados saltan a 95%+ y se vuelven referencia para sus compañeros.</p>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">🎯 Acción sugerida (laser focus, 5 min)</div>
+            <p style="font-size:14.5px;line-height:1.55;margin:0;">No requiere una clase corta — requiere una conversación de 5 min. <em>"Vi que en general te va muy bien. Solo en números reales tenés algunas dudas. ¿Querés que repasemos un ejemplo concreto?"</em> Resolvelo en pantalla. Probablemente sea un error específico (signo, redondeo, raíz) que se corrige al instante.</p>
+          </div>
+
+          <!-- CASO 5 -->
+          <div class="info-card" style="border-left:4px solid var(--primary);">
+            <h4 style="display:flex;align-items:baseline;gap:10px;">
+              <span style="background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;padding:3px 10px;border-radius:14px;font-size:12px;font-weight:700;">5</span>
+              <span>Tu sección: bajo en minutos, alto en precisión</span>
+            </h4>
+
+            <div class="rp-eyebrow" style="margin:12px 0 4px;">📸 Snapshot del reporte</div>
+            <p style="font-size:14px;background:#fffaeb;padding:10px 14px;border-radius:8px;font-family:'Crimson Pro',serif;font-style:italic;color:#1a1815;">"Tu sección: 31 min/semana (UGEL: 44) · Precisión: 72% (UGEL: 67%)"</p>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">🔬 Diagnóstico</div>
+            <p style="font-size:14.5px;line-height:1.55;margin:0;">Tu sección <strong>practica menos pero acierta mejor</strong>. Tiene su lado positivo: hay piso pedagógico. Y un lado a trabajar: <strong>los que entran rinden, pero entran poco</strong>. La precisión no se sostiene si el volumen sigue bajo durante meses.</p>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">🎯 Acción sugerida</div>
+            <p style="font-size:14.5px;line-height:1.55;margin:0;">Foco en <strong>volumen</strong>, no en precisión. Tres palancas:</p>
+            <ul style="font-size:14.5px;margin:8px 0 0;">
+              <li><strong>Momento 2</strong> de la próxima sesión: anunciá meta concreta (<em>"vamos a llegar al ejercicio 4"</em>) — sube preguntas por estudiante un 20-30%.</li>
+              <li><strong>Modo Casa</strong>: anunciá al grupo que pueden practicar en casa antes de un examen. Modo Casa no requiere conexión con vos en clase.</li>
+              <li><strong>Reconocer al grupo</strong> que ya tiene volumen alto: sirve de modelo, no como reproche al resto.</li>
+            </ul>
+          </div>
+
+          <!-- CASO 6 -->
+          <div class="info-card" style="border-left:4px solid var(--primary);">
+            <h4 style="display:flex;align-items:baseline;gap:10px;">
+              <span style="background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;padding:3px 10px;border-radius:14px;font-size:12px;font-weight:700;">6</span>
+              <span>Estudiante con discapacidad cognitiva no puede usar uDocz</span>
+            </h4>
+
+            <div class="rp-eyebrow" style="margin:12px 0 4px;">📸 Snapshot del reporte</div>
+            <p style="font-size:14px;background:#fffaeb;padding:10px 14px;border-radius:8px;font-family:'Crimson Pro',serif;font-style:italic;color:#1a1815;">"Luis Castro · — preguntas · — minutos · — % de precisión · NO USÓ LA PLATAFORMA"</p>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">🔬 Diagnóstico</div>
+            <p style="font-size:14.5px;line-height:1.55;margin:0;">Aparece como inactivo en el reporte (igual que el caso 1) pero la causa es <strong>distinta</strong>: el estudiante tiene una <strong>discapacidad cognitiva</strong> que le impide usar la plataforma como está hoy. Las métricas no lo reflejan, y eso <strong>baja los promedios de tu sección y los de la IE</strong>.</p>
+            <p style="font-size:14px;color:var(--text-muted);margin:8px 0 0;">Estos estudiantes <strong>no afectan tu nota</strong> — el equipo EMC los excluye del cómputo si los reportás.</p>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">🎯 Acción sugerida (5 min)</div>
+            <p style="font-size:14.5px;line-height:1.55;margin:0;">Reportalo en dos lugares:</p>
+            <ol style="font-size:14.5px;margin:8px 0 0;">
+              <li><strong>Campo "Observaciones adicionales"</strong> de tu próximo informe online de fase anticipada (módulo 4 del cert).</li>
+              <li><strong>QR del reporte del director</strong> (pág. 5 del reporte demo del módulo 5) — tu director también lo puede reportar por ahí.</li>
+            </ol>
+            <p style="font-size:14.5px;margin:8px 0 0;">Una vez reportado, EMC excluye al estudiante del cómputo. Tu sección sube en promedios.</p>
+            <p style="font-size:13.5px;color:var(--text-muted);margin:8px 0 0;"><em>Tu trabajo pedagógico con ese estudiante puede ser distinto (actividades adaptadas en paralelo, sin presionar por completar la plataforma) — eso ya queda en tu criterio docente.</em></p>
+          </div>
+
         </div>
+
+        <div class="callout callout-tip" style="margin-top:24px;"><p><span class="callout-icon">💡</span><strong>Regla general:</strong> el reporte te marca casos, pero <strong>vos elegís cuáles abordar primero</strong>. Priorizá los de menor costo (conversación 2 min &gt; clase corta 10 min &gt; intervención individual 5 min). En 14 minutos resolvés 2-3 casos típicos.</p></div>
       </div>
     `,
-    quiz: null
+    quiz: {
+      question: 'Tu reporte muestra dos estudiantes inactivos. Uno te dice "no puedo entrar a la plataforma", el otro tiene discapacidad cognitiva confirmada por la familia. ¿Qué hacés?',
+      options: [
+        'Trato a ambos igual: les hago la conversación de 2 minutos del Caso 1',
+        'Solo abordo al primero — el segundo no afecta mi nota',
+        'Coordino acceso para el primero (Caso 1) + reporto al segundo en el informe online + QR del director (Caso 6) para que se excluya del cómputo',
+        'Espero que el problema se resuelva solo'
+      ],
+      correct: 2,
+      feedback: {
+        correct: 'Exacto. Cada caso requiere acción distinta. El primero es barrera de acceso (resoluble con el AIP/PIP). El segundo es exclusión legítima del cómputo — reportarlo correctamente protege a la sección entera de que se vea peor de lo que realmente es.',
+        incorrect: 'Los dos casos son distintos. El primero (cero acceso) es el Caso 1 — acción: coordinar con el AIP/PIP para resolver acceso. El segundo (discapacidad cognitiva) es el Caso 6 — acción: reportarlo en el informe online + QR del director para que EMC lo excluya del cómputo. Tratarlos igual no resuelve ninguno.'
+      }
+    }
   },
 
   {
     id: 'final',
-    title: 'Quiz final y reflexión',
+    title: 'Quiz final + reflexión + certificado',
     eyebrow: 'Módulo 8 de 8',
     duration: '~30 min',
     isFinal: true,
     content: () => `
       <div class="lesson">
-        <div class="coming-soon">
-          <div class="coming-soon-icon">🎓</div>
-          <h3>Módulo en construcción</h3>
-          <p>Cuando los módulos 4-7 estén listos, acá vendrá el <strong>quiz final de 10 preguntas + reflexión</strong>. Al aprobar (≥6/10) se emite tu certificado descargable que acredita las 8h del componente "Productos y autoestudio" (30%).</p>
+        <p>Llegaste al final del curso. Este último módulo tiene tres pasos:</p>
+        <ol>
+          <li><strong>Quiz final</strong> — 10 preguntas que cubren los módulos 1 a 7. Aprobás con <strong>6 o más correctas (~60%)</strong>. Si no llegás, podés intentar de nuevo cuando quieras.</li>
+          <li><strong>Reflexión breve</strong> — 1-2 párrafos sobre qué te llevás del curso y qué vas a aplicar la próxima semana.</li>
+          <li><strong>Certificado descargable</strong> — al aprobar el quiz y enviar la reflexión, podés imprimir/guardar tu certificado. Suma a las <strong>8 h pedagógicas</strong> del componente Productos y autoestudio (30% de tu nota final).</li>
+        </ol>
+
+        <div class="callout callout-tip"><p><span class="callout-icon">💡</span><strong>Las preguntas no son trampas.</strong> Si seguiste los módulos en orden, ya respondiste mini-checks parecidos. Si dudás de algo, podés volver a cualquier módulo desde la barra lateral sin perder tu progreso del quiz.</p></div>
+
+        <div style="text-align:center;margin:32px 0 16px;">
+          <button class="btn btn-primary" id="startBtn" onclick="startFinalQuiz()" style="font-size:16px;padding:16px 36px;">🚀 Empezar el quiz final →</button>
         </div>
+
+        <div id="finalQuizContainer"></div>
+
+        <h3 id="reflexionTitle" style="display:none;margin-top:32px;">📝 Reflexión final</h3>
+        <div id="reflexionContainer"></div>
       </div>
     `
   }
 ];
 
 const FINAL_QUIZ = [
-  {q:'(Placeholder) En el momento 3, ¿cuándo intervenís directamente?',o:['Siempre','Cuando la IA ya intentó y no destrabó','Nunca','Cada 10 min'],c:1},
-  {q:'(Placeholder) ¿Cuál es tu rol respecto al Tutor IA?',o:['Reemplazarlo','Complementarlo','Replicarlo','Vigilarlo'],c:1}
+  // Módulo 1 — Bienvenida + Video
+  {q:'¿Cuál es la diferencia principal entre este curso de perfeccionamiento y la capacitación inicial de 16h de marzo?',
+   o:['Es la misma capacitación, repetida','Este parte de los datos reales de tu sección y el dashboard, no de teoría general','Este es un examen con nota; el anterior no','Este es presencial y el anterior fue asincrónico'],c:1},
+
+  // Módulo 2 — Los 5 momentos
+  {q:'En el Momento 3 (práctica con monitoreo), un estudiante lleva 12 minutos en un ejercicio, con varios intentos y pistas de la IA. ¿Qué hacés?',
+   o:['Le dicto la respuesta para que avance','Lo dejo, la IA está haciendo su trabajo','Me siento al lado, le pido que me explique qué intentó, le hago preguntas hasta destrabarlo','Pauso al grupo y resuelvo el ejercicio en pizarra'],c:2},
+
+  // Módulo 3 — Qué funcionó y qué no
+  {q:'Según las observaciones del equipo EMC, ¿cuál de estas acciones tiene mayor impacto en el volumen de práctica?',
+   o:['Pedir a los estudiantes que practiquen lo más rápido posible','Anunciar la meta concreta de la sesión en el Momento 2 (ej.: "vamos a llegar al ejercicio 3")','Intervenir individualmente con cada estudiante','Saltar el cierre para tener más tiempo de práctica'],c:1},
+
+  // Módulo 4 — Reporte de aula (uso general)
+  {q:'Recibís el reporte un lunes a las 8 am y tenés clase a las 10 am. Solo tenés 14 minutos antes. ¿Qué priorizás?',
+   o:['Leer las 8 páginas completas y memorizarlas','Saltarte el reporte y revisarlo el fin de semana','Leer la página 1 (resumen "en 14 minutos") y arrancar con lo prioritario','Imprimir el reporte y dárselo a tus estudiantes'],c:2},
+
+  // Módulo 4 — Reporte (errores conceptuales)
+  {q:'En la página 3 del reporte, el error "(-2)⁵ = 32" aparece 9 veces. ¿Qué interpretación es correcta?',
+   o:['Solo 9 estudiantes con problemas — no vale una clase','Es señal clara de patrón colectivo — justifica una mini-clase de 10 min en el Momento 4','Es ruido estadístico, ignorarlo','Hay que dar la clase 1 a 1 a cada uno de los 9'],c:1},
+
+  // Módulo 5 — Reporte del director
+  {q:'Tu director comenta que tu sección "está por debajo de la otra en volumen de preguntas". ¿Cuál es la mejor reacción?',
+   o:['Defender la sección argumentando que las métricas son injustas','Pedir que no se compare entre secciones','Reconocer la diferencia, preguntar a tu colega qué le funciona, proponer compartir buenas prácticas','Argumentar que el volumen no importa, solo la precisión'],c:2},
+
+  // Módulo 6 — Errores conceptuales (guion)
+  {q:'En el guion de 10 min del error #1 (signo en potencias), ¿por qué el paso ii pide la respuesta antes de dar la regla?',
+   o:['Para evaluar si los estudiantes saben antes de enseñarles','Porque activar el conocimiento previo del estudiante hace que la regla del paso iii se aprenda, no se memorice','Para perder tiempo','No tiene razón pedagógica, es solo para que participen'],c:1},
+
+  // Módulo 6 — Conversión 3/8
+  {q:'Un estudiante responde 3/8 = 0,38. ¿Cuál es la mejor intervención según el guion #2?',
+   o:['Marcar como incorrecto y seguir','Hacer la división larga en pizarra para mostrar que 3 ÷ 8 = 0,375 exacto, y diferenciar fracciones que terminan vs periódicas','Decirle que use calculadora','Cambiar el ejercicio por otro más fácil'],c:1},
+
+  // Módulo 7 — Casos reales
+  {q:'Una estudiante tiene 106 preguntas, 135 min, 29% precisión. Otro tiene 0 preguntas y 0 minutos. ¿Por dónde empezás?',
+   o:['Por la del 29% — está sufriendo más','Por el de 0 actividad — primero confirmás acceso, después comprensión','Tratarlos a los dos igual','Esperar el próximo reporte para decidir'],c:1},
+
+  // Módulo 7 — Caso de discapacidad
+  {q:'Un estudiante con discapacidad cognitiva confirmada aparece como "0 actividad" en el reporte. ¿Qué hacés?',
+   o:['Nada — es un problema técnico de la plataforma','Reportarlo en el campo "Observaciones adicionales" del informe online de fase anticipada + en el QR del reporte del director, para que EMC lo excluya del cómputo','Insistirle hasta que entre','Bajar mis expectativas para el resto de la clase'],c:1}
 ];
 
 const STORAGE_KEY = 'emc-perfeccionamiento-mate';
@@ -1963,20 +2158,154 @@ function closeSidebarMobile() { if (window.innerWidth <= 900) document.getElemen
 
 function countCorrect(answers, quiz) { let c = 0; quiz.forEach((q, i) => { if (answers[i] === q.c) c++; }); return c; }
 
+// ============================================================
+// Quiz final, reflexión y certificado (módulo 8)
+// ============================================================
+let finalQuizState = { current: 0 };
+
+function startFinalQuiz() {
+  finalQuizState = { current: 0 };
+  state.finalAnswers = {};
+  saveState();
+  const btn = document.getElementById('startBtn');
+  if (btn) btn.style.display = 'none';
+  renderFinalQuestion();
+  setTimeout(function() {
+    var c = document.getElementById('finalQuizContainer');
+    if (c) c.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+}
+
+function renderFinalQuestion() {
+  const i = finalQuizState.current;
+  const q = FINAL_QUIZ[i];
+  const total = FINAL_QUIZ.length;
+  const container = document.getElementById('finalQuizContainer');
+  if (!container) return;
+  const answered = state.finalAnswers[i];
+  let opts = q.o.map((opt, idx) => {
+    let cls = 'quiz-option', dis = '';
+    if (answered !== undefined) {
+      dis = 'disabled';
+      if (idx === q.c) cls += ' correct';
+      else if (idx === answered) cls += ' incorrect';
+    }
+    return `<button class="${cls}" ${dis} onclick="answerFinal(${idx})"><div class="option-letter">${String.fromCharCode(65 + idx)}</div><span>${opt}</span></button>`;
+  }).join('');
+  let fb = '';
+  let nextBtn = '';
+  if (answered !== undefined) {
+    fb = `<div class="quiz-feedback ${answered === q.c ? 'correct' : 'incorrect'} show"><strong>${answered === q.c ? '✅ Correcto' : '❌ Incorrecto'}</strong></div>`;
+    nextBtn = i < total - 1
+      ? `<button class="btn btn-primary" style="margin-top:16px;" onclick="nextFinalQuestion()">Siguiente pregunta →</button>`
+      : `<button class="btn btn-primary" style="margin-top:16px;" onclick="finishFinalQuiz()">Ver resultado</button>`;
+  }
+  container.innerHTML = `
+    <div class="quiz" style="margin-top:20px;">
+      <div class="quiz-progress"><div class="quiz-progress-fill" style="width:${((i+1)/total)*100}%"></div></div>
+      <div style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">Pregunta ${i+1} de ${total}</div>
+      <div class="quiz-question">${q.q}</div>
+      <div class="quiz-options">${opts}</div>
+      ${fb}${nextBtn}
+    </div>
+  `;
+}
+
+function answerFinal(idx) {
+  state.finalAnswers[finalQuizState.current] = idx;
+  saveState();
+  renderFinalQuestion();
+}
+
+function nextFinalQuestion() {
+  finalQuizState.current++;
+  renderFinalQuestion();
+  setTimeout(function() {
+    var c = document.getElementById('finalQuizContainer');
+    if (c) c.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+}
+
+function finishFinalQuiz() {
+  const correct = countCorrect(state.finalAnswers, FINAL_QUIZ);
+  const total = FINAL_QUIZ.length;
+  const passed = correct >= 6;
+  const container = document.getElementById('finalQuizContainer');
+  if (passed) {
+    state.finalCompleted = true;
+    saveState();
+    container.innerHTML = `<div class="callout callout-success" style="margin-top:20px;"><p><span class="callout-icon">✅</span><strong>Quiz aprobado: ${correct}/${total}</strong>. Falta solo escribir tu reflexión abajo para descargar tu certificado.</p></div>`;
+    showReflexion();
+  } else {
+    container.innerHTML = `
+      <div class="callout callout-warning" style="margin-top:24px;">
+        <p><span class="callout-icon">📚</span><strong>Tu resultado: ${correct}/${total}</strong></p>
+        <p>Necesitas al menos 6 respuestas correctas. Te recomendamos revisar los módulos anteriores y volver a intentar — no hay límite de intentos.</p>
+      </div>
+      <button class="btn btn-primary" style="margin-top:16px;margin-right:8px;" onclick="state.finalAnswers={}; saveState(); startFinalQuiz();">Intentar de nuevo</button>
+      <button class="btn btn-secondary" style="margin-top:16px;" onclick="goToModule(0)">Volver al inicio</button>
+    `;
+  }
+}
+
+function showReflexion() {
+  const titleEl = document.getElementById('reflexionTitle');
+  if (titleEl) titleEl.style.display = '';
+  const cont = document.getElementById('reflexionContainer');
+  if (!cont) return;
+  cont.innerHTML = `
+    <p>Escribe <strong>1–2 párrafos</strong>: ¿qué de este curso vas a aplicar concretamente en tu próxima sesión de laboratorio? ¿Qué te resultó más útil? ¿Qué te gustaría que profundicemos en el próximo curso?</p>
+    <textarea class="reflection-area" id="reflectionInput" placeholder="Tu reflexión... (mínimo 80 caracteres)">${state.reflexion || ''}</textarea>
+    <button class="btn btn-primary" onclick="submitReflexion()">Guardar reflexión y emitir certificado →</button>
+  `;
+  setTimeout(function() { const ri = document.getElementById('reflectionInput'); if (ri) ri.focus(); }, 100);
+}
+
+function submitReflexion() {
+  const inp = document.getElementById('reflectionInput');
+  if (!inp) return;
+  const text = inp.value.trim();
+  if (text.length < 80) {
+    alert('Por favor escribe al menos un par de oraciones (mínimo 80 caracteres).');
+    return;
+  }
+  state.reflexion = text;
+  state.completed['final'] = { answer: 0, correct: true };
+  saveState();
+  const correct = countCorrect(state.finalAnswers, FINAL_QUIZ);
+  trackProgress('CERTIFIED', 'Curso de perfeccionamiento Mate completado: ' + correct + '/' + FINAL_QUIZ.length + ' | Reflexion: ' + text.replace(/\n/g,' ').slice(0,500));
+  showCertificate(correct);
+  renderSidebar(); renderProgress();
+}
+
 function showCertificate(correct) {
-  // Placeholder until Fase D
   const total = FINAL_QUIZ.length;
   const name = state.userName || 'Docente Participante';
+  const dni = state.userDni || '';
+  const school = state.userSchool || '';
   const today = new Date().toLocaleDateString('es-PE', { day: 'numeric', month: 'long', year: 'numeric' });
-  const main = document.getElementById('main');
-  main.innerHTML += `
+  const container = document.getElementById('reflexionContainer');
+  if (!container) return;
+  container.innerHTML = `
     <div class="certificate">
       <div class="cert-icon">🎓</div>
       <h2 class="cert-title">Curso de Perfeccionamiento Docente</h2>
       <div class="cert-subtitle">Matemáticas — Tutor de IA · 8 horas pedagógicas</div>
       <div class="cert-name">${name}</div>
-      <div class="cert-body">Ha completado satisfactoriamente el <strong>curso de perfeccionamiento docente</strong> del programa <strong>Eligiendo Mi Camino</strong>.</div>
-      <div class="cert-seal">Resultado del quiz final: <strong>${correct}/${total}</strong> &nbsp;·&nbsp; ${today}<br>DRELM · Banco Mundial · uDocz · UPC</div>
+      <div class="cert-body">
+        Ha completado satisfactoriamente el <strong>curso de perfeccionamiento docente</strong> del programa <strong>Eligiendo Mi Camino</strong>, profundizando en los 5 momentos de la sesión con Tutor IA, la lectura del reporte quincenal de aula y del reporte del director, los 5 errores conceptuales típicos en 5° de secundaria con sus guiones de clase corta, y los casos típicos de intervención diferenciada.
+      </div>
+      <div class="cert-seal">
+        ${dni ? `DNI: ${dni} · ` : ''}${school ? school + ' · ' : ''}${today}<br>
+        Resultado del quiz final: <strong>${correct}/${total}</strong><br>
+        DRELM · Banco Mundial · uDocz · UPC
+      </div>
+    </div>
+    <div class="callout callout-success">
+      <p><span class="callout-icon">✅</span><strong>Curso completado.</strong> Estas 8 horas suman al componente <strong>"Productos y autoestudio" (30%)</strong> de tu certificación oficial. El registro queda automáticamente en eligiendomicamino.org.</p>
+    </div>
+    <div style="text-align:center;margin-top:16px;">
+      <button class="btn btn-secondary" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
     </div>
   `;
 }
