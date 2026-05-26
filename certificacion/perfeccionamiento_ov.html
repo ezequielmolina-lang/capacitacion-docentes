@@ -660,41 +660,18 @@ const MODULES = [
         content: () => `
           <div class="lesson">
             <h3>¿Cómo te fue con cada paso?</h3>
-            <p>Una o dos líneas por paso están perfectas. Tu nombre y DNI van con la respuesta para que el equipo EMC sepa que es la tuya.</p>
+            <p>Una o dos líneas por paso alcanzan. <strong>Tu respuesta va directamente al equipo EMC</strong> a través de este formulario de Google. Tus datos (nombre, DNI, IE) son los mismos que registraste al empezar el curso — copialos del intake.</p>
 
-            ${[
-              {n:1, name:'Paso 1 · Autoconocimiento'},
-              {n:2, name:'Paso 2 · Test RIASEC'},
-              {n:3, name:'Paso 3 · Mitos y realidades'},
-              {n:4, name:'Paso 4 · Rutas post-secundarias'},
-              {n:5, name:'Paso 5 · Ocupaciones'},
-              {n:6, name:'Paso 6 · Investigación de instituciones'},
-              {n:7, name:'Paso 7 · Mensaje familiar'},
-              {n:8, name:'Paso 8 · Plan de vida'}
-            ].map(m => `
-              <div class="feedback-block">
-                <div class="feedback-momento">
-                  <div class="feedback-num">${m.n}</div>
-                  <div class="feedback-name">${m.name}</div>
-                </div>
-                <div class="feedback-row">
-                  <div>
-                    <div class="feedback-col-label">✅ ¿Qué te funcionó?</div>
-                    <textarea id="fb_pos_${m.n}" placeholder="Una o dos líneas..." oninput="saveFeedback(${m.n})">${(state.feedbackMomentos && state.feedbackMomentos[m.n] && state.feedbackMomentos[m.n].pos) || ''}</textarea>
-                  </div>
-                  <div>
-                    <div class="feedback-col-label">⚠️ ¿Qué te costó o cambiarías?</div>
-                    <textarea id="fb_neg_${m.n}" placeholder="Una o dos líneas..." oninput="saveFeedback(${m.n})">${(state.feedbackMomentos && state.feedbackMomentos[m.n] && state.feedbackMomentos[m.n].neg) || ''}</textarea>
-                  </div>
-                </div>
-              </div>
-            `).join('')}
+            <div class="callout callout-info"><p><span class="callout-icon">💡</span><strong>Si el formulario no carga acá abajo:</strong> <a href="https://docs.google.com/forms/d/e/1FAIpQLSebEnwnaP7rzML-HtRd9UmuEsO0wuATEla9NmZbX8ju0wnxPw/viewform" target="_blank" rel="noopener" style="color:var(--primary-dark);font-weight:600;">abrílo en otra pestaña →</a></p></div>
 
-            <div class="callout callout-tip"><p><span class="callout-icon">💾</span>Tus respuestas se guardan automáticamente mientras escribís. Al apretar el botón de abajo se envían al equipo EMC.</p></div>
+            <div style="margin:20px 0;border:1px solid rgba(36,44,50,0.12);border-radius:10px;overflow:hidden;background:#fff;">
+              <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSebEnwnaP7rzML-HtRd9UmuEsO0wuATEla9NmZbX8ju0wnxPw/viewform?embedded=true" width="100%" height="1200" frameborder="0" marginheight="0" marginwidth="0" loading="lazy" style="display:block;">Cargando formulario...</iframe>
+            </div>
 
-            <div style="text-align:center;margin:24px 0;">
-              <button class="btn btn-primary" onclick="submitFeedbackMomentos()" id="submitFeedbackBtn">📩 Enviar al equipo EMC</button>
-              <div id="feedbackSubmitMsg" style="margin-top:10px;font-size:14px;color:var(--success);font-weight:600;display:none;">✅ Enviado. Gracias por tu tiempo.</div>
+            <div style="text-align:center;margin:24px 0;padding:20px;background:#fffaeb;border-radius:10px;border:1.5px dashed #d9ad3b;">
+              <p style="margin:0 0 14px;font-size:14.5px;">¿Ya enviaste el formulario? Hacé click acá para marcar este módulo como completado:</p>
+              <button class="btn btn-primary" onclick="submitFeedbackMomentos()" id="submitFeedbackBtn">✅ Marcar módulo 3 como completado →</button>
+              <div id="feedbackSubmitMsg" style="margin-top:12px;font-size:14px;color:var(--success);font-weight:600;display:none;">✅ Módulo 3 completado. ¡Gracias por tu feedback!</div>
             </div>
           </div>
         `
@@ -1850,21 +1827,17 @@ function saveFeedback(n) {
 }
 
 function submitFeedbackMomentos() {
-  if (!state.feedbackMomentos) state.feedbackMomentos = {};
-  for (var n = 1; n <= 8; n++) {
-    var pos = (document.getElementById('fb_pos_' + n) || {}).value || '';
-    var neg = (document.getElementById('fb_neg_' + n) || {}).value || '';
-    state.feedbackMomentos[n] = { pos: pos, neg: neg };
-    if (pos.trim() || neg.trim()) {
-      trackProgress('FEEDBACK-MOM' + n, 'POS: ' + pos.replace(/\n/g,' ').slice(0,250) + ' | NEG: ' + neg.replace(/\n/g,' ').slice(0,250));
-    }
-  }
+  // El formulario es ahora un Google Form embebido — el usuario lo envía
+  // directamente desde el iframe. Esta función solo marca el módulo como
+  // completado en el state local + dispara tracking de progreso.
   state.feedbackMomentosSubmitted = true;
   state.completed['feedback-momentos'] = { answer: 0, correct: true };
   saveState();
-  document.getElementById('feedbackSubmitMsg').style.display = '';
-  document.getElementById('submitFeedbackBtn').disabled = true;
-  document.getElementById('submitFeedbackBtn').textContent = '✅ Enviado';
+  trackProgress('FEEDBACK-MOMENTOS', 'Marcado como enviado (Google Form)');
+  var msg = document.getElementById('feedbackSubmitMsg');
+  var btn = document.getElementById('submitFeedbackBtn');
+  if (msg) msg.style.display = '';
+  if (btn) { btn.disabled = true; btn.textContent = '✅ Completado'; }
   renderSidebar(); renderProgress();
 }
 
