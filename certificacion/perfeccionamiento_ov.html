@@ -401,40 +401,57 @@ const MODULES = [
     title: 'Bienvenida + Video del programa',
     eyebrow: 'Módulo 1 de 9',
     duration: '~15 min',
-    content: () => `
-      <div class="welcome-hero">
-        <h2>Bienvenido al curso de perfeccionamiento</h2>
-        <p>Orientación Vocacional con IA. Continuamos lo que empezó en marzo, ahora con los datos que ya tenemos de tu sección y de cada paso del viaje que vienen recorriendo tus estudiantes.</p>
-        <div class="welcome-stats">
-          <div class="stat"><div class="stat-num">12 h</div><div class="stat-label">Pedagógicas</div></div>
-          <div class="stat"><div class="stat-num">9</div><div class="stat-label">Módulos</div></div>
-          <div class="stat"><div class="stat-num">30%</div><div class="stat-label">De tu nota final</div></div>
-        </div>
-      </div>
-
-      <div class="lesson">
-        <h3>Antes de empezar, mira este video (~10 min)</h3>
-        <p>Es el resumen del programa: cómo nació Eligiendo Mi Camino, qué problema queremos resolver con el Orientador IA, cómo encaja tu rol como tutor de Orientación Vocacional. <strong>Mira el video completo</strong>; es la mejor inducción al sentido del curso.</p>
-        <div class="video-wrap">
-          <iframe src="https://drive.google.com/file/d/${VIDEO_DRIVE_ID}/preview" allow="autoplay" allowfullscreen></iframe>
-        </div>
-        <p style="font-size:13.5px;color:var(--text-muted);">Si el video no carga, <a href="https://drive.google.com/file/d/${VIDEO_DRIVE_ID}/view" target="_blank" rel="noopener" style="color:var(--primary-dark);">abrílo directo en Google Drive</a>.</p>
-
-        <h3>¿Qué vas a encontrar en este curso?</h3>
-        <p>Este curso es <strong>diferente</strong> de la capacitación inicial de 16h que hiciste en marzo. Aquí no te enseñamos qué es el programa — eso ya lo sabes. Aquí te damos herramientas para los problemas reales que ya viviste facilitando las primeras sesiones OV:</p>
-        <ol>
-          <li><strong>Cómo se mueven tus estudiantes en los 8 pasos del viaje vocacional</strong> — desde autoconocimiento hasta plan de vida.</li>
-          <li><strong>Cómo leer el reporte de tutoría</strong> que recibes cada 2 semanas — página por página, con casos reales.</li>
-          <li><strong>Cómo trabajar con sesgos cognitivos</strong> (género, socioeconómico, mitos sobre carreras) cuando aparecen en clase.</li>
-          <li><strong>Cómo intervenir con estudiantes</strong> que se desconectan, dudan, o tienen presión familiar.</li>
-          <li><strong>Cómo coordinar con tu director</strong> a partir del reporte que él/ella también recibe.</li>
-        </ol>
-
-        <div class="callout callout-tip"><p><span class="callout-icon">💡</span><strong>Forma de trabajar:</strong> los módulos se hacen en orden, pero podés volver a los anteriores cuando quieras. El progreso queda guardado automáticamente. Al terminar el quiz final con 6/10 o más se emite tu certificado.</p></div>
-
-        <div class="callout callout-info"><p><span class="callout-icon">📩</span><strong>¿Dudas sobre el curso o el reporte?</strong> Escribinos a <a href="mailto:eligiendomicamino@worldbank.org" style="color:#1565C0;font-weight:600;">eligiendomicamino@worldbank.org</a>.</p></div>
-      </div>
-    `,
+    steps: [
+      {
+        title: 'Bienvenida al curso',
+        content: () => `
+          <div class="welcome-hero">
+            <h2>Bienvenido al curso de perfeccionamiento</h2>
+            <p>Orientación Vocacional con IA. Continuamos lo que empezó en marzo, ahora con los datos que ya tenemos de tu sección y de cada paso del viaje que vienen recorriendo tus estudiantes.</p>
+            <div class="welcome-stats">
+              <div class="stat"><div class="stat-num">12 h</div><div class="stat-label">Pedagógicas</div></div>
+              <div class="stat"><div class="stat-num">9</div><div class="stat-label">Módulos</div></div>
+              <div class="stat"><div class="stat-num">30%</div><div class="stat-label">De tu nota final</div></div>
+            </div>
+          </div>
+          <div class="lesson">
+            <p>Este curso es <strong>diferente</strong> de la capacitación inicial de 16h que hiciste en marzo. Aquí no te enseñamos qué es el programa — eso ya lo sabes. Te damos herramientas para los problemas reales que ya viviste facilitando las primeras sesiones OV con tus estudiantes.</p>
+            <div class="callout callout-tip"><p><span class="callout-icon">💡</span><strong>Forma de trabajar:</strong> el curso está partido en pasos cortos. Cada módulo tiene varios pasos — vas avanzando con el botón "Continuar →". Tu progreso queda guardado automáticamente; podés volver donde quieras desde la barra lateral.</p></div>
+          </div>
+        `
+      },
+      {
+        title: 'Video del programa',
+        content: () => `
+          <div class="lesson">
+            <h3>Antes de avanzar, mira este video (~10 min)</h3>
+            <p>Es el resumen del programa: cómo nació Eligiendo Mi Camino, qué problema queremos resolver con el Orientador IA, cómo encaja tu rol como tutor de Orientación Vocacional. <strong>Vale la pena verlo completo</strong>; es la mejor inducción al sentido del curso.</p>
+            <div class="video-wrap">
+              <iframe src="https://drive.google.com/file/d/${VIDEO_DRIVE_ID}/preview" allow="autoplay" allowfullscreen></iframe>
+            </div>
+            <p style="font-size:13.5px;color:var(--text-muted);">Si el video no carga, <a href="https://drive.google.com/file/d/${VIDEO_DRIVE_ID}/view" target="_blank" rel="noopener" style="color:var(--primary-dark);">abrílo directo en Google Drive</a>.</p>
+          </div>
+        `
+      },
+      {
+        title: '¿Qué vas a encontrar?',
+        content: () => `
+          <div class="lesson">
+            <h3>¿Qué vas a encontrar en este curso?</h3>
+            <p>5 cosas concretas que vas a aprender, alineadas a lo que ya pasa en tu aula:</p>
+            <ol>
+              <li><strong>Cómo se mueven tus estudiantes en los 8 pasos del viaje</strong> — desde autoconocimiento hasta plan de vida, con foco en los pasos en los que están parados hoy.</li>
+              <li><strong>Cómo leer el reporte de tutoría</strong> que recibes cada 2 semanas — página por página.</li>
+              <li><strong>Cómo trabajar con sesgos cognitivos</strong> (género, socioeconómico) y temas críticos del cierre del programa (CV, postulaciones, conversación familiar).</li>
+              <li><strong>Cómo intervenir con estudiantes</strong> que se desconectan, dudan, o tienen presión familiar.</li>
+              <li><strong>Cómo coordinar con tu director</strong> a partir del reporte que él/ella también recibe.</li>
+            </ol>
+            <div class="callout callout-success"><p><span class="callout-icon">🎓</span>Al terminar el quiz final con <strong>6/10 o más</strong> se emite tu certificado. Las 12 horas pedagógicas suman al componente "Productos y autoestudio" (30% de tu nota final).</p></div>
+            <div class="callout callout-info"><p><span class="callout-icon">📩</span><strong>¿Dudas sobre el curso o el reporte?</strong> Escribinos a <a href="mailto:eligiendomicamino@worldbank.org" style="color:#1565C0;font-weight:600;">eligiendomicamino@worldbank.org</a>.</p></div>
+          </div>
+        `
+      }
+    ],
     quiz: {
       question: '¿Cuál es la diferencia principal entre este curso y la capacitación inicial de 16 h que hiciste en marzo?',
       options: [
@@ -456,88 +473,128 @@ const MODULES = [
     title: 'Los 8 pasos del viaje vocacional',
     eyebrow: 'Módulo 2 de 9',
     duration: '~1 h',
-    content: () => `
-      <div class="lesson">
-        <p>El Orientador IA acompaña a tus estudiantes en un <strong>viaje de 8 pasos</strong>, desde "quién soy" hasta "cuál es mi plan". Conocer la lógica del viaje te permite preparar cada sesión sabiendo qué viene antes y qué viene después. <strong>Memorizá los 8 pasos</strong> — son el mapa que vas a usar todo el ciclo.</p>
-
-        <div class="moment-card">
-          <div class="moment-num">1</div>
-          <div class="moment-content">
-            <div class="moment-time">Bloque autoconocimiento · sesiones 1-3</div>
-            <h4>Autoconocimiento</h4>
-            <p>El estudiante conversa con el Orientador IA sobre su identidad: intereses, valores, momentos de orgullo, lo que se le da bien. <strong>Tu rol:</strong> crear el clima de confianza. Recordá que el diario es privado — vos no leés lo que escribe salvo que él/ella te lo comparta. Si abrís este paso bien, los 7 siguientes funcionan.</p>
+    steps: [
+      {
+        title: 'Intro · el mapa de 8 pasos',
+        content: () => `
+          <div class="lesson">
+            <p>El Orientador IA acompaña a tus estudiantes en un <strong>viaje de 8 pasos</strong>, desde "quién soy" hasta "cuál es mi plan". Conocer la lógica del viaje te permite preparar cada sesión sabiendo qué viene antes y qué viene después.</p>
+            <div class="callout callout-info"><p><span class="callout-icon">📍</span><strong>Dónde están parados tus estudiantes hoy:</strong> los Pasos 1-3 (Autoconocimiento, RIASEC, Mitos) los hicieron durante la fase anticipada (marzo-abril). El foco real ahora está en los <strong>Pasos 4-6</strong>: Rutas, Ocupaciones e Investigación. Los Pasos 7-8 son cómo cerrás el ciclo en julio.</p></div>
+            <p>Repasamos los 8 pasos en orden, con foco en qué hacer en cada uno. Bloque por bloque, no todo de golpe.</p>
           </div>
-        </div>
+        `
+      },
+      {
+        title: 'Bloque autoconocimiento · Pasos 1-3 (ya hechos)',
+        content: () => `
+          <div class="lesson">
+            <p style="font-size:14.5px;color:var(--text-muted);">Estos pasos ya los hicieron tus estudiantes durante la fase anticipada. Los revisamos en bloque porque tu rol fue (y sigue siendo) sostener el clima de confianza que abrieron acá.</p>
 
-        <div class="moment-card">
-          <div class="moment-num">2</div>
-          <div class="moment-content">
-            <div class="moment-time">Bloque autoconocimiento · sesiones 1-3</div>
-            <h4>Test RIASEC (intereses)</h4>
-            <p>El estudiante hace el test de intereses (Holland/Kuder adaptado) y recibe sus 3 perfiles dominantes: Investigador (I), Social (S), Realista (R), Artístico (A), Emprendedor (E), Convencional (C). <strong>Tu rol:</strong> explicar que el test <em>orienta</em>, no <em>sentencia</em>. Es un punto de partida, no una etiqueta para toda la vida.</p>
+            <div class="moment-card">
+              <div class="moment-num">1</div>
+              <div class="moment-content">
+                <div class="moment-time">Bloque autoconocimiento · sesiones 1-3</div>
+                <h4>Autoconocimiento</h4>
+                <p>El estudiante conversa con el Orientador IA sobre su identidad: intereses, valores, momentos de orgullo. <strong>Tu rol:</strong> crear el clima de confianza. El diario es privado — vos no leés lo que escribe salvo que te lo comparta.</p>
+              </div>
+            </div>
+
+            <div class="moment-card">
+              <div class="moment-num">2</div>
+              <div class="moment-content">
+                <div class="moment-time">Bloque autoconocimiento · sesiones 1-3</div>
+                <h4>Test RIASEC (intereses)</h4>
+                <p>Sus 3 perfiles dominantes: Investigador, Social, Realista, Artístico, Emprendedor, Convencional. <strong>Tu rol:</strong> recordarles que el test <em>orienta</em>, no <em>sentencia</em>. Es punto de partida, no etiqueta para toda la vida.</p>
+              </div>
+            </div>
+
+            <div class="moment-card">
+              <div class="moment-num">3</div>
+              <div class="moment-content">
+                <div class="moment-time">Bloque autoconocimiento · sesiones 1-3</div>
+                <h4>Mitos y realidades sobre educación superior</h4>
+                <p>Mitos comunes: "los técnicos ganan menos", "si no estudio una carrera tradicional no soy nadie", "la universidad es para todos". <strong>Tu rol:</strong> apoyate en datos reales (vienen en el Paso 4) — sermonear no convence.</p>
+              </div>
+            </div>
           </div>
-        </div>
+        `
+      },
+      {
+        title: 'Bloque rutas e intereses · Pasos 4-5 ⭐ foco actual',
+        content: () => `
+          <div class="lesson">
+            <p style="font-size:14.5px;color:var(--text-muted);">Estos son los pasos en los que probablemente está la mayoría de tu sección ahora mismo. Aquí el rol del tutor pesa fuerte: aterrizar datos, ampliar el menú de ocupaciones más allá de las 5 carreras famosas.</p>
 
-        <div class="moment-card">
-          <div class="moment-num">3</div>
-          <div class="moment-content">
-            <div class="moment-time">Bloque autoconocimiento · sesiones 1-3</div>
-            <h4>Mitos y realidades sobre educación superior</h4>
-            <p>El estudiante explora con la IA mitos comunes: "los técnicos ganan menos", "si no estudio una carrera tradicional no soy nadie", "la universidad es para todos". <strong>Tu rol:</strong> no rebatir con sermones — apoyate en los datos del Paso 4 que viene. El módulo 6 te da 5 sesgos típicos con guion de cómo abordarlos.</p>
+            <div class="moment-card" style="border:2px solid var(--primary);background:linear-gradient(135deg,#fffaeb 0%,#fff 100%);">
+              <div class="moment-num">4</div>
+              <div class="moment-content">
+                <div class="moment-time">Bloque rutas e intereses · sesiones 4-6</div>
+                <h4>Rutas post-secundarias</h4>
+                <p>El estudiante explora 3 rutas: <strong>Universidad</strong>, <strong>Instituto técnico</strong>, <strong>Trabajo + estudio</strong>. Datos reales de salario, empleabilidad, costo, duración (Ponte en Carrera). <strong>Tu rol:</strong> aterrizar las tablas — los promedios esconden varianza. Una carrera con S/2000 promedio puede ser S/1200 o S/3500 según institución.</p>
+              </div>
+            </div>
+
+            <div class="moment-card" style="border:2px solid var(--primary);background:linear-gradient(135deg,#fffaeb 0%,#fff 100%);">
+              <div class="moment-num">5</div>
+              <div class="moment-content">
+                <div class="moment-time">Bloque rutas e intereses · sesiones 4-6</div>
+                <h4>Ocupaciones</h4>
+                <p>Cada estudiante explora <strong>2-3 ocupaciones</strong> alineadas a su perfil RIASEC y a la ruta que le interesa. <strong>Tu rol:</strong> monitorear que la conversación no sea solo "carreras famosas" (medicina, ingeniería, derecho). Hay 100+ ocupaciones — vale ampliar el menú.</p>
+              </div>
+            </div>
           </div>
-        </div>
+        `
+      },
+      {
+        title: 'Paso 6 · Investigación de instituciones (en curso)',
+        content: () => `
+          <div class="lesson">
+            <p style="font-size:14.5px;color:var(--text-muted);">Acá empieza la parte concreta: postulaciones, costos, becas. Particularmente importante para estudiantes de bajos recursos: <strong>Beca 18 + Pronabec</strong> son la palanca real para acceder a universidad sin pagar.</p>
 
-        <div class="moment-card">
-          <div class="moment-num">4</div>
-          <div class="moment-content">
-            <div class="moment-time">Bloque rutas e intereses · sesiones 4-6</div>
-            <h4>Rutas post-secundarias</h4>
-            <p>El estudiante explora 3 rutas: <strong>Universidad</strong>, <strong>Instituto técnico</strong>, <strong>Trabajo + estudio</strong>. Para cada una: datos reales de salario, empleabilidad, costo, duración (a partir de "Ponte en Carrera"). <strong>Tu rol:</strong> aterrizar las tablas — los promedios esconden varianza. Una carrera con S/2000 promedio puede ser S/1200 o S/3500 según institución.</p>
+            <div class="moment-card">
+              <div class="moment-num">6</div>
+              <div class="moment-content">
+                <div class="moment-time">Bloque investigación y decisión · sesiones 7-9</div>
+                <h4>Investigación de instituciones</h4>
+                <p>El estudiante investiga 2-3 instituciones reales que ofrecen las ocupaciones del Paso 5. Universidades públicas y privadas, IES, becas (Beca 18, Pronabec). Compara: costo, distancia, modalidad, prestigio, requisitos de admisión.</p>
+                <p><strong>Tu rol:</strong> ayudar a construir la matriz de decisión sin imponer tu propia preferencia. Y muy importante en este paso: <strong>guiar la armado del CV</strong> (en formato que usen los institutos / Beca 18) — muchos estudiantes no han armado uno nunca.</p>
+              </div>
+            </div>
           </div>
-        </div>
+        `
+      },
+      {
+        title: 'Pasos 7-8 · Cómo cerrar el ciclo · cierre julio',
+        content: () => `
+          <div class="lesson">
+            <p style="font-size:14.5px;color:var(--text-muted);">Acá viene el cierre del programa (julio). Dos pasos sensibles: la conversación familiar (Paso 7) y la consolidación del Plan A + Plan B (Paso 8). Es lo último que vas a facilitar.</p>
 
-        <div class="moment-card">
-          <div class="moment-num">5</div>
-          <div class="moment-content">
-            <div class="moment-time">Bloque rutas e intereses · sesiones 4-6</div>
-            <h4>Ocupaciones</h4>
-            <p>Cada estudiante explora con la IA <strong>2-3 ocupaciones</strong> alineadas a su perfil RIASEC y a la ruta que le interesa. La IA le pregunta cómo es un día típico, qué le atrae, qué le inquieta. <strong>Tu rol:</strong> monitorear que la conversación no sea solo "carreras famosas" (medicina, ingeniería, derecho). Hay 100+ ocupaciones — vale ampliar el menú.</p>
+            <div class="moment-card">
+              <div class="moment-num">7</div>
+              <div class="moment-content">
+                <div class="moment-time">Bloque familia · sesiones 10-11</div>
+                <h4>Mensaje familiar</h4>
+                <p>El estudiante prepara cómo conversar con su familia sobre su elección vocacional. <strong>Particularmente cargada</strong> cuando la elección no coincide con expectativas familiares ("mi papá quiere que sea abogado pero yo quiero ser diseñadora"). <strong>Tu rol:</strong> acompañar al estudiante a desarrollar argumentos, no tomar partido. El módulo 6 tiene un guion específico para este caso.</p>
+              </div>
+            </div>
+
+            <div class="moment-card">
+              <div class="moment-num">8</div>
+              <div class="moment-content">
+                <div class="moment-time">Bloque plan · sesión 12 · cierre del programa</div>
+                <h4>Plan de vida completo</h4>
+                <p>El estudiante consolida todo: Plan A (la ruta principal), Plan B (alternativa real), pasos concretos con fechas (postulación, beca, prueba), y red de apoyo. <strong>Tu rol:</strong> validar que el Plan B sea real, no decorativo. Cuando un estudiante presenta su plan en la sesión 12, recibí el agradecimiento — algunos te lo van a agradecer mucho.</p>
+              </div>
+            </div>
+
+            <div class="callout callout-tip"><p><span class="callout-icon">💡</span><strong>Regla de oro:</strong> el viaje es una <strong>espiral, no una línea recta</strong>. Si un estudiante "retrocede" del Paso 7 al Paso 4 al darse cuenta de algo nuevo, eso es bueno — significa que está pensando. No los apures por avanzar.</p></div>
+
+            <h3>El reporte te dice en qué paso está cada estudiante</h3>
+            <p>El reporte de tutoría (módulo 4) muestra <strong>la distribución de tu sección en los 8 pasos</strong>. Si la mayoría está en el Paso 4, sabés que toca trabajar rutas. Si están atascados en Paso 6, probablemente necesitan ayuda con buscar instituciones y armar postulaciones.</p>
           </div>
-        </div>
-
-        <div class="moment-card">
-          <div class="moment-num">6</div>
-          <div class="moment-content">
-            <div class="moment-time">Bloque investigación y decisión · sesiones 7-9</div>
-            <h4>Investigación de instituciones</h4>
-            <p>Cada estudiante investiga 2-3 instituciones reales que ofrecen las ocupaciones del paso 5. Universidades públicas y privadas, IES, becas (Beca 18, Pronabec). Compara: costo, distancia, modalidad, prestigio, requisitos de admisión. <strong>Tu rol:</strong> ayudar a construir la matriz de decisión sin imponer tu propia preferencia.</p>
-          </div>
-        </div>
-
-        <div class="moment-card">
-          <div class="moment-num">7</div>
-          <div class="moment-content">
-            <div class="moment-time">Bloque familia · sesiones 10-11</div>
-            <h4>Mensaje familiar</h4>
-            <p>El estudiante prepara cómo conversar con su familia sobre su elección vocacional. <strong>Particularmente cargada</strong> cuando la elección no coincide con expectativas familiares ("mi papá quiere que sea abogado pero yo quiero ser diseñadora"). <strong>Tu rol:</strong> acompañar al estudiante a desarrollar argumentos, no tomar partido. El módulo 6 tiene un guion para este caso.</p>
-          </div>
-        </div>
-
-        <div class="moment-card">
-          <div class="moment-num">8</div>
-          <div class="moment-content">
-            <div class="moment-time">Bloque plan · sesión 12</div>
-            <h4>Plan de vida completo</h4>
-            <p>El estudiante consolida todo: Plan A (la ruta principal), Plan B (alternativa real), pasos concretos con fechas (postulación, beca, prueba), y red de apoyo. <strong>Tu rol:</strong> validar que el Plan B sea real, no decorativo. Cuando un estudiante presenta su plan, recibí el agradecimiento — algunos te lo van a agradecer mucho.</p>
-          </div>
-        </div>
-
-        <div class="callout callout-tip"><p><span class="callout-icon">💡</span><strong>Regla de oro:</strong> el viaje es una <strong>espiral, no una línea recta</strong>. A veces un estudiante "retrocede" del Paso 7 al Paso 4 cuando se da cuenta de algo nuevo. Eso es bueno — significa que está pensando. No los apures por avanzar.</p></div>
-
-        <h3>El reporte te dice en qué paso está cada estudiante</h3>
-        <p>El reporte de tutoría que recibís cada 2 semanas (módulo 4) muestra <strong>la distribución de tu sección en los 8 pasos</strong>. Si la mayoría está en el Paso 4, sabés que toca trabajar rutas. Si nadie pasó del Paso 2, hay algo que destrabar en el RIASEC.</p>
-      </div>
-    `,
+        `
+      }
+    ],
     quiz: {
       question: 'Un estudiante venía avanzando bien y de pronto vuelve del Paso 7 (familia) al Paso 4 (rutas) porque dice que "ya no estoy seguro de la ruta que elegí". ¿Qué pensás?',
       options: [
@@ -559,74 +616,90 @@ const MODULES = [
     title: 'Qué funcionó y qué no — contanos vos',
     eyebrow: 'Módulo 3 de 9',
     duration: '~30 min',
-    content: () => `
-      <div class="lesson">
-        <p>Antes de seguir, queremos escucharte. Llevás algunas semanas facilitando las primeras sesiones OV y acompañando a tus estudiantes en los primeros pasos del viaje. <strong>Tu experiencia importa</strong>: lo que aprendamos de vos ajusta el programa para todos.</p>
-
-        <h3>Lo que vimos en aulas estas primeras semanas</h3>
-        <p>Estas son observaciones cualitativas del equipo EMC visitando las IIEE entre el 30 de marzo y el 15 de mayo. No son tu sección en particular — son patrones que vimos repetirse.</p>
-
-        <div class="observations-card obs-positive">
-          <h4>✅ Lo que vimos funcionar</h4>
-          <ul class="obs-list">
-            <li><strong>Paso 1 (Autoconocimiento):</strong> tutores que dedican la primera sesión a generar clima de confianza — sin pedirle al estudiante que decida nada — tienen mucha mejor participación en los pasos 2-3.</li>
-            <li><strong>Paso 2 (RIASEC):</strong> presentar el test como un punto de partida (no una etiqueta para toda la vida) baja la ansiedad. Estudiantes que entendieron eso son los que más profundizan en el Paso 5.</li>
-            <li><strong>Paso 4 (Rutas):</strong> usar datos reales de salario y empleabilidad (de Ponte en Carrera) aterriza la conversación. Sermones sobre "todas las carreras son valiosas" no convencen — los datos sí.</li>
-            <li><strong>Paso 5 (Ocupaciones):</strong> tutores que empujan a explorar más allá de las 5 carreras famosas (medicina, ingeniería, derecho) abren el menú real para sus estudiantes.</li>
-            <li><strong>Paso 7 (Familia):</strong> tutores que acompañan a desarrollar argumentos (no a "convencer a la familia") logran conversaciones más reales en casa.</li>
-          </ul>
-        </div>
-
-        <div class="observations-card obs-friction">
-          <h4>⚠️ Donde más vimos fricción</h4>
-          <ul class="obs-list">
-            <li><strong>Privacidad del diario (Paso 1):</strong> tutores que leen lo que el estudiante escribió en el diario virtual rompen la confianza. La regla es: solo lo leés si el estudiante te lo comparte voluntariamente.</li>
-            <li><strong>Test RIASEC como sentencia:</strong> "tu perfil es Investigador, entonces ingeniería". El test es una <em>orientación</em>, no un veredicto. Tutores que lo presentan como mandato pierden el sentido del viaje.</li>
-            <li><strong>Sesgos de género al elegir carrera:</strong> "las chicas no pueden ser ingenieras" o "los chicos no son docentes" siguen apareciendo. (Módulo 6 tiene el guion para abordarlo.)</li>
-            <li><strong>Imposición de carreras "buenas":</strong> tutor que recomienda una carrera puntual ("vos sé contadora, es estable") en vez de acompañar al estudiante a elegir. Tu rol es facilitar, no decidir.</li>
-            <li><strong>Apurar el plan (Paso 8):</strong> estudiantes que llegan al Paso 8 sin haber pensado bien los anteriores. Mejor menos pasos completados con profundidad que los 8 superficialmente.</li>
-          </ul>
-        </div>
-
-        <h3>Ahora contános vos: ¿cómo te fue con cada paso?</h3>
-        <p>Una o dos líneas por paso están perfectas. Esto se guarda y se envía al equipo EMC para que podamos ajustar el programa. Tu nombre y DNI van con la respuesta para que sepamos que es la tuya.</p>
-
-        ${[
-          {n:1, name:'Paso 1 · Autoconocimiento'},
-          {n:2, name:'Paso 2 · Test RIASEC'},
-          {n:3, name:'Paso 3 · Mitos y realidades'},
-          {n:4, name:'Paso 4 · Rutas post-secundarias'},
-          {n:5, name:'Paso 5 · Ocupaciones'},
-          {n:6, name:'Paso 6 · Investigación de instituciones'},
-          {n:7, name:'Paso 7 · Mensaje familiar'},
-          {n:8, name:'Paso 8 · Plan de vida'}
-        ].map(m => `
-          <div class="feedback-block">
-            <div class="feedback-momento">
-              <div class="feedback-num">${m.n}</div>
-              <div class="feedback-name">${m.name}</div>
-            </div>
-            <div class="feedback-row">
-              <div>
-                <div class="feedback-col-label">✅ ¿Qué te funcionó?</div>
-                <textarea id="fb_pos_${m.n}" placeholder="Una o dos líneas..." oninput="saveFeedback(${m.n})">${(state.feedbackMomentos && state.feedbackMomentos[m.n] && state.feedbackMomentos[m.n].pos) || ''}</textarea>
-              </div>
-              <div>
-                <div class="feedback-col-label">⚠️ ¿Qué te costó o cambiarías?</div>
-                <textarea id="fb_neg_${m.n}" placeholder="Una o dos líneas..." oninput="saveFeedback(${m.n})">${(state.feedbackMomentos && state.feedbackMomentos[m.n] && state.feedbackMomentos[m.n].neg) || ''}</textarea>
-              </div>
+    steps: [
+      {
+        title: 'Lo que vimos funcionar',
+        content: () => `
+          <div class="lesson">
+            <p>Antes de seguir, queremos escucharte. Llevás algunas semanas facilitando las primeras sesiones OV y acompañando a tus estudiantes en los primeros pasos del viaje. <strong>Tu experiencia importa</strong>: lo que aprendamos de vos ajusta el programa para todos.</p>
+            <p style="font-size:14.5px;color:var(--text-muted);">Observaciones cualitativas del equipo EMC visitando las IIEE entre el 30 de marzo y el 15 de mayo. No son tu sección en particular — son patrones que vimos repetirse.</p>
+            <div class="observations-card obs-positive">
+              <h4>✅ Lo que vimos funcionar</h4>
+              <ul class="obs-list">
+                <li><strong>Paso 1 (Autoconocimiento):</strong> tutores que dedican la primera sesión a generar clima de confianza — sin pedirle al estudiante que decida nada — tienen mucha mejor participación en los pasos 2-3.</li>
+                <li><strong>Paso 2 (RIASEC):</strong> presentar el test como punto de partida (no etiqueta para toda la vida) baja la ansiedad. Estudiantes que entendieron eso son los que más profundizan en el Paso 5.</li>
+                <li><strong>Paso 4 (Rutas):</strong> usar datos reales de salario y empleabilidad (Ponte en Carrera) aterriza la conversación. Sermones sobre "todas las carreras son valiosas" no convencen — los datos sí.</li>
+                <li><strong>Paso 5 (Ocupaciones):</strong> tutores que empujan a explorar más allá de las 5 carreras famosas abren el menú real para sus estudiantes.</li>
+                <li><strong>Paso 7 (Familia):</strong> tutores que acompañan a desarrollar argumentos (no a "convencer a la familia") logran conversaciones más reales en casa.</li>
+              </ul>
             </div>
           </div>
-        `).join('')}
+        `
+      },
+      {
+        title: 'Donde vimos fricción',
+        content: () => `
+          <div class="lesson">
+            <p>Las fricciones más comunes que aparecen en aula. Ninguna es "error grave" — son patrones que se corrigen con un pequeño ajuste de método.</p>
+            <div class="observations-card obs-friction">
+              <h4>⚠️ Donde más vimos fricción</h4>
+              <ul class="obs-list">
+                <li><strong>Privacidad del diario (Paso 1):</strong> tutores que leen lo que el estudiante escribió en el diario virtual rompen la confianza. La regla es: solo lo leés si te lo comparte voluntariamente.</li>
+                <li><strong>Test RIASEC como sentencia:</strong> "tu perfil es Investigador, entonces ingeniería". El test es una <em>orientación</em>, no un veredicto.</li>
+                <li><strong>Sesgos de género al elegir carrera:</strong> "las chicas no pueden ser ingenieras" o "los chicos no son docentes" siguen apareciendo. El módulo 6 tiene el guion para abordarlo.</li>
+                <li><strong>Imposición de carreras "buenas":</strong> tutor que recomienda una carrera puntual ("vos sé contadora, es estable") en vez de acompañar al estudiante a elegir. Tu rol es facilitar, no decidir.</li>
+                <li><strong>Apurar el plan (Paso 8):</strong> estudiantes que llegan al Paso 8 sin haber pensado los anteriores. Mejor menos pasos con profundidad que los 8 superficialmente.</li>
+              </ul>
+            </div>
+            <p style="margin-top:14px;font-size:14.5px;">En el próximo paso te toca a vos: contanos tu experiencia con cada paso del viaje.</p>
+          </div>
+        `
+      },
+      {
+        title: 'Ahora contanos vos',
+        content: () => `
+          <div class="lesson">
+            <h3>¿Cómo te fue con cada paso?</h3>
+            <p>Una o dos líneas por paso están perfectas. Tu nombre y DNI van con la respuesta para que el equipo EMC sepa que es la tuya.</p>
 
-        <div class="callout callout-tip"><p><span class="callout-icon">💾</span>Tus respuestas se guardan automáticamente mientras escribís (localStorage). Al apretar el botón de abajo se envían también al equipo EMC.</p></div>
+            ${[
+              {n:1, name:'Paso 1 · Autoconocimiento'},
+              {n:2, name:'Paso 2 · Test RIASEC'},
+              {n:3, name:'Paso 3 · Mitos y realidades'},
+              {n:4, name:'Paso 4 · Rutas post-secundarias'},
+              {n:5, name:'Paso 5 · Ocupaciones'},
+              {n:6, name:'Paso 6 · Investigación de instituciones'},
+              {n:7, name:'Paso 7 · Mensaje familiar'},
+              {n:8, name:'Paso 8 · Plan de vida'}
+            ].map(m => `
+              <div class="feedback-block">
+                <div class="feedback-momento">
+                  <div class="feedback-num">${m.n}</div>
+                  <div class="feedback-name">${m.name}</div>
+                </div>
+                <div class="feedback-row">
+                  <div>
+                    <div class="feedback-col-label">✅ ¿Qué te funcionó?</div>
+                    <textarea id="fb_pos_${m.n}" placeholder="Una o dos líneas..." oninput="saveFeedback(${m.n})">${(state.feedbackMomentos && state.feedbackMomentos[m.n] && state.feedbackMomentos[m.n].pos) || ''}</textarea>
+                  </div>
+                  <div>
+                    <div class="feedback-col-label">⚠️ ¿Qué te costó o cambiarías?</div>
+                    <textarea id="fb_neg_${m.n}" placeholder="Una o dos líneas..." oninput="saveFeedback(${m.n})">${(state.feedbackMomentos && state.feedbackMomentos[m.n] && state.feedbackMomentos[m.n].neg) || ''}</textarea>
+                  </div>
+                </div>
+              </div>
+            `).join('')}
 
-        <div style="text-align:center;margin:24px 0;">
-          <button class="btn btn-primary" onclick="submitFeedbackMomentos()" id="submitFeedbackBtn">📩 Enviar al equipo EMC</button>
-          <div id="feedbackSubmitMsg" style="margin-top:10px;font-size:14px;color:var(--success);font-weight:600;display:none;">✅ Enviado. Gracias por tu tiempo.</div>
-        </div>
-      </div>
-    `,
+            <div class="callout callout-tip"><p><span class="callout-icon">💾</span>Tus respuestas se guardan automáticamente mientras escribís. Al apretar el botón de abajo se envían al equipo EMC.</p></div>
+
+            <div style="text-align:center;margin:24px 0;">
+              <button class="btn btn-primary" onclick="submitFeedbackMomentos()" id="submitFeedbackBtn">📩 Enviar al equipo EMC</button>
+              <div id="feedbackSubmitMsg" style="margin-top:10px;font-size:14px;color:var(--success);font-weight:600;display:none;">✅ Enviado. Gracias por tu tiempo.</div>
+            </div>
+          </div>
+        `
+      }
+    ],
     quiz: {
       question: 'Según las observaciones del equipo EMC, ¿cuál de estas prácticas en el Paso 1 (Autoconocimiento) tiene mayor impacto en el viaje completo del estudiante?',
       options: [
@@ -648,18 +721,313 @@ const MODULES = [
     title: 'Tu reporte quincenal — página por página',
     eyebrow: 'Módulo 4 de 9',
     duration: '~2 h',
-    content: () => `
-      <div class="lesson">
-        <div class="coming-soon">
-          <div class="coming-soon-icon">📄</div>
-          <h3>Módulo en construcción (Fase B)</h3>
-          <p>Acá vamos a recorrer las <strong>5 páginas del reporte de tutoría</strong> que recibís cada quincena. Para cada página: qué muestra (perfiles RIASEC, distribución por paso, rutas), cómo se lee, qué acciones tomar.</p>
-          <p style="margin-top:14px;font-size:13px;">Mientras tanto: <strong>el reporte ya te llega</strong>. La página 1 te explica el sentido general. Si tienes dudas, escribinos.</p>
-        </div>
+    steps: [
+      {
+        title: 'Página 1 · Bienvenida + acción de la quincena',
+        content: () => `
+          <div class="lesson">
+            <p>Cada dos semanas recibís un <strong>Reporte de Tutoría</strong> con datos reales de tu sección OV en la plataforma. Este módulo recorre las <strong>5 páginas del reporte</strong>. Para no exponer información de ningún docente real, trabajamos sobre un <strong>reporte demo</strong> con datos sintéticos pero idéntico en formato al que vas a recibir.</p>
 
-      </div>
-    `,
-    quiz: null
+            <div class="callout callout-info"><p><span class="callout-icon">📄</span><strong>Cómo usar este módulo:</strong> abajo aparece el reporte demo completo (5 páginas, scrolleable). Debajo de cada página vas a encontrar el walk-through: qué muestra, cómo se lee, qué hacer con eso, y qué malinterpretar. Tomate los 5 minutos que toma leer el reporte completo primero, después volvé a cada página con el walk-through al lado.</p></div>
+
+            <h3>📊 Reporte demo — IE Ficticia 9999 · Sección A · 30 mar — 15 may 2026</h3>
+            <div class="report">
+              <div class="report-pg">
+                <div class="pg-header">
+                  <div class="pg-header-left">
+                    <div class="pg-logo">🧭</div>
+                    <div>
+                      <div class="pg-eyebrow">Eligiendo Mi Camino</div>
+                      <div class="pg-title">Reporte de Tutoría</div>
+                    </div>
+                  </div>
+                  <div class="pg-meta">
+                    <div class="pg-meta-bold">IE 9999 · Sección A</div>
+                    <div class="pg-meta-line">Profe Demo · UGEL DEMO</div>
+                    <div class="pg-meta-line">30 marzo — 15 mayo 2026 · ORIENTADOR IA</div>
+                  </div>
+                </div>
+
+                <div class="rp-bienvenida-grid">
+                  <div class="rp-bienv-block">
+                    <div class="rp-bienv-label">Bienvenida · tu primer reporte</div>
+                    <h3>Hola, <em>Profe</em>.</h3>
+                    <p>Este es tu primer reporte de tutoría. Llega cada dos semanas con base en lo que tus estudiantes hicieron en la plataforma con el <em>Orientador IA</em>.</p>
+                    <p>No es una evaluación tuya. Es una herramienta para ahorrarte tiempo: te dice dónde está cada estudiante en su viaje vocacional y qué hacer en la próxima sesión de aula.</p>
+                    <p>Léelo en cinco minutos. Al final hay un anexo con la lista completa de tus estudiantes y sus métricas.</p>
+                  </div>
+                  <div class="rp-bienv-block">
+                    <div class="rp-bienv-label">Cómo funciona</div>
+                    <div class="rp-bienv-row"><div class="l">Frecuencia</div><div>Cada dos semanas, los lunes por la mañana. Cierre programa: 30 julio.</div></div>
+                    <div class="rp-bienv-row"><div class="l">De dónde sale</div><div>Datos de tu sección con el Orientador IA, comparados con la UGEL y con el programa nacional.</div></div>
+                    <div class="rp-bienv-row"><div class="l">Qué encontrarás</div><div>Una sesión de aula sugerida y dos conversaciones breves con estudiantes específicos.</div></div>
+                    <div class="rp-bienv-row"><div class="l warn">Lo que no es</div><div>Una evaluación de tu desempeño. Nadie más recibe estos datos sobre tu sección.</div></div>
+                    <div class="rp-bienv-row"><div class="l">Si tienes preguntas</div><div>Demo Acompañante · WhatsApp +51 999 999 999. Está para apoyarte con cualquier duda del programa.</div></div>
+                  </div>
+                </div>
+
+                <div class="rp-section">
+                  <span class="rp-section-num">Esta quincena, en 14 minutos</span>
+                  <div class="rp-section-rule"></div>
+                </div>
+                <div class="rp-quincena-title">Una sesión de <em>diez minutos</em>. Dos conversaciones de <em>dos minutos</em>.</div>
+
+                <ol class="rp-action-list">
+                  <li><strong>Trabaja el Paso 6 (Investigación de instituciones).</strong> 17 de 28 estudiantes ya tienen su top-3 de ocupaciones (Paso 5), pero solo 4 entraron a Paso 6. Es el cuello de botella de la quincena — y el paso donde más cuesta avanzar solos.</li>
+                  <li><strong>Habla con Diana y con Marcos.</strong> Diana lleva 3 semanas sin entrar (la última fue antes del feriado). Marcos completó Paso 2 (RIASEC) pero su perfil dominante "Artístico" no se conecta con ninguna ocupación que haya explorado — está atascado.</li>
+                </ol>
+                <p style="font-family:'Crimson Pro',serif;font-style:italic;color:#766c52;font-size:12px;margin-top:14px;">El resto del reporte explica por qué, te da el guion exacto y cierra con un anexo con todos tus estudiantes.</p>
+
+                <div class="pg-footer"><span>PRÓXIMA ENTREGA · LUNES 25 DE MAYO</span><span class="pg-footer-num">PÁGINA 1 DE 5</span></div>
+              </div>
+            </div>
+
+            <div class="walkthrough">
+              <div class="walkthrough-title"><span class="wt-pg-num">1</span>Bienvenida y "Esta quincena, en 14 minutos"</div>
+              <div class="wt-panels">
+                <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>El propósito del reporte y un <strong>resumen ejecutivo</strong>: una sesión corta de 10 minutos + dos conversaciones de 2 minutos. La columna derecha resume la mecánica del reporte y a quién contactar.</p></div>
+                <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Esta página es <strong>la promesa del reporte</strong>: si solo tenés 14 minutos esta semana, hacer estas dos cosas mueve la aguja. Es lo de mayor impacto con menor inversión de tu tiempo.</p></div>
+                <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Anotá la sesión sugerida (Paso 6) en tu agenda para esta semana. Identificá a Diana y Marcos. Si la semana se te complica, <strong>al menos hacé las dos conversaciones</strong> — son las que mueven más con menos.</p></div>
+                <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p><strong>No es una evaluación de tu desempeño</strong>. Nadie más recibe estos datos. La página lo dice explícitamente: "Lo que no es: una evaluación tuya".</p></div>
+              </div>
+              <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>Si tu semana está saturada y solo podés hacer una cosa de las dos sugeridas, ¿cuál priorizás según el reporte? <em>(Respuesta: las dos conversaciones de 2 min — son las de menor costo y mayor impacto inmediato sobre estudiantes en riesgo.)</em></div>
+            </div>
+          </div>
+        `
+      },
+      {
+        title: 'Página 2 · Tu sección por paso del viaje',
+        content: () => `
+          <div class="lesson">
+            <div class="report">
+              <div class="report-pg">
+                <div class="rp-section">
+                  <span class="rp-section-num">§ 01</span>
+                  <span class="rp-section-title">Lo que está pasando con <em>tu sección</em></span>
+                  <div class="rp-section-rule"></div>
+                </div>
+                <p class="rp-lead">En el periodo tus estudiantes activos pasaron en promedio <strong>27 minutos por semana</strong> en la plataforma, en línea con la UGEL (29 minutos). Hay ritmo de uso. La pregunta que sigue es cómo subir la profundidad: que cada estudiante no solo entre, sino que <strong>avance al siguiente paso</strong>. La adopción está; ahora hay que sumar avance.</p>
+
+                <div class="rp-eyebrow">Minutos en la plataforma · por estudiante activo · por semana</div>
+                <div class="rp-eyebrow-sub">Promedio de minutos por estudiante que entró esa semana. Si entraron 8 estudiantes, es el promedio de esos 8 — no de los 28 del aula.</div>
+                <table class="rp-table">
+                  <thead><tr><th>Semana</th><th class="t-right">Tu sección</th><th class="t-right">UGEL DEMO</th><th class="t-right">Programa</th></tr></thead>
+                  <tbody>
+                    <tr><td>13 abr — 19 abr</td><td class="t-right">22</td><td class="t-right">28</td><td class="t-right">31</td></tr>
+                    <tr><td>20 abr — 26 abr</td><td class="t-right">31</td><td class="t-right">29</td><td class="t-right">32</td></tr>
+                    <tr><td>27 abr — 3 may</td><td class="t-right tu-seccion">—</td><td class="t-right">26</td><td class="t-right">30</td></tr>
+                    <tr><td>4 may — 10 may</td><td class="t-right">28</td><td class="t-right">30</td><td class="t-right">31</td></tr>
+                    <tr><td>11 may — 15 may</td><td class="t-right">26</td><td class="t-right">32</td><td class="t-right">33</td></tr>
+                  </tbody>
+                </table>
+
+                <div class="rp-eyebrow" style="margin-top:18px;">Paso del viaje · ¿en cuál están?</div>
+                <div class="rp-eyebrow-sub">Cuántos de tus 28 estudiantes alcanzaron al menos cada paso. Algunos vuelven hacia atrás — el viaje es una espiral.</div>
+                <table class="rp-table">
+                  <thead><tr><th>Paso</th><th class="t-right">Tu sección</th><th class="t-right">UGEL</th><th class="t-right">Programa</th></tr></thead>
+                  <tbody>
+                    <tr><td>1 · Autoconocimiento</td><td class="t-right">26 / 28</td><td class="t-right">88%</td><td class="t-right">91%</td></tr>
+                    <tr><td>2 · RIASEC</td><td class="t-right">24 / 28</td><td class="t-right">82%</td><td class="t-right">85%</td></tr>
+                    <tr><td>3 · Mitos</td><td class="t-right">23 / 28</td><td class="t-right">79%</td><td class="t-right">82%</td></tr>
+                    <tr><td>4 · Rutas</td><td class="t-right">20 / 28</td><td class="t-right">68%</td><td class="t-right">72%</td></tr>
+                    <tr><td>5 · Ocupaciones</td><td class="t-right">17 / 28</td><td class="t-right">56%</td><td class="t-right">62%</td></tr>
+                    <tr><td>6 · Investigación</td><td class="t-right tu-seccion">4 / 28</td><td class="t-right">31%</td><td class="t-right">38%</td></tr>
+                    <tr><td>7 · Familia</td><td class="t-right">1 / 28</td><td class="t-right">14%</td><td class="t-right">19%</td></tr>
+                    <tr><td>8 · Plan de vida</td><td class="t-right">0 / 28</td><td class="t-right">6%</td><td class="t-right">9%</td></tr>
+                  </tbody>
+                </table>
+
+                <div class="pg-footer"><span>RESUMEN — § 01</span><span class="pg-footer-num">PÁGINA 2 DE 5</span></div>
+              </div>
+            </div>
+
+            <div class="walkthrough">
+              <div class="walkthrough-title"><span class="wt-pg-num">2</span>Lo que está pasando con tu sección</div>
+              <div class="wt-panels">
+                <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>Dos tablas. La primera: <strong>minutos por semana</strong> vs UGEL/Programa. La segunda: <strong>distribución por paso del viaje</strong>. La línea destacada (anaranjada) son las semanas o pasos donde tu sección está debajo del promedio.</p></div>
+                <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Tu sección está <strong>en línea con UGEL en minutos</strong> (adopción está). Pero en el Paso 6 hay un cuello de botella: solo 4 de 28 — versus el 31% UGEL. <strong>Ahí está la palanca</strong>.</p></div>
+                <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Diseñá la próxima sesión de aula <strong>centrada en Paso 6</strong> (cómo investigar instituciones). 13 estudiantes ya completaron Paso 5 — están listos para avanzar pero no encuentran cómo. Esa transición la facilitás vos en el aula.</p></div>
+                <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>El 0% en Paso 8 <strong>no significa fracaso</strong>. Plan de vida es el último paso — se hace en sesiones presenciales finales (sesiones 11-12). Es esperable a esta altura.</p></div>
+              </div>
+              <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>De estas dos lecturas del reporte, ¿cuál es correcta? <em>(a) Mi sección va atrasada porque está debajo del promedio en Paso 6 / (b) Mi sección tiene una palanca clara en Paso 6 — 13 estudiantes listos para avanzar pero atascados. Respuesta: la (b). La adopción está bien; la palanca está en facilitar la transición específica.</em></div>
+            </div>
+          </div>
+        `
+      },
+      {
+        title: 'Página 3 · Perfiles RIASEC y rutas',
+        content: () => `
+          <div class="lesson">
+            <div class="report">
+              <div class="report-pg">
+                <div class="rp-section">
+                  <span class="rp-section-num">§ 02</span>
+                  <span class="rp-section-title">Perfiles RIASEC y rutas exploradas</span>
+                  <div class="rp-section-rule"></div>
+                </div>
+                <p class="rp-lead">El test RIASEC (Paso 2) entrega 3 perfiles dominantes por estudiante. En tu sección los 3 perfiles más frecuentes son <strong>Social, Investigador y Convencional</strong>. La ruta más explorada (Paso 4) es <strong>Universidad</strong>; le sigue <strong>Instituto técnico</strong>. <strong>Trabajo + estudio</strong> tiene poca exploración — vale la pena conversarla con los estudiantes que dudan sobre el costo.</p>
+
+                <div class="rp-eyebrow">Top 3 perfiles RIASEC en tu sección</div>
+                <table class="rp-table">
+                  <thead><tr><th>Perfil</th><th class="t-right">Estudiantes</th><th>Ocupaciones más exploradas</th></tr></thead>
+                  <tbody>
+                    <tr><td><strong>Social</strong> (S)</td><td class="t-right">11</td><td>Docente, psicólogo/a, enfermería, trabajo social</td></tr>
+                    <tr><td><strong>Investigador</strong> (I)</td><td class="t-right">8</td><td>Ingeniería de sistemas, biología, química, medicina</td></tr>
+                    <tr><td><strong>Convencional</strong> (C)</td><td class="t-right">6</td><td>Contabilidad, administración, banca, derecho</td></tr>
+                    <tr><td>Realista (R)</td><td class="t-right">5</td><td>Mecánica, agricultura, construcción</td></tr>
+                    <tr><td>Emprendedor (E)</td><td class="t-right">4</td><td>Negocios, marketing, comercio internacional</td></tr>
+                    <tr><td>Artístico (A)</td><td class="t-right">3</td><td>Diseño gráfico, comunicaciones, fotografía</td></tr>
+                  </tbody>
+                </table>
+                <p style="font-size:12px;color:#766c52;font-family:'Crimson Pro',serif;font-style:italic;">Cada estudiante tiene 3 perfiles dominantes; los conteos suman más que 28.</p>
+
+                <div class="rp-eyebrow" style="margin-top:18px;">Rutas exploradas (Paso 4) · 20 estudiantes</div>
+                <table class="rp-table">
+                  <thead><tr><th>Ruta</th><th class="t-right">Estudiantes</th><th>Comentario</th></tr></thead>
+                  <tbody>
+                    <tr><td>🎓 Universidad</td><td class="t-right">14</td><td>La más explorada. 8 mencionaron Beca 18 al menos una vez.</td></tr>
+                    <tr><td>🔧 Instituto técnico</td><td class="t-right">9</td><td>Crece. Carreras: enfermería técnica, mecatrónica, contabilidad técnica.</td></tr>
+                    <tr><td>💼 Trabajo + estudio</td><td class="t-right tu-seccion">3</td><td>Subexplorada. Suele asociarse a "no me alcanza" — vale conversarlo.</td></tr>
+                  </tbody>
+                </table>
+
+                <div class="pg-footer"><span>§ 02</span><span class="pg-footer-num">PÁGINA 3 DE 5</span></div>
+              </div>
+            </div>
+
+            <div class="walkthrough">
+              <div class="walkthrough-title"><span class="wt-pg-num">3</span>Perfiles RIASEC y rutas exploradas</div>
+              <div class="wt-panels">
+                <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>Los <strong>3 perfiles RIASEC más comunes</strong> en tu sección + las <strong>3 rutas</strong> (universidad / técnico / trabajo+estudio) y cuántos estudiantes las exploraron. Las ocupaciones que más miraron por perfil.</p></div>
+                <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>El perfil RIASEC <strong>orienta, no sentencia</strong>. Que 11 sean Social no significa que todos sean docentes — significa que les motiva trabajar con personas. La ruta dominante (Universidad) suele asociarse con prestigio: vale conversar las otras 2 rutas como caminos legítimos, no como segunda opción.</p></div>
+                <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>En la próxima sesión, dedicá 10 min a <strong>Trabajo + estudio</strong> como ruta válida (no segundona). Mostrá ejemplos: 70% de profesionales peruanos trabajaron mientras estudiaban; algunas empresas tienen programas de horarios flexibles para jóvenes. Conectá con el sesgo socioeconómico del módulo 6.</p></div>
+                <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que un estudiante con perfil Investigador haya explorado ocupaciones técnicas <strong>no es un error</strong> — es exploración legítima. La idea es <em>ampliar</em>, no encajar en cajas.</p></div>
+              </div>
+              <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>Solo 3 de tus estudiantes exploraron "Trabajo + estudio". ¿Es buena señal? <em>(Respuesta: depende. Si es porque no la conocen o porque la asocian con "fracasar", no. Vale traerla como ruta legítima con datos reales en la próxima sesión.)</em></div>
+            </div>
+          </div>
+        `
+      },
+      {
+        title: 'Página 4 · Estudiantes que necesitan tu atención',
+        content: () => `
+          <div class="lesson">
+            <div class="report">
+              <div class="report-pg">
+                <div class="rp-section">
+                  <span class="rp-section-num">§ 03</span>
+                  <span class="rp-section-title">Estudiantes que necesitan <em>tu atención</em></span>
+                  <div class="rp-section-rule"></div>
+                </div>
+                <p class="rp-lead">Esta página tiene 4 estudiantes para una conversación corta de 2 minutos esta semana. No es una lista de problema — es la prioridad de tu atención. <strong>Si tenés tiempo para dos, hablá con Diana y Marcos</strong> (los del resumen de página 1). Los otros dos pueden esperar a la próxima quincena si no te alcanza.</p>
+
+                <div class="rp-card-attention">
+                  <div class="rp-attention-title">🟡 Diana Pérez · 3 semanas sin entrar</div>
+                  <p><strong>Qué pasa</strong>: última sesión activa el 26 de abril. No entró en las 3 quincenas posteriores. Antes venía bien — completó Pasos 1-3.</p>
+                  <p><strong>Hipótesis</strong>: pudo ser el feriado largo + algo familiar. No sabemos. <strong>Conversación de 2 min</strong>: "Diana, te extrañé estas semanas. ¿Algo en el camino que no esperabas?" Escuchá sin juzgar. Si menciona algo serio (mudanza, salud familiar), avisá al acompañante EMC.</p>
+                </div>
+
+                <div class="rp-card-attention">
+                  <div class="rp-attention-title">🟡 Marcos Quispe · perfil "Artístico" sin ocupaciones</div>
+                  <p><strong>Qué pasa</strong>: completó RIASEC (perfil Artístico dominante) pero no exploró ninguna ocupación artística en Paso 5. Mencionó "ingeniería civil" como única opción.</p>
+                  <p><strong>Hipótesis</strong>: presión familiar o creencia de que "del arte no se vive". <strong>Conversación de 2 min</strong>: "Marcos, vi que tu perfil dice Artístico fuerte y exploraste ingeniería civil. ¿Te interesa lo artístico aunque no como carrera principal? Hay caminos híbridos — diseño industrial, arquitectura — que combinan ambos."</p>
+                </div>
+
+                <div class="rp-card-attention">
+                  <div class="rp-attention-title">🟢 Rocío Mendoza · "fantasma"</div>
+                  <p><strong>Qué pasa</strong>: asiste a las sesiones de aula presenciales pero solo entra a la plataforma cuando está obligada. 47 min totales en 4 semanas.</p>
+                  <p><strong>Hipótesis</strong>: vergüenza, no entiende la dinámica, o no le da prioridad. <strong>Conversación de 2 min</strong>: "Rocío, ¿qué te ayudaría a sentirte más cómoda usando la plataforma? ¿Hay algo del Orientador IA que te incomoda?" — el módulo 7 tiene el guion completo de este caso.</p>
+                </div>
+
+                <div class="rp-card-attention">
+                  <div class="rp-attention-title">🟢 Esteban Robles · vuelve en círculos</div>
+                  <p><strong>Qué pasa</strong>: completó Pasos 1-5, volvió a Paso 4 (rutas) tres veces, no avanza a Paso 6. No es "no entiende" — sí entiende, pero no decide.</p>
+                  <p><strong>Hipótesis</strong>: necesita validación externa para tomar la decisión. <strong>Conversación de 2 min</strong>: "Esteban, vi que estás dándole vueltas a las rutas. No es un examen — es exploración. ¿Qué te impide quedarte con una ruta y probar Paso 6 antes de decidir nada?"</p>
+                </div>
+
+                <div class="pg-footer"><span>§ 03</span><span class="pg-footer-num">PÁGINA 4 DE 5</span></div>
+              </div>
+            </div>
+
+            <div class="walkthrough">
+              <div class="walkthrough-title"><span class="wt-pg-num">4</span>Estudiantes que necesitan tu atención</div>
+              <div class="wt-panels">
+                <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>4 estudiantes con <strong>nombre, qué pasa, hipótesis y guion de conversación de 2 min</strong>. Los 🟡 son alta prioridad (suelen ser los del resumen); los 🟢 son segunda prioridad.</p></div>
+                <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>El reporte sugiere conversaciones — no diagnósticos. Las hipótesis son <strong>puntos de partida para escuchar</strong>, no veredictos. La idea es abrir una puerta corta para que el estudiante hable.</p></div>
+                <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Elegí 2 conversaciones para esta semana (idealmente Diana y Marcos). Cada una toma 2 min al inicio o final del recreo. <strong>Si una conversación destapa algo serio</strong> (violencia, salud mental), no la resolvés vos sola — escribís al acompañante EMC inmediatamente.</p></div>
+                <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>"Estudiante necesita atención" <strong>no es etiqueta permanente</strong>. Diana puede entrar la próxima semana y salir de la lista. Es un mapa de la quincena, no un diagnóstico.</p></div>
+              </div>
+              <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>Diana menciona en la conversación que se mudó porque su papá perdió el trabajo. ¿Cuál es tu siguiente paso? <em>(Respuesta: escuchar primero — no abrir el celular para escribir al acompañante EMC delante de ella. Después de la conversación, escribís al acompañante con un resumen breve. No diagnostiques ni prometás solución de tu cabeza.)</em></div>
+            </div>
+          </div>
+        `
+      },
+      {
+        title: 'Página 5 · Anexo · lista completa',
+        content: () => `
+          <div class="lesson">
+            <p>Las últimas páginas del reporte son el <strong>anexo</strong>: la lista completa de todos tus estudiantes con sus métricas. Útil como referencia, no como lista de acciones inmediatas.</p>
+
+            <div class="report">
+              <div class="report-pg">
+                <div class="rp-section">
+                  <span class="rp-section-num">§ 04 · ANEXO</span>
+                  <span class="rp-section-title">Tus 28 estudiantes</span>
+                  <div class="rp-section-rule"></div>
+                </div>
+                <p class="rp-lead">Lista completa con paso alcanzado, perfil RIASEC dominante, ruta más explorada y minutos en el periodo. Ordenado alfabéticamente. La columna "estado" replica el ícono de página 4 si el estudiante está marcado para conversación.</p>
+
+                <table class="rp-table" style="font-size:11.5px;">
+                  <thead><tr><th>Estudiante</th><th>Paso</th><th>RIASEC</th><th>Ruta más vista</th><th class="t-right">Min</th><th>Estado</th></tr></thead>
+                  <tbody>
+                    <tr><td>Aguilar, Carmen</td><td>5</td><td>SCI</td><td>Universidad</td><td class="t-right">186</td><td>—</td></tr>
+                    <tr><td>Aliaga, Juan</td><td>4</td><td>RIC</td><td>Técnico</td><td class="t-right">142</td><td>—</td></tr>
+                    <tr><td>Apaza, Lucía</td><td>6</td><td>SIA</td><td>Universidad</td><td class="t-right">221</td><td>—</td></tr>
+                    <tr><td>Caballero, Bryan</td><td>3</td><td>REC</td><td>Técnico</td><td class="t-right">98</td><td>—</td></tr>
+                    <tr><td>Cárdenas, Diego</td><td>5</td><td>ISC</td><td>Universidad</td><td class="t-right">174</td><td>—</td></tr>
+                    <tr><td>Castro, Renata</td><td>4</td><td>SAE</td><td>Universidad</td><td class="t-right">156</td><td>—</td></tr>
+                    <tr><td>Chávez, Pedro</td><td>5</td><td>RIC</td><td>Trabajo+estudio</td><td class="t-right">133</td><td>—</td></tr>
+                    <tr><td>De la Cruz, Sofía</td><td>2</td><td>ACS</td><td>—</td><td class="t-right">62</td><td>—</td></tr>
+                    <tr><td>Espinoza, Luis</td><td>4</td><td>RIE</td><td>Técnico</td><td class="t-right">128</td><td>—</td></tr>
+                    <tr><td><strong>Mendoza, Rocío</strong></td><td>2</td><td>SCA</td><td>—</td><td class="t-right">47</td><td>🟢</td></tr>
+                    <tr><td><strong>Pérez, Diana</strong></td><td>3</td><td>SEC</td><td>Universidad</td><td class="t-right">71</td><td>🟡</td></tr>
+                    <tr><td><strong>Quispe, Marcos</strong></td><td>5</td><td>AIS</td><td>Universidad</td><td class="t-right">119</td><td>🟡</td></tr>
+                    <tr><td><strong>Robles, Esteban</strong></td><td>5</td><td>ICR</td><td>Universidad</td><td class="t-right">203</td><td>🟢</td></tr>
+                    <tr><td>Salazar, Ana</td><td>6</td><td>SIC</td><td>Universidad</td><td class="t-right">241</td><td>—</td></tr>
+                    <tr><td>Sánchez, Pablo</td><td>4</td><td>REC</td><td>Técnico</td><td class="t-right">147</td><td>—</td></tr>
+                    <tr><td>Tello, Andrea</td><td>5</td><td>SAI</td><td>Universidad</td><td class="t-right">168</td><td>—</td></tr>
+                    <tr><td>Torres, Joaquín</td><td>6</td><td>ICE</td><td>Universidad</td><td class="t-right">198</td><td>—</td></tr>
+                    <tr><td>Vargas, Daniela</td><td>4</td><td>SCE</td><td>Trabajo+estudio</td><td class="t-right">112</td><td>—</td></tr>
+                    <tr><td>Vásquez, Eduardo</td><td>5</td><td>RIC</td><td>Técnico</td><td class="t-right">156</td><td>—</td></tr>
+                    <tr><td colspan="6" style="text-align:center;color:#766c52;font-style:italic;font-family:'Crimson Pro',serif;font-size:11px;">… 9 estudiantes más en el reporte real …</td></tr>
+                  </tbody>
+                </table>
+
+                <div class="pg-footer"><span>ANEXO · § 04</span><span class="pg-footer-num">PÁGINA 5 DE 5</span></div>
+              </div>
+            </div>
+
+            <div class="walkthrough">
+              <div class="walkthrough-title"><span class="wt-pg-num">5</span>Anexo · todos los estudiantes</div>
+              <div class="wt-panels">
+                <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>La <strong>lista completa de los 28 estudiantes</strong> con paso, perfil RIASEC top, ruta más explorada y minutos. Los marcados (🟡🟢) son los de la página 4.</p></div>
+                <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Como referencia, no como tarea. Si querés ubicar a un estudiante puntual durante la sesión, buscás acá. No es para "leer toda la lista" — el reporte ya destacó los importantes en la página 4.</p></div>
+                <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Usalo como <strong>consulta puntual</strong>: si un estudiante pregunta algo en clase, mirás su fila para saber dónde está parado. También sirve para identificar grupos: "los 5 del Paso 6 podrían trabajar juntos en pequeño grupo".</p></div>
+                <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p><strong>No es para compartir con estudiantes ni con dirección</strong>. Es información sensible (perfil RIASEC, comportamiento). El reporte del director (Módulo 5) es para tu director — este es solo tuyo.</p></div>
+              </div>
+              <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>Tu director te pide que le compartas el reporte para "estar al tanto". ¿Qué hacés? <em>(Respuesta: le explicás que el reporte de tutoría es tuyo — él/ella recibe su propio reporte del director con datos agregados. Si quiere ver datos por estudiante, debería pedírselo al programa, no a vos.)</em></div>
+            </div>
+
+            <div class="callout callout-tip" style="margin-top:24px;"><p><span class="callout-icon">💡</span><strong>El reporte completo es así.</strong> Cada quincena lo recibís por correo. Si querés revisarlo de nuevo durante tu sesión de aula, podés abrirlo desde tu celular o computadora — está pensado para ser usable también en pantalla pequeña.</p></div>
+          </div>
+        `
+      }
+    ],
+    quiz: {
+      question: 'Si solo tenés 14 minutos esta semana para actuar sobre el reporte, ¿qué priorizás?',
+      options: ['Leer las 5 páginas completas', 'Las dos conversaciones de 2 min con estudiantes marcados', 'La sesión de aula de 10 min sugerida', 'Compartir el reporte con tu director'],
+      correct: 1
+    }
   },
 
   {
@@ -667,50 +1035,561 @@ const MODULES = [
     title: 'El reporte del director',
     eyebrow: 'Módulo 5 de 9',
     duration: '~1 h',
-    content: () => `
-      <div class="lesson">
-        <div class="coming-soon">
-          <div class="coming-soon-icon">🏫</div>
-          <h3>Módulo en construcción (Fase C)</h3>
-          <p>Vamos a recorrer las <strong>5 páginas del reporte del director</strong> — para que entiendas qué ve tu director sobre el avance vocacional de tu sección y cómo coordinar con él/ella.</p>
-        </div>
-      </div>
-    `,
-    quiz: null
+    steps: [
+      {
+        title: 'Página 1 · Bienvenida del director',
+        content: () => `
+          <div class="lesson">
+            <p>Tu director recibe <strong>su propio reporte cada quincena</strong>. Es diferente al tuyo: muestra el avance vocacional de <em>toda la IE</em> (todas las secciones que corren OV), no solo la tuya. Conocer este reporte te ayuda a <strong>coordinar mejor</strong> con tu director y entender qué ve él/ella.</p>
+
+            <div class="callout callout-info"><p><span class="callout-icon">📄</span>Recorremos las <strong>5 páginas del reporte del director</strong> (demo con datos sintéticos) y al final tendrás claro: qué ve, qué decisiones puede tomar, y cómo conversar el dato con él/ella.</p></div>
+
+            <h3>📊 Reporte demo del director — IE Ficticia 9999</h3>
+            <div class="report">
+              <div class="report-pg">
+                <div class="pg-header">
+                  <div class="pg-header-left">
+                    <div class="pg-logo">🏫</div>
+                    <div>
+                      <div class="pg-eyebrow">Eligiendo Mi Camino</div>
+                      <div class="pg-title">Reporte del Director · OV</div>
+                    </div>
+                  </div>
+                  <div class="pg-meta">
+                    <div class="pg-meta-bold">IE 9999 · Lima</div>
+                    <div class="pg-meta-line">Director Demo · 3 secciones de 5to</div>
+                    <div class="pg-meta-line">30 marzo — 15 mayo 2026</div>
+                  </div>
+                </div>
+
+                <div class="rp-bienvenida-grid">
+                  <div class="rp-bienv-block">
+                    <div class="rp-bienv-label">Bienvenida</div>
+                    <h3>Hola, <em>Director/a</em>.</h3>
+                    <p>Este es el reporte de tu IE en <em>Eligiendo Mi Camino</em>. Te dice cómo van las 3 secciones de 5to en su recorrido vocacional con el Orientador IA.</p>
+                    <p>No es una evaluación de tus docentes. Es una herramienta de gestión: te ayuda a <strong>coordinar con tu equipo OV</strong> y a dar visibilidad al sentido del programa con padres, UGEL y comunidad escolar.</p>
+                  </div>
+                  <div class="rp-bienv-block">
+                    <div class="rp-bienv-label">Tres cosas que podés hacer</div>
+                    <div class="rp-bienv-row"><div class="l">1</div><div>Conversación de 5 min con tus 3 tutoras esta semana — la pág. 5 te da el guion.</div></div>
+                    <div class="rp-bienv-row"><div class="l">2</div><div>Mencionar el reporte en la próxima reunión de padres — la pág. 3 te da los datos.</div></div>
+                    <div class="rp-bienv-row"><div class="l">3</div><div>Mandar al WhatsApp de tu acompañante EMC una pregunta o duda — la pág. 5 te da el botón.</div></div>
+                  </div>
+                </div>
+
+                <p style="font-family:'Crimson Pro',serif;font-style:italic;color:#766c52;font-size:13px;">Páginas 2-4: datos para tomar decisiones. Página 5: tres acciones concretas.</p>
+
+                <div class="pg-footer"><span>RESUMEN</span><span class="pg-footer-num">PÁGINA 1 DE 5</span></div>
+              </div>
+            </div>
+
+            <div class="walkthrough">
+              <div class="walkthrough-title"><span class="wt-pg-num">1</span>Bienvenida del director</div>
+              <div class="wt-panels">
+                <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>Propósito del reporte + <strong>3 acciones priorizadas</strong> para el director esta quincena. Es el resumen ejecutivo equivalente al tuyo de página 1.</p></div>
+                <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Esta página marca el tono: <strong>no es para evaluar docentes</strong>. Es para tomar decisiones de gestión y dar visibilidad. Tu director debería leerla con esa lente.</p></div>
+                <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Si tu director te pregunta del reporte, <strong>recordale las 3 acciones</strong>: hablar con las tutoras, comunicar a padres, escribir a EMC si hay dudas. Esas tres mueven más que cualquier análisis extenso.</p></div>
+                <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>El reporte del director <strong>no incluye nombres de estudiantes</strong>. Si tu director te pide datos por estudiante, le explicás que esos viven en TU reporte (Módulo 4) y son confidenciales del tutor.</p></div>
+              </div>
+              <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>Tu director te pide "la lista de estudiantes que no entran a la plataforma" para llamar a sus papás. ¿Qué hacés? <em>(Respuesta: le explicás que esa info es del tutor y que el contacto con familias suele ser una conversación previa al "llamado oficial". Ofrecete a hablar primero con esos estudiantes vos — módulo 4 página 4 te da el guion.)</em></div>
+            </div>
+          </div>
+        `
+      },
+      {
+        title: 'Página 2 · Las 3 secciones de la IE',
+        content: () => `
+          <div class="lesson">
+            <div class="report">
+              <div class="report-pg">
+                <div class="rp-section">
+                  <span class="rp-section-num">§ 01</span>
+                  <span class="rp-section-title">Tus <em>3 secciones</em> · panorama</span>
+                  <div class="rp-section-rule"></div>
+                </div>
+                <p class="rp-lead">Las tres secciones de 5to corren OV con tres tutoras distintas. La sección A va levemente atrasada en Paso 6; las B y C están en línea con UGEL. La adopción (minutos por estudiante) es <strong>pareja entre las tres</strong> — buena señal de que no hay un problema sistemático con una tutora puntual.</p>
+
+                <div class="rp-eyebrow">Tu IE · 3 secciones · comparativo</div>
+                <table class="rp-table">
+                  <thead><tr><th>Sección · tutora</th><th class="t-right">Estudiantes</th><th class="t-right">Min/sem</th><th class="t-right">Paso 6+</th><th>vs UGEL</th></tr></thead>
+                  <tbody>
+                    <tr><td>A · Prof. Demo 1</td><td class="t-right">28</td><td class="t-right">27</td><td class="t-right tu-seccion">14%</td><td>−17 pts</td></tr>
+                    <tr><td>B · Prof. Demo 2</td><td class="t-right">26</td><td class="t-right">31</td><td class="t-right">35%</td><td>+4 pts</td></tr>
+                    <tr><td>C · Prof. Demo 3</td><td class="t-right">30</td><td class="t-right">29</td><td class="t-right">37%</td><td>+6 pts</td></tr>
+                    <tr><td>Tu IE · total</td><td class="t-right"><strong>84</strong></td><td class="t-right"><strong>29</strong></td><td class="t-right"><strong>29%</strong></td><td>−2 pts</td></tr>
+                  </tbody>
+                </table>
+
+                <div class="rp-eyebrow" style="margin-top:18px;">Avance global por paso · tus 84 estudiantes</div>
+                <table class="rp-table">
+                  <thead><tr><th>Paso</th><th class="t-right">Tu IE</th><th class="t-right">UGEL</th><th class="t-right">Programa</th></tr></thead>
+                  <tbody>
+                    <tr><td>1 · Autoconocimiento</td><td class="t-right">90%</td><td class="t-right">88%</td><td class="t-right">91%</td></tr>
+                    <tr><td>3 · Mitos</td><td class="t-right">78%</td><td class="t-right">79%</td><td class="t-right">82%</td></tr>
+                    <tr><td>5 · Ocupaciones</td><td class="t-right">61%</td><td class="t-right">56%</td><td class="t-right">62%</td></tr>
+                    <tr><td>6 · Investigación</td><td class="t-right tu-seccion">29%</td><td class="t-right">31%</td><td class="t-right">38%</td></tr>
+                    <tr><td>7 · Familia</td><td class="t-right">16%</td><td class="t-right">14%</td><td class="t-right">19%</td></tr>
+                  </tbody>
+                </table>
+
+                <div class="pg-footer"><span>§ 01</span><span class="pg-footer-num">PÁGINA 2 DE 5</span></div>
+              </div>
+            </div>
+
+            <div class="walkthrough">
+              <div class="walkthrough-title"><span class="wt-pg-num">2</span>Las 3 secciones de tu IE</div>
+              <div class="wt-panels">
+                <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>Comparativo entre las <strong>3 secciones de tu IE</strong> (con nombre de la tutora) y luego la <strong>distribución global por paso</strong> vs UGEL/Programa.</p></div>
+                <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Si las 3 secciones están parejas en minutos pero una va atrás en pasos, <strong>no es de adopción</strong> — es de facilitación. Tal vez la tutora de la sección A necesita apoyo puntual en cómo activar el Paso 6.</p></div>
+                <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Si vos sos la tutora de A, <strong>no esperes que tu director te llame</strong>. Acércate primero: "Director, vi en mi reporte que el Paso 6 está siendo difícil. Quiero contarte qué estoy probando". Eso convierte el reporte en colaboración, no en evaluación.</p></div>
+                <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Sección A "abajo" <strong>no significa mala tutora</strong>. Puede haber 5 razones distintas: composición del aula, días feriados que cayeron distinto, una conversación pendiente con la sección. El director debería preguntar antes de concluir.</p></div>
+              </div>
+              <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>Tu director te llama y dice "la sección A está atrasada, ¿qué pasa?". ¿Tu respuesta más útil? <em>(Respuesta: "Estoy mirando justo el Paso 6 — 13 estudiantes ya están listos pero atascados. Tengo una sesión planeada esta quincena. ¿Te muestro el plan?")</em></div>
+            </div>
+          </div>
+        `
+      },
+      {
+        title: 'Página 3 · 3 frases listas para padres',
+        content: () => `
+          <div class="lesson">
+            <div class="report">
+              <div class="report-pg">
+                <div class="rp-section">
+                  <span class="rp-section-num">§ 02</span>
+                  <span class="rp-section-title">Para comunicar a <em>padres y comunidad</em></span>
+                  <div class="rp-section-rule"></div>
+                </div>
+                <p class="rp-lead">Esta página le da a tu director <strong>3 frases listas para usar</strong> en la próxima reunión de padres o en comunicado. Sin jerga, con datos reales. La idea es que padres sepan qué está pasando con el programa OV — los chicos vuelven a casa y mencionan el Orientador IA, RIASEC, rutas. Esta página convierte eso en relato compartido.</p>
+
+                <div class="rp-eyebrow">3 frases listas para reunión de padres</div>
+
+                <div class="rp-card-attention">
+                  <div class="rp-attention-title">💬 Frase 1 · El programa</div>
+                  <p><em>"Sus hijos están recorriendo un viaje vocacional de 8 pasos: autoconocimiento, perfil RIASEC, exploración de carreras, evaluación de 3 rutas (universidad, técnico, trabajo+estudio), investigación de instituciones y plan de vida. Lo hacen con apoyo del Orientador IA y de su tutora, en sesiones semanales."</em></p>
+                </div>
+
+                <div class="rp-card-attention">
+                  <div class="rp-attention-title">💬 Frase 2 · Avance hasta hoy</div>
+                  <p><em>"Hasta el 15 de mayo, el 90% de los chicos completó el paso 1 (autoconocimiento), el 78% el paso 3 (desmontar mitos sobre carreras), y el 29% ya empezó el paso 6 (investigar instituciones reales). Estamos en el ritmo esperado para llegar al plan de vida en julio."</em></p>
+                </div>
+
+                <div class="rp-card-attention">
+                  <div class="rp-attention-title">💬 Frase 3 · Qué pueden hacer en casa</div>
+                  <p><em>"En las próximas semanas vamos a llegar al paso 7 (familia). Sus hijos van a venir a casa con preguntas sobre carreras, costos, becas. Lo más útil es <strong>escucharlos sin imponer</strong> — el viaje es de ellos. El paso 7 está pensado exactamente para esa conversación."</em></p>
+                </div>
+
+                <div class="pg-footer"><span>§ 02</span><span class="pg-footer-num">PÁGINA 3 DE 5</span></div>
+              </div>
+            </div>
+
+            <div class="walkthrough">
+              <div class="walkthrough-title"><span class="wt-pg-num">3</span>Para comunicar a padres</div>
+              <div class="wt-panels">
+                <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p><strong>3 frases listas</strong> para que tu director use literal en reunión de padres o comunicado: qué es el programa, cómo va, qué pueden hacer las familias.</p></div>
+                <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Las frases son <strong>una propuesta, no un guion obligatorio</strong>. La idea es que tu director tenga datos y un tono — no que lea palabra por palabra. Vale adaptarlo a su voz.</p></div>
+                <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Si tu director va a hablar con padres y no sabe qué decir del programa, <strong>mostrale esta página</strong>. Es la mejor herramienta para que él/ella esté presente cuando los padres pregunten "qué es ese Orientador IA". También sirve si pide hacer un comunicado WhatsApp para las familias.</p></div>
+                <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Estas frases <strong>no son para mandar nominalmente</strong>. Los porcentajes son agregados de la IE — no se debe decir "su hijo está atrasado" en una reunión grupal. Lo individual va en conversación 1:1.</p></div>
+              </div>
+              <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>En la reunión de padres, una mamá pregunta: "¿qué carrera le va bien a mi hijo según el test?". ¿Tu respuesta? <em>(Respuesta: "El test orienta, no sentencia. Su hijo tiene 3 perfiles dominantes — eso le ayuda a abrir opciones, no a elegir una sola carrera. Si quiere, podemos conversar después del paso 7 que es justo el de familia.")</em></div>
+            </div>
+          </div>
+        `
+      },
+      {
+        title: 'Página 4 · Cómo van las 3 tutoras',
+        content: () => `
+          <div class="lesson">
+            <div class="report">
+              <div class="report-pg">
+                <div class="rp-section">
+                  <span class="rp-section-num">§ 03</span>
+                  <span class="rp-section-title">Tutoría · cómo van tus <em>3 tutoras</em></span>
+                  <div class="rp-section-rule"></div>
+                </div>
+                <p class="rp-lead">Esta página le da al director una <strong>vista comparativa de las 3 tutoras</strong> sin caer en evaluación. Muestra señales de coordinación: ¿se conectaron con su acompañante EMC? ¿completaron su capacitación continua? ¿hicieron las conversaciones sugeridas por el reporte? Es para detectar si alguna tutora necesita apoyo, no para premiar/castigar.</p>
+
+                <div class="rp-eyebrow">Coordinación de las tutoras OV</div>
+                <table class="rp-table">
+                  <thead><tr><th>Tutora</th><th class="t-right">Capacit. continua</th><th class="t-right">Llamadas EMC</th><th class="t-right">Reportes leídos</th><th>Estado</th></tr></thead>
+                  <tbody>
+                    <tr><td>Prof. Demo 1 (Sec A)</td><td class="t-right">62%</td><td class="t-right">2/3</td><td class="t-right">3/3</td><td>🟡 al día</td></tr>
+                    <tr><td>Prof. Demo 2 (Sec B)</td><td class="t-right">88%</td><td class="t-right">3/3</td><td class="t-right">3/3</td><td>🟢 ok</td></tr>
+                    <tr><td>Prof. Demo 3 (Sec C)</td><td class="t-right">100%</td><td class="t-right">3/3</td><td class="t-right">3/3</td><td>🟢 ok</td></tr>
+                  </tbody>
+                </table>
+                <p style="font-size:12px;color:#766c52;font-family:'Crimson Pro',serif;font-style:italic;">"Reportes leídos" = el equipo EMC ve si abriste el correo del reporte. No es métrica de calidad, solo de adopción.</p>
+
+                <div class="rp-eyebrow" style="margin-top:18px;">Conversaciones sugeridas hechas (últimas 3 quincenas)</div>
+                <table class="rp-table">
+                  <thead><tr><th>Tutora</th><th class="t-right">Sugeridas</th><th class="t-right">Realizadas</th><th>Notas</th></tr></thead>
+                  <tbody>
+                    <tr><td>Prof. Demo 1</td><td class="t-right">6</td><td class="t-right">4</td><td>2 estudiantes pendientes esta quincena.</td></tr>
+                    <tr><td>Prof. Demo 2</td><td class="t-right">5</td><td class="t-right">5</td><td>Al día.</td></tr>
+                    <tr><td>Prof. Demo 3</td><td class="t-right">7</td><td class="t-right">6</td><td>1 pendiente — feriado largo afectó.</td></tr>
+                  </tbody>
+                </table>
+
+                <div class="pg-footer"><span>§ 03</span><span class="pg-footer-num">PÁGINA 4 DE 5</span></div>
+              </div>
+            </div>
+
+            <div class="walkthrough">
+              <div class="walkthrough-title"><span class="wt-pg-num">4</span>Cómo van las 3 tutoras</div>
+              <div class="wt-panels">
+                <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>Estado de <strong>coordinación de cada tutora</strong>: capacitación continua, llamadas con EMC, reportes leídos, conversaciones sugeridas hechas.</p></div>
+                <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Esto <strong>NO es un ranking</strong>. Es un mapa de coordinación. Si una tutora está al 50% en capacitación, capaz es porque está priorizando otra materia esta semana — no por desinterés. La conversación importa más que el dato.</p></div>
+                <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Si vos sos una de las 3 tutoras, <strong>conocer este dato te empodera</strong>: en lugar de que tu director te pregunte "¿qué estás haciendo?", podés vos contar: "Vi en mi reporte que estoy en 62% de capacitación — termino los módulos 6-7 esta semana". Te adelantás al dato.</p></div>
+                <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Las conversaciones "no realizadas" <strong>no son omisión</strong> — pueden ser que el estudiante faltó esa semana, que el feriado lo movió, que la tutora prefirió esperar a tener más datos. El reporte no tiene contexto; vos sí.</p></div>
+              </div>
+              <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>Tu director te dice "veo que tenés 2 conversaciones pendientes en el reporte". ¿Tu respuesta más útil? <em>(Respuesta: "Sí — son Diana (que se mudó) y Rocío (que faltó por enfermedad). Las tengo agendadas para esta semana. Si te interesa, te cuento qué voy a abordar.")</em></div>
+            </div>
+          </div>
+        `
+      },
+      {
+        title: 'Página 5 · Tres acciones + QR',
+        content: () => `
+          <div class="lesson">
+            <div class="report">
+              <div class="report-pg">
+                <div class="rp-section">
+                  <span class="rp-section-num">§ 04</span>
+                  <span class="rp-section-title">Tres acciones <em>concretas</em> esta quincena + QR</span>
+                  <div class="rp-section-rule"></div>
+                </div>
+                <p class="rp-lead">La última página le da al director las <strong>3 acciones puntuales</strong> que más mueven la aguja en su rol. No es para que abrace una agenda nueva — es para que use 30 minutos bien invertidos esta quincena.</p>
+
+                <div class="rp-card-attention">
+                  <div class="rp-attention-title">⚡ Acción 1 · Reunión de 15 min con las 3 tutoras</div>
+                  <p>Junta a las 3 tutoras un viernes a las 7 am. <strong>Una sola agenda</strong>: cada una cuenta un caso difícil de su sección y cómo lo está abordando. No es para "resolver" — es para que se vean entre sí. La transferencia de pares vale más que cualquier capacitación.</p>
+                </div>
+
+                <div class="rp-card-attention">
+                  <div class="rp-attention-title">⚡ Acción 2 · Mencionar el programa en la reunión de padres</div>
+                  <p>Si tenés reunión de padres esta quincena, dedicale <strong>5 minutos a OV</strong> usando las 3 frases de la página 3. No hace falta más. Que los padres sepan que sus hijos están en un viaje real, no en un programa más.</p>
+                </div>
+
+                <div class="rp-card-attention">
+                  <div class="rp-attention-title">⚡ Acción 3 · Escribir al acompañante EMC</div>
+                  <p>Si tenés <strong>una duda, una idea, un caso que querés discutir</strong>, escribilo. Tu acompañante EMC tiene contexto de otras IIEE y puede contarte qué probaron en situaciones similares.</p>
+                  <p style="margin-top:10px;">📞 <strong>WhatsApp:</strong> +51 999 999 999 (demo)</p>
+                </div>
+
+                <div style="text-align:center;margin:30px 0 14px;padding:24px;background:#fffaeb;border:1.5px dashed #d9ad3b;border-radius:10px;">
+                  <div style="font-size:48px;">📲</div>
+                  <p style="margin:8px 0 4px;font-weight:700;color:#9f3a23;">QR para invitar a otros directores a EMC</p>
+                  <p style="font-size:13px;color:#766c52;font-family:'Crimson Pro',serif;font-style:italic;">Si tu director conoce a otro director que podría sumarse al programa el año próximo, este QR los lleva a la página de inscripción.</p>
+                </div>
+
+                <div class="pg-footer"><span>§ 04 · ACCIONES</span><span class="pg-footer-num">PÁGINA 5 DE 5</span></div>
+              </div>
+            </div>
+
+            <div class="walkthrough">
+              <div class="walkthrough-title"><span class="wt-pg-num">5</span>Tres acciones + QR</div>
+              <div class="wt-panels">
+                <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p><strong>3 acciones concretas</strong> para el director esta quincena (reunión con tutoras, hablar a padres, escribir a EMC) + un QR para difusión del programa.</p></div>
+                <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Si tu director tuvo poco tiempo de leer las páginas 2-4, esta es la página que le sirve para actuar. Las 3 acciones son <strong>cada una de menos de 20 min</strong>.</p></div>
+                <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Como tutora podés <strong>iniciativa proactiva</strong>: "Director, ¿hacemos esa reunión de 15 min entre las 3 tutoras?". Le sacás un peso a él/ella y te das un espacio de aprendizaje con tus colegas.</p></div>
+                <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Estas 3 acciones <strong>no agotan el rol del director</strong>. Son el "mínimo movible" cuando la semana está saturada. Si tu director quiere más, las páginas 2-4 le dan profundidad.</p></div>
+              </div>
+              <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>Tu director nunca hace la reunión con las 3 tutoras (acción 1). ¿Qué podés hacer vos? <em>(Respuesta: proponerle vos la reunión informalmente. "Director, ¿te molesta si nos juntamos las 3 tutoras OV un viernes corto?". A veces el director está abierto, solo no inició él/ella el proceso.)</em></div>
+            </div>
+
+            <div class="callout callout-tip" style="margin-top:24px;"><p><span class="callout-icon">💡</span><strong>Conocer el reporte del director te da contexto.</strong> No para "controlarlo", sino para conversar con datos. Cuando entendés qué ve él/ella, podés alinear tu propuesta a su realidad.</p></div>
+          </div>
+        `
+      }
+    ],
+    quiz: {
+      question: 'Tu director te pregunta nombre por nombre quiénes son los estudiantes "fantasmas" para llamar a sus papás. ¿Tu respuesta?',
+      options: ['Le doy la lista — es mi director', 'Le explico que esa info es del tutor y le propongo que yo hablo primero con esos estudiantes y le cuento', 'Le digo que escriba al equipo EMC para que se la pasen', 'No respondo'],
+      correct: 1
+    }
   },
 
   {
     id: 'errores-conceptuales',
-    title: 'Errores conceptuales típicos + intervención',
+    title: '5 sesgos típicos + guion de intervención',
     eyebrow: 'Módulo 6 de 9',
     duration: '~1.5 h',
-    content: () => `
-      <div class="lesson">
-        <div class="coming-soon">
-          <div class="coming-soon-icon">🎯</div>
-          <h3>Módulo en construcción (Fase C)</h3>
-          <p><strong>5 patrones típicos en sesiones OV</strong> con guion de intervención de 10 minutos cada uno: sesgos de género al elegir carrera, sesgos socioeconómicos, mito del "tengo que decidir ya", estudiante "fantasma" que asiste pero no participa, presión familiar.</p>
-        </div>
-      </div>
-    `,
-    quiz: null
+    steps: [
+      {
+        title: 'Intro · cómo usar el banco de guiones',
+        content: () => `
+          <div class="lesson">
+            <p>En sesiones OV aparecen <strong>5 sesgos recurrentes</strong> que frenan la exploración real de carreras. Cada uno tiene su mecánica y un guion de intervención corto. La idea no es "corregir" al estudiante — es <strong>abrir una conversación</strong> que le devuelva agencia.</p>
+
+            <div class="callout callout-info"><p><span class="callout-icon">🎯</span><strong>Cómo usar este módulo:</strong> en cada sesgo encontrás (1) cómo aparece, (2) ejemplo real anonimizado, (3) <strong>guion exacto</strong> de 5-10 minutos para abordarlo. Andá leyendo los 5 — y guardá los guiones que más se parecen a casos de tu sección.</p></div>
+
+            <div class="callout callout-tip"><p><span class="callout-icon">💡</span><strong>Foco de la quincena:</strong> los 5 sesgos están ordenados por etapa del viaje. Los 3 primeros aparecen en exploración de carreras (Pasos 4-6); los 2 últimos al cerrar el ciclo (Pasos 7-8 y CV/postulación). Si tu sección está parada en Paso 5-6, los más útiles son los sesgos 1, 2 y 3.</p></div>
+          </div>
+        `
+      },
+      {
+        title: 'Sesgo 1 · Carreras "de hombre / de mujer"',
+        content: () => `
+          <div class="lesson">
+            <div class="info-card" style="border-left:4px solid #c75d2e;">
+              <h3 style="margin:0 0 8px;">Sesgo 1 · "Carreras de hombre / de mujer"</h3>
+              <p style="margin:0 0 10px;color:#766c52;font-style:italic;">Pasos 4-5 (rutas y ocupaciones)</p>
+              <p><strong>Cómo aparece:</strong> estudiante con perfil Realista dominante (R) — buena en mecánica, gusto por trabajo manual — descarta ingeniería mecánica, electricidad o agricultura "porque son cosas de hombres". O al revés: estudiante varón descarta enfermería, docencia inicial o trabajo social porque "son de mujeres".</p>
+              <p><strong>Ejemplo (anonimizado):</strong> Maritza, perfil RIE, perfil Realista fuerte, le gusta arreglar cosas con su papá. En Paso 5 exploró 9 ocupaciones — todas en administración. Cuando le sugieren mecatrónica responde: "Eso es para hombres, profe. Mi mamá no me deja".</p>
+            </div>
+
+            <div class="info-card" style="background:#f4f9ee;border-left:4px solid #6b8e3d;">
+              <h3 style="margin:0 0 8px;">🎬 Guion de intervención · 8 minutos</h3>
+              <p><strong>Min 1-2 · Validá el sentir:</strong> "Maritza, escuché lo que dijiste. Es cierto que en muchos lugares la mecánica todavía la asocian con varones. No es invento tuyo — es una creencia social que está ahí."</p>
+              <p><strong>Min 3-4 · Datos sin pelear con la creencia:</strong> "Te muestro algo: en SENATI Lima Norte el 18% de estudiantes de mecatrónica son mujeres. En el Perú hay 3.200 técnicas mecánicas mujeres registradas. No es la mayoría, pero <strong>existen</strong>. No estarías sola."</p>
+              <p><strong>Min 5-6 · Devolvé la decisión:</strong> "Esto no significa que tengas que estudiar mecánica. Significa que <em>vale la pena explorarla en Paso 5 antes de descartarla</em>. Si después de mirar 3 ocupaciones técnicas no te late, perfecto. Pero descartarla antes de mirar es como no abrir una puerta sin saber qué hay atrás."</p>
+              <p><strong>Min 7-8 · Cerralo con autoridad de su decisión:</strong> "Vos elegís. Yo solo te pido que mires y decidas con info. Y si tu mamá tiene preocupaciones, podemos verlas en Paso 7 (familia) — ahí justo está pensado para esas conversaciones."</p>
+            </div>
+
+            <div class="callout callout-tip"><p><span class="callout-icon">⚠️</span><strong>Lo que NO funciona:</strong> "tenés que probar que las mujeres también pueden". Eso pone presión adicional. La idea es <strong>quitar presión, no agregar</strong> — abrir la puerta de exploración sin obligación.</p></div>
+          </div>
+        `
+      },
+      {
+        title: 'Sesgo 2 · "No me alcanza para universidad"',
+        content: () => `
+          <div class="lesson">
+            <div class="info-card" style="border-left:4px solid #c75d2e;">
+              <h3 style="margin:0 0 8px;">Sesgo 2 · "No me alcanza para universidad"</h3>
+              <p style="margin:0 0 10px;color:#766c52;font-style:italic;">Paso 4 (rutas) — sesgo socioeconómico</p>
+              <p><strong>Cómo aparece:</strong> estudiante con perfil académico bueno descarta universidad antes de explorar becas. Suele decirlo con resignación, no con bronca: "profe, no nos da. Mejor instituto técnico que termina rápido".</p>
+              <p><strong>Ejemplo (anonimizado):</strong> Roger, perfil ISC, notas 14-16, padre obrero de construcción. En Paso 4 ni miró la ruta "universidad" — fue directo a "trabajo + estudio". Cuando le pregunto por qué: "Becas son para los mejores. Yo no soy mejor."</p>
+            </div>
+
+            <div class="info-card" style="background:#f4f9ee;border-left:4px solid #6b8e3d;">
+              <h3 style="margin:0 0 8px;">🎬 Guion de intervención · 10 minutos</h3>
+              <p><strong>Min 1-2 · Validá el realismo:</strong> "Roger, escuché que mirás los costos antes de mirar las carreras. Eso no es ser pesimista — es ser responsable con tu familia. Lo respeto."</p>
+              <p><strong>Min 3-5 · Datos reales sobre becas:</strong> "Te muestro algo concreto: Beca 18 financia 5 años completos (matrícula + manutención + laptop). Para 2026 son 10.000 vacantes a nivel nacional. El año pasado entró el 23% de los postulantes — uno de cada cuatro. Tus notas 14-16 te ponen ahí. Y para Pronabec, las notas son uno de varios criterios, no el único."</p>
+              <p><strong>Min 6-7 · El costo de no postular:</strong> "Mira esto: <em>no postular es perder</em>. Postular y no entrar te deja igual que ahora. La diferencia entre los dos escenarios es 2 horas de tu sábado llenando un formulario. ¿Vale el tiempo?"</p>
+              <p><strong>Min 8-10 · Plan B real, no consuelo:</strong> "Y si no entra ninguna beca: <strong>la ruta técnica también es válida</strong> — no es plan B. Es plan A para mucha gente. Mirala en Paso 4 con buenos ojos, no como respaldo. Pero antes <strong>mirá universidad con becas</strong>. Después decidís con info."</p>
+            </div>
+
+            <div class="callout callout-tip"><p><span class="callout-icon">⚠️</span><strong>Lo que NO funciona:</strong> "vos podés, hay que creer". Las creencias mágicas no convencen a alguien con realismo económico. Lo que funciona son <strong>números concretos</strong> y <strong>desconectar la decisión del costo emocional</strong>.</p></div>
+          </div>
+        `
+      },
+      {
+        title: 'Sesgo 3 · "Tengo que decidir ya"',
+        content: () => `
+          <div class="lesson">
+            <div class="info-card" style="border-left:4px solid #c75d2e;">
+              <h3 style="margin:0 0 8px;">Sesgo 3 · "Tengo que decidir ya"</h3>
+              <p style="margin:0 0 10px;color:#766c52;font-style:italic;">Paso 6 (investigación) — ansiedad por cerrar la decisión</p>
+              <p><strong>Cómo aparece:</strong> estudiante salta del Paso 4 al Paso 8 sin pasar por 5-6-7. Quiere "decidir ya" porque sus padres preguntan, porque ve compañeros que ya saben, o porque el viaje le incomoda. Salir rápido del proceso suele equivaler a elegir lo más visible — usualmente lo que estudia algún familiar.</p>
+              <p><strong>Ejemplo (anonimizado):</strong> Camila, perfil SAE, en Paso 4 dice "ya sé, voy a estudiar medicina". No miró ninguna ocupación en Paso 5. Cuando profundizo: "es lo que estudia mi tía, sé cómo es".</p>
+            </div>
+
+            <div class="info-card" style="background:#f4f9ee;border-left:4px solid #6b8e3d;">
+              <h3 style="margin:0 0 8px;">🎬 Guion de intervención · 7 minutos</h3>
+              <p><strong>Min 1-2 · Validá la ansiedad:</strong> "Camila, escuché que querés decidir ya. Eso pasa cuando alrededor todo el mundo parece tener claro y vos sentís presión. Es totalmente normal."</p>
+              <p><strong>Min 3-4 · La trampa del atajo:</strong> "Pero acá hay una trampa: <strong>decidir rápido no es lo mismo que decidir bien</strong>. Los estudiantes que terminan más contentos con su carrera son los que se tomaron el tiempo de explorar 3-4 opciones antes de elegir. Los que decidieron en 30 segundos son los que tienen 28% más de probabilidad de cambiarse en el primer año."</p>
+              <p><strong>Min 5-6 · Permiso de no saber todavía:</strong> "Te doy permiso explícito de <em>no saber todavía</em>. No es debilidad — es honestidad. Los Pasos 5-6-7 están justo para que explores sin tener que decidir nada. Como una feria de carreras: probás todo y al final ves cuál te quedó."</p>
+              <p><strong>Min 7 · Mini-tarea concreta:</strong> "Hagamos esto: en la próxima sesión, antes de meterse a Paso 8, ¿podés mirar 3 ocupaciones más en Paso 5 que NO sean medicina? Cualquier 3. Después comparás. Si después de eso seguís con medicina, perfecto — pero ahora vas a saber por qué."</p>
+            </div>
+
+            <div class="callout callout-tip"><p><span class="callout-icon">⚠️</span><strong>Lo que NO funciona:</strong> obligarla a "cambiar". El sesgo es psicológico — exigirle que decida distinto le suma presión. Lo que funciona es <strong>quitarle la presión de decidir ya</strong> y <strong>darle permiso para explorar</strong> sin que eso sea retroceder.</p></div>
+          </div>
+        `
+      },
+      {
+        title: 'Sesgo 4 · "Mi familia ya decidió por mí"',
+        content: () => `
+          <div class="lesson">
+            <div class="info-card" style="border-left:4px solid #c75d2e;">
+              <h3 style="margin:0 0 8px;">Sesgo 4 · "Mi familia ya decidió por mí"</h3>
+              <p style="margin:0 0 10px;color:#766c52;font-style:italic;">Paso 7 (familia) — presión familiar</p>
+              <p><strong>Cómo aparece:</strong> el estudiante completó autoexploración (Pasos 1-3) con honestidad, pero al llegar al Paso 4-5 mete "lo que querían sus papás". Suele decirlo bajito o en privado: "profe, en mi casa ya está decidido. Es derecho o ingeniería civil."</p>
+              <p><strong>Ejemplo (anonimizado):</strong> Marcos (caso del módulo 4). Perfil Artístico dominante. En Paso 5 explora solo ingeniería civil. Cuando el módulo 4 página 4 sugiere conversar: él dice "mi papá ya pagó la academia preuniversitaria de ingeniería. No puedo".</p>
+            </div>
+
+            <div class="info-card" style="background:#f4f9ee;border-left:4px solid #6b8e3d;">
+              <h3 style="margin:0 0 8px;">🎬 Guion de intervención · 8 minutos</h3>
+              <p><strong>Min 1-2 · Validá sin minimizar:</strong> "Marcos, lo que decís es duro y real. No es exageración — la familia tiene peso. Y tu papá invirtió plata. Esa pieza está, no la ignoramos."</p>
+              <p><strong>Min 3-4 · Reformular sin enfrentar:</strong> "Pero hay una pregunta que todavía no preguntaste: <strong>¿tu papá sabe lo que vos querés realmente?</strong> No es lo mismo cumplir con su deseo que <em>haberle contado el tuyo y que él decida igual</em>. La primera es resignación; la segunda es decisión informada de ambos."</p>
+              <p><strong>Min 5-6 · Argumentos para tu papá, no contra:</strong> "Te voy a dar algo concreto para esa conversación. Carreras híbridas existen: arquitectura combina arte e ingeniería. Diseño industrial también. Comunicación audiovisual. Hay caminos donde tu papá no pierde — ve a su hijo en ingeniería — y vos no perdés tu lado artístico. Buscalas en Paso 6 y mostraselas."</p>
+              <p><strong>Min 7-8 · Tu rol es acompañar, no decidir:</strong> "Yo no voy a llamar a tu papá. Mi rol es ayudarte a vos a tener mejores argumentos. La conversación es tuya. Si querés, ensayamos qué le vas a decir antes de que la tengas."</p>
+            </div>
+
+            <div class="callout callout-tip"><p><span class="callout-icon">⚠️</span><strong>Lo que NO funciona:</strong> hablar con su familia sin que él te lo pida. Eso rompe la confianza. Tu rol es <strong>fortalecer al estudiante para que tenga su propia conversación</strong>, no sustituirlo en ella.</p></div>
+          </div>
+        `
+      },
+      {
+        title: 'Sesgo 5 · "No tengo nada que poner en el CV"',
+        content: () => `
+          <div class="lesson">
+            <div class="info-card" style="border-left:4px solid #c75d2e;">
+              <h3 style="margin:0 0 8px;">Sesgo 5 · "No tengo nada que poner en el CV"</h3>
+              <p style="margin:0 0 10px;color:#766c52;font-style:italic;">Paso 8 (plan de vida + CV) — cierre del ciclo</p>
+              <p><strong>Cómo aparece:</strong> en las últimas sesiones, cuando toca armar el CV o la postulación a Beca 18, el estudiante dice "yo no tengo nada que poner — nunca hice nada importante". Es el momento donde el sesgo de auto-minimización se vuelve concreto y bloqueante.</p>
+              <p><strong>Ejemplo (anonimizado):</strong> Andrea, perfil SAI, llegó a Paso 8 con claridad de qué carrera quería (psicología). Pero al armar el CV se bloquea: "profe, yo solo estudio y ayudo en casa. No tengo voluntariados, no hice cursos, no hablo inglés".</p>
+            </div>
+
+            <div class="info-card" style="background:#f4f9ee;border-left:4px solid #6b8e3d;">
+              <h3 style="margin:0 0 8px;">🎬 Guion de intervención · 10 minutos</h3>
+              <p><strong>Min 1-2 · Validá la sensación, no la conclusión:</strong> "Andrea, te entiendo. Mirar un CV en blanco a los 16 da una sensación rara — como si tuvieras que demostrar una vida que todavía no viviste."</p>
+              <p><strong>Min 3-5 · La reformulación clave:</strong> "Pero te voy a mostrar algo: <strong>todo cuenta cuando se cuenta bien</strong>. Ayudar en casa con tus hermanos menores: eso es responsabilidad, gestión del tiempo, paciencia. Ayudar a estudiar a tus compañeros: eso es tutoría informal. Manejar el WhatsApp de la promoción: eso es comunicación y coordinación. <em>No falta experiencia — falta el lenguaje para nombrarla</em>."</p>
+              <p><strong>Min 6-7 · Mini-ejercicio en vivo:</strong> "Hagamos una cosa: contame 3 cosas que hiciste el último mes que sintieron como 'eso lo hago bien'. No importa si es académico o no." [Esperá. Escribilas]. "Ahora yo te traduzco al lenguaje de CV." [Hacelo en vivo, mostralo]. Esto demuestra que el problema era de nombrarlo, no de tenerlo.</p>
+              <p><strong>Min 8-10 · El piso real:</strong> "Para Beca 18 y para entrar a universidad lo que realmente pesa son: notas (que tenés), un buen ensayo personal (que escribís acá) y haber completado el viaje vocacional con coherencia (que vamos a mostrar). El CV es complementario — no se gana ni se pierde por él. Quedate tranquila."</p>
+            </div>
+
+            <div class="callout callout-tip"><p><span class="callout-icon">⚠️</span><strong>Lo que NO funciona:</strong> exigirle que "se invente algo" o que sume actividades artificiales en el último mes. Lo que funciona es <strong>traducir lo que ya hizo</strong> al lenguaje formal del CV — eso le devuelve confianza y le muestra que su vida real <em>sí cuenta</em>.</p></div>
+
+            <div class="callout callout-info" style="margin-top:24px;"><p><span class="callout-icon">📋</span><strong>Banco de guiones — descargá para tu carpeta:</strong> los 5 guiones de este módulo están en el reporte demo. Si querés tenerlos a mano en tu próxima sesión, podés imprimir esta página o guardarla como PDF.</p></div>
+          </div>
+        `
+      }
+    ],
+    quiz: {
+      question: 'Roger dice "no me alcanza para universidad" antes de explorar Paso 4. ¿Cuál NO es una buena intervención?',
+      options: ['Validar su realismo económico', 'Darle datos concretos sobre Beca 18 (vacantes, tasa de admisión)', 'Decirle "vos podés, hay que creer en uno mismo"', 'Plantear postular como bajo costo (2 hs de un sábado)'],
+      correct: 2
+    }
   },
 
   {
     id: 'casos-reales',
-    title: 'Casos reales anonimizados',
+    title: '6 casos reales anonimizados',
     eyebrow: 'Módulo 7 de 9',
     duration: '~1 h',
-    content: () => `
-      <div class="lesson">
-        <div class="coming-soon">
-          <div class="coming-soon-icon">💼</div>
-          <h3>Módulo en construcción (Fase D)</h3>
-          <p>6 mini-casos reales anonimizados con diagnóstico y acción sugerida.</p>
-        </div>
-      </div>
-    `,
-    quiz: null
+    steps: [
+      {
+        title: 'Intro · cómo usar los 6 casos',
+        content: () => `
+          <div class="lesson">
+            <p>6 mini-casos reales <strong>anonimizados</strong> de sesiones OV. Cada uno tiene 5 partes: la situación, lo que vio la tutora, qué hizo, el resultado a 2 semanas, y <strong>la lección transferible</strong> a tu propia aula.</p>
+
+            <div class="callout callout-info"><p><span class="callout-icon">💡</span><strong>Cómo usarlos:</strong> al leerlos vas a reconocer estudiantes tuyos. La idea no es copiar la intervención literal — cada estudiante es distinto. <strong>Tomá la lección transferible</strong> (la línea de cierre de cada caso) y adaptala.</p></div>
+
+            <p style="font-size:13.5px;color:var(--text-muted);">Avanzá con "Continuar →" para ver caso por caso.</p>
+          </div>
+        `
+      },
+      {
+        title: 'Caso 1 · El que dice "no sé nada"',
+        content: () => `
+          <div class="lesson">
+            <div class="info-card" style="border-left:4px solid #c75d2e;">
+              <h3 style="margin:0 0 8px;">Caso 1 · El estudiante que dice 'no sé nada'</h3>
+              <h4 style="margin:14px 0 6px;color:var(--primary-dark);">📋 La situación</h4>
+              <p>Ana, perfil ECS, en sesión 4 dice 'profe no sé nada — no sé qué carrera quiero, no sé qué me gusta, no sé nada'. Está bloqueada. Sus notas son buenas (15-17). Sus papás presionan: 'estudia algo serio'.</p>
+              <h4 style="margin:14px 0 6px;color:var(--primary-dark);">🔍 Lo que vio la tutora</h4>
+              <p>El 'no sé nada' no era falta de info — era <strong>ansiedad por equivocarse</strong>. Cada vez que se acercaba a una opción, le aparecía la voz interna 'y si me equivoco'.</p>
+              <h4 style="margin:14px 0 6px;color:var(--primary-dark);">🎬 Qué hizo</h4>
+              <p>La tutora cambió el marco: en lugar de 'qué carrera querés', le preguntó '¿en qué clase del cole pensás cosas que después seguís pensando en casa?'. Ana respondió: 'historia y comunicación'. <strong>Empezó por ahí</strong> — no por la carrera, por los temas que ya pensaba.</p>
+              <h4 style="margin:14px 0 6px;color:var(--primary-dark);">📈 Resultado a 2 semanas</h4>
+              <p>Ana avanzó a Paso 5 explorando comunicación, periodismo, historia, sociología. Llegó a Paso 8 con 2 opciones reales (comunicaciones o ciencia política) y un plan de postulación a Beca 18 con ensayo personal coherente.</p>
+            </div>
+            <div class="callout callout-tip"><p><span class="callout-icon">💡</span><strong>La lección transferible:</strong> Cuando un estudiante dice 'no sé nada', <strong>no es falta de datos</strong> — suele ser ansiedad por equivocarse. Cambiá la pregunta de 'qué carrera' a 'qué temas ya te ocupan la cabeza'. La respuesta está ahí.</p></div>
+          </div>
+        `
+      },
+      {
+        title: 'Caso 2 · El que ya "sabe" (sin explorar)',
+        content: () => `
+          <div class="lesson">
+            <div class="info-card" style="border-left:4px solid #d9ad3b;">
+              <h3 style="margin:0 0 8px;">Caso 2 · El estudiante que ya 'sabe' (pero no exploró)</h3>
+              <h4 style="margin:14px 0 6px;color:var(--primary-dark);">📋 La situación</h4>
+              <p>Diego, perfil RIC, llega a sesión 1 diciendo 'yo ya sé, voy a ser ingeniero como mi papá'. No quiere hacer el RIASEC porque 'es perder tiempo'. Sus notas son irregulares — 18 en mate, 11 en comunicación.</p>
+              <h4 style="margin:14px 0 6px;color:var(--primary-dark);">🔍 Lo que vio la tutora</h4>
+              <p>El 'ya sé' era <strong>identificación con su papá</strong>, no decisión informada. Nunca había mirado otra opción. Hacer el RIASEC podía sentirse como traicionar al papá.</p>
+              <h4 style="margin:14px 0 6px;color:var(--primary-dark);">🎬 Qué hizo</h4>
+              <p>La tutora no le quitó la opción. Le dijo: '<strong>el test no te va a sacar de ingeniería</strong>. Pero te va a mostrar 2 cosas: dentro de ingeniería hay muchos tipos (civil, mecánica, sistemas, industrial) — el test te ayuda a elegir cuál. Y por fuera te muestra qué otras cosas también te calzan.' Diego hizo el test sin resistencia.</p>
+              <h4 style="margin:14px 0 6px;color:var(--primary-dark);">📈 Resultado a 2 semanas</h4>
+              <p>Resultado: perfil RIC (Realista-Investigador-Convencional). Confirmó que ingeniería le calzaba. Pero exploró 4 ramas — eligió ingeniería industrial (no civil como el papá) porque le interesaba más la parte de procesos. En Paso 7 (familia) tuvo una buena conversación con su papá sobre la diferencia.</p>
+            </div>
+            <div class="callout callout-tip"><p><span class="callout-icon">💡</span><strong>La lección transferible:</strong> Cuando un estudiante 'ya sabe', no lo cuestiones de frente. <strong>Usá la herramienta para profundizar dentro de su opción</strong>, no para sacarlo de ella. La exploración real suele ampliar, no negar.</p></div>
+          </div>
+        `
+      },
+      {
+        title: 'Caso 3 · Asiste pero no participa',
+        content: () => `
+          <div class="lesson">
+            <div class="info-card" style="border-left:4px solid #9f6b8b;">
+              <h3 style="margin:0 0 8px;">Caso 3 · El estudiante que asiste pero no participa</h3>
+              <h4 style="margin:14px 0 6px;color:var(--primary-dark);">📋 La situación</h4>
+              <p>Rocío, perfil SCA, asiste a cada sesión presencial pero apenas habla. En la plataforma entra 47 minutos en 4 semanas. Cuando la tutora le pregunta algo en clase, se pone roja y dice 'no sé'. No es introversión — es vergüenza.</p>
+              <h4 style="margin:14px 0 6px;color:var(--primary-dark);">🔍 Lo que vio la tutora</h4>
+              <p>Rocío tiene buena nota promedio pero <strong>poca seguridad social</strong> en grupo. Le aterra que sus compañeros la juzguen. La plataforma con IA podía ser buena para ella (no la juzga) — pero solo si se sentía cómoda.</p>
+              <h4 style="margin:14px 0 6px;color:var(--primary-dark);">🎬 Qué hizo</h4>
+              <p>La tutora la buscó en el recreo, no en clase. Le dijo: '<strong>Rocío, el Orientador IA no le cuenta a nadie lo que escribís. Es solo tuyo</strong>. Si te da vergüenza que vean tu pantalla en la sesión grupal, podés trabajar en casa también. Pero quiero asegurarme que estés avanzando vos sola.'</p>
+              <h4 style="margin:14px 0 6px;color:var(--primary-dark);">📈 Resultado a 2 semanas</h4>
+              <p>Rocío empezó a entrar desde casa. Su tiempo en plataforma subió a 180 min en 2 semanas. Llegó a Paso 5. En clase sigue callada — pero ya no es señal de problema, es su estilo. Lo importante es que el viaje vocacional lo está haciendo.</p>
+            </div>
+            <div class="callout callout-tip"><p><span class="callout-icon">💡</span><strong>La lección transferible:</strong> <strong>'Asiste pero no participa' no siempre es problema</strong>. Hay estudiantes que aprenden mejor en silencio. El indicador no es 'cuántas veces habló en clase' — es <strong>'está avanzando en su viaje, de la forma que le calza'</strong>.</p></div>
+          </div>
+        `
+      },
+      {
+        title: 'Caso 4 · La estudiante embarazada',
+        content: () => `
+          <div class="lesson">
+            <div class="info-card" style="border-left:4px solid #7a9bc9;">
+              <h3 style="margin:0 0 8px;">Caso 4 · La estudiante embarazada</h3>
+              <h4 style="margin:14px 0 6px;color:var(--primary-dark);">📋 La situación</h4>
+              <p>Sandra, perfil SAE, le cuenta a la tutora en privado en sesión 6 que está embarazada de 3 meses. No le contó a sus papás todavía. No sabe si va a poder terminar el cole. Toda la conversación vocacional siente que 'no tiene sentido'.</p>
+              <h4 style="margin:14px 0 6px;color:var(--primary-dark);">🔍 Lo que vio la tutora</h4>
+              <p>Este caso <strong>excede el rol de la tutora</strong>. Pero la conversación de exploración vocacional sigue siendo válida, e incluso más importante: Sandra necesita un plan que <em>incluya</em> ser madre joven, no que lo niegue.</p>
+              <h4 style="margin:14px 0 6px;color:var(--primary-dark);">🎬 Qué hizo</h4>
+              <p>La tutora hizo 3 cosas en el orden correcto. (1) <strong>Escuchó sin juzgar</strong>, sin recomendar nada. (2) Le ofreció avisar al acompañante EMC para conectar con apoyo institucional (psicológico, médico, social) — Sandra aceptó. (3) Después de unas semanas, retomaron la conversación vocacional con un marco distinto: <em>cómo puede ser madre y profesional al mismo tiempo</em>.</p>
+              <h4 style="margin:14px 0 6px;color:var(--primary-dark);">📈 Resultado a 2 semanas</h4>
+              <p>Sandra terminó el cole. Aplicó a Beca 18 (que financia también a madres jóvenes). Está estudiando educación inicial — una elección coherente con su perfil SAE y con su realidad. No fue 'salvarla' — fue acompañarla a hacer el plan que <em>ella</em> quería.</p>
+            </div>
+            <div class="callout callout-tip"><p><span class="callout-icon">💡</span><strong>La lección transferible:</strong> Si un estudiante te confía algo serio: <strong>(1) escuchá sin diagnosticar, (2) conectalo con apoyo institucional vía EMC, (3) no abandones la conversación vocacional</strong> — solo enmarcala distinto. Tu rol no se cancela, se ajusta.</p></div>
+          </div>
+        `
+      },
+      {
+        title: 'Caso 5 · El que cuestiona el programa',
+        content: () => `
+          <div class="lesson">
+            <div class="info-card" style="border-left:4px solid #6b8e3d;">
+              <h3 style="margin:0 0 8px;">Caso 5 · El estudiante que cuestiona el programa</h3>
+              <h4 style="margin:14px 0 6px;color:var(--primary-dark);">📋 La situación</h4>
+              <p>Bruno, perfil IRE, en sesión 5 se planta: 'profe, este programa es una pérdida de tiempo. Las carreras no se eligen con un test, se eligen viendo qué da plata. Lo que tenemos que aprender es a hacer plata, no a hacer tests.'</p>
+              <h4 style="margin:14px 0 6px;color:var(--primary-dark);">🔍 Lo que vio la tutora</h4>
+              <p>Bruno tiene un punto válido (la dimensión económica de la decisión es real) pero está sobre-extendiendo: pensar que el resto del proceso es 'tonto'. Es <strong>cinismo defensivo</strong> — tal vez le da miedo el viaje.</p>
+              <h4 style="margin:14px 0 6px;color:var(--primary-dark);">🎬 Qué hizo</h4>
+              <p>La tutora <strong>no se defendió</strong>. Le dijo: 'Tenés razón en una parte — la plata es real, y el programa no la ignora. Mirá los datos de Ponte en Carrera que aparecen en Paso 5: salario promedio por carrera, tasa de empleo. <em>Eso es lo que estás pidiendo</em>. El test es para que tengas más de una opción cuando llegues a esa comparación. Si solo mirás plata sin saber qué te calza, terminás en una carrera que paga bien pero no aguantás.'</p>
+              <h4 style="margin:14px 0 6px;color:var(--primary-dark);">📈 Resultado a 2 semanas</h4>
+              <p>Bruno completó el test (perfil IRE: investigador, realista, emprendedor). Combinado con su sensibilidad económica, eligió ingeniería industrial con énfasis en gestión. Llegó a Paso 8 con un plan claro: postular a Beca 18, alternativa Beca Profesional Pronabec si no entra.</p>
+            </div>
+            <div class="callout callout-tip"><p><span class="callout-icon">💡</span><strong>La lección transferible:</strong> Cuando un estudiante cuestiona el programa, <strong>no te defiendas — tomá la crítica</strong>. Suele tener razón en una parte. Mostrá que el programa <em>incluye</em> esa dimensión (en este caso, datos económicos de Ponte en Carrera). Eso convierte al crítico en participante.</p></div>
+          </div>
+        `
+      },
+      {
+        title: 'Caso 6 · La que viene de otra sección',
+        content: () => `
+          <div class="lesson">
+            <div class="info-card" style="border-left:4px solid #8b6b9f;">
+              <h3 style="margin:0 0 8px;">Caso 6 · El estudiante que viene de otra sección</h3>
+              <h4 style="margin:14px 0 6px;color:var(--primary-dark);">📋 La situación</h4>
+              <p>Inés llega a tu sección en sesión 7 — venía de otra sección de la IE donde la otra tutora ya estaba en Paso 6. En tu sección estás en Paso 5. Ella se siente 'atrasada' y desmotivada. Sus padres están molestos: '¿por qué la cambiaste de sección?'.</p>
+              <h4 style="margin:14px 0 6px;color:var(--primary-dark);">🔍 Lo que vio la tutora</h4>
+              <p>El problema no es el paso — Inés está en su lugar real (Paso 4-5). El problema es la <strong>narrativa de 'estar atrasada'</strong> que se le metió con el cambio. Va a sabotear el resto del viaje si no la reseteás.</p>
+              <h4 style="margin:14px 0 6px;color:var(--primary-dark);">🎬 Qué hizo</h4>
+              <p>La tutora hizo una conversación de 5 min en privado: 'Inés, mirá <strong>los pasos no son carrera contra el reloj</strong>. Algunos avanzan rápido y vuelven, otros van más despacio y profundizan. El reporte tuyo personal no se compara con nadie — solo con vos misma. Estás justo donde necesitás estar.' Le mostró que su perfil RIASEC ya estaba bien hecho y le propuso usar las sesiones restantes para profundizar Pasos 5-6 sin saltar al 7-8.</p>
+              <h4 style="margin:14px 0 6px;color:var(--primary-dark);">📈 Resultado a 2 semanas</h4>
+              <p>Inés se relajó. Profundizó Paso 5 con calma — exploró 7 ocupaciones. Llegó a Paso 8 con una opción clara (psicología social) y un plan que sus papás aceptaron. Ya no se sentía 'atrasada'; entendió que el viaje es propio.</p>
+            </div>
+            <div class="callout callout-tip"><p><span class="callout-icon">💡</span><strong>La lección transferible:</strong> <strong>El viaje vocacional no es una carrera</strong>. Si un estudiante llega de otra sección o de otra IE, no lo apurés para 'alcanzar'. Reseteá la narrativa: el reporte se compara con uno mismo, no con compañeros. Profundidad &gt; velocidad.</p></div>
+          </div>
+        `
+      }
+    ],
+    quiz: {
+      question: 'Sandra (caso 4) te cuenta que está embarazada. ¿Cuál es el orden correcto de tus acciones?',
+      options: ['Llamar a los papás, después al acompañante EMC, después seguir con el viaje vocacional', 'Escuchar sin diagnosticar, conectar con apoyo institucional vía EMC, retomar la conversación vocacional con marco nuevo', 'Suspender el viaje vocacional hasta que se resuelva el embarazo', 'Recomendarle que deje el cole para cuidar al bebé'],
+      correct: 1
+    }
   },
 
   {
@@ -747,36 +1626,38 @@ const MODULES = [
     title: 'Recursos para llevarte',
     eyebrow: 'Módulo 9 de 9',
     duration: '~10 min',
-    content: () => {
-      // Generate biweekly Mondays from today, capped at end of July (program closure)
-      const today = new Date();
-      const dayOfWeek = today.getDay();
-      const daysUntilMonday = dayOfWeek === 1 ? 0 : (dayOfWeek === 0 ? 1 : 8 - dayOfWeek);
-      const nextMonday = new Date(today);
-      nextMonday.setDate(today.getDate() + daysUntilMonday);
-      const closureYear = today.getMonth() >= 7 ? today.getFullYear() + 1 : today.getFullYear();
-      const closure = new Date(closureYear, 6, 30); // 6 = julio (0-indexed)
-      const dates = [];
-      for (let i = 0; i < 6; i++) {
-        const d = new Date(nextMonday);
-        d.setDate(nextMonday.getDate() + i * 14);
-        if (d > closure) break;
-        dates.push(d.toLocaleDateString('es-PE', { day: 'numeric', month: 'long' }));
-      }
-      const showClosure = dates.length > 0 && new Date(closureYear, 6, 30) >= today;
-      const calendarPrompts = [
-        '¿En qué paso del viaje está parada la mayoría de tu sección? — Eso te dice qué priorizar en la próxima sesión.',
-        '¿Hay estudiantes que no entraron a la plataforma? — Empezá por traerlos al Paso 1 antes de cualquier otra cosa.',
-        '¿Cuáles son los 3 perfiles RIASEC dominantes? — Conectá la próxima sesión con esos perfiles.',
-        '¿Aparecieron sesgos de género o socioeconómicos en clase? — Mirá los guiones del módulo 6.',
-        '¿Algún estudiante fantasma (asiste pero no participa)? — Conversación corta 1:1 — caso del módulo 7.',
-        '¿Cómo viene tu sección vs. la otra sección de tu IE? — Página 4 del reporte del director te lo dice.'
-      ];
-      return `
-      <div class="lesson">
-        <p>Ya completaste el curso y obtuviste tu certificado. Acá te dejamos <strong>3 recursos para tener a mano</strong> mientras seguís implementando el programa:</p>
+    steps: [
+      {
+        title: 'Calendario sugerido por quincena',
+        content: () => {
+          const today = new Date();
+          const dayOfWeek = today.getDay();
+          const daysUntilMonday = dayOfWeek === 1 ? 0 : (dayOfWeek === 0 ? 1 : 8 - dayOfWeek);
+          const nextMonday = new Date(today);
+          nextMonday.setDate(today.getDate() + daysUntilMonday);
+          const closureYear = today.getMonth() >= 7 ? today.getFullYear() + 1 : today.getFullYear();
+          const closure = new Date(closureYear, 6, 30);
+          const dates = [];
+          for (let i = 0; i < 6; i++) {
+            const d = new Date(nextMonday);
+            d.setDate(nextMonday.getDate() + i * 14);
+            if (d > closure) break;
+            dates.push(d.toLocaleDateString('es-PE', { day: 'numeric', month: 'long' }));
+          }
+          const showClosure = dates.length > 0 && new Date(closureYear, 6, 30) >= today;
+          const calendarPrompts = [
+            '¿En qué paso del viaje está parada la mayoría de tu sección? — Eso te dice qué priorizar en la próxima sesión.',
+            '¿Hay estudiantes que no entraron a la plataforma? — Empezá por traerlos al Paso 1 antes de cualquier otra cosa.',
+            '¿Cuáles son los 3 perfiles RIASEC dominantes? — Conectá la próxima sesión con esos perfiles.',
+            '¿Aparecieron sesgos de género o socioeconómicos en clase? — Mirá los guiones del módulo 6.',
+            '¿Algún estudiante fantasma (asiste pero no participa)? — Conversación corta 1:1 — caso del módulo 7.',
+            '¿Cómo viene tu sección vs. la otra sección de tu IE? — Página 4 del reporte del director te lo dice.'
+          ];
+          return `
+          <div class="lesson">
+            <p>Ya completaste el curso y obtuviste tu certificado. Acá te dejamos <strong>3 recursos para tener a mano</strong> mientras seguís facilitando el programa:</p>
 
-        <h3>📅 Calendario sugerido — qué mirar cada quincena</h3>
+            <h3>📅 Calendario sugerido — qué mirar cada quincena</h3>
         <p>El reporte de tutoría llega cada dos semanas, los lunes por la mañana, hasta el <strong>cierre del programa el 30 de julio</strong>. Acá una guía rápida de qué priorizar en cada uno. Las fechas son aproximadas — ajustá según cuándo te llegue el reporte real.</p>
         <table class="data-table">
           <thead><tr><th>Próxima entrega (estimada)</th><th>Qué priorizar al leer</th></tr></thead>
@@ -785,13 +1666,20 @@ const MODULES = [
             ${showClosure ? `<tr style="background:#fff4d4;"><td><strong>30 de julio · CIERRE</strong></td><td>Última quincena del programa. Sesión 12 (presentación del plan de vida). Reporte final + última conversación con tu acompañante EMC. Las entregas pendientes se reciben hasta esta fecha.</td></tr>` : ''}
           </tbody>
         </table>
-        <p style="font-size:13.5px;color:var(--text-muted);">💡 No es necesario que cubras los 6 puntos en cada reporte. La idea es que cada quincena uses una lente distinta para no pasar por alto patrones que se acumulan. <strong>Después del 30 de julio</strong> ya no recibís más reportes — el programa cerró.</p>
-
-        <h3 style="margin-top:36px;">💬 Glosario rápido</h3>
-        <p>Los términos que más aparecen en el reporte y en el dashboard:</p>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0;">
-          <div class="info-card" style="padding:14px 18px;margin:0;">
-            <h4 style="margin:0 0 6px;font-size:15px;color:var(--primary-dark);">Orientador IA</h4>
+            <p style="font-size:13.5px;color:var(--text-muted);">💡 No es necesario que cubras los 6 puntos en cada reporte. La idea es que cada quincena uses una lente distinta para no pasar por alto patrones que se acumulan. <strong>Después del 30 de julio</strong> ya no recibís más reportes — el programa cerró.</p>
+          </div>
+        `;
+        }
+      },
+      {
+        title: 'Glosario rápido',
+        content: () => `
+          <div class="lesson">
+            <h3>💬 Glosario rápido</h3>
+            <p>Los términos que más aparecen en el reporte y en el dashboard:</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0;">
+              <div class="info-card" style="padding:14px 18px;margin:0;">
+                <h4 style="margin:0 0 6px;font-size:15px;color:var(--primary-dark);">Orientador IA</h4>
             <p style="margin:0;font-size:13.5px;">La IA que acompaña a tus estudiantes en uDocz a recorrer los 8 pasos del viaje vocacional. Conversa con ellos, les hace preguntas, les muestra datos. Vos facilitás la sesión completa.</p>
           </div>
           <div class="info-card" style="padding:14px 18px;margin:0;">
@@ -823,8 +1711,14 @@ const MODULES = [
             <p style="margin:0;font-size:13.5px;"><strong>UGEL</strong>: el promedio de tu zona (UGEL 01, 02, etc.). <strong>Programa</strong>: el promedio nacional de todas las IIEE de Eligiendo Mi Camino. Es la referencia más amplia.</p>
           </div>
         </div>
-
-        <h3 style="margin-top:36px;">📞 Pedir llamada con tu acompañante EMC</h3>
+          </div>
+        `
+      },
+      {
+        title: 'Pedir llamada + cierre',
+        content: () => `
+          <div class="lesson">
+        <h3>📞 Pedir llamada con tu acompañante EMC</h3>
         <p>El equipo EMC te asignó un acompañante que te llama una vez al mes (mínimo 2 de 3 cuenta para tu certificación). <strong>Si necesitás una llamada extra entre las mensuales</strong> — porque algo del reporte no te queda claro, porque una semana se complicó, o porque querés discutir una intervención antes de hacerla — escribilas con un mensaje breve:</p>
         <div style="text-align:center;margin:24px 0;">
           <a href="mailto:eligiendomicamino@worldbank.org?subject=Pedido%20de%20llamada%20EMC%20—%20${encodeURIComponent(state.userName || '')}&body=${encodeURIComponent('Hola equipo EMC,\n\nMe gustaría coordinar una llamada con mi acompañante para discutir:\n\n[brevemente lo que necesitás resolver]\n\nMis datos:\nNombre: ' + (state.userName || '') + '\nDNI: ' + (state.userDni || '') + '\nIE: ' + (state.userSchool || '') + '\nMateria: Orientación Vocacional\n\nGracias.')}" target="_blank" rel="noopener" style="display:inline-block;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;padding:16px 32px;border-radius:10px;font-weight:700;font-size:15.5px;text-decoration:none;box-shadow:0 4px 14px rgba(243,147,0,0.35);">📩 Pedir llamada con mi acompañante →</a>
@@ -840,8 +1734,9 @@ const MODULES = [
 
         <div class="callout callout-tip" style="margin-top:24px;"><p><span class="callout-icon">🙏</span><strong>Gracias por completar el curso.</strong> Lo que aprendiste acá no es teoría — son herramientas que ya están en tu próxima sesión de laboratorio. Buen trabajo.</p></div>
       </div>
-    `;
-    },
+    `
+      }
+    ],
     quiz: null
   }
 ];

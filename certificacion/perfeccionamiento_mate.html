@@ -1648,17 +1648,24 @@ const MODULES = [
     title: 'Errores conceptuales típicos + intervención',
     eyebrow: 'Módulo 6 de 9',
     duration: '~1.5 h',
-    content: () => `
-      <div class="lesson">
-        <p>El reporte quincenal te marca los 3 temas con menor precisión y los errores más frecuentes (lo viste en el Módulo 4, página 3 del reporte). Acá tenés un <strong>banco de 5 guiones de clase corta de 10 minutos</strong> para los errores conceptuales más típicos en 5° de secundaria peruana. Cada guion sigue la misma estructura que el reporte: 5 pasos + variantes "si pasa esto".</p>
+    steps: [
+      {
+        title: 'Intro · cómo usar el banco de guiones',
+        content: () => `
+          <div class="lesson">
+            <p>El reporte quincenal te marca los 3 temas con menor precisión y los errores más frecuentes (lo viste en el Módulo 4, página 3 del reporte). Acá tenés un <strong>banco de 5 guiones de clase corta de 10 minutos</strong> para los errores conceptuales más típicos en 5° de secundaria peruana. Cada guion sigue la misma estructura que el reporte: 5 pasos + variantes "si pasa esto".</p>
 
         <div class="callout callout-info"><p><span class="callout-icon">🖨️</span><strong>Cómo usar este módulo:</strong> cuando un error aparece en tu reporte, vení acá, buscá el guion correspondiente, imprimilo (o leelo en pantalla) y aplicalo en el Momento 4 de tu próxima sesión. Cada uno ya viene con ejemplos concretos — no tenés que preparar nada.</p></div>
 
         <h3>📚 Los 5 errores y sus guiones</h3>
-
-        <div style="display:grid;gap:18px;">
-
-          <!-- ERROR 1 -->
+          </div>
+        `
+      },
+      {
+        title: 'Error 1 · Signo en potencias con paréntesis',
+        content: () => `
+          <div class="lesson">
+            <!-- ERROR 1 -->
           <div class="info-card" style="border-left:4px solid #c75d2e;">
             <h4 style="display:flex;align-items:baseline;gap:10px;">
               <span style="background:#c75d2e;color:white;padding:3px 10px;border-radius:14px;font-size:12px;font-weight:700;">1</span>
@@ -1692,8 +1699,14 @@ const MODULES = [
               </tbody>
             </table>
           </div>
-
-          <!-- ERROR 2 -->
+          </div>
+        `
+      },
+      {
+        title: 'Error 2 · Conversión 3/8 a decimal + redondeo prematuro',
+        content: () => `
+          <div class="lesson">
+            <!-- ERROR 2 -->
           <div class="info-card" style="border-left:4px solid #c75d2e;">
             <h4 style="display:flex;align-items:baseline;gap:10px;">
               <span style="background:#c75d2e;color:white;padding:3px 10px;border-radius:14px;font-size:12px;font-weight:700;">2</span>
@@ -1727,8 +1740,14 @@ const MODULES = [
               </tbody>
             </table>
           </div>
-
-          <!-- ERROR 3 -->
+          </div>
+        `
+      },
+      {
+        title: 'Error 3 · Margen de ganancia (costo vs venta)',
+        content: () => `
+          <div class="lesson">
+            <!-- ERROR 3 -->
           <div class="info-card" style="border-left:4px solid #c75d2e;">
             <h4 style="display:flex;align-items:baseline;gap:10px;">
               <span style="background:#c75d2e;color:white;padding:3px 10px;border-radius:14px;font-size:12px;font-weight:700;">3</span>
@@ -1762,8 +1781,14 @@ const MODULES = [
               </tbody>
             </table>
           </div>
-
-          <!-- ERROR 4 -->
+          </div>
+        `
+      },
+      {
+        title: 'Error 4 · Tasa nominal vs efectiva',
+        content: () => `
+          <div class="lesson">
+            <!-- ERROR 4 -->
           <div class="info-card" style="border-left:4px solid #c75d2e;">
             <h4 style="display:flex;align-items:baseline;gap:10px;">
               <span style="background:#c75d2e;color:white;padding:3px 10px;border-radius:14px;font-size:12px;font-weight:700;">4</span>
@@ -1797,8 +1822,14 @@ const MODULES = [
               </tbody>
             </table>
           </div>
-
-          <!-- ERROR 5 -->
+          </div>
+        `
+      },
+      {
+        title: 'Error 5 · Notación científica · coeficiente ≥ 1',
+        content: () => `
+          <div class="lesson">
+            <!-- ERROR 5 -->
           <div class="info-card" style="border-left:4px solid #c75d2e;">
             <h4 style="display:flex;align-items:baseline;gap:10px;">
               <span style="background:#c75d2e;color:white;padding:3px 10px;border-radius:14px;font-size:12px;font-weight:700;">5</span>
@@ -1833,11 +1864,11 @@ const MODULES = [
             </table>
           </div>
 
-        </div>
-
-        <div class="callout callout-tip" style="margin-top:24px;"><p><span class="callout-icon">💡</span><strong>El truco del guion de 10 minutos</strong>: el paso ii (preguntar y esperar respuesta antes de la regla) es lo que diferencia esta intervención de una explicación tradicional. Si vas directo a "la regla es X", los estudiantes memorizan; si primero dudaron, aprenden.</p></div>
-      </div>
-    `,
+          <div class="callout callout-tip" style="margin-top:24px;"><p><span class="callout-icon">💡</span><strong>El truco del guion de 10 minutos</strong>: el paso ii (preguntar y esperar respuesta antes de la regla) es lo que diferencia esta intervención de una explicación tradicional. Si vas directo a "la regla es X", los estudiantes memorizan; si primero dudaron, aprenden.</p></div>
+          </div>
+        `
+      }
+    ],
     quiz: {
       question: 'Tu reporte quincenal muestra que apareció 9 veces el error "(-2)⁵ = 32". ¿Cuál de estos 5 guiones del módulo usás esta semana?',
       options: [
@@ -1859,17 +1890,26 @@ const MODULES = [
     title: 'Casos reales anonimizados',
     eyebrow: 'Módulo 7 de 9',
     duration: '~1 h',
-    content: () => `
-      <div class="lesson">
-        <p>Hasta acá viste el marco general (5 momentos, dashboard, reporte de aula y de director, errores conceptuales). Ahora repasamos <strong>6 casos típicos</strong> que vas a encontrar en tu reporte. Cada caso tiene un snapshot del dato, un diagnóstico (qué te dice + qué descartar), y una acción sugerida.</p>
+    steps: [
+      {
+        title: 'Intro · cómo usar los 6 casos',
+        content: () => `
+          <div class="lesson">
+            <p>Hasta acá viste el marco general (5 momentos, dashboard, reporte de aula y de director, errores conceptuales). Ahora repasamos <strong>6 casos típicos</strong> que vas a encontrar en tu reporte. Cada caso tiene un snapshot del dato, un diagnóstico (qué te dice + qué descartar), y una acción sugerida.</p>
 
         <div class="callout callout-info"><p><span class="callout-icon">💼</span>Todos los casos son <strong>anonimizados</strong>: situaciones que el equipo EMC vio repetirse en aulas, con nombres y números cambiados.</p></div>
 
         <h3>🧩 Los 6 casos</h3>
 
         <div style="display:grid;gap:20px;">
-
-          <!-- CASO 1 -->
+          </div>
+        `
+      },
+      {
+        title: 'Caso 1',
+        content: () => `
+          <div class="lesson">
+            <!-- CASO 1 -->
           <div class="info-card" style="border-left:4px solid var(--primary);">
             <h4 style="display:flex;align-items:baseline;gap:10px;">
               <span style="background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;padding:3px 10px;border-radius:14px;font-size:12px;font-weight:700;">1</span>
@@ -1891,8 +1931,14 @@ const MODULES = [
               <li><strong>"Me da vergüenza"</strong> → explicale que la plataforma es privada, solo vos ves su trabajo.</li>
             </ul>
           </div>
-
-          <!-- CASO 2 -->
+          </div>
+        `
+      },
+      {
+        title: 'Caso 2',
+        content: () => `
+          <div class="lesson">
+            <!-- CASO 2 -->
           <div class="info-card" style="border-left:4px solid var(--primary);">
             <h4 style="display:flex;align-items:baseline;gap:10px;">
               <span style="background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;padding:3px 10px;border-radius:14px;font-size:12px;font-weight:700;">2</span>
@@ -1909,8 +1955,14 @@ const MODULES = [
             <div class="rp-eyebrow" style="margin:14px 0 4px;">🎯 Acción sugerida (5 minutos en clase)</div>
             <p style="font-size:14.5px;line-height:1.55;margin:0;">Sentate con él/ella 5 minutos en la próxima sesión de lab. Pedile que te explique un ejercicio del tema débil resuelto recientemente. Identificá el paso concreto donde se traba — no todo el problema, solo el paso. Si es <strong>signo en potencias</strong>, usá el guion #1 del módulo 6 con toda la clase (probablemente el error está en más estudiantes).</p>
           </div>
-
-          <!-- CASO 3 -->
+          </div>
+        `
+      },
+      {
+        title: 'Caso 3',
+        content: () => `
+          <div class="lesson">
+            <!-- CASO 3 -->
           <div class="info-card" style="border-left:4px solid var(--primary);">
             <h4 style="display:flex;align-items:baseline;gap:10px;">
               <span style="background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;padding:3px 10px;border-radius:14px;font-size:12px;font-weight:700;">3</span>
@@ -1931,8 +1983,14 @@ const MODULES = [
             <div class="rp-eyebrow" style="margin:14px 0 4px;">🎯 Acción sugerida</div>
             <p style="font-size:14.5px;line-height:1.55;margin:0;">No te detengas más de 30 segundos pensando en esa semana — pero <strong>anotala</strong> en tu calendario por si tu director te pregunta. Si fue operativo, levantá con el AIP/PIP la semana siguiente. <strong>Si la semana siguiente vuelve al ritmo, la caída fue contextual y no hay que hacer nada más.</strong></p>
           </div>
-
-          <!-- CASO 4 -->
+          </div>
+        `
+      },
+      {
+        title: 'Caso 4',
+        content: () => `
+          <div class="lesson">
+            <!-- CASO 4 -->
           <div class="info-card" style="border-left:4px solid var(--primary);">
             <h4 style="display:flex;align-items:baseline;gap:10px;">
               <span style="background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;padding:3px 10px;border-radius:14px;font-size:12px;font-weight:700;">4</span>
@@ -1949,8 +2007,14 @@ const MODULES = [
             <div class="rp-eyebrow" style="margin:14px 0 4px;">🎯 Acción sugerida (laser focus, 5 min)</div>
             <p style="font-size:14.5px;line-height:1.55;margin:0;">No requiere una clase corta — requiere una conversación de 5 min. <em>"Vi que en general te va muy bien. Solo en números reales tenés algunas dudas. ¿Querés que repasemos un ejemplo concreto?"</em> Resolvelo en pantalla. Probablemente sea un error específico (signo, redondeo, raíz) que se corrige al instante.</p>
           </div>
-
-          <!-- CASO 5 -->
+          </div>
+        `
+      },
+      {
+        title: 'Caso 5',
+        content: () => `
+          <div class="lesson">
+            <!-- CASO 5 -->
           <div class="info-card" style="border-left:4px solid var(--primary);">
             <h4 style="display:flex;align-items:baseline;gap:10px;">
               <span style="background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;padding:3px 10px;border-radius:14px;font-size:12px;font-weight:700;">5</span>
@@ -1971,8 +2035,14 @@ const MODULES = [
               <li><strong>Reconocer al grupo</strong> que ya tiene volumen alto: sirve de modelo, no como reproche al resto.</li>
             </ul>
           </div>
-
-          <!-- CASO 6 -->
+          </div>
+        `
+      },
+      {
+        title: 'Caso 6',
+        content: () => `
+          <div class="lesson">
+            <!-- CASO 6 -->
           <div class="info-card" style="border-left:4px solid var(--primary);">
             <h4 style="display:flex;align-items:baseline;gap:10px;">
               <span style="background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;padding:3px 10px;border-radius:14px;font-size:12px;font-weight:700;">6</span>
@@ -1996,11 +2066,11 @@ const MODULES = [
             <p style="font-size:13.5px;color:var(--text-muted);margin:8px 0 0;"><em>Tu trabajo pedagógico con ese estudiante puede ser distinto (actividades adaptadas en paralelo, sin presionar por completar la plataforma) — eso ya queda en tu criterio docente.</em></p>
           </div>
 
-        </div>
-
-        <div class="callout callout-tip" style="margin-top:24px;"><p><span class="callout-icon">💡</span><strong>Regla general:</strong> el reporte te marca casos, pero <strong>vos elegís cuáles abordar primero</strong>. Priorizá los de menor costo (conversación 2 min &gt; clase corta 10 min &gt; intervención individual 5 min). En 14 minutos resolvés 2-3 casos típicos.</p></div>
-      </div>
-    `,
+          <div class="callout callout-tip" style="margin-top:24px;"><p><span class="callout-icon">💡</span><strong>Regla general:</strong> el reporte te marca casos, pero <strong>vos elegís cuáles abordar primero</strong>. Priorizá los de menor costo (conversación 2 min &gt; clase corta 10 min &gt; intervención individual 5 min). En 14 minutos resolvés 2-3 casos típicos.</p></div>
+          </div>
+        `
+      }
+    ],
     quiz: {
       question: 'Tu reporte muestra dos estudiantes inactivos. Uno te dice "no puedo entrar a la plataforma", el otro tiene discapacidad cognitiva confirmada por la familia. ¿Qué hacés?',
       options: [
