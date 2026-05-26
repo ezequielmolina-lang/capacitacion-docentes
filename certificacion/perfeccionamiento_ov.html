@@ -735,19 +735,22 @@ const MODULES = [
     eyebrow: 'Módulo 9 de 9',
     duration: '~10 min',
     content: () => {
-      // Compute the next 6 biweekly dates from today
+      // Generate biweekly Mondays from today, capped at end of July (program closure)
       const today = new Date();
-      // Find the next Monday on or after today
       const dayOfWeek = today.getDay();
       const daysUntilMonday = dayOfWeek === 1 ? 0 : (dayOfWeek === 0 ? 1 : 8 - dayOfWeek);
       const nextMonday = new Date(today);
       nextMonday.setDate(today.getDate() + daysUntilMonday);
+      const closureYear = today.getMonth() >= 7 ? today.getFullYear() + 1 : today.getFullYear();
+      const closure = new Date(closureYear, 6, 30); // 6 = julio (0-indexed)
       const dates = [];
       for (let i = 0; i < 6; i++) {
         const d = new Date(nextMonday);
         d.setDate(nextMonday.getDate() + i * 14);
+        if (d > closure) break;
         dates.push(d.toLocaleDateString('es-PE', { day: 'numeric', month: 'long' }));
       }
+      const showClosure = dates.length > 0 && new Date(closureYear, 6, 30) >= today;
       const calendarPrompts = [
         '¿En qué paso del viaje está parada la mayoría de tu sección? — Eso te dice qué priorizar en la próxima sesión.',
         '¿Hay estudiantes que no entraron a la plataforma? — Empezá por traerlos al Paso 1 antes de cualquier otra cosa.',
@@ -761,14 +764,15 @@ const MODULES = [
         <p>Ya completaste el curso y obtuviste tu certificado. Acá te dejamos <strong>3 recursos para tener a mano</strong> mientras seguís implementando el programa:</p>
 
         <h3>📅 Calendario sugerido — qué mirar cada quincena</h3>
-        <p>El reporte de aula llega cada dos semanas, los lunes por la mañana. Acá una guía rápida de qué priorizar en cada uno. Las fechas son aproximadas — ajustá según cuándo te llegue el reporte real.</p>
+        <p>El reporte de tutoría llega cada dos semanas, los lunes por la mañana, hasta el <strong>cierre del programa el 30 de julio</strong>. Acá una guía rápida de qué priorizar en cada uno. Las fechas son aproximadas — ajustá según cuándo te llegue el reporte real.</p>
         <table class="data-table">
           <thead><tr><th>Próxima entrega (estimada)</th><th>Qué priorizar al leer</th></tr></thead>
           <tbody>
             ${dates.map((d, i) => `<tr><td><strong>${d}</strong></td><td>${calendarPrompts[i]}</td></tr>`).join('')}
+            ${showClosure ? `<tr style="background:#fff4d4;"><td><strong>30 de julio · CIERRE</strong></td><td>Última quincena del programa. Sesión 12 (presentación del plan de vida). Reporte final + última conversación con tu acompañante EMC. Las entregas pendientes se reciben hasta esta fecha.</td></tr>` : ''}
           </tbody>
         </table>
-        <p style="font-size:13.5px;color:var(--text-muted);">💡 No es necesario que cubras los 6 puntos en cada reporte. La idea es que cada quincena uses una lente distinta para no pasar por alto patrones que se acumulan.</p>
+        <p style="font-size:13.5px;color:var(--text-muted);">💡 No es necesario que cubras los 6 puntos en cada reporte. La idea es que cada quincena uses una lente distinta para no pasar por alto patrones que se acumulan. <strong>Después del 30 de julio</strong> ya no recibís más reportes — el programa cerró.</p>
 
         <h3 style="margin-top:36px;">💬 Glosario rápido</h3>
         <p>Los términos que más aparecen en el reporte y en el dashboard:</p>
