@@ -588,71 +588,88 @@ const MODULES = [
     title: 'Qué funcionó y qué no — contanos vos',
     eyebrow: 'Módulo 3 de 9',
     duration: '~30 min',
-    content: () => `
-      <div class="lesson">
-        <p>Antes de seguir, queremos escucharte. Llevás algunas semanas implementando los 5 momentos. <strong>Tu experiencia importa</strong>: lo que aprendamos de vos ajusta el programa para todos.</p>
+    steps: [
+      {
+        title: 'Lo que vimos funcionar',
+        content: () => `
+          <div class="lesson">
+            <p>Antes de seguir, queremos escucharte. Llevás algunas semanas implementando los 5 momentos. <strong>Tu experiencia importa</strong>: lo que aprendamos de vos ajusta el programa para todos.</p>
+            <p style="font-size:14.5px;color:var(--text-muted);">Estas son observaciones cualitativas del equipo EMC visitando las IIEE entre el 30 de marzo y el 15 de mayo. No son tu sección en particular — son patrones que vimos repetirse.</p>
 
-        <h3>Lo que vimos en aulas estas primeras semanas</h3>
-        <p>Estas son observaciones cualitativas del equipo EMC visitando las IIEE entre el 30 de marzo y el 15 de mayo. No son tu sección en particular — son patrones que vimos repetirse.</p>
-
-        <div class="observations-card obs-positive">
-          <h4>✅ Lo que vimos funcionar</h4>
-          <ul class="obs-list">
-            <li><strong>Momento 1 (Apertura):</strong> docentes que resuelven un ejemplo en pizarra antes de soltar a los estudiantes a la plataforma logran que la práctica arranque con foco, no de cero.</li>
-            <li><strong>Momento 2 (Práctica autónoma):</strong> circular con la lista de cotejo de 5 indicadores (no solo mirando el dashboard) ayuda a ver patrones que la pantalla no muestra.</li>
-            <li><strong>Momento 3 (Pausa y puesta en común):</strong> elegir 1-2 errores conceptuales repetidos del grupo y resolverlos en pizarra es la palanca pedagógica más fuerte. Sin esa pausa, la sesión se queda corta.</li>
-            <li><strong>Momento 4 (Segunda ronda):</strong> el monitoreo dirigido (no panorámico como en el M2) a los estudiantes que vimos con señales, multiplica el impacto del docente.</li>
-            <li><strong>Momento 5 (Cierre):</strong> docentes que cierran con "qué viene la próxima clase" tienen mejor adherencia a la sesión siguiente.</li>
-          </ul>
-        </div>
-
-        <div class="observations-card obs-friction">
-          <h4>⚠️ Donde más vimos fricción</h4>
-          <ul class="obs-list">
-            <li><strong>Acceso uDocz al inicio:</strong> credenciales olvidadas o equipo que no carga retrasaron la apertura en varias sesiones. (Coordinar con el AIP/PIP de la IE ayuda — ver Módulo 7 del cert.)</li>
-            <li><strong>Saltar el ejemplo resuelto del Momento 1:</strong> mandar a los estudiantes directo a Doc sin abrir el tema en pizarra hace que la práctica empiece dispersa.</li>
-            <li><strong>Saltar la pausa del Momento 3:</strong> seguir con la práctica corrida sin parar a sintetizar los errores repetidos. La IA no puede hacer mini-clases colectivas — esa es tu palanca exclusiva.</li>
-            <li><strong>Dashboard como vigilancia:</strong> mirar el dashboard solo para "ver quién no avanza" genera resistencia. Usalo como herramienta de apoyo, no de control.</li>
-            <li><strong>Confundir el programa con la capacitación inicial:</strong> algunos docentes esperan que el Tutor IA "enseñe el tema completo". Doc practica, el docente enseña en los Momentos 1 y 3 — son complementarios.</li>
-          </ul>
-        </div>
-
-        <h3>Ahora contános vos: ¿cómo te fue con cada momento?</h3>
-        <p>Una o dos líneas por momento están perfectas. Esto se guarda y se envía al equipo EMC para que podamos ajustar el programa. Tu nombre y DNI van con la respuesta para que sepamos que es la tuya.</p>
-
-        ${[
-          {n:1, name:'Momento 1 · Apertura con ejemplo resuelto'},
-          {n:2, name:'Momento 2 · Práctica autónoma + circulación'},
-          {n:3, name:'Momento 3 · Pausa y puesta en común'},
-          {n:4, name:'Momento 4 · Segunda ronda con monitoreo dirigido'},
-          {n:5, name:'Momento 5 · Cierre'}
-        ].map(m => `
-          <div class="feedback-block">
-            <div class="feedback-momento">
-              <div class="feedback-num">${m.n}</div>
-              <div class="feedback-name">${m.name}</div>
-            </div>
-            <div class="feedback-row">
-              <div>
-                <div class="feedback-col-label">✅ ¿Qué te funcionó?</div>
-                <textarea id="fb_pos_${m.n}" placeholder="Una o dos líneas..." oninput="saveFeedback(${m.n})">${(state.feedbackMomentos && state.feedbackMomentos[m.n] && state.feedbackMomentos[m.n].pos) || ''}</textarea>
-              </div>
-              <div>
-                <div class="feedback-col-label">⚠️ ¿Qué te costó o cambiarías?</div>
-                <textarea id="fb_neg_${m.n}" placeholder="Una o dos líneas..." oninput="saveFeedback(${m.n})">${(state.feedbackMomentos && state.feedbackMomentos[m.n] && state.feedbackMomentos[m.n].neg) || ''}</textarea>
-              </div>
+            <div class="observations-card obs-positive">
+              <h4>✅ Lo que vimos funcionar</h4>
+              <ul class="obs-list">
+                <li><strong>Momento 1 (Apertura):</strong> docentes que resuelven un ejemplo en pizarra antes de soltar a los estudiantes a la plataforma logran que la práctica arranque con foco, no de cero.</li>
+                <li><strong>Momento 2 (Práctica autónoma):</strong> circular con la lista de cotejo de 5 indicadores (no solo mirando el dashboard) ayuda a ver patrones que la pantalla no muestra.</li>
+                <li><strong>Momento 3 (Pausa y puesta en común):</strong> elegir 1-2 errores conceptuales repetidos del grupo y resolverlos en pizarra es la palanca pedagógica más fuerte. Sin esa pausa, la sesión se queda corta.</li>
+                <li><strong>Momento 4 (Segunda ronda):</strong> el monitoreo dirigido (no panorámico como en el M2) a los estudiantes que vimos con señales, multiplica el impacto del docente.</li>
+                <li><strong>Momento 5 (Cierre):</strong> docentes que cierran con "qué viene la próxima clase" tienen mejor adherencia a la sesión siguiente.</li>
+              </ul>
             </div>
           </div>
-        `).join('')}
+        `
+      },
+      {
+        title: 'Donde vimos fricción',
+        content: () => `
+          <div class="lesson">
+            <p>Estas son las fricciones más comunes que aparecen en aula. Ninguna es "error grave" — son patrones que se corrigen con un pequeño ajuste de método.</p>
+            <div class="observations-card obs-friction">
+              <h4>⚠️ Donde más vimos fricción</h4>
+              <ul class="obs-list">
+                <li><strong>Acceso uDocz al inicio:</strong> credenciales olvidadas o equipo que no carga retrasaron la apertura en varias sesiones. (Coordinar con el AIP/PIP de la IE ayuda — ver Módulo 7 del cert.)</li>
+                <li><strong>Saltar el ejemplo resuelto del Momento 1:</strong> mandar a los estudiantes directo a Doc sin abrir el tema en pizarra hace que la práctica empiece dispersa.</li>
+                <li><strong>Saltar la pausa del Momento 3:</strong> seguir con la práctica corrida sin parar a sintetizar los errores repetidos. La IA no puede hacer mini-clases colectivas — esa es tu palanca exclusiva.</li>
+                <li><strong>Dashboard como vigilancia:</strong> mirar el dashboard solo para "ver quién no avanza" genera resistencia. Usalo como herramienta de apoyo, no de control.</li>
+                <li><strong>Confundir el programa con la capacitación inicial:</strong> algunos docentes esperan que el Tutor IA "enseñe el tema completo". Doc practica, el docente enseña en los Momentos 1 y 3 — son complementarios.</li>
+              </ul>
+            </div>
+            <p style="margin-top:14px;font-size:14.5px;">En el próximo paso te toca a vos: contanos tu experiencia con cada momento. Una o dos líneas por momento alcanza.</p>
+          </div>
+        `
+      },
+      {
+        title: 'Ahora contanos vos',
+        content: () => `
+          <div class="lesson">
+            <h3>¿Cómo te fue con cada momento?</h3>
+            <p>Una o dos líneas por momento están perfectas. Esto se guarda y se envía al equipo EMC para que podamos ajustar el programa. Tu nombre y DNI van con la respuesta para que sepamos que es la tuya.</p>
 
-        <div class="callout callout-tip"><p><span class="callout-icon">💾</span>Tus respuestas se guardan automáticamente mientras escribís (localStorage). Al apretar el botón de abajo se envían también al equipo EMC.</p></div>
+            ${[
+              {n:1, name:'Momento 1 · Apertura con ejemplo resuelto'},
+              {n:2, name:'Momento 2 · Práctica autónoma + circulación'},
+              {n:3, name:'Momento 3 · Pausa y puesta en común'},
+              {n:4, name:'Momento 4 · Segunda ronda con monitoreo dirigido'},
+              {n:5, name:'Momento 5 · Cierre'}
+            ].map(m => `
+              <div class="feedback-block">
+                <div class="feedback-momento">
+                  <div class="feedback-num">${m.n}</div>
+                  <div class="feedback-name">${m.name}</div>
+                </div>
+                <div class="feedback-row">
+                  <div>
+                    <div class="feedback-col-label">✅ ¿Qué te funcionó?</div>
+                    <textarea id="fb_pos_${m.n}" placeholder="Una o dos líneas..." oninput="saveFeedback(${m.n})">${(state.feedbackMomentos && state.feedbackMomentos[m.n] && state.feedbackMomentos[m.n].pos) || ''}</textarea>
+                  </div>
+                  <div>
+                    <div class="feedback-col-label">⚠️ ¿Qué te costó o cambiarías?</div>
+                    <textarea id="fb_neg_${m.n}" placeholder="Una o dos líneas..." oninput="saveFeedback(${m.n})">${(state.feedbackMomentos && state.feedbackMomentos[m.n] && state.feedbackMomentos[m.n].neg) || ''}</textarea>
+                  </div>
+                </div>
+              </div>
+            `).join('')}
 
-        <div style="text-align:center;margin:24px 0;">
-          <button class="btn btn-primary" onclick="submitFeedbackMomentos()" id="submitFeedbackBtn">📩 Enviar al equipo EMC</button>
-          <div id="feedbackSubmitMsg" style="margin-top:10px;font-size:14px;color:var(--success);font-weight:600;display:none;">✅ Enviado. Gracias por tu tiempo.</div>
-        </div>
-      </div>
-    `,
+            <div class="callout callout-tip"><p><span class="callout-icon">💾</span>Tus respuestas se guardan automáticamente mientras escribís. Al apretar el botón de abajo se envían también al equipo EMC.</p></div>
+
+            <div style="text-align:center;margin:24px 0;">
+              <button class="btn btn-primary" onclick="submitFeedbackMomentos()" id="submitFeedbackBtn">📩 Enviar al equipo EMC</button>
+              <div id="feedbackSubmitMsg" style="margin-top:10px;font-size:14px;color:var(--success);font-weight:600;display:none;">✅ Enviado. Gracias por tu tiempo.</div>
+            </div>
+          </div>
+        `
+      }
+    ],
     quiz: {
       question: 'Según las observaciones del equipo EMC, ¿cuál de estas acciones tiene mayor impacto pedagógico durante la sesión?',
       options: [
@@ -674,16 +691,18 @@ const MODULES = [
     title: 'Tu reporte quincenal — página por página',
     eyebrow: 'Módulo 4 de 9',
     duration: '~2 h',
-    content: () => `
-      <div class="lesson">
-        <p>Cada dos semanas recibís un <strong>Reporte de Aula</strong> con los datos de tu sección. Este módulo recorre las 8 páginas del reporte. Para no exponer información real de ningún docente, trabajamos sobre un <strong>reporte demo</strong> con datos sintéticos pero idéntico en formato al que vas a recibir.</p>
+    steps: [
+      {
+        title: 'Intro + Página 1 · Bienvenida',
+        content: () => `
+          <div class="lesson">
+            <p>Cada dos semanas recibís un <strong>Reporte de Aula</strong> con los datos de tu sección. Este módulo recorre las 8 páginas del reporte. Para no exponer información real de ningún docente, trabajamos sobre un <strong>reporte demo</strong> con datos sintéticos pero idéntico en formato al que vas a recibir.</p>
 
-        <div class="callout callout-info"><p><span class="callout-icon">📄</span><strong>Cómo usar este módulo:</strong> abajo aparece el reporte demo completo (8 páginas, scrolleable). Debajo de cada página vas a encontrar el walk-through: qué muestra, cómo se lee, qué hacer con eso, y qué malinterpretar. Tomate los 5 minutos que toma leer el reporte completo primero, después volvé a cada página con el walk-through al lado.</p></div>
+            <div class="callout callout-info"><p><span class="callout-icon">📄</span><strong>Cómo usar este módulo:</strong> abajo aparece el reporte demo completo (8 páginas, scrolleable). Debajo de cada página vas a encontrar el walk-through: qué muestra, cómo se lee, qué hacer con eso, y qué malinterpretar. Tomate los 5 minutos que toma leer el reporte completo primero, después volvé a cada página con el walk-through al lado.</p></div>
 
-        <h3>📊 Reporte demo — IE Ficticia 9999 · Sección A · 30 mar — 15 may 2026</h3>
-
-        <div class="report">
-          <!-- =================== PÁGINA 1 =================== -->
+            <h3>📊 Reporte demo — IE Ficticia 9999 · Sección A · 30 mar — 15 may 2026</h3>
+          <div class="report">
+<!-- =================== PÁGINA 1 =================== -->
           <div class="report-pg">
             <div class="pg-header">
               <div class="pg-header-left">
@@ -732,8 +751,27 @@ const MODULES = [
 
             <div class="pg-footer"><span>PRÓXIMA ENTREGA · LUNES 25 DE MAYO</span><span class="pg-footer-num">PÁGINA 1 DE 8</span></div>
           </div>
+          </div>
 
-          <!-- =================== PÁGINA 2 =================== -->
+          <div class="walkthrough">
+          <div class="walkthrough-title"><span class="wt-pg-num">1</span>Bienvenida y "Cómo funciona"</div>
+          <div class="wt-panels">
+            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>El propósito del reporte y un <strong>resumen ejecutivo</strong>: una clase corta de 10 minutos para enseñar + dos conversaciones cortas de 2 minutos. La columna derecha resume la mecánica: frecuencia, fuente de datos, qué encontrarás, y a quién contactar.</p></div>
+            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Esta página es <strong>la promesa del reporte</strong>: si solo tenés 14 minutos esta semana, hacer estas dos cosas mueve la aguja. Es lo que más rinde con menor inversión de tu tiempo.</p></div>
+            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Anotá la clase de 10 minutos en tu agenda para esta semana. Identificá mentalmente a los dos estudiantes mencionados. Si no podés con todo, <strong>al menos hacé las dos conversaciones</strong> — son las de menor costo y mayor impacto.</p></div>
+            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p><strong>No es una evaluación de tu desempeño</strong>. Nadie más recibe estos datos sobre tu sección. La página lo dice explícitamente: "Lo que no es: una evaluación tuya".</p></div>
+          </div>
+          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>Si tu semana está saturada y solo podés hacer una cosa de las dos sugeridas, ¿cuál priorizás según el reporte? <em>(Respuesta: las dos conversaciones de 2 min — son las de menor costo y mayor impacto inmediato sobre los estudiantes en riesgo.)</em></div>
+        </div>
+        </div>
+      `
+      },
+      {
+        title: 'Página 2 · Lo que está pasando con tu sección',
+        content: () => `
+          <div class="lesson">
+          <div class="report">
+<!-- =================== PÁGINA 2 =================== -->
           <div class="report-pg">
             <div class="rp-section">
               <span class="rp-section-num">§ 01</span>
@@ -784,8 +822,27 @@ const MODULES = [
 
             <div class="pg-footer"><span>PRÓXIMA ENTREGA · LUNES 25 DE MAYO</span><span class="pg-footer-num">PÁGINA 2 DE 8</span></div>
           </div>
+          </div>
 
-          <!-- =================== PÁGINA 3 =================== -->
+          <div class="walkthrough">
+          <div class="walkthrough-title"><span class="wt-pg-num">2</span>Lo que está pasando con tu sección</div>
+          <div class="wt-panels">
+            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>Tres tablas semana a semana: <strong>minutos en la plataforma</strong>, <strong>preguntas respondidas</strong>, y <strong>precisión</strong>. Tu sección comparada con la UGEL y con el programa nacional. El "—" significa que ningún estudiante entró esa semana.</p></div>
+            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Compará cada fila <em>contra la UGEL y el programa</em>, no contra "100%". Estar 10pp por debajo es señal de ajuste, no de fracaso. <strong>La precisión y los minutos suelen subir juntos</strong>: cuando aumenta uno, el otro tiende a seguir.</p></div>
+            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Identificá la <strong>semana con caída</strong> (la del "—"). Pensá qué pasó esa semana (feriado, semana de gestión, equipo del lab fallando) — para anticipar la próxima. Para subir el volumen: en el Momento 2, anunciá una meta concreta.</p></div>
+            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que tu sección esté "por debajo" no significa que estés mal — la UGEL tiene IIEE de contextos muy distintos. <strong>Mirá la tendencia</strong> (¿subió o bajó respecto a la semana anterior?), no la posición absoluta.</p></div>
+          </div>
+          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>El reporte demo muestra "—" en la semana del 27 abr — 3 may. ¿Es necesariamente un problema? <em>(Respuesta: no necesariamente. Esa semana fue feriado largo / Día del Trabajo en muchos casos. Lo que importa es identificarlo y verificar que la semana siguiente vuelva al ritmo.)</em></div>
+        </div>
+        </div>
+      `
+      },
+      {
+        title: 'Página 3 · Errores más comunes por tema',
+        content: () => `
+          <div class="lesson">
+          <div class="report">
+<!-- =================== PÁGINA 3 =================== -->
           <div class="report-pg">
             <div class="rp-section">
               <span class="rp-section-num">§ 02</span>
@@ -835,8 +892,27 @@ const MODULES = [
 
             <div class="pg-footer"><span>PRÓXIMA ENTREGA · LUNES 25 DE MAYO</span><span class="pg-footer-num">PÁGINA 3 DE 8</span></div>
           </div>
+          </div>
 
-          <!-- =================== PÁGINA 4 =================== -->
+          <div class="walkthrough">
+          <div class="walkthrough-title"><span class="wt-pg-num">3</span>Errores más comunes por tema</div>
+          <div class="wt-panels">
+            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>Los <strong>3 temas con menor precisión</strong> en tu sección. Para cada uno: dos errores específicos, cuántas veces aparecieron, y el diagnóstico pedagógico (qué malentendido lo causó). El primer tema viene marcado en rojo por urgencia.</p></div>
+            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Buscá <strong>errores conceptuales repetidos</strong> — los que aparecieron 6+ veces. Esos justifican una mini-clase de 10 minutos (Momento 4). Los que solo aparecieron 1-2 veces son ruido — no organices clase para eso.</p></div>
+            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Elegí <strong>uno solo</strong> de los errores para la próxima clase (la pág. 4 te da el guion del error #1 listo). Más de uno satura. Si el tema #1 ya lo trabajaste, pasá al #2.</p></div>
+            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que tus estudiantes "no saben matemática". Significa que <strong>en este momento del programa</strong>, este patrón se repite — y se puede corregir con una clase corta. No es un diagnóstico permanente.</p></div>
+          </div>
+          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>En el demo, ¿cuál de los 6 errores listados elegirías para una clase corta esta semana? <em>(Cualquiera de los marcados ×9 o ×10 — son los más palancables: signo en potencias con paréntesis (×9), -2⁴ vs (-2)⁴ (×10), o 3/8 = 0,38 (×8).)</em></div>
+        </div>
+        </div>
+      `
+      },
+      {
+        title: 'Página 4 · Primera acción · clase corta',
+        content: () => `
+          <div class="lesson">
+          <div class="report">
+<!-- =================== PÁGINA 4 =================== -->
           <div class="report-pg">
             <div class="rp-section">
               <span class="rp-section-num">§ 03</span>
@@ -877,8 +953,27 @@ const MODULES = [
 
             <div class="pg-footer"><span>PRÓXIMA ENTREGA · LUNES 25 DE MAYO</span><span class="pg-footer-num">PÁGINA 4 DE 8</span></div>
           </div>
+          </div>
 
-          <!-- =================== PÁGINA 5 =================== -->
+          <div class="walkthrough">
+          <div class="walkthrough-title"><span class="wt-pg-num">4</span>Primera acción · clase corta de 10 minutos</div>
+          <div class="wt-panels">
+            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>Un <strong>guion completo de 5 pasos</strong> (i-v) para la clase corta sobre el error más urgente. Más una sección "Si pasa esto" con dos variantes según cómo respondan los estudiantes. Cierra con una línea de compromiso para fijar la fecha.</p></div>
+            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Como un <strong>protocolo listo para ejecutar</strong>. No tenés que prepararla — los 5 pasos están armados. Es exactamente la mini-clase del Momento 4 que vimos en el Módulo 2.</p></div>
+            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Llená la <strong>línea "Mi compromiso"</strong> con día y hora ahora. Ejecutá la clase tal como está. La semana siguiente vas a recibir un reporte donde podés ver si bajó la frecuencia de ese error.</p></div>
+            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que el guion es obligatorio palabra por palabra. Es una <strong>plantilla</strong>: adaptá el ejemplo a las variables que usás vos. Lo importante es la estructura de 5 pasos, no las palabras exactas.</p></div>
+          </div>
+          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>¿Por qué el guion incluye un paso ii donde se pide la respuesta antes de continuar? <em>(Porque activa el conocimiento previo del estudiante; si vas directo a "la regla es X" sin que ellos hayan dudado, no aprenden, memorizan.)</em></div>
+        </div>
+        </div>
+      `
+      },
+      {
+        title: 'Página 5 · Segunda acción · conversaciones',
+        content: () => `
+          <div class="lesson">
+          <div class="report">
+<!-- =================== PÁGINA 5 =================== -->
           <div class="report-pg">
             <div class="rp-section">
               <span class="rp-section-num">§ 04</span>
@@ -911,8 +1006,27 @@ const MODULES = [
 
             <div class="pg-footer"><span>PRÓXIMA ENTREGA · LUNES 25 DE MAYO</span><span class="pg-footer-num">PÁGINA 5 DE 8</span></div>
           </div>
+          </div>
 
-          <!-- =================== PÁGINA 6 =================== -->
+          <div class="walkthrough">
+          <div class="walkthrough-title"><span class="wt-pg-num">5</span>Segunda acción · dos conversaciones de 2 minutos</div>
+          <div class="wt-panels">
+            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>Dos casos específicos con <strong>guion de conversación</strong>: por qué hablar con cada uno, cómo abrir la conversación, y tres respuestas posibles del estudiante con una acción concreta para cada una.</p></div>
+            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Los dos estudiantes elegidos no son al azar: son los <strong>casos más urgentes</strong> de la sección. Uno por <em>cero acceso</em> (barrera de entrada) y uno por <em>alto esfuerzo bajo resultado</em> (riesgo de frustración).</p></div>
+            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Las conversaciones son <strong>cortas (2 min cada una)</strong> y se pueden hacer en cualquier momento — entrada al aula, recreo, después de una clase. No requieren preparar nada, el guion ya está armado.</p></div>
+            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que esos dos sean tus únicos estudiantes en riesgo. Son los <strong>dos casos prioritarios para esta quincena</strong>. La página 6 muestra otros 9 estudiantes (priority 2 y 3) para la quincena siguiente.</p></div>
+          </div>
+          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>¿Por qué el guion para María empieza con "¿Qué te pasó?" y no con "¿Por qué no entraste?"? <em>(Es menos juicio, más curiosidad. "Por qué" puede sonar a reclamo; "qué te pasó" abre la conversación sin defensa.)</em></div>
+        </div>
+        </div>
+      `
+      },
+      {
+        title: 'Página 6 · Estudiantes que necesitan atención',
+        content: () => `
+          <div class="lesson">
+          <div class="report">
+<!-- =================== PÁGINA 6 =================== -->
           <div class="report-pg">
             <div class="rp-section">
               <span class="rp-section-num">§ 05</span>
@@ -984,8 +1098,29 @@ const MODULES = [
 
             <div class="pg-footer"><span>PRÓXIMA ENTREGA · LUNES 25 DE MAYO</span><span class="pg-footer-num">PÁGINA 6 DE 8</span></div>
           </div>
+          </div>
 
-          <!-- =================== PÁGINA 7 =================== -->
+          <div class="walkthrough">
+          <div class="walkthrough-title"><span class="wt-pg-num">6</span>Estudiantes que necesitan atención · 3 prioridades + reconocimiento + cierre</div>
+          <div class="wt-panels">
+            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p><strong>Tres listas priorizadas:</strong> (1) los que no entraron, (2) los que entraron pero usaron poco, (3) los que usan bien pero acertando poco. Más un estudiante a reconocer + el cierre con dos preguntas para tu acompañante.</p></div>
+            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>El orden importa: <strong>primero los que no entraron</strong> (urgencia de acceso), <strong>después los que usaron poco</strong> (urgencia de adopción), <strong>después los de baja precisión</strong> (urgencia pedagógica, pero requieren más tiempo de tu parte).</p></div>
+            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Esta quincena: enfocarte en P1 y P2 (acceso + adopción). Próxima quincena: si ya entraron, recién entonces atender la baja precisión (P3). El <strong>reconocimiento</strong> a Karla son 30 segundos al final de una clase — no lo saltees.</p></div>
+            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que los de P3 sean "menos importantes" — son los que más probablemente <strong>se frustren y abandonen</strong> si no se sienten vistos. Pero requieren más tiempo del docente. Por eso van en segunda etapa.</p></div>
+          </div>
+          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>¿Por qué el reporte incluye explícitamente un estudiante para reconocer (Karla), incluso cuando hay otros 6 con buen rendimiento? <em>(Porque el reconocimiento dirigido a uno específico vale más que el reconocimiento genérico al grupo. Karla representa al grupo de alto rendimiento; mencionarla a ella envía la señal a todo ese grupo.)</em></div>
+        </div>
+        </div>
+      `
+      },
+      {
+        title: 'Páginas 7-8 · Anexo · todos los estudiantes',
+        content: () => `
+          <div class="lesson">
+          <p>Las últimas dos páginas del reporte son el anexo: la lista completa de todos tus estudiantes con sus métricas. Útil como referencia, no como lista de acciones inmediatas.</p>
+
+          <div class="report">
+<!-- =================== PÁGINA 7 =================== -->
           <div class="report-pg">
             <div class="rp-section">
               <span class="rp-section-num">Anexo</span>
@@ -1025,8 +1160,7 @@ const MODULES = [
 
             <div class="pg-footer"><span>PRÓXIMA ENTREGA · LUNES 25 DE MAYO</span><span class="pg-footer-num">PÁGINA 7 DE 8</span></div>
           </div>
-
-          <!-- =================== PÁGINA 8 =================== -->
+<!-- =================== PÁGINA 8 =================== -->
           <div class="report-pg">
             <div class="rp-section">
               <span class="rp-section-num">Anexo · cont.</span>
@@ -1052,78 +1186,9 @@ const MODULES = [
             <div class="pg-footer"><span>PRÓXIMA ENTREGA · LUNES 25 DE MAYO</span><span class="pg-footer-num">PÁGINA 8 DE 8</span></div>
           </div>
         </div>
-
-        <!-- =================== WALK-THROUGH =================== -->
-        <h3 style="margin-top:48px;">🧭 Walk-through · una página a la vez</h3>
-        <p>Ahora pasamos por cada página explicando qué muestra, cómo se lee, qué hacer con eso, y qué malinterpretar. Volvé al reporte de arriba cuando quieras verificarlo.</p>
-
-        <div class="walkthrough">
-          <div class="walkthrough-title"><span class="wt-pg-num">1</span>Bienvenida y "Cómo funciona"</div>
-          <div class="wt-panels">
-            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>El propósito del reporte y un <strong>resumen ejecutivo</strong>: una clase corta de 10 minutos para enseñar + dos conversaciones cortas de 2 minutos. La columna derecha resume la mecánica: frecuencia, fuente de datos, qué encontrarás, y a quién contactar.</p></div>
-            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Esta página es <strong>la promesa del reporte</strong>: si solo tenés 14 minutos esta semana, hacer estas dos cosas mueve la aguja. Es lo que más rinde con menor inversión de tu tiempo.</p></div>
-            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Anotá la clase de 10 minutos en tu agenda para esta semana. Identificá mentalmente a los dos estudiantes mencionados. Si no podés con todo, <strong>al menos hacé las dos conversaciones</strong> — son las de menor costo y mayor impacto.</p></div>
-            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p><strong>No es una evaluación de tu desempeño</strong>. Nadie más recibe estos datos sobre tu sección. La página lo dice explícitamente: "Lo que no es: una evaluación tuya".</p></div>
           </div>
-          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>Si tu semana está saturada y solo podés hacer una cosa de las dos sugeridas, ¿cuál priorizás según el reporte? <em>(Respuesta: las dos conversaciones de 2 min — son las de menor costo y mayor impacto inmediato sobre los estudiantes en riesgo.)</em></div>
-        </div>
 
-        <div class="walkthrough">
-          <div class="walkthrough-title"><span class="wt-pg-num">2</span>Lo que está pasando con tu sección</div>
-          <div class="wt-panels">
-            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>Tres tablas semana a semana: <strong>minutos en la plataforma</strong>, <strong>preguntas respondidas</strong>, y <strong>precisión</strong>. Tu sección comparada con la UGEL y con el programa nacional. El "—" significa que ningún estudiante entró esa semana.</p></div>
-            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Compará cada fila <em>contra la UGEL y el programa</em>, no contra "100%". Estar 10pp por debajo es señal de ajuste, no de fracaso. <strong>La precisión y los minutos suelen subir juntos</strong>: cuando aumenta uno, el otro tiende a seguir.</p></div>
-            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Identificá la <strong>semana con caída</strong> (la del "—"). Pensá qué pasó esa semana (feriado, semana de gestión, equipo del lab fallando) — para anticipar la próxima. Para subir el volumen: en el Momento 2, anunciá una meta concreta.</p></div>
-            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que tu sección esté "por debajo" no significa que estés mal — la UGEL tiene IIEE de contextos muy distintos. <strong>Mirá la tendencia</strong> (¿subió o bajó respecto a la semana anterior?), no la posición absoluta.</p></div>
-          </div>
-          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>El reporte demo muestra "—" en la semana del 27 abr — 3 may. ¿Es necesariamente un problema? <em>(Respuesta: no necesariamente. Esa semana fue feriado largo / Día del Trabajo en muchos casos. Lo que importa es identificarlo y verificar que la semana siguiente vuelva al ritmo.)</em></div>
-        </div>
-
-        <div class="walkthrough">
-          <div class="walkthrough-title"><span class="wt-pg-num">3</span>Errores más comunes por tema</div>
-          <div class="wt-panels">
-            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>Los <strong>3 temas con menor precisión</strong> en tu sección. Para cada uno: dos errores específicos, cuántas veces aparecieron, y el diagnóstico pedagógico (qué malentendido lo causó). El primer tema viene marcado en rojo por urgencia.</p></div>
-            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Buscá <strong>errores conceptuales repetidos</strong> — los que aparecieron 6+ veces. Esos justifican una mini-clase de 10 minutos (Momento 4). Los que solo aparecieron 1-2 veces son ruido — no organices clase para eso.</p></div>
-            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Elegí <strong>uno solo</strong> de los errores para la próxima clase (la pág. 4 te da el guion del error #1 listo). Más de uno satura. Si el tema #1 ya lo trabajaste, pasá al #2.</p></div>
-            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que tus estudiantes "no saben matemática". Significa que <strong>en este momento del programa</strong>, este patrón se repite — y se puede corregir con una clase corta. No es un diagnóstico permanente.</p></div>
-          </div>
-          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>En el demo, ¿cuál de los 6 errores listados elegirías para una clase corta esta semana? <em>(Cualquiera de los marcados ×9 o ×10 — son los más palancables: signo en potencias con paréntesis (×9), -2⁴ vs (-2)⁴ (×10), o 3/8 = 0,38 (×8).)</em></div>
-        </div>
-
-        <div class="walkthrough">
-          <div class="walkthrough-title"><span class="wt-pg-num">4</span>Primera acción · clase corta de 10 minutos</div>
-          <div class="wt-panels">
-            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>Un <strong>guion completo de 5 pasos</strong> (i-v) para la clase corta sobre el error más urgente. Más una sección "Si pasa esto" con dos variantes según cómo respondan los estudiantes. Cierra con una línea de compromiso para fijar la fecha.</p></div>
-            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Como un <strong>protocolo listo para ejecutar</strong>. No tenés que prepararla — los 5 pasos están armados. Es exactamente la mini-clase del Momento 4 que vimos en el Módulo 2.</p></div>
-            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Llená la <strong>línea "Mi compromiso"</strong> con día y hora ahora. Ejecutá la clase tal como está. La semana siguiente vas a recibir un reporte donde podés ver si bajó la frecuencia de ese error.</p></div>
-            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que el guion es obligatorio palabra por palabra. Es una <strong>plantilla</strong>: adaptá el ejemplo a las variables que usás vos. Lo importante es la estructura de 5 pasos, no las palabras exactas.</p></div>
-          </div>
-          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>¿Por qué el guion incluye un paso ii donde se pide la respuesta antes de continuar? <em>(Porque activa el conocimiento previo del estudiante; si vas directo a "la regla es X" sin que ellos hayan dudado, no aprenden, memorizan.)</em></div>
-        </div>
-
-        <div class="walkthrough">
-          <div class="walkthrough-title"><span class="wt-pg-num">5</span>Segunda acción · dos conversaciones de 2 minutos</div>
-          <div class="wt-panels">
-            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>Dos casos específicos con <strong>guion de conversación</strong>: por qué hablar con cada uno, cómo abrir la conversación, y tres respuestas posibles del estudiante con una acción concreta para cada una.</p></div>
-            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Los dos estudiantes elegidos no son al azar: son los <strong>casos más urgentes</strong> de la sección. Uno por <em>cero acceso</em> (barrera de entrada) y uno por <em>alto esfuerzo bajo resultado</em> (riesgo de frustración).</p></div>
-            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Las conversaciones son <strong>cortas (2 min cada una)</strong> y se pueden hacer en cualquier momento — entrada al aula, recreo, después de una clase. No requieren preparar nada, el guion ya está armado.</p></div>
-            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que esos dos sean tus únicos estudiantes en riesgo. Son los <strong>dos casos prioritarios para esta quincena</strong>. La página 6 muestra otros 9 estudiantes (priority 2 y 3) para la quincena siguiente.</p></div>
-          </div>
-          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>¿Por qué el guion para María empieza con "¿Qué te pasó?" y no con "¿Por qué no entraste?"? <em>(Es menos juicio, más curiosidad. "Por qué" puede sonar a reclamo; "qué te pasó" abre la conversación sin defensa.)</em></div>
-        </div>
-
-        <div class="walkthrough">
-          <div class="walkthrough-title"><span class="wt-pg-num">6</span>Estudiantes que necesitan atención · 3 prioridades + reconocimiento + cierre</div>
-          <div class="wt-panels">
-            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p><strong>Tres listas priorizadas:</strong> (1) los que no entraron, (2) los que entraron pero usaron poco, (3) los que usan bien pero acertando poco. Más un estudiante a reconocer + el cierre con dos preguntas para tu acompañante.</p></div>
-            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>El orden importa: <strong>primero los que no entraron</strong> (urgencia de acceso), <strong>después los que usaron poco</strong> (urgencia de adopción), <strong>después los de baja precisión</strong> (urgencia pedagógica, pero requieren más tiempo de tu parte).</p></div>
-            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Esta quincena: enfocarte en P1 y P2 (acceso + adopción). Próxima quincena: si ya entraron, recién entonces atender la baja precisión (P3). El <strong>reconocimiento</strong> a Karla son 30 segundos al final de una clase — no lo saltees.</p></div>
-            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que los de P3 sean "menos importantes" — son los que más probablemente <strong>se frustren y abandonen</strong> si no se sienten vistos. Pero requieren más tiempo del docente. Por eso van en segunda etapa.</p></div>
-          </div>
-          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>¿Por qué el reporte incluye explícitamente un estudiante para reconocer (Karla), incluso cuando hay otros 6 con buen rendimiento? <em>(Porque el reconocimiento dirigido a uno específico vale más que el reconocimiento genérico al grupo. Karla representa al grupo de alto rendimiento; mencionarla a ella envía la señal a todo ese grupo.)</em></div>
-        </div>
-
-        <div class="walkthrough">
+          <div class="walkthrough">
           <div class="walkthrough-title"><span class="wt-pg-num">7-8</span>Anexo · todos tus estudiantes (continúa)</div>
           <div class="wt-panels">
             <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>La <strong>lista completa</strong> de todos los estudiantes de tu sección, con sus métricas: preguntas respondidas, minutos en plataforma, precisión, y tema más débil. Activos primero (de menor a mayor minuto), inactivos en gris al final.</p></div>
@@ -1134,7 +1199,10 @@ const MODULES = [
           <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>Un estudiante te pregunta en clase por qué siempre se equivoca en porcentajes. ¿Qué hacés con el anexo? <em>(Buscás su fila, mirás la columna "tema más débil". Si dice "Porcentajes", confirma el patrón. Si dice "Números reales", tal vez está confundiendo el malestar y el problema está en otro tema.)</em></div>
         </div>
       </div>
-    `,
+        </div>
+      `
+      }
+    ],
     quiz: {
       question: 'Recibís el reporte un lunes a las 8 am y tenés que dar clase a las 10 am. Solo tenés 14 minutos antes de la clase. ¿Qué priorizás?',
       options: [
