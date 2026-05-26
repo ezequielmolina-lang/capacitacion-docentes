@@ -325,6 +325,19 @@
     .report .rp-conv-card .rp-cc-grid{grid-template-columns:1fr 16px 1fr}
   }
 
+  /* Stepped flow (intra-module navigation) */
+  .step-progress{display:flex;align-items:center;gap:12px;margin:0 0 28px;padding:11px 16px;background:linear-gradient(90deg,#fff4d4 0%,#fffaeb 100%);border:1px solid var(--primary-light);border-radius:10px;font-size:13px;color:var(--primary-dark);font-weight:600;box-shadow:var(--shadow-sm)}
+  .step-progress-label{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text-dark)}
+  .step-progress-bar{width:120px;flex-shrink:0;height:6px;background:#f0e8d8;border-radius:3px;overflow:hidden}
+  .step-progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--primary-dark));transition:width .35s ease}
+  .step-progress-count{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--primary-dark);white-space:nowrap;letter-spacing:.03em}
+  .step-nav-buttons{display:flex;justify-content:space-between;align-items:center;margin:28px 0 16px;padding:16px 0;border-top:1px dashed var(--border);gap:10px;flex-wrap:wrap}
+  .step-nav-buttons .btn{padding:11px 22px;font-size:14px}
+  .step-dots{display:flex;justify-content:center;gap:6px;margin:14px 0 8px}
+  .step-dot{width:8px;height:8px;border-radius:50%;background:#f0e8d8;transition:all .2s;cursor:pointer}
+  .step-dot.active{background:var(--primary);transform:scale(1.3)}
+  .step-dot.done{background:var(--success)}
+
   .coming-soon{background:linear-gradient(135deg,#fffaeb 0%,#FFF 100%);border:2px dashed var(--primary-light);border-radius:var(--radius);padding:32px;text-align:center;margin:20px 0}
   .coming-soon-icon{font-size:42px;margin-bottom:8px}
   .coming-soon h3{margin:8px 0;color:var(--primary-dark)}
@@ -388,40 +401,57 @@ const MODULES = [
     title: 'Bienvenida + Video del programa',
     eyebrow: 'Módulo 1 de 9',
     duration: '~15 min',
-    content: () => `
-      <div class="welcome-hero">
-        <h2>Bienvenido al curso de perfeccionamiento</h2>
-        <p>Matemáticas — Tutor de IA en el aula. Continuamos lo que empezó en marzo, ahora con los datos que ya tenemos de tu sección y tu sección comparada con el resto del programa.</p>
-        <div class="welcome-stats">
-          <div class="stat"><div class="stat-num">8 h</div><div class="stat-label">Pedagógicas</div></div>
-          <div class="stat"><div class="stat-num">9</div><div class="stat-label">Módulos</div></div>
-          <div class="stat"><div class="stat-num">30%</div><div class="stat-label">De tu nota final</div></div>
-        </div>
-      </div>
-
-      <div class="lesson">
-        <h3>Antes de empezar, mira este video (~10 min)</h3>
-        <p>Es el resumen del programa: cómo nació Eligiendo Mi Camino, qué problema queremos resolver con el Tutor de IA, cómo encaja tu rol como docente de Matemáticas. <strong>Mira el video completo</strong>; es la mejor inducción al sentido del curso.</p>
-        <div class="video-wrap">
-          <iframe src="https://drive.google.com/file/d/${VIDEO_DRIVE_ID}/preview" allow="autoplay" allowfullscreen></iframe>
-        </div>
-        <p style="font-size:13.5px;color:var(--text-muted);">Si el video no carga, <a href="https://drive.google.com/file/d/${VIDEO_DRIVE_ID}/view" target="_blank" rel="noopener" style="color:var(--primary-dark);">abrílo directo en Google Drive</a>.</p>
-
-        <h3>¿Qué vas a encontrar en este curso?</h3>
-        <p>Este curso es <strong>diferente</strong> de la capacitación inicial de 16h que hiciste en marzo. Aquí no te enseñamos qué es el programa — eso ya lo sabes. Aquí te damos herramientas para los problemas reales que ya viviste estas primeras semanas:</p>
-        <ol>
-          <li><strong>Cómo leer el reporte de aula</strong> que recibes cada 2 semanas — página por página, con casos reales.</li>
-          <li><strong>Cómo interpretar el dashboard</strong> en vivo durante una sesión sin distraerte del aula.</li>
-          <li><strong>Qué hacer con los datos:</strong> guiones concretos para clases cortas de 10 minutos cuando ves un error conceptual repetido.</li>
-          <li><strong>Cómo coordinar con tu director</strong> a partir del reporte que él/ella también recibe.</li>
-          <li><strong>Cómo afinar los 5 momentos de tu sesión</strong> en función de lo que el dashboard te muestra.</li>
-        </ol>
-
-        <div class="callout callout-tip"><p><span class="callout-icon">💡</span><strong>Forma de trabajar:</strong> los módulos se hacen en orden, pero podés volver a los anteriores cuando quieras. El progreso queda guardado automáticamente. Al terminar el quiz final con 6/10 o más se emite tu certificado.</p></div>
-
-        <div class="callout callout-info"><p><span class="callout-icon">📩</span><strong>¿Dudas sobre el curso o el reporte?</strong> Escribinos a <a href="mailto:eligiendomicamino@worldbank.org" style="color:#1565C0;font-weight:600;">eligiendomicamino@worldbank.org</a>.</p></div>
-      </div>
-    `,
+    steps: [
+      {
+        title: 'Bienvenida al curso',
+        content: () => `
+          <div class="welcome-hero">
+            <h2>Bienvenido al curso de perfeccionamiento</h2>
+            <p>Matemáticas — Tutor de IA en el aula. Continuamos lo que empezó en marzo, ahora con los datos que ya tenemos de tu sección y tu sección comparada con el resto del programa.</p>
+            <div class="welcome-stats">
+              <div class="stat"><div class="stat-num">8 h</div><div class="stat-label">Pedagógicas</div></div>
+              <div class="stat"><div class="stat-num">9</div><div class="stat-label">Módulos</div></div>
+              <div class="stat"><div class="stat-num">30%</div><div class="stat-label">De tu nota final</div></div>
+            </div>
+          </div>
+          <div class="lesson">
+            <p>Este curso es <strong>diferente</strong> de la capacitación inicial de 16h que hiciste en marzo. Aquí no te enseñamos qué es el programa — eso ya lo sabes. Te damos herramientas para los problemas reales que ya viviste estas primeras semanas implementando con tus estudiantes.</p>
+            <div class="callout callout-tip"><p><span class="callout-icon">💡</span><strong>Forma de trabajar:</strong> el curso está partido en pasos cortos. Cada módulo tiene varios pasos — vas avanzando con el botón "Continuar →". Tu progreso queda guardado automáticamente; podés volver donde quieras desde la barra lateral.</p></div>
+          </div>
+        `
+      },
+      {
+        title: 'Video del programa',
+        content: () => `
+          <div class="lesson">
+            <h3>Antes de avanzar, mira este video (~10 min)</h3>
+            <p>Es el resumen del programa: cómo nació Eligiendo Mi Camino, qué problema queremos resolver con el Tutor de IA, cómo encaja tu rol como docente de Matemáticas. <strong>Vale la pena verlo completo</strong>; es la mejor inducción al sentido del curso.</p>
+            <div class="video-wrap">
+              <iframe src="https://drive.google.com/file/d/${VIDEO_DRIVE_ID}/preview" allow="autoplay" allowfullscreen></iframe>
+            </div>
+            <p style="font-size:13.5px;color:var(--text-muted);">Si el video no carga, <a href="https://drive.google.com/file/d/${VIDEO_DRIVE_ID}/view" target="_blank" rel="noopener" style="color:var(--primary-dark);">abrílo directo en Google Drive</a>.</p>
+          </div>
+        `
+      },
+      {
+        title: '¿Qué vas a encontrar?',
+        content: () => `
+          <div class="lesson">
+            <h3>¿Qué vas a encontrar en este curso?</h3>
+            <p>5 cosas concretas que vas a aprender, alineadas a lo que ya pasa en tu aula:</p>
+            <ol>
+              <li><strong>Cómo leer el reporte de aula</strong> que recibes cada 2 semanas — página por página, con casos reales.</li>
+              <li><strong>Cómo interpretar el dashboard</strong> en vivo durante una sesión sin distraerte del aula.</li>
+              <li><strong>Qué hacer con los datos:</strong> guiones de clase corta de 10 minutos para errores conceptuales repetidos.</li>
+              <li><strong>Cómo coordinar con tu director</strong> a partir del reporte que él/ella también recibe.</li>
+              <li><strong>Cómo afinar los 5 momentos</strong> de tu sesión a partir de lo que el dashboard te muestra.</li>
+            </ol>
+            <div class="callout callout-success"><p><span class="callout-icon">🎓</span>Al terminar el quiz final con <strong>6/10 o más</strong> se emite tu certificado. Las 8 horas pedagógicas suman al componente "Productos y autoestudio" (30% de tu nota final).</p></div>
+            <div class="callout callout-info"><p><span class="callout-icon">📩</span><strong>¿Dudas sobre el curso o el reporte?</strong> Escribinos a <a href="mailto:eligiendomicamino@worldbank.org" style="color:#1565C0;font-weight:600;">eligiendomicamino@worldbank.org</a>.</p></div>
+          </div>
+        `
+      }
+    ],
     quiz: {
       question: '¿Cuál es la diferencia principal entre este curso y la capacitación inicial de 16 h que hiciste en marzo?',
       options: [
@@ -443,61 +473,100 @@ const MODULES = [
     title: 'Los 5 momentos de la sesión',
     eyebrow: 'Módulo 2 de 9',
     duration: '~45 min',
-    content: () => `
-      <div class="lesson">
-        <p>Toda sesión bien implementada con el Tutor de IA tiene la misma estructura: <strong>5 momentos</strong> que viste en la capacitación inicial de marzo. Son el esqueleto operativo — si los respetás, no tenés que improvisar. Acá los repasamos con foco en lo que vimos funcionar (y fallar) en aula estas primeras semanas.</p>
-
-        <div class="moment-card">
-          <div class="moment-num">1</div>
-          <div class="moment-content">
-            <div class="moment-time">~5 min · Apertura</div>
-            <h4>Apertura con ejemplo resuelto</h4>
-            <p>Recibís a tus estudiantes, <strong>iniciás sesión con tu usuario docente</strong> (sin ese paso, la clase no se registra como tuya), te aseguras de que <strong>todos accedan a uDocz</strong> con sus credenciales del programa, y <strong>resolvés un ejemplo en pizarra</strong> conectado al tema del día. El ejemplo no es para enseñar contenido nuevo — es para ubicar el cerebro de los estudiantes en el tipo de problema que van a practicar con Doc.</p>
+    steps: [
+      {
+        title: 'Recap: el esqueleto de toda sesión',
+        content: () => `
+          <div class="lesson">
+            <p>Toda sesión bien implementada con el Tutor de IA tiene la misma estructura: <strong>5 momentos</strong> que viste en la capacitación inicial de marzo. Son el esqueleto operativo — si los respetás, no tenés que improvisar.</p>
+            <p>Acá los repasamos uno a uno con foco en <strong>lo que vimos funcionar (y fallar)</strong> en aula estas primeras semanas. Cada momento en un paso, así no te satura la pantalla.</p>
+            <div class="callout callout-info"><p><span class="callout-icon">📍</span><strong>Foco del módulo:</strong> entender por qué los Momentos 1 (Apertura) y 3 (Pausa) son tu palanca pedagógica más fuerte — donde aportás lo que la IA no puede.</p></div>
           </div>
-        </div>
-
-        <div class="moment-card">
-          <div class="moment-num">2</div>
-          <div class="moment-content">
-            <div class="moment-time">~35-40 min · Práctica autónoma</div>
-            <h4>Práctica autónoma + circulación docente</h4>
-            <p>Los estudiantes resuelven con Doc en sus dispositivos. Vos <strong>circulás por el aula con la lista de cotejo de 5 indicadores</strong> (acceso, ritmo, foco, errores frecuentes, conversación con Doc). El dashboard te da el panorama agregado; la circulación te da el detalle individual. <strong>No intervenís todavía</strong> — la IA está haciendo su trabajo de feedback inmediato 1 a 1.</p>
+        `
+      },
+      {
+        title: 'Momento 1 · Apertura',
+        content: () => `
+          <div class="lesson">
+            <div class="moment-card">
+              <div class="moment-num">1</div>
+              <div class="moment-content">
+                <div class="moment-time">~5 min · Apertura</div>
+                <h4>Apertura con ejemplo resuelto</h4>
+                <p>Recibís a tus estudiantes, <strong>iniciás sesión con tu usuario docente</strong> (sin ese paso, la clase no se registra como tuya), te aseguras de que <strong>todos accedan a uDocz</strong> con sus credenciales del programa, y <strong>resolvés un ejemplo en pizarra</strong> conectado al tema del día.</p>
+                <p>El ejemplo <strong>no es para enseñar contenido nuevo</strong> — es para ubicar el cerebro de los estudiantes en el tipo de problema que van a practicar con Doc. 5 minutos bien usados acá ahorran 15 de práctica dispersa después.</p>
+              </div>
+            </div>
           </div>
-        </div>
-
-        <div class="moment-card">
-          <div class="moment-num">3</div>
-          <div class="moment-content">
-            <div class="moment-time">~10-15 min · Pausa y puesta en común</div>
-            <h4>Pausa y puesta en común</h4>
-            <p>Pausás la práctica con una frase corta ("paramos 10 minutos"). En esos minutos: <strong>compartís lo que viste circulando</strong> (sin nombrar a nadie en mal), elegís 1-2 errores conceptuales repetidos del dashboard y los resolvés en pizarra (mini-clase para todos), y validás dudas que aparecieron. Es el momento más pedagógicamente potente — donde el docente aporta lo que la IA no puede.</p>
+        `
+      },
+      {
+        title: 'Momento 2 · Práctica autónoma',
+        content: () => `
+          <div class="lesson">
+            <div class="moment-card">
+              <div class="moment-num">2</div>
+              <div class="moment-content">
+                <div class="moment-time">~35-40 min · Práctica autónoma</div>
+                <h4>Práctica autónoma + circulación docente</h4>
+                <p>Los estudiantes resuelven con Doc en sus dispositivos. Vos <strong>circulás por el aula con la lista de cotejo de 5 indicadores</strong> (acceso, ritmo, foco, errores frecuentes, conversación con Doc).</p>
+                <p>El dashboard te da el panorama agregado; la circulación te da el detalle individual. <strong>No intervenís todavía</strong> — la IA está haciendo su trabajo de feedback inmediato 1 a 1. Solo observás patrones para usarlos en la pausa del Momento 3.</p>
+              </div>
+            </div>
           </div>
-        </div>
-
-        <div class="moment-card">
-          <div class="moment-num">4</div>
-          <div class="moment-content">
-            <div class="moment-time">~25-30 min · Segunda ronda</div>
-            <h4>Segunda ronda de práctica</h4>
-            <p>Los estudiantes vuelven a Doc con la idea fresca de la pausa. Vos seguís circulando, pero ahora con foco en <strong>los estudiantes que en la primera ronda mostraron señales de necesitar apoyo</strong> (poco avance, errores repetidos, pocas preguntas). Es práctica individual con monitoreo dirigido — distinto al Momento 2 donde el monitoreo era panorámico.</p>
+        `
+      },
+      {
+        title: 'Momento 3 · Pausa y puesta en común ⭐',
+        content: () => `
+          <div class="lesson">
+            <div class="moment-card" style="border:2px solid var(--primary);background:linear-gradient(135deg,#fffaeb 0%,#fff 100%);">
+              <div class="moment-num">3</div>
+              <div class="moment-content">
+                <div class="moment-time">~10-15 min · Pausa y puesta en común</div>
+                <h4>Pausa y puesta en común <span style="color:var(--primary);font-size:14px;">— palanca pedagógica fuerte</span></h4>
+                <p>Pausás la práctica con una frase corta ("paramos 10 minutos"). En esos minutos: <strong>compartís lo que viste circulando</strong> (sin nombrar a nadie en mal), elegís 1-2 errores conceptuales repetidos del dashboard y <strong>los resolvés en pizarra</strong> (mini-clase para todos), y validás dudas que aparecieron.</p>
+                <p><strong>Es el momento más pedagógicamente potente</strong> — donde aportás lo que la IA no puede: una mini-clase grupal sobre un patrón colectivo. Sin esta pausa, la sesión se queda corta de impacto.</p>
+              </div>
+            </div>
+            <div class="callout callout-tip"><p><span class="callout-icon">⭐</span>Los <strong>5 guiones de clase corta</strong> que vas a usar en el Momento 3 están en el Módulo 6 de este curso — para los 5 errores más típicos de 5° de secundaria peruana.</p></div>
           </div>
-        </div>
-
-        <div class="moment-card">
-          <div class="moment-num">5</div>
-          <div class="moment-content">
-            <div class="moment-time">~10 min · Cierre</div>
-            <h4>Cierre</h4>
-            <p>Recogés con la clase <strong>qué fue lo más difícil del día</strong>, validás con el dashboard a quién retomar la próxima sesión, dejás tarea opcional (Modo Casa), y cerrás con una <strong>frase sobre qué viene</strong>. Este cierre conecta directo con lo que vas a leer en el reporte quincenal — los datos del cierre alimentan el próximo reporte.</p>
+        `
+      },
+      {
+        title: 'Momento 4 · Segunda ronda',
+        content: () => `
+          <div class="lesson">
+            <div class="moment-card">
+              <div class="moment-num">4</div>
+              <div class="moment-content">
+                <div class="moment-time">~25-30 min · Segunda ronda</div>
+                <h4>Segunda ronda de práctica</h4>
+                <p>Los estudiantes vuelven a Doc <strong>con la idea fresca de la pausa</strong>. Vos seguís circulando, pero ahora con foco en <strong>los estudiantes que en la primera ronda mostraron señales</strong> de necesitar apoyo (poco avance, errores repetidos, pocas preguntas).</p>
+                <p>Es práctica individual con <strong>monitoreo dirigido</strong> — distinto al Momento 2 donde el monitoreo era panorámico. Ahora ya sabés a quién acompañar de cerca.</p>
+              </div>
+            </div>
           </div>
-        </div>
-
-        <div class="callout callout-tip"><p><span class="callout-icon">💡</span><strong>Regla de oro:</strong> el Tutor IA es muy bueno en práctica individual y feedback inmediato. Vos sos mejor en intervención conceptual y manejo del grupo. <strong>No compitas con la IA — complementala.</strong> Tu valor agregado está concentrado en el Momento 3 (pausa y puesta en común) y en el monitoreo dirigido del Momento 4.</p></div>
-
-        <h3>Qué cambia entre la teoría y lo que pasa en tu aula</h3>
-        <p>Cada docente adapta los 5 momentos. <strong>El módulo 3 es donde lo vas a contar</strong> — qué te funcionó, qué no funcionó, qué te gustaría mejorar. Esa información la usamos para ajustar el programa y para pensar en lo que viene.</p>
-      </div>
-    `,
+        `
+      },
+      {
+        title: 'Momento 5 · Cierre + Regla de oro',
+        content: () => `
+          <div class="lesson">
+            <div class="moment-card">
+              <div class="moment-num">5</div>
+              <div class="moment-content">
+                <div class="moment-time">~10 min · Cierre</div>
+                <h4>Cierre</h4>
+                <p>Recogés con la clase <strong>qué fue lo más difícil del día</strong>, validás con el dashboard a quién retomar la próxima sesión, dejás tarea opcional (Modo Casa), y cerrás con una <strong>frase sobre qué viene</strong>. Este cierre conecta directo con lo que vas a leer en el reporte quincenal — los datos del cierre alimentan el próximo reporte.</p>
+              </div>
+            </div>
+            <div class="callout callout-tip"><p><span class="callout-icon">💡</span><strong>Regla de oro:</strong> el Tutor IA es muy bueno en práctica individual y feedback inmediato. Vos sos mejor en intervención conceptual y manejo del grupo. <strong>No compitas con la IA — complementala.</strong> Tu valor agregado está concentrado en el Momento 1 (apertura con ejemplo) y en el Momento 3 (pausa con mini-clase de errores repetidos).</p></div>
+            <p>En el próximo módulo te pedimos tu experiencia con cada momento: qué te funcionó, qué te costó. Tu feedback ajusta el programa para todos.</p>
+          </div>
+        `
+      }
+    ],
     quiz: {
       question: 'En el Momento 3 (Pausa y puesta en común), ¿cuál es el principal valor agregado que solo vos podés aportar y la IA no?',
       options: [
@@ -2041,11 +2110,45 @@ function loadState() {
       userSchool: s.userSchool || '',
       started: s.started || false,
       feedbackMomentos: s.feedbackMomentos || {},
-      feedbackMomentosSubmitted: s.feedbackMomentosSubmitted || false
+      feedbackMomentosSubmitted: s.feedbackMomentosSubmitted || false,
+      stepInModule: s.stepInModule || {}
     };
   } catch(e) {
-    return { currentModule:0, completed:{}, finalAnswers:{}, finalCompleted:false, reflexion:'', userName:'', userDni:'', userSchool:'', started:false, feedbackMomentos:{}, feedbackMomentosSubmitted:false };
+    return { currentModule:0, completed:{}, finalAnswers:{}, finalCompleted:false, reflexion:'', userName:'', userDni:'', userSchool:'', started:false, feedbackMomentos:{}, feedbackMomentosSubmitted:false, stepInModule:{} };
   }
+}
+
+function getStepIdx(modId) {
+  return (state.stepInModule && state.stepInModule[modId]) || 0;
+}
+function setStepIdx(modId, idx) {
+  if (!state.stepInModule) state.stepInModule = {};
+  state.stepInModule[modId] = idx;
+  saveState();
+}
+function nextStep() {
+  const m = MODULES[state.currentModule];
+  if (!m.steps) return;
+  const idx = getStepIdx(m.id);
+  if (idx < m.steps.length - 1) {
+    setStepIdx(m.id, idx + 1);
+    renderModule();
+  }
+}
+function prevStep() {
+  const m = MODULES[state.currentModule];
+  if (!m.steps) return;
+  const idx = getStepIdx(m.id);
+  if (idx > 0) {
+    setStepIdx(m.id, idx - 1);
+    renderModule();
+  }
+}
+function jumpToStep(idx) {
+  const m = MODULES[state.currentModule];
+  if (!m.steps || idx < 0 || idx >= m.steps.length) return;
+  setStepIdx(m.id, idx);
+  renderModule();
 }
 
 var TRACKING_URL = 'https://script.google.com/macros/s/AKfycbyUeu-Q_wesHnr9Df_OKWgfM6_o7pOMPP2Z5tlxATllORSfAYTDSYKcm-JsqJjS2Rd7/exec';
@@ -2170,18 +2273,74 @@ function renderModule(opts) {
   const m = MODULES[state.currentModule];
   document.getElementById('topbarTitle').textContent = m.title;
   const main = document.getElementById('main');
-  const contentHtml = typeof m.content === 'function' ? m.content() : m.content;
+
+  const hasSteps = Array.isArray(m.steps) && m.steps.length > 0;
+  let stepIdx = 0, totalSteps = 0, isLastStep = true;
+  let contentHtml = '';
+  let stepProgressHtml = '';
+  let stepNavHtml = '';
+
+  if (hasSteps) {
+    stepIdx = getStepIdx(m.id);
+    totalSteps = m.steps.length;
+    if (stepIdx >= totalSteps) stepIdx = totalSteps - 1;
+    isLastStep = stepIdx === totalSteps - 1;
+    const step = m.steps[stepIdx];
+    contentHtml = typeof step.content === 'function' ? step.content() : step.content;
+    const pct = ((stepIdx + 1) / totalSteps) * 100;
+    stepProgressHtml = `
+      <div class="step-progress">
+        <div class="step-progress-label">${step.title || ''}</div>
+        <div class="step-progress-bar"><div class="step-progress-fill" style="width:${pct}%"></div></div>
+        <div class="step-progress-count">Paso ${stepIdx + 1}/${totalSteps}</div>
+      </div>
+    `;
+    // Dots are clickable for direct navigation
+    let dots = '';
+    for (let i = 0; i < totalSteps; i++) {
+      let cls = 'step-dot';
+      if (i === stepIdx) cls += ' active';
+      else if (i < stepIdx) cls += ' done';
+      dots += `<div class="${cls}" onclick="jumpToStep(${i})" title="${(m.steps[i].title || '').replace(/"/g,'&quot;')}"></div>`;
+    }
+    const stepDotsHtml = `<div class="step-dots">${dots}</div>`;
+    stepProgressHtml += stepDotsHtml;
+
+    // Step navigation: on last step we fall through to renderNavButtons (which has quiz+module nav)
+    if (!isLastStep) {
+      const nextTitle = m.steps[stepIdx + 1].title || '';
+      stepNavHtml = `
+        <div class="step-nav-buttons">
+          <button class="btn btn-secondary" onclick="prevStep()" ${stepIdx === 0 ? 'disabled' : ''}>← Paso anterior</button>
+          <button class="btn btn-primary" onclick="nextStep()">Continuar — ${nextTitle.substring(0, 40)} →</button>
+        </div>
+      `;
+    }
+  } else {
+    contentHtml = typeof m.content === 'function' ? m.content() : m.content;
+  }
+
   let html = `
     <div class="module-header">
       <div class="module-eyebrow">${m.eyebrow} · ${m.duration}</div>
       <h1 class="module-title">${m.title}</h1>
     </div>
+    ${stepProgressHtml}
     ${contentHtml}
   `;
-  if (!m.isFinal && m.quiz) {
+
+  // Quiz only renders on last step (or when there are no steps)
+  if (isLastStep && !m.isFinal && m.quiz) {
     html += renderQuiz(m.id, m.quiz, state.completed[m.id]);
   }
-  html += renderNavButtons();
+
+  // Step nav (if not on last step) OR module nav (if on last step or no steps)
+  if (hasSteps && !isLastStep) {
+    html += stepNavHtml;
+  } else {
+    html += renderNavButtons();
+  }
+
   main.innerHTML = html;
   if (opts.preserveScroll) window.scrollTo(0, savedScroll); else window.scrollTo(0, 0);
   // Re-show feedback submit confirmation if already submitted
