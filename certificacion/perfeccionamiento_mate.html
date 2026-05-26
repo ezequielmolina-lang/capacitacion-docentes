@@ -1224,16 +1224,19 @@ const MODULES = [
     title: 'El reporte del director',
     eyebrow: 'Módulo 5 de 9',
     duration: '~1 h',
-    content: () => `
-      <div class="lesson">
+    steps: [
+      {
+        title: 'Página 1 · Datos de tu IE + contactos',
+        content: () => `
+          <div class="lesson">
+<div class="lesson">
         <p>Tu director recibe <strong>su propio reporte</strong> cada quincena. No es el mismo que el tuyo — está pensado para gestión de la IE: cómo viene la escuela completa, cómo se compara entre secciones, y tres acciones puntuales para esta semana. Entenderlo te ayuda a <strong>coordinar mejor con la dirección</strong>: si sabes qué ve tu director, podés anticipar qué te va a pedir, qué te va a reconocer, y qué temas conviene levantar vos.</p>
 
         <div class="callout callout-info"><p><span class="callout-icon">🏫</span><strong>Sobre este reporte demo:</strong> es el formato real que recibe tu director, con datos sintéticos (IE Ficticia 9999). 5 páginas. Te lo recorremos página por página debajo.</p></div>
 
         <h3>📊 Reporte demo del director · IE Ficticia 9999</h3>
-
-        <div class="report">
-          <!-- =================== PÁGINA 1 — Bienvenida + datos IE =================== -->
+          <div class="report">
+<!-- =================== PÁGINA 1 — Bienvenida + datos IE =================== -->
           <div class="report-pg">
             <div class="pg-header">
               <div class="pg-header-left">
@@ -1309,8 +1312,27 @@ const MODULES = [
 
             <div class="pg-footer"><span>IE FICTICIA 9999 · UGEL DEMO</span><span class="pg-footer-num">PÁGINA 1 DE 5</span></div>
           </div>
+          </div>
 
-          <!-- =================== PÁGINA 2 — Vista general =================== -->
+          <div class="walkthrough">
+          <div class="walkthrough-title"><span class="wt-pg-num">1</span>Bienvenida + datos de la IE + contactos</div>
+          <div class="wt-panels">
+            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>Datos básicos de tu IE (código modular, UGEL, estudiantes, secciones, director), <strong>contactos directos</strong> de los acompañantes EMC del programa para mate y tutoría, y la lista de docentes con sus celulares por sección.</p></div>
+            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Esta página le da al director <strong>quién es quién en el programa para su IE</strong>: tu nombre y celular están ahí, igual que el del tutor OV. Si tu director quiere consultar algo del programa, sabe a quién llamar.</p></div>
+            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Verificá que tu número de WhatsApp esté correcto en el reporte de tu director. Si no, avisale al acompañante EMC para que lo corrijan. Es la vía principal por la cual tu director te va a contactar para asuntos del programa.</p></div>
+            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que tu director "tenga que" usar el WhatsApp de los acompañantes para hablar de vos. Es para <strong>asuntos del programa</strong>: dudas sobre métricas, escalamiento de problemas técnicos. Para temas pedagógicos cotidianos, los canales internos de la IE siguen funcionando igual.</p></div>
+          </div>
+          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>¿A quién contacta el director si una sección tiene problemas de acceso a la plataforma uDocz que duran más de una semana? <em>(Al acompañante EMC de matemática del reporte, no al equipo de soporte uDocz directamente. EMC escala con uDocz si hace falta.)</em></div>
+        </div>
+        </div>
+        `
+      },
+      {
+        title: 'Página 2 · Vista general semana a semana',
+        content: () => `
+          <div class="lesson">
+<div class="report">
+<!-- =================== PÁGINA 2 — Vista general =================== -->
           <div class="report-pg">
             <div class="rp-section">
               <span class="rp-section-num">§ 01</span>
@@ -1351,8 +1373,27 @@ const MODULES = [
 
             <div class="pg-footer"><span>IE FICTICIA 9999 · VISTA GENERAL</span><span class="pg-footer-num">PÁGINA 2 DE 5</span></div>
           </div>
+          </div>
 
-          <!-- =================== PÁGINA 3 — Matemática =================== -->
+          <div class="walkthrough">
+          <div class="walkthrough-title"><span class="wt-pg-num">2</span>Vista general semana a semana — Mate y Tutoría</div>
+          <div class="wt-panels">
+            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>Dos tablas: <strong>% activos</strong> y <strong>preguntas por estudiante</strong> en matemática, y <strong>% activos</strong> en tutoría — semana a semana. Cada celda compara su escuela vs UGEL vs programa.</p></div>
+            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>El director ve la <strong>tendencia agregada de toda la escuela</strong>, no por sección individual. La pregunta clave para él es: "¿estamos arriba o abajo del programa? ¿estamos subiendo o bajando?". Picos y caídas semanales son normales — lo que importa es el promedio del mes.</p></div>
+            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Si ves que <strong>una semana del reporte tuya tuvo caída</strong> (la del "—" en el demo de pp. 2 del reporte del docente), revisá en esta página del director si pasó en toda la IE o solo en tu sección. Si fue toda la IE, suele ser un evento contextual (feriado, gestión). Si solo tuya, levantalo con el acompañante EMC vos mismo, antes de que el director te pregunte.</p></div>
+            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que el director vea quién faltó. Esta vista es <strong>solo agregada</strong>. No expone estudiantes ni docentes por nombre — eso vive en tu reporte y en su anexo, no en esta página del director.</p></div>
+          </div>
+          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>El demo del director muestra que en la Sem 7 el % activos cayó a 51% mientras la UGEL subió a 53%. ¿Qué interpreta el director? <em>(Que la escuela bajó respecto a su tendencia, pero NO sabe en qué sección. Si querés evitar que escale, podés mencionarlo vos en la próxima reunión: "esa semana tuvimos X, ya está resuelto".)</em></div>
+        </div>
+        </div>
+        `
+      },
+      {
+        title: 'Página 3 · Matemática · ¿están aprendiendo?',
+        content: () => `
+          <div class="lesson">
+<div class="report">
+<!-- =================== PÁGINA 3 — Matemática =================== -->
           <div class="report-pg">
             <div class="rp-section">
               <span class="rp-section-num">§ 02</span>
@@ -1410,8 +1451,27 @@ const MODULES = [
 
             <div class="pg-footer"><span>IE FICTICIA 9999 · MATEMÁTICA</span><span class="pg-footer-num">PÁGINA 3 DE 5</span></div>
           </div>
+          </div>
 
-          <!-- =================== PÁGINA 4 — Tutoría =================== -->
+          <div class="walkthrough">
+          <div class="walkthrough-title"><span class="wt-pg-num">3</span>Matemática — ¿están aprendiendo?</div>
+          <div class="wt-panels">
+            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>El detalle de mate para toda la IE: <strong>cómo viene cada docente</strong> (reconocimientos públicos), 96% participación, uso del tutor IA en Modo Escuela vs Modo Casa, y <strong>detalle por sección</strong> (la sección A respondió 15K preguntas, la B respondió 7K).</p></div>
+            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Acá tu director <strong>te ve a vos comparado con tu colega de la otra sección</strong>. La comparación es honesta — quien tenga más volumen aparece arriba. No es para competir; es para que el director vea dónde puede pedir que se compartan buenas prácticas.</p></div>
+            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Si tu sección está <strong>arriba</strong> en volumen: prepará 2-3 cosas que estás haciendo y compartilas en la próxima reunión de área. Si tu sección está <strong>abajo</strong>: anticipá la conversación — preguntale a tu colega qué le viene funcionando. Mejor que te lo "encargue" el director.</p></div>
+            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que la sección con más preguntas sea la "mejor". <strong>El volumen depende de muchas cosas</strong>: equipos del lab, horarios, conectividad de esa semana. Volumen es señal de salud, no de calidad pedagógica.</p></div>
+          </div>
+          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>El demo muestra a "Profe Mate Demo B" reconocido con 97% de activos. Si esa fueras vos, ¿qué harías esta semana? <em>(Aprovechar el reconocimiento implícito: pedir 10 minutos al director para contarle qué estás haciendo y proponer compartirlo con el resto. Convertir reconocimiento en visibilidad genuina.)</em></div>
+        </div>
+        </div>
+        `
+      },
+      {
+        title: 'Página 4 · Tutoría vocacional · ¿están explorando?',
+        content: () => `
+          <div class="lesson">
+<div class="report">
+<!-- =================== PÁGINA 4 — Tutoría =================== -->
           <div class="report-pg">
             <div class="rp-section">
               <span class="rp-section-num">§ 03</span>
@@ -1484,8 +1544,27 @@ const MODULES = [
 
             <div class="pg-footer"><span>IE FICTICIA 9999 · TUTORÍA VOCACIONAL</span><span class="pg-footer-num">PÁGINA 4 DE 5</span></div>
           </div>
+          </div>
 
-          <!-- =================== PÁGINA 5 — Tres acciones =================== -->
+          <div class="walkthrough">
+          <div class="walkthrough-title"><span class="wt-pg-num">4</span>Tutoría vocacional — ¿están explorando?</div>
+          <div class="wt-panels">
+            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>El equivalente para tutoría: cuántos pasos del viaje vocacional completaron en promedio, distribución por paso (cuántos están en Paso 1, Paso 2, etc.), <strong>perfiles RIASEC dominantes</strong> de la IE, y rutas post-secundarias sugeridas por el sistema.</p></div>
+            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Esta página le sirve al director para <strong>comprender mejor a sus estudiantes</strong>: qué intereses dominan, qué porcentaje está pensando en universidad vs instituto, qué pasos del viaje vocacional ya hicieron. Es info estratégica para la IE, no para evaluar a nadie.</p></div>
+            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Como docente de mate, sirve para <strong>contextualizar problemas</strong>: si el perfil dominante en la IE es "Investigador", podés conectar tus problemas con ciencia, ingeniería, investigación. Si dominante es "Realista", conectar con oficios, construcción, mecánica. Tu colega tutor OV te puede contar más.</p></div>
+            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que estos perfiles "determinen" lo que cada estudiante hará. Son <strong>tendencias del grupo</strong> que el sistema detectó por el test. Individualmente cada estudiante decide.</p></div>
+          </div>
+          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>El demo dice que el perfil dominante de la IE es "Investigador". ¿Qué problema de mate concreto adaptarías para sumar a sus intereses? <em>(Problemas con datos reales — análisis estadístico, modelado, "predice X según estos datos" — en vez de problemas de cálculo descontextualizado. Conectar el rigor matemático con la curiosidad investigadora.)</em></div>
+        </div>
+        </div>
+        `
+      },
+      {
+        title: 'Página 5 · Tres cosas que puede hacer + QR',
+        content: () => `
+          <div class="lesson">
+<div class="report">
+<!-- =================== PÁGINA 5 — Tres acciones =================== -->
           <div class="report-pg">
             <div class="rp-section">
               <span class="rp-section-num">§ 04</span>
@@ -1532,57 +1611,9 @@ const MODULES = [
 
             <div class="pg-footer"><span>IE FICTICIA 9999 · PLAN DE ACCIÓN</span><span class="pg-footer-num">PÁGINA 5 DE 5</span></div>
           </div>
-        </div>
-
-        <!-- =================== WALK-THROUGH =================== -->
-        <h3 style="margin-top:48px;">🧭 Walk-through · una página a la vez</h3>
-        <p>Ahora pasamos por las 5 páginas. Te conviene entender qué ve tu director para saber qué te va a comentar, qué reconocimientos esperar, y dónde podés vos levantar la mano antes de que aparezca como problema.</p>
-
-        <div class="walkthrough">
-          <div class="walkthrough-title"><span class="wt-pg-num">1</span>Bienvenida + datos de la IE + contactos</div>
-          <div class="wt-panels">
-            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>Datos básicos de tu IE (código modular, UGEL, estudiantes, secciones, director), <strong>contactos directos</strong> de los acompañantes EMC del programa para mate y tutoría, y la lista de docentes con sus celulares por sección.</p></div>
-            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Esta página le da al director <strong>quién es quién en el programa para su IE</strong>: tu nombre y celular están ahí, igual que el del tutor OV. Si tu director quiere consultar algo del programa, sabe a quién llamar.</p></div>
-            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Verificá que tu número de WhatsApp esté correcto en el reporte de tu director. Si no, avisale al acompañante EMC para que lo corrijan. Es la vía principal por la cual tu director te va a contactar para asuntos del programa.</p></div>
-            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que tu director "tenga que" usar el WhatsApp de los acompañantes para hablar de vos. Es para <strong>asuntos del programa</strong>: dudas sobre métricas, escalamiento de problemas técnicos. Para temas pedagógicos cotidianos, los canales internos de la IE siguen funcionando igual.</p></div>
           </div>
-          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>¿A quién contacta el director si una sección tiene problemas de acceso a la plataforma uDocz que duran más de una semana? <em>(Al acompañante EMC de matemática del reporte, no al equipo de soporte uDocz directamente. EMC escala con uDocz si hace falta.)</em></div>
-        </div>
 
-        <div class="walkthrough">
-          <div class="walkthrough-title"><span class="wt-pg-num">2</span>Vista general semana a semana — Mate y Tutoría</div>
-          <div class="wt-panels">
-            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>Dos tablas: <strong>% activos</strong> y <strong>preguntas por estudiante</strong> en matemática, y <strong>% activos</strong> en tutoría — semana a semana. Cada celda compara su escuela vs UGEL vs programa.</p></div>
-            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>El director ve la <strong>tendencia agregada de toda la escuela</strong>, no por sección individual. La pregunta clave para él es: "¿estamos arriba o abajo del programa? ¿estamos subiendo o bajando?". Picos y caídas semanales son normales — lo que importa es el promedio del mes.</p></div>
-            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Si ves que <strong>una semana del reporte tuya tuvo caída</strong> (la del "—" en el demo de pp. 2 del reporte del docente), revisá en esta página del director si pasó en toda la IE o solo en tu sección. Si fue toda la IE, suele ser un evento contextual (feriado, gestión). Si solo tuya, levantalo con el acompañante EMC vos mismo, antes de que el director te pregunte.</p></div>
-            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que el director vea quién faltó. Esta vista es <strong>solo agregada</strong>. No expone estudiantes ni docentes por nombre — eso vive en tu reporte y en su anexo, no en esta página del director.</p></div>
-          </div>
-          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>El demo del director muestra que en la Sem 7 el % activos cayó a 51% mientras la UGEL subió a 53%. ¿Qué interpreta el director? <em>(Que la escuela bajó respecto a su tendencia, pero NO sabe en qué sección. Si querés evitar que escale, podés mencionarlo vos en la próxima reunión: "esa semana tuvimos X, ya está resuelto".)</em></div>
-        </div>
-
-        <div class="walkthrough">
-          <div class="walkthrough-title"><span class="wt-pg-num">3</span>Matemática — ¿están aprendiendo?</div>
-          <div class="wt-panels">
-            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>El detalle de mate para toda la IE: <strong>cómo viene cada docente</strong> (reconocimientos públicos), 96% participación, uso del tutor IA en Modo Escuela vs Modo Casa, y <strong>detalle por sección</strong> (la sección A respondió 15K preguntas, la B respondió 7K).</p></div>
-            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Acá tu director <strong>te ve a vos comparado con tu colega de la otra sección</strong>. La comparación es honesta — quien tenga más volumen aparece arriba. No es para competir; es para que el director vea dónde puede pedir que se compartan buenas prácticas.</p></div>
-            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Si tu sección está <strong>arriba</strong> en volumen: prepará 2-3 cosas que estás haciendo y compartilas en la próxima reunión de área. Si tu sección está <strong>abajo</strong>: anticipá la conversación — preguntale a tu colega qué le viene funcionando. Mejor que te lo "encargue" el director.</p></div>
-            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que la sección con más preguntas sea la "mejor". <strong>El volumen depende de muchas cosas</strong>: equipos del lab, horarios, conectividad de esa semana. Volumen es señal de salud, no de calidad pedagógica.</p></div>
-          </div>
-          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>El demo muestra a "Profe Mate Demo B" reconocido con 97% de activos. Si esa fueras vos, ¿qué harías esta semana? <em>(Aprovechar el reconocimiento implícito: pedir 10 minutos al director para contarle qué estás haciendo y proponer compartirlo con el resto. Convertir reconocimiento en visibilidad genuina.)</em></div>
-        </div>
-
-        <div class="walkthrough">
-          <div class="walkthrough-title"><span class="wt-pg-num">4</span>Tutoría vocacional — ¿están explorando?</div>
-          <div class="wt-panels">
-            <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>El equivalente para tutoría: cuántos pasos del viaje vocacional completaron en promedio, distribución por paso (cuántos están en Paso 1, Paso 2, etc.), <strong>perfiles RIASEC dominantes</strong> de la IE, y rutas post-secundarias sugeridas por el sistema.</p></div>
-            <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Esta página le sirve al director para <strong>comprender mejor a sus estudiantes</strong>: qué intereses dominan, qué porcentaje está pensando en universidad vs instituto, qué pasos del viaje vocacional ya hicieron. Es info estratégica para la IE, no para evaluar a nadie.</p></div>
-            <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Como docente de mate, sirve para <strong>contextualizar problemas</strong>: si el perfil dominante en la IE es "Investigador", podés conectar tus problemas con ciencia, ingeniería, investigación. Si dominante es "Realista", conectar con oficios, construcción, mecánica. Tu colega tutor OV te puede contar más.</p></div>
-            <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que estos perfiles "determinen" lo que cada estudiante hará. Son <strong>tendencias del grupo</strong> que el sistema detectó por el test. Individualmente cada estudiante decide.</p></div>
-          </div>
-          <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>El demo dice que el perfil dominante de la IE es "Investigador". ¿Qué problema de mate concreto adaptarías para sumar a sus intereses? <em>(Problemas con datos reales — análisis estadístico, modelado, "predice X según estos datos" — en vez de problemas de cálculo descontextualizado. Conectar el rigor matemático con la curiosidad investigadora.)</em></div>
-        </div>
-
-        <div class="walkthrough">
+          <div class="walkthrough">
           <div class="walkthrough-title"><span class="wt-pg-num">5</span>Tres cosas que el director puede hacer esta semana + QR de inclusión</div>
           <div class="wt-panels">
             <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>Tres acciones priorizadas para el director: <strong>(1)</strong> sumar a estudiantes ausentes, <strong>(2)</strong> reconocer al equipo docente, <strong>(3)</strong> recomendar cruzar buenas prácticas entre secciones. Más un QR para reportar estudiantes con discapacidad o retirados (para limpiar las métricas).</p></div>
@@ -1592,8 +1623,10 @@ const MODULES = [
           </div>
           <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>El director menciona la acción #3 (cruzar buenas prácticas) en una reunión. ¿Qué proponés vos? <em>(Una conversación de 15 minutos con tu colega de la otra sección — sin formato pesado, sin documento — para contar 1-2 cosas que cada uno está haciendo. Si querés sumar más, ofrecé llevar lo concreto al próximo claustro.)</em></div>
         </div>
-      </div>
-    `,
+        </div>
+        `
+      }
+    ],
     quiz: {
       question: 'Tu director te muestra el reporte que recibió y comenta que tu sección "está por debajo de la otra sección en volumen de preguntas". ¿Cuál es la mejor reacción?',
       options: [
@@ -2018,49 +2051,56 @@ const MODULES = [
     title: 'Recursos para llevarte',
     eyebrow: 'Módulo 9 de 9',
     duration: '~10 min',
-    content: () => {
-      // Generate biweekly Mondays from today, capped at end of July (program closure)
-      const today = new Date();
-      const dayOfWeek = today.getDay();
-      const daysUntilMonday = dayOfWeek === 1 ? 0 : (dayOfWeek === 0 ? 1 : 8 - dayOfWeek);
-      const nextMonday = new Date(today);
-      nextMonday.setDate(today.getDate() + daysUntilMonday);
-      // Closure date: 30 julio del año en curso (or next year if we're past July)
-      const closureYear = today.getMonth() >= 7 ? today.getFullYear() + 1 : today.getFullYear();
-      const closure = new Date(closureYear, 6, 30); // 6 = julio (0-indexed)
-      const dates = [];
-      for (let i = 0; i < 6; i++) {
-        const d = new Date(nextMonday);
-        d.setDate(nextMonday.getDate() + i * 14);
-        if (d > closure) break;
-        dates.push(d.toLocaleDateString('es-PE', { day: 'numeric', month: 'long' }));
-      }
-      // Always include "30 de julio · CIERRE DEL PROGRAMA" as the final entry if we have any dates
-      const showClosure = dates.length > 0 && new Date(closureYear, 6, 30) >= today;
-      const calendarPrompts = [
-        '¿Qué error conceptual aparece con más frecuencia? — Mirá el guion del módulo 6 si te suena.',
-        '¿Hubo alguna semana sin actividad? — Si tu sección tiene "—", revisá si fue contexto o señal real.',
-        '¿Qué estudiantes están en P1/P2/P3? — Concentrate en P1+P2 esta quincena.',
-        '¿La precisión subió o bajó vs. la quincena anterior? — Trend es lo que importa, no el número absoluto.',
-        '¿Hay un estudiante con buen volumen pero un tema débil? — Caso 4 del módulo 7.',
-        '¿Cómo viene tu sección vs. la otra sección de tu IE? — Página 3 del reporte del director te lo dice.'
-      ];
-      return `
-      <div class="lesson">
-        <p>Ya completaste el curso y obtuviste tu certificado. Acá te dejamos <strong>3 recursos para tener a mano</strong> mientras seguís implementando el programa:</p>
+    steps: [
+      {
+        title: 'Calendario sugerido por quincena',
+        content: () => {
+          const today = new Date();
+          const dayOfWeek = today.getDay();
+          const daysUntilMonday = dayOfWeek === 1 ? 0 : (dayOfWeek === 0 ? 1 : 8 - dayOfWeek);
+          const nextMonday = new Date(today);
+          nextMonday.setDate(today.getDate() + daysUntilMonday);
+          const closureYear = today.getMonth() >= 7 ? today.getFullYear() + 1 : today.getFullYear();
+          const closure = new Date(closureYear, 6, 30);
+          const dates = [];
+          for (let i = 0; i < 6; i++) {
+            const d = new Date(nextMonday);
+            d.setDate(nextMonday.getDate() + i * 14);
+            if (d > closure) break;
+            dates.push(d.toLocaleDateString('es-PE', { day: 'numeric', month: 'long' }));
+          }
+          const showClosure = dates.length > 0 && new Date(closureYear, 6, 30) >= today;
+          const calendarPrompts = [
+            '¿Qué error conceptual aparece con más frecuencia? — Mirá el guion del módulo 6 si te suena.',
+            '¿Hubo alguna semana sin actividad? — Si tu sección tiene "—", revisá si fue contexto o señal real.',
+            '¿Qué estudiantes están en P1/P2/P3? — Concentrate en P1+P2 esta quincena.',
+            '¿La precisión subió o bajó vs. la quincena anterior? — Trend es lo que importa, no el número absoluto.',
+            '¿Hay un estudiante con buen volumen pero un tema débil? — Caso 4 del módulo 7.',
+            '¿Cómo viene tu sección vs. la otra sección de tu IE? — Página 3 del reporte del director te lo dice.'
+          ];
+          return `
+          <div class="lesson">
+            <p>Ya completaste el curso y obtuviste tu certificado. Acá te dejamos <strong>3 recursos para tener a mano</strong> mientras seguís implementando el programa:</p>
 
-        <h3>📅 Calendario sugerido — qué mirar cada quincena</h3>
-        <p>El reporte de aula llega cada dos semanas, los lunes por la mañana, hasta el <strong>cierre del programa el 30 de julio</strong>. Acá una guía rápida de qué priorizar en cada uno. Las fechas son aproximadas — ajustá según cuándo te llegue el reporte real.</p>
-        <table class="data-table">
-          <thead><tr><th>Próxima entrega (estimada)</th><th>Qué priorizar al leer</th></tr></thead>
-          <tbody>
-            ${dates.map((d, i) => `<tr><td><strong>${d}</strong></td><td>${calendarPrompts[i]}</td></tr>`).join('')}
-            ${showClosure ? `<tr style="background:#fff4d4;"><td><strong>30 de julio · CIERRE</strong></td><td>Última quincena del programa. Reporte final + última conversación con tu acompañante EMC. Las entregas pendientes se reciben hasta esta fecha.</td></tr>` : ''}
-          </tbody>
-        </table>
-        <p style="font-size:13.5px;color:var(--text-muted);">💡 No es necesario que cubras los 6 puntos en cada reporte. La idea es que cada quincena uses una lente distinta para no pasar por alto patrones que se acumulan. <strong>Después del 30 de julio</strong> ya no recibís más reportes — el programa cerró.</p>
-
-        <h3 style="margin-top:36px;">💬 Glosario rápido</h3>
+            <h3>📅 Calendario sugerido — qué mirar cada quincena</h3>
+            <p>El reporte de aula llega cada dos semanas, los lunes por la mañana, hasta el <strong>cierre del programa el 30 de julio</strong>. Acá una guía rápida de qué priorizar en cada uno. Las fechas son aproximadas — ajustá según cuándo te llegue el reporte real.</p>
+            <table class="data-table">
+              <thead><tr><th>Próxima entrega (estimada)</th><th>Qué priorizar al leer</th></tr></thead>
+              <tbody>
+                ${dates.map((d, i) => `<tr><td><strong>${d}</strong></td><td>${calendarPrompts[i]}</td></tr>`).join('')}
+                ${showClosure ? `<tr style="background:#fff4d4;"><td><strong>30 de julio · CIERRE</strong></td><td>Última quincena del programa. Reporte final + última conversación con tu acompañante EMC. Las entregas pendientes se reciben hasta esta fecha.</td></tr>` : ''}
+              </tbody>
+            </table>
+            <p style="font-size:13.5px;color:var(--text-muted);">💡 No es necesario que cubras los 6 puntos en cada reporte. La idea es que cada quincena uses una lente distinta para no pasar por alto patrones que se acumulan. <strong>Después del 30 de julio</strong> ya no recibís más reportes — el programa cerró.</p>
+          </div>
+        `;
+        }
+      },
+      {
+        title: 'Glosario rápido',
+        content: () => `
+          <div class="lesson">
+            <h3>💬 Glosario rápido</h3>
         <p>Los términos que más aparecen en el reporte y en el dashboard:</p>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0;">
           <div class="info-card" style="padding:14px 18px;margin:0;">
@@ -2096,25 +2136,32 @@ const MODULES = [
             <p style="margin:0;font-size:13.5px;"><strong>UGEL</strong>: el promedio de tu zona (UGEL 01, 02, etc.). <strong>Programa</strong>: el promedio nacional de todas las IIEE de Eligiendo Mi Camino. Es la referencia más amplia.</p>
           </div>
         </div>
+          </div>
+        `
+      },
+      {
+        title: 'Pedir llamada + cierre',
+        content: () => `
+          <div class="lesson">
+            <h3>📞 Pedir llamada con tu acompañante EMC</h3>
+            <p>El equipo EMC te asignó un acompañante que te llama una vez al mes (mínimo 2 de 3 cuenta para tu certificación). <strong>Si necesitás una llamada extra entre las mensuales</strong> — porque algo del reporte no te queda claro, porque una semana se complicó, o porque querés discutir una intervención antes de hacerla — escribilas con un mensaje breve:</p>
+            <div style="text-align:center;margin:24px 0;">
+              <a href="mailto:eligiendomicamino@worldbank.org?subject=Pedido%20de%20llamada%20EMC%20—%20${encodeURIComponent(state.userName || '')}&body=${encodeURIComponent('Hola equipo EMC,\n\nMe gustaría coordinar una llamada con mi acompañante para discutir:\n\n[brevemente lo que necesitás resolver]\n\nMis datos:\nNombre: ' + (state.userName || '') + '\nDNI: ' + (state.userDni || '') + '\nIE: ' + (state.userSchool || '') + '\nMateria: Matemáticas\n\nGracias.')}" target="_blank" rel="noopener" style="display:inline-block;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;padding:16px 32px;border-radius:10px;font-weight:700;font-size:15.5px;text-decoration:none;box-shadow:0 4px 14px rgba(243,147,0,0.35);">📩 Pedir llamada con mi acompañante →</a>
+              <p style="font-size:13px;color:var(--text-muted);margin-top:10px;">Abre tu correo con un mensaje prellenado. Solo agregás lo específico y enviás.</p>
+            </div>
 
-        <h3 style="margin-top:36px;">📞 Pedir llamada con tu acompañante EMC</h3>
-        <p>El equipo EMC te asignó un acompañante que te llama una vez al mes (mínimo 2 de 3 cuenta para tu certificación). <strong>Si necesitás una llamada extra entre las mensuales</strong> — porque algo del reporte no te queda claro, porque una semana se complicó, o porque querés discutir una intervención antes de hacerla — escribilas con un mensaje breve:</p>
-        <div style="text-align:center;margin:24px 0;">
-          <a href="mailto:eligiendomicamino@worldbank.org?subject=Pedido%20de%20llamada%20EMC%20—%20${encodeURIComponent(state.userName || '')}&body=${encodeURIComponent('Hola equipo EMC,\n\nMe gustaría coordinar una llamada con mi acompañante para discutir:\n\n[brevemente lo que necesitás resolver]\n\nMis datos:\nNombre: ' + (state.userName || '') + '\nDNI: ' + (state.userDni || '') + '\nIE: ' + (state.userSchool || '') + '\nMateria: Matemáticas\n\nGracias.')}" target="_blank" rel="noopener" style="display:inline-block;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;padding:16px 32px;border-radius:10px;font-weight:700;font-size:15.5px;text-decoration:none;box-shadow:0 4px 14px rgba(243,147,0,0.35);">📩 Pedir llamada con mi acompañante →</a>
-          <p style="font-size:13px;color:var(--text-muted);margin-top:10px;">Abre tu correo con un mensaje prellenado. Solo agregás lo específico y enviás.</p>
-        </div>
+            <h3 style="margin-top:36px;">📚 Si querés profundizar más</h3>
+            <ul>
+              <li>Volvé a cualquier módulo cuando quieras desde la barra lateral. Tu progreso queda guardado.</li>
+              <li>Tus respuestas del módulo 3 (qué funcionó / qué no de los 5 momentos) las usa el equipo EMC para ajustar el programa. <strong>Si querés agregar más</strong> después, volvé al módulo 3 y editá — al enviar de nuevo, llega la versión actualizada al equipo.</li>
+              <li>Compartí este link con docentes de tu IE u otras IIEE del programa que tengan los mismos productos: <code style="background:#fffaeb;padding:2px 8px;border-radius:4px;font-size:13px;">eligiendomicamino.org/certificacion/perfeccionamiento_mate.html</code></li>
+            </ul>
 
-        <h3 style="margin-top:36px;">📚 Si querés profundizar más</h3>
-        <ul>
-          <li>Volvé a cualquier módulo cuando quieras desde la barra lateral. Tu progreso queda guardado.</li>
-          <li>Tus respuestas del módulo 3 (qué funcionó / qué no de los 5 momentos) las usa el equipo EMC para ajustar el programa. <strong>Si querés agregar más</strong> después, volvé al módulo 3 y editá — al enviar de nuevo, llega la versión actualizada al equipo.</li>
-          <li>Compartí este link con docentes de tu IE u otras IIEE del programa que tengan los mismos productos: <code style="background:#fffaeb;padding:2px 8px;border-radius:4px;font-size:13px;">eligiendomicamino.org/certificacion/perfeccionamiento_mate.html</code></li>
-        </ul>
-
-        <div class="callout callout-tip" style="margin-top:24px;"><p><span class="callout-icon">🙏</span><strong>Gracias por completar el curso.</strong> Lo que aprendiste acá no es teoría — son herramientas que ya están en tu próxima sesión de laboratorio. Buen trabajo.</p></div>
-      </div>
-    `;
-    },
+            <div class="callout callout-tip" style="margin-top:24px;"><p><span class="callout-icon">🙏</span><strong>Gracias por completar el curso.</strong> Lo que aprendiste acá no es teoría — son herramientas que ya están en tu próxima sesión de laboratorio. Buen trabajo.</p></div>
+          </div>
+        `
+      }
+    ],
     quiz: null
   }
 ];
