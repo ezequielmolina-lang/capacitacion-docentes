@@ -1579,14 +1579,18 @@
   }
 
   function renderMateCard(wrap, s) {
+    // Verbatim priority actions from the PDF — these are the actual
+    // recommendations the teacher should see.
+    const actions = s.priority_actions || [];
     const followup = (s.students_for_followup || []).map(n => `<b>${escapeHtml(n)}</b>`).join(' y ');
-    const items = [];
-    if (s.weak_topic) {
-      items.push(`<em class="tag">Tema</em>Refuerza <b>${escapeHtml(s.weak_topic)}</b> — el de menor precisión.`);
-    }
-    if (followup) {
-      items.push(`<em class="tag">Conversa</em>Con ${followup}.`);
-    }
+
+    const actionsHTML = actions.length
+      ? `<ol class="kpi-actions-editorial">
+           ${actions.map(a => `<li>${escapeHtml(a)}</li>`).join('')}
+         </ol>`
+      : (followup
+          ? `<ul class="kpi-bullets"><li><em class="tag">Conversa</em>Con ${followup}.</li></ul>`
+          : '');
 
     const minutesStat = (s.active_minutes_section != null)
       ? `<div class="kpi-stats" style="grid-template-columns: 1fr;">
@@ -1605,7 +1609,7 @@
       <div class="kpi-card">
         ${eyebrow(title)}
         <div class="kpi-card-body">
-          ${items.length ? `<ul class="kpi-bullets">${items.map(i => `<li>${i}</li>`).join('')}</ul>` : ''}
+          ${actionsHTML}
           ${minutesStat}
         </div>
         <button class="kpi-collapse" type="button"></button>

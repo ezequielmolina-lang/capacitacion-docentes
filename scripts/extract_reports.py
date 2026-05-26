@@ -446,43 +446,62 @@ def parse_director_summary(text: str) -> dict:
 def parse_matematica_summary(text: str) -> dict:
     """Extract structured KPI data from a matemática section report's text.
 
-    Math reports lead with the TLDR ("ESTA QUINCENA, EN 14 MINUTOS") which is
-    what the teacher cares about most. We pull that + any comparison numbers
-    we can find from the weekly tables.
+    Math reports lead with "ESTA QUINCENA, EN N MINUTOS" + two numbered
+    actions. We extract those titles verbatim because the wording varies
+    ("Refuerza el tema..." / "Enseña a distinguir..." / etc.) and the
+    teacher needs to see the actual recommendation.
     """
     s: dict = {}
-    # Weak topic from action 1
-    m = re.search(
-        r"Refuerza\s+el\s+tema\s+con\s+menor\s+precisi[óo]n[:\s]+([^\n\.]+?)\.",
+    # "ESTA QUINCENA, EN N MINUTOS" — time budget
+    m = re.search(r"ESTA QUINCENA,?\s+EN\s+(\d+)\s+MINUTOS", text)
+    if m:
+        s["time_budget_minutes"] = int(m.group(1))
+
+    # Action 1 + Action 2 — the two numbered priorities in the priority block.
+    # Each starts with "1 " or "2 " on a line, then a first sentence.
+    actions_section = re.search(
+        r"ESTA QUINCENA[^\n]*\n(?:[^\n]*\n){0,3}((?:\s*\d\s+[^\n]+(?:\n[^\n0-9§][^\n]*)*\n*){1,3})",
         text,
-        re.IGNORECASE,
     )
+    actions = []
+    if actions_section:
+        block = actions_section.group(1)
+        # find lines starting with "1 " or "2 ":
+        for m in re.finditer(r"(?:^|\n)\s*([12])\s+([^\n]+(?:\n[^\n0-9§][^\n]*)*)", block):
+            raw = re.sub(r"\s+", " ", m.group(2)).strip()
+            # take just the first sentence
+            first = re.split(r"(?<=[\.\!\?])\s+", raw, maxsplit=1)[0]
+            actions.append(first.rstrip("."))
+    s["priority_actions"] = actions[:2]
+
+    # First action also drives weak_topic for compatibility
+    if actions:
+        # try the "Refuerza el tema con menor precisión: X" pattern; else the first action
+        m = re.search(
+            r"Refuerza\s+el\s+tema\s+con\s+menor\s+precisi[óo]n[:\s]+([^\n\.]+?)\.",
+            text,
+            re.IGNORECASE,
+        )
+        s["weak_topic"] = m.group(1).strip() if m else actions[0]
+
+    # Students for follow-up from "Habla con X y con Y"
+    m = re.search(r"Habla\s+con\s+([^\.\n]+?)\.\s", text, re.IGNORECASE | re.DOTALL)
     if m:
-        s["weak_topic"] = m.group(1).strip()
-    # Two students to talk to from action 2: "Habla con X y con Y"
-    m = re.search(r"Habla\s+con\s+([^\n]+?)\.\s", text, re.IGNORECASE)
-    if m:
-        names_clause = m.group(1).strip()
-        # split "Elsa y con Frank" → ["Elsa", "Frank"]
+        names_clause = re.sub(r"\s+", " ", m.group(1)).strip()
         names = re.split(r"\s+y\s+(?:con\s+)?", names_clause)
         s["students_for_followup"] = [n.strip() for n in names if n.strip()]
-    # § 01 opening sentence has the active-time comparison
+
+    # § 01 opening sentence — handle line wraps (use DOTALL on the wrapped section).
     m = re.search(
-        r"activos\s+pasaron\s+en\s+promedio\s+(\d+)\s+minutos\s+por\s+semana[^\n]*?UGEL[^\(]*?\((\d+)\s+minutos\)",
+        r"activos\s+pasaron\s+en\s+promedio\s+(\d+)\s+minutos\s+por\s+semana"
+        r".*?UGEL[^\(]*?\((\d+)\s+minutos\)",
         text,
-        re.IGNORECASE,
+        re.IGNORECASE | re.DOTALL,
     )
     if m:
         s["active_minutes_section"] = int(m.group(1))
         s["active_minutes_ugel"] = int(m.group(2))
-    # "ESTA QUINCENA, EN N MINUTOS" — the time budget for actions
-    m = re.search(r"ESTA QUINCENA, EN (\d+) MINUTOS", text)
-    if m:
-        s["time_budget_minutes"] = int(m.group(1))
-    # Number of sesiones de aula realizadas (search across weekly table heuristically)
-    m = re.search(r"(\d+)\s+sesiones\s+de\s+aula\s+(?:realizadas|en\s+total)", text, re.IGNORECASE)
-    if m:
-        s["sesiones_aula"] = int(m.group(1))
+
     return s
 
 
