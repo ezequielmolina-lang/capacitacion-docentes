@@ -302,6 +302,252 @@ def normalize_name(s: str) -> str:
     return s
 
 
+def _first(pattern: str, text: str, group: int = 1, flags: int = 0) -> Optional[str]:
+    m = re.search(pattern, text, flags)
+    return m.group(group).strip() if m else None
+
+
+def _int(s: Optional[str]) -> Optional[int]:
+    if s is None:
+        return None
+    try:
+        return int(s)
+    except ValueError:
+        return None
+
+
+def _float(s: Optional[str]) -> Optional[float]:
+    if s is None:
+        return None
+    try:
+        return float(s)
+    except ValueError:
+        return None
+
+
+def parse_director_summary(text: str) -> dict:
+    """Extract structured KPI data from a director report's text."""
+    s: dict = {}
+    s["students_total"] = _int(_first(r"ESTUDIANTES\s+(\d+)\s+de\s+5", text))
+    sec_str = _first(r"SECCIONES\s+\d+\s*\(([^)]+)\)", text)
+    if sec_str:
+        # "A y B" / "A, B y C" / "U"
+        parts = re.split(r"\s*,\s*|\s*y\s*", sec_str)
+        s["sections"] = [p.strip() for p in parts if p.strip()]
+    else:
+        s["sections"] = []
+
+    # Matemática
+    mate: dict = {}
+    mate["active_pct_school"] = _int(_first(r"(\d+)%\s+de\s+sus\s+estudiantes\s+participaron\s+en\s+matem[áa]tica", text))
+    m = re.search(r"\((\d+)\s+de\s+(\d+)\s+respondieron", text)
+    if m:
+        mate["active_count"] = int(m.group(1))
+        mate["students_provisioned"] = int(m.group(2))
+    mate["questions_total"] = _int(_first(r"respondieron\s+(\d+)\s+preguntas", text))
+    # comparison row: "Preguntas respondidas por estudiante (promedio) 119.5 86.0 85.3"
+    m = re.search(
+        r"Preguntas respondidas por estudiante[^\n]*?([\d.]+)\s+([\d.]+)\s+([\d.]+)",
+        text,
+    )
+    if m:
+        mate["q_per_student_school"] = float(m.group(1))
+        mate["q_per_student_ugel"] = float(m.group(2))
+        mate["q_per_student_programa"] = float(m.group(3))
+    m = re.search(r"%\s+de\s+precisi[óo]n[^\n]*?(\d+)%\s+(\d+)%\s+(\d+)%", text)
+    if m:
+        mate["precision_school"] = int(m.group(1))
+        mate["precision_ugel"] = int(m.group(2))
+        mate["precision_programa"] = int(m.group(3))
+    # programa comparison for % active (in § 02 comparison table)
+    m = re.search(
+        r"%\s+que\s+respondi[óo]\s+al\s+menos\s+una\s+pregunta\s+(\d+)%\s+(\d+)%\s+(\d+)%",
+        text,
+    )
+    if m:
+        mate["active_pct_ugel"] = int(m.group(2))
+        mate["active_pct_programa"] = int(m.group(3))
+    s["matematica"] = mate
+
+    # Tutoría
+    tut: dict = {}
+    m = re.search(r"([\d.]+)\s*/\s*8\s+pasos\s+completados\s+en\s+promedio", text)
+    if m:
+        tut["pasos_promedio"] = float(m.group(1))
+    tut["completed_8_count"] = _int(_first(r"(\d+)\s+ya\s+completaron\s+los\s+8", text))
+    # tutoria comparison rows
+    m = re.search(
+        r"Pasos completados \(sobre 8[^\n]*?([\d.]+)\s+([\d.]+)\s+([\d.]+)",
+        text,
+    )
+    if m:
+        tut["pasos_promedio_school"] = float(m.group(1))
+        tut["pasos_promedio_ugel"] = float(m.group(2))
+        tut["pasos_promedio_programa"] = float(m.group(3))
+    m = re.search(
+        r"%\s+de\s+estudiantes\s+que\s+terminaron\s+los\s+8\s+pasos\s+(\d+)%\s+(\d+)%\s+(\d+)%",
+        text,
+    )
+    if m:
+        tut["completed_8_pct_school"] = int(m.group(1))
+        tut["completed_8_pct_ugel"] = int(m.group(2))
+        tut["completed_8_pct_programa"] = int(m.group(3))
+    m = re.search(
+        r"%\s+que\s+entraron\s+al\s+menos\s+una\s+vez\s+(\d+)%\s+(\d+)%\s+(\d+)%",
+        text,
+    )
+    if m:
+        tut["entered_pct_school"] = int(m.group(1))
+        tut["entered_pct_ugel"] = int(m.group(2))
+        tut["entered_pct_programa"] = int(m.group(3))
+    # RIASEC top profiles: in "Perfiles RIASEC dominantes" we see one-letter
+    # labels (I S A R E C) followed by names. Extract up to 3.
+    riasec_section = re.search(
+        r"Perfiles RIASEC dominantes(.{0,800})", text, re.DOTALL,
+    )
+    if riasec_section:
+        rs = riasec_section.group(1)
+        # find letter labels like "I S A" or "I R S" - look for single-letter
+        # tokens on their own line, then full names
+        riasec_full = {
+            "I": "Investigador", "S": "Social", "A": "Artístico",
+            "R": "Realista", "E": "Emprendedor", "C": "Convencional",
+        }
+        found = []
+        for letter, name in riasec_full.items():
+            if re.search(rf"\b{name}\b", rs):
+                # also try to extract student count after the name
+                m2 = re.search(rf"{name}\s+(?:[^\d\n]*?)?(\d+)\s*\n?\s*estudiantes", rs)
+                count = int(m2.group(1)) if m2 else None
+                found.append({"letter": letter, "name": name, "count": count})
+        # sort by count desc when available
+        found.sort(key=lambda x: -(x["count"] or 0))
+        tut["riasec_top"] = found[:3]
+    s["tutoria"] = tut
+
+    # Weekly actions in § 04
+    actions = []
+    weekly_section = re.search(
+        r"§\s*04[^\n]*\n.*",
+        text,
+        re.DOTALL,
+    )
+    if weekly_section:
+        ws = weekly_section.group(0)
+        for m in re.finditer(r"^\s*(0[1-9])\s+([^\n]+)$", ws, re.MULTILINE):
+            title = m.group(2).strip()
+            if title and "Cuándo lo voy a hacer" not in title:
+                actions.append(title)
+    s["weekly_actions"] = actions[:3]
+
+    return s
+
+
+def parse_matematica_summary(text: str) -> dict:
+    """Extract structured KPI data from a matemática section report's text.
+
+    Math reports lead with the TLDR ("ESTA QUINCENA, EN 14 MINUTOS") which is
+    what the teacher cares about most. We pull that + any comparison numbers
+    we can find from the weekly tables.
+    """
+    s: dict = {}
+    # Weak topic from action 1
+    m = re.search(
+        r"Refuerza\s+el\s+tema\s+con\s+menor\s+precisi[óo]n[:\s]+([^\n\.]+?)\.",
+        text,
+        re.IGNORECASE,
+    )
+    if m:
+        s["weak_topic"] = m.group(1).strip()
+    # Two students to talk to from action 2: "Habla con X y con Y"
+    m = re.search(r"Habla\s+con\s+([^\n]+?)\.\s", text, re.IGNORECASE)
+    if m:
+        names_clause = m.group(1).strip()
+        # split "Elsa y con Frank" → ["Elsa", "Frank"]
+        names = re.split(r"\s+y\s+(?:con\s+)?", names_clause)
+        s["students_for_followup"] = [n.strip() for n in names if n.strip()]
+    # § 01 opening sentence has the active-time comparison
+    m = re.search(
+        r"activos\s+pasaron\s+en\s+promedio\s+(\d+)\s+minutos\s+por\s+semana[^\n]*?UGEL[^\(]*?\((\d+)\s+minutos\)",
+        text,
+        re.IGNORECASE,
+    )
+    if m:
+        s["active_minutes_section"] = int(m.group(1))
+        s["active_minutes_ugel"] = int(m.group(2))
+    # "ESTA QUINCENA, EN N MINUTOS" — the time budget for actions
+    m = re.search(r"ESTA QUINCENA, EN (\d+) MINUTOS", text)
+    if m:
+        s["time_budget_minutes"] = int(m.group(1))
+    # Number of sesiones de aula realizadas (search across weekly table heuristically)
+    m = re.search(r"(\d+)\s+sesiones\s+de\s+aula\s+(?:realizadas|en\s+total)", text, re.IGNORECASE)
+    if m:
+        s["sesiones_aula"] = int(m.group(1))
+    return s
+
+
+def parse_tutoria_summary(text: str) -> dict:
+    """Extract structured KPI data from a tutoría section report's text."""
+    s: dict = {}
+    # "De un vistazo": "4.1 de 8 pasos", "100% entró al módulo", "5 terminaron los 8", "3 de 7 sesiones de aula"
+    m = re.search(r"([\d.]+)\s+de\s+8\s+pasos\s*\(prom", text)
+    if m:
+        s["pasos_promedio"] = float(m.group(1))
+    m = re.search(r"(\d+)%\s+entr[óo]\s+al\s+m[óo]dulo", text)
+    if m:
+        s["entered_pct"] = int(m.group(1))
+    m = re.search(r"(\d+)\s+terminaron\s+los\s+8", text)
+    if m:
+        s["completed_8_count"] = int(m.group(1))
+    m = re.search(r"(\d+)\s+de\s+(\d+)\s+sesiones\s+de\s+aula", text)
+    if m:
+        s["sesiones_aula"] = int(m.group(1))
+        s["sesiones_aula_esperadas"] = int(m.group(2))
+    # comparison table values
+    m = re.search(
+        r"Pasos completados \(prom\.?\s*/?8\)\s+([\d.]+)\s+([\d.]+)",
+        text,
+    )
+    if m:
+        s["pasos_promedio_section"] = float(m.group(1))
+        s["pasos_promedio_programa"] = float(m.group(2))
+    m = re.search(r"Terminaron los 8 pasos\s+(\d+)\s*\((\d+)%\)\s+(\d+)%", text)
+    if m:
+        s["completed_8_count"] = int(m.group(1))
+        s["completed_8_pct"] = int(m.group(2))
+        s["completed_8_pct_programa"] = int(m.group(3))
+    m = re.search(r"Entraron al m[óo]dulo vocacional\s+\d+\s*\((\d+)%\)\s+(\d+)%", text)
+    if m:
+        s["entered_pct"] = int(m.group(1))
+        s["entered_pct_programa"] = int(m.group(2))
+    # RIASEC top profiles
+    riasec_section = re.search(
+        r"Perfiles RIASEC\s+de\s+tu\s+secci[óo]n(.{0,800})", text, re.DOTALL,
+    )
+    if riasec_section:
+        rs = riasec_section.group(1)
+        riasec_full = {
+            "I": "Investigador", "S": "Social", "A": "Artístico",
+            "R": "Realista", "E": "Emprendedor", "C": "Convencional",
+        }
+        found = []
+        for letter, name in riasec_full.items():
+            if re.search(rf"\b{name}\b", rs):
+                m2 = re.search(rf"{name}\s+(\d+)\s+estud", rs)
+                count = int(m2.group(1)) if m2 else None
+                found.append({"letter": letter, "name": name, "count": count})
+        found.sort(key=lambda x: -(x["count"] or 0))
+        s["riasec_top"] = found[:3]
+    # Paso 4 top route
+    m = re.search(
+        r"Universidad\s+(\d+)\s+\((\d+)%\)",
+        text,
+    )
+    if m:
+        s["ruta_p4_universidad_pct"] = int(m.group(2))
+    return s
+
+
 def extract_acompanante_whatsapp(text: str, role: str) -> Optional[str]:
     """Return the most relevant +51 phone for this role.
     - For director: prefer the math acompañante or any acompañante (printed near
@@ -459,6 +705,7 @@ def process(input_path: Path, out_dir: Path, period_label: str) -> dict:
             "role_label": ROLE_LABELS["director"],
             "greeting_name": greeting,
             "acompanante_whatsapp": whatsapp,
+            "summary": parse_director_summary(text),
             "report_text": text,
         }
         (out_dir / "director" / f"{key}.json").write_text(
@@ -496,6 +743,10 @@ def process(input_path: Path, out_dir: Path, period_label: str) -> dict:
         greeting = extract_greeting_name(text)
         whatsapp = extract_acompanante_whatsapp(text, pf.role)
 
+        summary = (
+            parse_matematica_summary(text) if pf.role == "matematica"
+            else parse_tutoria_summary(text)
+        )
         doc = {
             "codigo_modular": key,
             "school_name": info.name,
@@ -506,6 +757,7 @@ def process(input_path: Path, out_dir: Path, period_label: str) -> dict:
             "role_label": ROLE_LABELS[pf.role],
             "greeting_name": greeting,
             "acompanante_whatsapp": whatsapp,
+            "summary": summary,
             "report_text": text,
         }
         (out_dir / pf.role / f"{key}_{pf.seccion}.json").write_text(

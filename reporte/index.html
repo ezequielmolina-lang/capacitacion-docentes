@@ -511,6 +511,118 @@
     .msg-bubble.gallito p + p { margin-top: 0.6em; }
     .msg-bubble.gallito ul, .msg-bubble.gallito ol { margin: 0.4em 0 0.4em 1.3em; padding: 0; }
     .msg-bubble.gallito li { margin: 2px 0; }
+
+    /* ============================================================
+       KPI cards (resumen del reporte)
+       ============================================================ */
+    .kpi-wrap {
+      padding: 14px 14px 6px;
+      background: var(--bg-cream);
+      border-bottom: 1px solid rgba(36,44,50,0.05);
+    }
+    .kpi-wrap:empty { display: none; }
+    .kpi-card {
+      background: #fff;
+      border: 1px solid rgba(36,44,50,0.08);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      box-shadow: var(--card-shadow);
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .kpi-card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--text-gray);
+      margin-bottom: 10px;
+      letter-spacing: 0.2px;
+    }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 520px) { .kpi-grid { grid-template-columns: 1fr; } }
+    .kpi-block {
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-cream-2);
+    }
+    .kpi-block.mate { background: #FFF4E5; }
+    .kpi-block.ov   { background: #EAF4EA; }
+    .kpi-block.pip  { background: #E3F2FD; }
+    .kpi-block.mate .kpi-label { color: var(--math-color); }
+    .kpi-block.ov   .kpi-label { color: var(--ov-color); }
+    .kpi-block.pip  .kpi-label { color: var(--pip-color); }
+    .kpi-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--text-gray);
+      margin-bottom: 4px;
+    }
+    .kpi-main {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 1.6rem;
+      line-height: 1.1;
+      color: var(--text-dark);
+    }
+    .kpi-main small {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--text-gray);
+      letter-spacing: 0.3px;
+      margin-left: 4px;
+    }
+    .kpi-cmp {
+      font-size: 0.78rem;
+      color: var(--text-gray);
+      margin-top: 2px;
+    }
+    .kpi-cmp.up   { color: var(--ov-color); }
+    .kpi-cmp.down { color: var(--math-color); }
+    .kpi-cmp.up::before   { content: "▲ "; }
+    .kpi-cmp.down::before { content: "▼ "; }
+    .kpi-sub {
+      font-size: 0.82rem;
+      color: var(--text-gray);
+      margin-top: 6px;
+      line-height: 1.35;
+    }
+    .kpi-sub b { color: var(--text-dark); font-weight: 600; }
+    .kpi-actions {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(36,44,50,0.12);
+    }
+    .kpi-actions-title {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+    .kpi-actions ul { margin: 0; padding-left: 1.1em; }
+    .kpi-actions li { font-size: 0.85rem; line-height: 1.4; margin: 3px 0; color: var(--text-dark); }
+    .kpi-collapse {
+      margin-top: 8px;
+      background: none;
+      border: none;
+      color: var(--primary-dark);
+      font-family: inherit;
+      font-size: 0.78rem;
+      cursor: pointer;
+      padding: 4px 0;
+    }
+    .kpi-wrap.collapsed .kpi-card-body { display: none; }
+    .kpi-wrap.collapsed .kpi-actions { display: none; }
+    .kpi-wrap.collapsed .kpi-collapse::after { content: " resumen ↓"; }
+    .kpi-wrap:not(.collapsed) .kpi-collapse::after { content: " ocultar resumen ↑"; }
     .msg-bubble.error {
       background: #FFF3E0;
       color: var(--math-color);
@@ -736,6 +848,8 @@
           <button class="chat-header-change" data-action="change-report">Cambiar reporte</button>
         </header>
 
+        <div class="kpi-wrap" id="kpi-wrap"></div>
+
         <div class="chat-body" id="chat-body">
           <!-- Intro + suggested questions, replaced by messages as they come in -->
           <div class="chat-intro" id="chat-intro">
@@ -787,6 +901,7 @@
     seccion: null,
     typed_name: null,     // validated name — sent with every chat message
     whatsapp: null,       // revealed by /api/verify on a successful gate
+    summary: null,        // structured KPIs for the cards (from /api/verify)
     messages: [],         // [{role: 'user'|'assistant', content: string}]
     sending: false,
   };
@@ -1021,6 +1136,7 @@
       state.school_name = data.school_name || state.school_name;
       state.ugel_label = data.ugel_label || state.ugel_label;
       state.whatsapp = data.acompanante_whatsapp || null;
+      state.summary = data.summary || null;
       openChat();
     } catch (err) {
       const errEl = document.getElementById('gate-error');
@@ -1072,6 +1188,9 @@
     } else {
       wa.style.display = 'none';
     }
+
+    // Render the KPI card (role-aware)
+    renderKpiCard();
 
     state.messages = [];
     const body = document.getElementById('chat-body');
@@ -1291,6 +1410,171 @@
 
   function escapeHtml(s) {
     return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  // ----- KPI card rendering -----
+  function cmpClass(school, programa) {
+    if (school == null || programa == null) return '';
+    if (school > programa) return 'up';
+    if (school < programa) return 'down';
+    return '';
+  }
+  function fmtCmp(school, programa, unit) {
+    if (school == null || programa == null) return '';
+    const diff = Math.round((school - programa) * 10) / 10;
+    if (diff === 0) return `igual al programa`;
+    const sign = diff > 0 ? '+' : '';
+    return `${sign}${diff}${unit || ''} vs programa`;
+  }
+
+  function renderKpiCard() {
+    const wrap = document.getElementById('kpi-wrap');
+    wrap.innerHTML = '';
+    wrap.classList.remove('collapsed');
+    const s = state.summary;
+    if (!s) return;
+
+    if (USES_DIRECTOR_REPORT.has(state.role)) {
+      renderDirectorCard(wrap, s);
+    } else if (state.role === 'matematica') {
+      renderMateCard(wrap, s);
+    } else if (state.role === 'tutoria') {
+      renderTutoriaCard(wrap, s);
+    }
+  }
+
+  function renderDirectorCard(wrap, s) {
+    const mate = s.matematica || {};
+    const tut  = s.tutoria || {};
+    const actions = s.weekly_actions || [];
+
+    const mateActive = mate.active_pct_school != null
+      ? `<div class="kpi-main">${mate.active_pct_school}<small>% activos</small></div>
+         <div class="kpi-cmp ${cmpClass(mate.active_pct_school, mate.active_pct_programa)}">${fmtCmp(mate.active_pct_school, mate.active_pct_programa, 'pp')}</div>`
+      : '';
+    const mateQ = mate.q_per_student_school != null
+      ? `<div class="kpi-sub"><b>${mate.q_per_student_school}</b> preguntas/estudiante · precisión <b>${mate.precision_school ?? '—'}%</b></div>`
+      : '';
+
+    const tutPasos = tut.pasos_promedio_school ?? tut.pasos_promedio;
+    const tutMain = tutPasos != null
+      ? `<div class="kpi-main">${tutPasos}<small>/ 8 pasos</small></div>
+         <div class="kpi-cmp ${cmpClass(tutPasos, tut.pasos_promedio_programa)}">${fmtCmp(tutPasos, tut.pasos_promedio_programa, '')}</div>`
+      : '';
+    const tutSub = tut.completed_8_pct_school != null
+      ? `<div class="kpi-sub"><b>${tut.completed_8_pct_school}%</b> terminaron los 8 pasos · <b>${tut.completed_8_count ?? '—'}</b> estudiantes</div>`
+      : '';
+
+    const studentsHeader = s.students_total != null
+      ? `${s.students_total} estudiantes${s.sections && s.sections.length ? ' · ' + s.sections.length + ' ' + (s.sections.length === 1 ? 'sección' : 'secciones') : ''}`
+      : '';
+
+    const actionsHTML = actions.length
+      ? `<div class="kpi-actions">
+           <div class="kpi-actions-title">3 cosas esta semana</div>
+           <ul>${actions.map(a => `<li>${escapeHtml(a)}</li>`).join('')}</ul>
+         </div>`
+      : '';
+
+    wrap.innerHTML = `
+      <div class="kpi-card">
+        <div class="kpi-card-title">${studentsHeader || 'Resumen del reporte'}</div>
+        <div class="kpi-card-body">
+          <div class="kpi-grid">
+            <div class="kpi-block mate">
+              <div class="kpi-label">Matemática</div>
+              ${mateActive}
+              ${mateQ}
+            </div>
+            <div class="kpi-block ov">
+              <div class="kpi-label">Tutoría vocacional</div>
+              ${tutMain}
+              ${tutSub}
+            </div>
+          </div>
+          ${actionsHTML}
+        </div>
+        <button class="kpi-collapse" type="button"></button>
+      </div>`;
+    wireCollapse(wrap);
+  }
+
+  function renderMateCard(wrap, s) {
+    const followup = (s.students_for_followup || []).map(n => `<b>${escapeHtml(n)}</b>`).join(' y ');
+    const topicLine = s.weak_topic
+      ? `Tema más débil: <b>${escapeHtml(s.weak_topic)}</b>`
+      : '';
+    const followupLine = followup
+      ? `Conversa con ${followup}`
+      : '';
+    const minutesLine = s.active_minutes_section != null && s.active_minutes_ugel != null
+      ? `<b>${s.active_minutes_section} min</b> activos por semana (UGEL: ${s.active_minutes_ugel})`
+      : '';
+    const budgetLine = s.time_budget_minutes
+      ? `${s.time_budget_minutes} minutos esta quincena`
+      : '';
+
+    const subItems = [topicLine, followupLine, minutesLine].filter(Boolean);
+    const subHTML = subItems.length
+      ? `<div class="kpi-card-body"><ul style="margin:6px 0 0 1.1em; padding:0; font-size:0.88rem; line-height:1.5; color:var(--text-dark);">
+           ${subItems.map(i => `<li>${i}</li>`).join('')}
+         </ul></div>`
+      : '';
+
+    wrap.innerHTML = `
+      <div class="kpi-card">
+        <div class="kpi-card-title">${budgetLine ? `Para ti, en ${budgetLine}` : 'Resumen de tu sección'}</div>
+        ${subHTML}
+        <button class="kpi-collapse" type="button"></button>
+      </div>`;
+    wireCollapse(wrap);
+  }
+
+  function renderTutoriaCard(wrap, s) {
+    const pasos = s.pasos_promedio_section ?? s.pasos_promedio;
+    const pasosMain = pasos != null
+      ? `<div class="kpi-main">${pasos}<small>/ 8 pasos</small></div>
+         <div class="kpi-cmp ${cmpClass(pasos, s.pasos_promedio_programa)}">${fmtCmp(pasos, s.pasos_promedio_programa, '')}</div>`
+      : '';
+    const completedSub = s.completed_8_pct != null
+      ? `<div class="kpi-sub"><b>${s.completed_8_pct}%</b> terminaron los 8 · <b>${s.completed_8_count ?? '—'}</b> estudiantes</div>`
+      : '';
+
+    const riasecTop = (s.riasec_top || []).slice(0, 3).map(r => {
+      const cnt = r.count != null ? ` <small style="font-weight:500;color:var(--text-gray)">${r.count}</small>` : '';
+      return `<b>${r.letter}</b>${cnt}`;
+    }).join(' · ');
+    const riasecBlock = riasecTop
+      ? `<div class="kpi-block ov" style="margin-top:10px">
+           <div class="kpi-label">Perfiles RIASEC dominantes</div>
+           <div class="kpi-main" style="font-size:1.3rem">${riasecTop}</div>
+           ${s.ruta_p4_universidad_pct != null ? `<div class="kpi-sub">Universidad sugerida para <b>${s.ruta_p4_universidad_pct}%</b> en el Paso 4</div>` : ''}
+         </div>`
+      : '';
+
+    wrap.innerHTML = `
+      <div class="kpi-card">
+        <div class="kpi-card-title">Resumen de tu sección</div>
+        <div class="kpi-card-body">
+          <div class="kpi-grid">
+            <div class="kpi-block ov">
+              <div class="kpi-label">Viaje vocacional</div>
+              ${pasosMain}
+              ${completedSub}
+            </div>
+            ${riasecBlock || `<div class="kpi-block ov"><div class="kpi-label">Sesiones de aula</div><div class="kpi-main">${s.sesiones_aula ?? '—'}<small>/ ${s.sesiones_aula_esperadas ?? '—'}</small></div></div>`}
+          </div>
+        </div>
+        <button class="kpi-collapse" type="button"></button>
+      </div>`;
+    wireCollapse(wrap);
+  }
+
+  function wireCollapse(wrap) {
+    const btn = wrap.querySelector('.kpi-collapse');
+    if (btn) {
+      btn.addEventListener('click', () => wrap.classList.toggle('collapsed'));
+    }
   }
 
   // back buttons
