@@ -910,7 +910,7 @@
     schoolSel.disabled = eligible.length === 0;
     schoolSel.value = '';
     document.getElementById('field-seccion').style.display =
-      state.role === 'director' ? 'none' : '';
+      USES_DIRECTOR_REPORT.has(state.role) ? 'none' : '';
     validateSchoolForm();
   });
 
