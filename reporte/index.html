@@ -2446,6 +2446,10 @@
          </ol>`
       : '';
 
+    // If neither stats nor actions came through (e.g. school has no activity
+    // yet), leave the wrap empty so the dashed border above the chat collapses.
+    if (!stats.length && !actions.length) return;
+
     wrap.innerHTML = `
       <div class="kpi-card">
         ${eyebrow('De un vistazo', meta)}
@@ -2482,6 +2486,9 @@
     const title = s.time_budget_minutes
       ? `Tu prioridad · en ${s.time_budget_minutes} minutos`
       : 'Resumen de tu sección';
+
+    // If no priority actions, no followup, no active minutes — leave wrap empty.
+    if (!actionsHTML && !minutesStat) return;
 
     wrap.innerHTML = `
       <div class="kpi-card">
@@ -2528,11 +2535,16 @@
     }
 
     const meta = state.seccion ? `Sección ${state.seccion}` : '';
+
+    // If summary is empty (no activity yet), leave wrap empty so the orphan
+    // "De un vistazo" subhead doesn't render alone.
+    if (!stats.length) return;
+
     wrap.innerHTML = `
       <div class="kpi-card">
         ${eyebrow('De un vistazo', meta)}
         <div class="kpi-card-body">
-          ${stats.length ? `<div class="kpi-stats">${stats.join('')}</div>` : ''}
+          <div class="kpi-stats">${stats.join('')}</div>
         </div>
       </div>`;
   }
