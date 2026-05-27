@@ -659,12 +659,13 @@
     /* ============================================================
        KPI cards (resumen del reporte) — editorial style matching the PDF
        ============================================================ */
+    /* KPI sits at the top of the chat body, scrolls naturally with the
+       conversation. Soft tinted background to mark it as report context
+       (distinct from the gallito's inline messages below). */
     .kpi-wrap {
-      padding: 18px 16px 8px;
-      background: rgba(255,251,240,0.65);
-      backdrop-filter: blur(10px) saturate(160%);
-      -webkit-backdrop-filter: blur(10px) saturate(160%);
-      border-bottom: 1px solid rgba(36,44,50,0.06);
+      padding: 4px 0 18px;
+      margin-bottom: 8px;
+      border-bottom: 1px dashed rgba(36,44,50,0.12);
     }
     .kpi-wrap:empty { display: none; }
     .kpi-card {
@@ -813,22 +814,6 @@
       margin-right: 6px;
     }
 
-    .kpi-collapse {
-      margin-top: 12px;
-      background: none;
-      border: none;
-      color: var(--primary-dark);
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      cursor: pointer;
-      padding: 4px 0;
-    }
-    .kpi-wrap.collapsed .kpi-card-body { display: none; }
-    .kpi-wrap.collapsed .kpi-collapse::after { content: "Ver resumen ↓"; }
-    .kpi-wrap:not(.collapsed) .kpi-collapse::after { content: "Ocultar resumen ↑"; }
     .msg-bubble.error {
       background: #FFF3E0;
       color: var(--math-color);
@@ -988,31 +973,10 @@
       .chat-header-meta { font-size: 0.72rem; }
       .chat-header-change { font-size: 0.74rem; padding: 4px 6px; }
 
-      /* KPI card: start collapsed on mobile so the chat has room. When the
-         user expands it, allow internal scrolling so it doesn't take over
-         the screen — there's a clear "Ocultar resumen" button at the bottom
-         and the user can still see + interact with the chat below. */
-      .kpi-wrap.mobile-start-collapsed .kpi-card-body { display: none; }
-      .kpi-wrap.mobile-start-collapsed .kpi-actions { display: none; }
-      .kpi-wrap { padding: 12px 12px 4px; }
+      /* KPI sits at the top of the scrollable chat body — scrolls naturally
+         with the conversation, no toggle needed. */
+      .kpi-wrap { padding: 4px 0 14px; }
       .kpi-card { padding: 0; }
-      .kpi-wrap:not(.collapsed):not(.mobile-start-collapsed) {
-        max-height: 45vh;
-        overflow-y: auto;
-        overscroll-behavior: contain;
-      }
-      /* Sticky collapse button inside the scrollable wrap so it's always
-         reachable without scrolling all the way down */
-      .kpi-wrap:not(.collapsed):not(.mobile-start-collapsed) .kpi-collapse {
-        position: sticky;
-        bottom: -1px;
-        background: rgba(255,251,240,0.95);
-        backdrop-filter: blur(8px);
-        margin-top: 6px;
-        padding: 8px 0;
-        width: 100%;
-        border-top: 1px dotted rgba(36,44,50,0.12);
-      }
       .kpi-stat-num { font-size: 2.1rem; }
       .kpi-stat-label { font-size: 0.85rem; }
       .kpi-eyebrow { margin-bottom: 10px; font-size: 0.62rem; letter-spacing: 1.6px; }
@@ -1188,9 +1152,8 @@
           <button class="chat-header-change" data-action="change-report">Cambiar reporte</button>
         </header>
 
-        <div class="kpi-wrap" id="kpi-wrap"></div>
-
         <div class="chat-body" id="chat-body">
+          <div class="kpi-wrap" id="kpi-wrap"></div>
           <!-- Intro + suggested questions, replaced by messages as they come in -->
           <div class="chat-intro" id="chat-intro">
             <div class="chat-intro-line" id="intro-line">Hola, <span class="gname" id="intro-name"></span>. ¿En qué <em>te</em> ayudo?</div>
@@ -1609,15 +1572,15 @@
       pdfHeader.style.display = 'none';
     }
 
-    // Render the KPI card (role-aware)
-    renderKpiCard();
-
     state.messages = [];
+    // Wipe message bubbles and any stale follow-up chips, but preserve the
+    // KPI wrap and the intro element so they stay at the top of the chat.
     const body = document.getElementById('chat-body');
+    body.querySelectorAll('.msg-row, .followups').forEach(el => el.remove());
     const intro = document.getElementById('chat-intro');
-    body.innerHTML = '';
-    body.appendChild(intro);
     intro.style.display = '';
+    // Render the KPI card content (the wrap is already in place inside chat-body).
+    renderKpiCard();
     showView('chat');
     setTimeout(() => document.getElementById('chat-input').focus(), 80);
   }
@@ -1820,14 +1783,12 @@
     state.sending = true;
     sendBtn.disabled = true;
 
-    // hide intro on first message
+    // hide intro on first message — the KPI stays at the top of the chat
+    // history as scrollable context for the conversation.
     const intro = document.getElementById('chat-intro');
     if (intro && intro.parentNode) {
       intro.style.display = 'none';
     }
-    // auto-collapse the KPI card once the user starts chatting so the chat
-    // panel has breathing room. The "Ver resumen ↓" button restores it.
-    document.getElementById('kpi-wrap').classList.add('collapsed');
 
     // optimistic user bubble
     appendBubble('user', text);
@@ -1970,14 +1931,6 @@
   function renderKpiCard() {
     const wrap = document.getElementById('kpi-wrap');
     wrap.innerHTML = '';
-    wrap.classList.remove('collapsed');
-    // On phones, start the KPI card collapsed (just the eyebrow visible) so
-    // the chat has breathing room. Desktop shows it expanded.
-    if (window.matchMedia('(max-width: 640px)').matches) {
-      wrap.classList.add('mobile-start-collapsed');
-    } else {
-      wrap.classList.remove('mobile-start-collapsed');
-    }
     const s = state.summary;
     if (!s) return;
 
@@ -2060,9 +2013,7 @@
           ${stats.length ? `<div class="kpi-stats">${stats.join('')}</div>` : ''}
           ${actionsHTML}
         </div>
-        <button class="kpi-collapse" type="button"></button>
       </div>`;
-    wireCollapse(wrap);
   }
 
   function renderMateCard(wrap, s) {
@@ -2099,9 +2050,7 @@
           ${actionsHTML}
           ${minutesStat}
         </div>
-        <button class="kpi-collapse" type="button"></button>
       </div>`;
-    wireCollapse(wrap);
   }
 
   function renderTutoriaCard(wrap, s) {
@@ -2145,26 +2094,7 @@
         <div class="kpi-card-body">
           ${stats.length ? `<div class="kpi-stats">${stats.join('')}</div>` : ''}
         </div>
-        <button class="kpi-collapse" type="button"></button>
       </div>`;
-    wireCollapse(wrap);
-  }
-
-  function wireCollapse(wrap) {
-    const btn = wrap.querySelector('.kpi-collapse');
-    if (btn) {
-      btn.addEventListener('click', () => {
-        // Toggling on mobile means: clear the "auto-collapsed" mobile state
-        // and flip the user-driven collapsed state. This way one tap from
-        // collapsed → expanded, next tap → collapsed (predictable).
-        if (wrap.classList.contains('mobile-start-collapsed')) {
-          wrap.classList.remove('mobile-start-collapsed');
-          wrap.classList.remove('collapsed'); // user wants to see it
-        } else {
-          wrap.classList.toggle('collapsed');
-        }
-      });
-    }
   }
 
   // back buttons
