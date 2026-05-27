@@ -492,6 +492,37 @@
     }
     .suggested:hover { border-color: var(--primary); background: #fff8e7; }
 
+    /* Follow-up chips after each gallito response */
+    .followups {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 6px 0 0 42px;
+      max-width: min(85%, 560px);
+    }
+    .followup-chip {
+      background: #fff;
+      border: 1px solid rgba(243,147,0,0.35);
+      color: var(--primary-dark);
+      border-radius: 100px;
+      padding: 6px 12px;
+      font-family: inherit;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: all 0.12s ease;
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+    .followup-chip:hover {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    .followup-chip:active { transform: scale(0.96); }
+
     .msg-row { display: flex; gap: 10px; }
     .msg-row.user { justify-content: flex-end; }
     .msg-bubble {
@@ -979,28 +1010,86 @@
 
   let INDEX = null;       // loaded once on first need
 
-  const SUGGESTED = {
-    director: [
-      "¿Qué destaca de mi escuela?",
-      "¿Qué debo priorizar esta semana?",
-      "Compárame con mi UGEL",
-    ],
-    matematica: [
-      "¿Cómo va mi sección?",
-      "¿Qué estudiantes necesitan atención?",
-      "Ideas para mi próxima clase",
-    ],
-    tutoria: [
-      "Explícame los perfiles RIASEC de mi sección",
-      "¿Qué hago en la próxima sesión?",
-      "¿Con quiénes necesito conversar?",
-    ],
-    pip: [
-      "¿Qué destaca de la escuela?",
-      "¿Qué priorizar esta semana?",
-      "Compárame con la UGEL",
-    ],
-  };
+  // Build the opening 3 suggestion chips from the report's actual numbers so
+  // the user sees the most relevant question first. Falls back to generic
+  // ones if the summary is missing or doesn't trip any rule.
+  function suggestedQuestions(role, summary) {
+    const out = [];
+    summary = summary || {};
+
+    if (role === 'director' || role === 'pip') {
+      const mate = summary.matematica || {};
+      const tut = summary.tutoria || {};
+      // Math adoption flag
+      if (mate.active_pct_school != null && mate.active_pct_school < 80) {
+        out.push("¿Cómo subir la adopción en matemática?");
+      }
+      // Math precision flag
+      if (mate.precision_school != null && mate.precision_school < 60) {
+        out.push("¿Qué tema de mate debo reforzar?");
+      }
+      // Tutoría completion flag
+      if (tut.completed_8_pct_school != null && tut.completed_8_pct_school < 30) {
+        out.push("¿Cómo apoyar a los que no terminaron los 8 pasos?");
+      }
+      // Standout
+      const mateStrong = mate.active_pct_school != null && mate.active_pct_programa != null
+        && (mate.active_pct_school - mate.active_pct_programa) >= 10;
+      const tutStrong = tut.pasos_promedio_school != null && tut.pasos_promedio_programa != null
+        && (tut.pasos_promedio_school - tut.pasos_promedio_programa) >= 1;
+      if (mateStrong || tutStrong) {
+        out.push("¿Qué destaca de mi escuela?");
+      }
+      // 3 weekly actions
+      if ((summary.weekly_actions || []).length) {
+        out.push("¿Qué debo priorizar esta semana?");
+      }
+      // Fallbacks
+      out.push("Compárame con mi UGEL", "Explícame los perfiles RIASEC");
+    }
+
+    else if (role === 'matematica') {
+      if (summary.weak_topic) {
+        out.push(`Explícame "${summary.weak_topic}"`);
+      }
+      const followups = summary.students_for_followup || [];
+      if (followups.length) {
+        out.push(`Cuéntame de ${followups[0]}`);
+      }
+      if (summary.active_minutes_section != null && summary.active_minutes_ugel != null
+          && summary.active_minutes_section < summary.active_minutes_ugel) {
+        out.push("¿Cómo subir el tiempo activo?");
+      }
+      out.push("Ideas para mi próxima clase", "¿Qué estudiantes necesitan atención?", "¿Cómo va mi sección?");
+    }
+
+    else if (role === 'tutoria') {
+      const pasos = summary.pasos_promedio_section ?? summary.pasos_promedio;
+      if (pasos != null && pasos < 5) {
+        out.push("¿Cómo destrabamos a los estudiantes?");
+      }
+      const top = (summary.riasec_top || []).map(r => r.letter).filter(Boolean);
+      if (top.length) {
+        out.push(`Explícame los perfiles ${top.slice(0,3).join(' · ')}`);
+      }
+      if (summary.completed_8_pct != null && summary.completed_8_pct < 30) {
+        out.push("¿Cómo apoyar a los que no terminaron?");
+      }
+      out.push("¿Qué hago en la próxima sesión?", "¿Con quiénes necesito conversar?");
+    }
+
+    // Dedupe + take first 3
+    const seen = new Set();
+    const dedup = [];
+    for (const q of out) {
+      if (!seen.has(q)) {
+        seen.add(q);
+        dedup.push(q);
+      }
+      if (dedup.length === 3) break;
+    }
+    return dedup;
+  }
 
   const ROLE_LABEL = {
     director: "Director(a)",
@@ -1236,10 +1325,10 @@
       introLine.innerHTML = `Hola, <span class="gname">${escapeHtml(state.typed_name || '')}</span>. ¿En qué <em>te</em> ayudo?`;
     }
 
-    // suggested questions
+    // Personalized suggested questions, computed from the report's KPIs.
     const sq = document.getElementById('suggested-questions');
     sq.innerHTML = '';
-    for (const q of (SUGGESTED[state.role] || [])) {
+    for (const q of suggestedQuestions(state.role, state.summary)) {
       const b = document.createElement('button');
       b.className = 'suggested';
       b.textContent = q;
@@ -1301,11 +1390,14 @@
   sendBtn.addEventListener('click', sendMessage);
 
   // Minimal markdown → HTML (only what Claude produces in casual prose):
-  // **bold**, *italic*, numbered lists, bullet lists, paragraphs.
+  // [text](url) links, **bold**, *italic*, numbered/bullet lists, paragraphs.
   function renderMarkdown(text) {
     // Escape HTML first
     const esc = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     let html = esc
+      // markdown links [text](url) — opens in new tab, safe attrs
+      .replace(/\[([^\]\n]+)\]\((https?:[^\s)]+)\)/g, (_, t, u) =>
+        `<a href="${u}" target="_blank" rel="noopener noreferrer">${t}</a>`)
       .replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>')
       .replace(/(?<![*\w])\*([^*\n]+)\*(?!\w)/g, '<em>$1</em>');
     // paragraph breaks
@@ -1323,6 +1415,17 @@
       return '<p>' + p.replace(/\n/g, '<br>') + '</p>';
     }).join('');
     return html;
+  }
+
+  // Split a gallito response into the visible body + an array of follow-up
+  // suggestion strings. The model is asked to end with:
+  //   [SUGERENCIAS]: opción 1 | opción 2 | opción 3
+  function splitSuggestions(text) {
+    const m = text.match(/\n*\[SUGERENCIAS\]\s*:\s*([^\n]+)\s*$/i);
+    if (!m) return { body: text, suggestions: [] };
+    const body = text.slice(0, m.index).replace(/\s+$/, '');
+    const suggestions = m[1].split('|').map(s => s.trim()).filter(Boolean).slice(0, 3);
+    return { body, suggestions };
   }
 
   function appendBubble(role, text) {
@@ -1347,6 +1450,31 @@
     document.getElementById('chat-body').appendChild(row);
     scrollToBottom();
     return bub;
+  }
+
+  // Render a row of follow-up chips below the latest gallito message. Each
+  // chip, when clicked, drops the previous chip row, fills the input with the
+  // suggestion text, and sends it.
+  function renderFollowupChips(suggestions) {
+    // Remove any previous chip row — only the latest response should have them.
+    document.querySelectorAll('.followups').forEach(el => el.remove());
+    const row = document.createElement('div');
+    row.className = 'followups';
+    for (const s of suggestions) {
+      const btn = document.createElement('button');
+      btn.className = 'followup-chip';
+      btn.type = 'button';
+      btn.textContent = s;
+      btn.title = s;
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.followups').forEach(el => el.remove());
+        document.getElementById('chat-input').value = s;
+        sendMessage();
+      });
+      row.appendChild(btn);
+    }
+    document.getElementById('chat-body').appendChild(row);
+    scrollToBottom();
   }
 
   function appendTyping() {
@@ -1461,7 +1589,10 @@
                   assistantBubble = appendBubble('gallito', '');
                 }
                 assistantText += ev.delta.text;
-                assistantBubble.innerHTML = renderMarkdown(assistantText);
+                // Render the body only; the [SUGERENCIAS] line stays hidden
+                // during streaming so the user doesn't see the marker leak.
+                const { body } = splitSuggestions(assistantText);
+                assistantBubble.innerHTML = renderMarkdown(body);
                 scrollToBottom();
               }
             } catch (e) {
@@ -1475,7 +1606,14 @@
         typingRow.remove();
         assistantBubble = appendBubble('gallito', '(sin respuesta — intenta de nuevo)');
       }
-      state.messages.push({ role: 'assistant', content: assistantText });
+      // Parse follow-up suggestions out of the final response and render
+      // them as clickable chips below the bubble.
+      const { body: finalBody, suggestions } = splitSuggestions(assistantText);
+      assistantBubble.innerHTML = renderMarkdown(finalBody);
+      if (suggestions.length) {
+        renderFollowupChips(suggestions);
+      }
+      state.messages.push({ role: 'assistant', content: finalBody });
     } catch (err) {
       if (typingRow.parentNode) typingRow.remove();
       const bub = appendBubble('gallito', '');
