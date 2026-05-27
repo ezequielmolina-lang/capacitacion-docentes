@@ -1899,6 +1899,12 @@ function renderProgress() {
 function renderModule(opts) {
   opts = opts || {};
   const savedScroll = opts.preserveScroll ? window.scrollY : 0;
+  // Defensive clamp: stale localStorage from older course structure may have
+  // state.currentModule >= MODULES.length (e.g. user had M9 in their state
+  // but a module was removed). Without this clamp, MODULES[state.currentModule]
+  // is undefined and renderModule crashes leaving UI stuck on "Cargando...".
+  if (typeof state.currentModule !== 'number' || state.currentModule < 0) state.currentModule = 0;
+  if (state.currentModule >= MODULES.length) { state.currentModule = MODULES.length - 1; saveState(); }
   const m = MODULES[state.currentModule];
   document.getElementById('topbarTitle').textContent = m.title;
   const main = document.getElementById('main');
