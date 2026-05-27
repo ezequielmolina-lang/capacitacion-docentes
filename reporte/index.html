@@ -1348,7 +1348,7 @@
     <div class="mic-help-card">
       <div class="mic-help-icon">🎤</div>
       <div class="mic-help-title" id="mic-help-title">Activar el micrófono</div>
-      <p style="font-size:0.92rem;color:var(--text-gray);text-align:center;margin-bottom:14px;">
+      <p id="mic-help-desc" style="font-size:0.92rem;color:var(--text-gray);text-align:center;margin-bottom:14px;">
         Tu navegador no nos dio permiso para usar el micrófono.
         Sigue estos pasos según el navegador que estés usando:
       </p>
@@ -1851,6 +1851,13 @@
     const iconEl = document.querySelector('.mic-help-icon');
     iconEl.textContent = '📲';
     helpTitle.textContent = 'Guardar como app';
+    // Swap the description text — it was written for the mic case.
+    const desc = document.getElementById('mic-help-desc');
+    if (desc) {
+      desc.textContent = platform === 'ios'
+        ? 'Guarda el enlace en tu pantalla de inicio para abrirlo como una app cualquiera. Estos son los pasos:'
+        : 'Guarda el enlace como una app en tu pantalla de inicio. Estos son los pasos:';
+    }
     // Hide the mic tab row, we don't need it here.
     if (tabsRow) tabsRow.style.display = 'none';
     if (platform === 'ios') {
@@ -1973,6 +1980,10 @@
     if (tabsRow) tabsRow.style.display = '';
     document.querySelector('.mic-help-icon').textContent = '🎤';
     document.getElementById('mic-help-title').textContent = 'Activar el micrófono';
+    const desc = document.getElementById('mic-help-desc');
+    if (desc) {
+      desc.textContent = 'Tu navegador no nos dio permiso para usar el micrófono. Sigue estos pasos según el navegador que estés usando:';
+    }
     // Pick the default tab based on user agent
     const ua = navigator.userAgent.toLowerCase();
     let defaultTab = 'chrome';
