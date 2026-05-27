@@ -118,9 +118,6 @@
       display: block;
       animation: bobble 4s ease-in-out infinite;
       filter: drop-shadow(0 8px 24px rgba(243,147,0,0.20));
-      /* Blend the asset's white background into whatever sits behind it,
-         so it doesn't look like a sticker pasted on cream. */
-      mix-blend-mode: multiply;
     }
     @keyframes bobble {
       0%, 100% { transform: translateY(0) rotate(-1deg); }
@@ -440,7 +437,6 @@
       width: 80px;
       height: 80px;
       margin: 0 auto 16px;
-      mix-blend-mode: multiply;
     }
     .gate-school {
       font-family: 'Cormorant Garamond', serif;
@@ -517,7 +513,6 @@
       width: 44px;
       height: 44px;
       flex-shrink: 0;
-      mix-blend-mode: multiply;
     }
     .chat-header-info { flex: 1; min-width: 0; }
     .chat-header-name {
@@ -875,7 +870,6 @@
       margin-top: 2px;
       align-self: flex-start;
       transition: filter 0.25s ease, transform 0.25s ease;
-      mix-blend-mode: multiply;
     }
     .msg-row.streaming .gallito-avatar {
       animation: avatar-pulse 1.4s ease-in-out infinite;
