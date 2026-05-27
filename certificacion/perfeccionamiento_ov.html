@@ -1003,7 +1003,11 @@ const MODULES = [
     quiz: {
       question: 'Si solo tenés 14 minutos esta semana para actuar sobre el reporte, ¿qué priorizás?',
       options: ['Leer las 5 páginas completas', 'Las dos conversaciones de 2 min con estudiantes marcados', 'La sesión de aula de 10 min sugerida', 'Compartir el reporte con tu director'],
-      correct: 1
+      correct: 1,
+      feedback: {
+        correct: 'Exacto. Las dos conversaciones de 2 min con estudiantes marcados son la palanca de mayor impacto con menor inversión de tu tiempo — son los que ya están en riesgo y donde una intervención corta puede mover la aguja esta misma semana.',
+        incorrect: 'La respuesta correcta es <strong>B</strong>. Las dos conversaciones de 2 min son las que más mueven con menos esfuerzo — el reporte mismo lo dice en la página 1. Las 5 páginas se leen cuando hay tiempo; la sesión de aula sirve para la próxima vez que tengas el grupo. Pero las conversaciones con los estudiantes marcados son <em>ahora</em>.'
+      }
     }
   },
 
@@ -1282,7 +1286,11 @@ const MODULES = [
     quiz: {
       question: 'Tu director te pregunta nombre por nombre quiénes son los estudiantes "fantasmas" para llamar a sus papás. ¿Tu respuesta?',
       options: ['Le doy la lista — es mi director', 'Le explico que esa info es del tutor y le propongo que yo hablo primero con esos estudiantes y le cuento', 'Le digo que escriba al equipo EMC para que se la pasen', 'No respondo'],
-      correct: 1
+      correct: 1,
+      feedback: {
+        correct: 'Exacto. El reporte por estudiante es información sensible del tutor. La propuesta de hablar primero vos con esos estudiantes te permite cumplir tu rol y proteger la privacidad — y muchas veces destraba el problema antes de que el director necesite intervenir.',
+        incorrect: 'La respuesta correcta es <strong>B</strong>. Los nombres de tus estudiantes y sus métricas individuales son confidenciales de tu reporte de tutoría. Compartirlos rompe la confianza. Lo mejor: ofrecerte a hablar primero con esos estudiantes (módulo 4, pág. 4 te da el guion) y contarle a tu director el plan, no los nombres.'
+      }
     }
   },
 
@@ -1425,7 +1433,11 @@ const MODULES = [
     quiz: {
       question: 'Roger dice "no me alcanza para universidad" antes de explorar Paso 4. ¿Cuál NO es una buena intervención?',
       options: ['Validar su realismo económico', 'Darle datos concretos sobre Beca 18 (vacantes, tasa de admisión)', 'Decirle "vos podés, hay que creer en uno mismo"', 'Plantear postular como bajo costo (2 hs de un sábado)'],
-      correct: 2
+      correct: 2,
+      feedback: {
+        correct: 'Exacto. Frente al realismo económico, las frases de motivación pura suenan vacías. Lo que funciona son datos concretos (becas reales, tasas de admisión), validar la preocupación, y desconectar la decisión del costo emocional.',
+        incorrect: 'La respuesta correcta es <strong>C</strong>. Decir "vos podés, hay que creer" frente a alguien que está midiendo realismo económico suele ser contraproducente — suena a frase motivacional vacía. Lo que sí funciona: validar su realismo, dar datos concretos (Beca 18, vacantes), y plantear la postulación como acción de bajo costo (2 hs de un sábado).'
+      }
     }
   },
 
@@ -1565,7 +1577,11 @@ const MODULES = [
     quiz: {
       question: 'Sandra (caso 4) te cuenta que está embarazada. ¿Cuál es el orden correcto de tus acciones?',
       options: ['Llamar a los papás, después al acompañante EMC, después seguir con el viaje vocacional', 'Escuchar sin diagnosticar, conectar con apoyo institucional vía EMC, retomar la conversación vocacional con marco nuevo', 'Suspender el viaje vocacional hasta que se resuelva el embarazo', 'Recomendarle que deje el cole para cuidar al bebé'],
-      correct: 1
+      correct: 1,
+      feedback: {
+        correct: 'Exacto. (1) Escuchar sin diagnosticar — la confianza es lo primero. (2) Conectar con apoyo institucional vía el acompañante EMC — vos no resolvés sola. (3) Retomar la conversación vocacional con un marco que incluya su nueva realidad. Tu rol no se cancela, se ajusta.',
+        incorrect: 'La respuesta correcta es <strong>B</strong>. Llamar a los papás sin que la estudiante te lo pida rompe la confianza inmediatamente. Suspender el viaje vocacional la deja sin plan justo cuando más lo necesita. Recomendarle dejar el cole excede tu rol. El orden correcto: escuchar primero, conectar con apoyo institucional vía EMC, después retomar el viaje vocacional con un marco nuevo.'
+      }
     }
   },
 
@@ -2007,7 +2023,9 @@ function renderQuiz(moduleId, quiz, completed) {
   let feedbackHtml = '';
   if (savedAnswer !== undefined) {
     const isCorrect = savedAnswer === quiz.correct;
-    feedbackHtml = `<div class="quiz-feedback ${isCorrect ? 'correct' : 'incorrect'} show"><strong>${isCorrect ? '✅ ¡Correcto!' : '❌ No es la respuesta correcta.'}</strong><br>${isCorrect ? quiz.feedback.correct : quiz.feedback.incorrect}</div>`;
+    var fbText = '';
+    if (quiz.feedback) { fbText = isCorrect ? (quiz.feedback.correct || '') : (quiz.feedback.incorrect || ''); }
+    feedbackHtml = `<div class="quiz-feedback ${isCorrect ? 'correct' : 'incorrect'} show"><strong>${isCorrect ? '✅ ¡Correcto!' : '❌ No es la respuesta correcta.'}</strong>${fbText ? '<br>' + fbText : ''}</div>`;
   }
   return `
     <div class="quiz">
