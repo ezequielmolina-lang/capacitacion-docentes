@@ -111,6 +111,9 @@
       display: block;
       animation: bobble 4s ease-in-out infinite;
       filter: drop-shadow(0 8px 24px rgba(243,147,0,0.20));
+      /* Blend the asset's white background into whatever sits behind it,
+         so it doesn't look like a sticker pasted on cream. */
+      mix-blend-mode: multiply;
     }
     @keyframes bobble {
       0%, 100% { transform: translateY(0) rotate(-1deg); }
@@ -393,6 +396,7 @@
       width: 80px;
       height: 80px;
       margin: 0 auto 16px;
+      mix-blend-mode: multiply;
     }
     .gate-school {
       font-family: 'Cormorant Garamond', serif;
@@ -469,6 +473,7 @@
       width: 44px;
       height: 44px;
       flex-shrink: 0;
+      mix-blend-mode: multiply;
     }
     .chat-header-info { flex: 1; min-width: 0; }
     .chat-header-name {
@@ -826,6 +831,7 @@
       margin-top: 2px;
       align-self: flex-start;
       transition: filter 0.25s ease, transform 0.25s ease;
+      mix-blend-mode: multiply;
     }
     .msg-row.streaming .gallito-avatar {
       animation: avatar-pulse 1.4s ease-in-out infinite;
@@ -1608,46 +1614,94 @@
   let recognition = null;
   let recPriorText = '';
 
+  function micStatus(msg, isError) {
+    // Show a transient message under the input so the user knows what happened.
+    let bar = document.getElementById('mic-status');
+    if (!bar) {
+      bar = document.createElement('div');
+      bar.id = 'mic-status';
+      bar.style.cssText = 'text-align:center;font-size:0.78rem;padding:4px 10px;color:var(--text-gray);min-height:1.4em;';
+      document.querySelector('.chat-input-zone').appendChild(bar);
+    }
+    bar.textContent = msg || '';
+    bar.style.color = isError ? 'var(--math-color)' : 'var(--text-gray)';
+    if (msg) {
+      clearTimeout(micStatus._t);
+      micStatus._t = setTimeout(() => { bar.textContent = ''; }, 4500);
+    }
+  }
+
   if (!Speech) {
     micBtn.classList.add('unsupported');
   } else {
-    recognition = new Speech();
-    recognition.lang = 'es-PE';
-    recognition.interimResults = true;
-    recognition.continuous = false;
+    function makeRecognition(lang) {
+      const r = new Speech();
+      r.lang = lang;
+      r.interimResults = true;
+      r.continuous = false;
+      r.addEventListener('result', (ev) => {
+        let interim = '', finalText = '';
+        for (let i = ev.resultIndex; i < ev.results.length; i++) {
+          const t = ev.results[i][0].transcript;
+          if (ev.results[i].isFinal) finalText += t; else interim += t;
+        }
+        inputEl.value = (recPriorText + ' ' + finalText + ' ' + interim)
+          .replace(/\s+/g, ' ').trim();
+        inputEl.dispatchEvent(new Event('input'));
+      });
+      r.addEventListener('end', () => {
+        micBtn.classList.remove('recording');
+      });
+      r.addEventListener('error', (e) => {
+        console.warn('SpeechRecognition error:', e.error, e);
+        micBtn.classList.remove('recording');
+        const msgs = {
+          'not-allowed':       'Da permiso al micrófono en tu navegador.',
+          'service-not-allowed':'El micrófono está bloqueado por tu navegador.',
+          'no-speech':         'No te escuché — vuelve a tocar el botón.',
+          'audio-capture':     'No se encontró un micrófono.',
+          'network':           'Sin conexión para transcribir. Intenta de nuevo.',
+          'aborted':           '',
+        };
+        micStatus(msgs[e.error] || `Error de micrófono: ${e.error}`, !!e.error && e.error !== 'aborted');
+      });
+      return r;
+    }
+    // es-PE first; some browsers don't have that voice model and need es-ES.
+    recognition = makeRecognition('es-PE');
 
-    recognition.addEventListener('result', (ev) => {
-      let interim = '', finalText = '';
-      for (let i = ev.resultIndex; i < ev.results.length; i++) {
-        const t = ev.results[i][0].transcript;
-        if (ev.results[i].isFinal) finalText += t; else interim += t;
-      }
-      // Show partial + final concatenated to whatever the user typed before
-      // hitting the mic, so dictation never blows away their existing draft.
-      inputEl.value = (recPriorText + ' ' + finalText + ' ' + interim).replace(/\s+/g, ' ').trim();
-      inputEl.dispatchEvent(new Event('input'));
-    });
-    recognition.addEventListener('end', () => {
-      micBtn.classList.remove('recording');
-    });
-    recognition.addEventListener('error', (e) => {
-      console.warn('SpeechRecognition error:', e.error);
-      micBtn.classList.remove('recording');
-    });
-
-    micBtn.addEventListener('click', () => {
+    micBtn.addEventListener('click', async () => {
       if (micBtn.classList.contains('recording')) {
-        recognition.stop();
+        try { recognition.stop(); } catch {}
+        return;
+      }
+      // Explicit getUserMedia call surfaces permission prompts that some
+      // browsers (esp. iOS Safari) hide when SpeechRecognition does it.
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        stream.getTracks().forEach(t => t.stop());
+      } catch (e) {
+        micStatus('Da permiso al micrófono y vuelve a tocar el botón.', true);
         return;
       }
       recPriorText = inputEl.value.trim();
       try {
         recognition.start();
         micBtn.classList.add('recording');
+        micStatus('Te escucho... toca otra vez para parar.');
         inputEl.focus();
       } catch (e) {
-        // start() throws if called while already running; just ignore.
-        console.warn('SpeechRecognition start failed:', e);
+        // start() throws if called while already running. Try one fallback
+        // with es-ES in case es-PE isn't supported by this browser.
+        console.warn('start failed, retrying with es-ES:', e);
+        try {
+          recognition = makeRecognition('es-ES');
+          recognition.start();
+          micBtn.classList.add('recording');
+          micStatus('Te escucho... toca otra vez para parar.');
+        } catch (e2) {
+          micStatus('No se pudo iniciar el micrófono. Intenta de nuevo.', true);
+        }
       }
     });
   }
