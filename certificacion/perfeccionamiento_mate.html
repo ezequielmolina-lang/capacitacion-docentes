@@ -405,7 +405,7 @@ const MODULES = [
   {
     id: 'bienvenida-video',
     title: 'Bienvenida + Video del programa',
-    eyebrow: 'Módulo 1 de 8',
+    eyebrow: 'Módulo 1 de 9',
     duration: '~15 min',
     steps: [
       {
@@ -416,7 +416,7 @@ const MODULES = [
             <p>Matemáticas — Tutor de IA en el aula. Continuamos lo que empezó en marzo, ahora con los datos que ya tenemos de tu sección y tu sección comparada con el resto del programa.</p>
             <div class="welcome-stats">
               <div class="stat"><div class="stat-num">8 h</div><div class="stat-label">Pedagógicas</div></div>
-              <div class="stat"><div class="stat-num">8</div><div class="stat-label">Módulos</div></div>
+              <div class="stat"><div class="stat-num">9</div><div class="stat-label">Módulos</div></div>
               <div class="stat"><div class="stat-num">30%</div><div class="stat-label">De tu nota final</div></div>
             </div>
           </div>
@@ -477,7 +477,7 @@ const MODULES = [
   {
     id: 'cinco-momentos',
     title: 'Los 5 momentos de la sesión',
-    eyebrow: 'Módulo 2 de 8',
+    eyebrow: 'Módulo 2 de 9',
     duration: '~45 min',
     steps: [
       {
@@ -592,7 +592,7 @@ const MODULES = [
   {
     id: 'feedback-momentos',
     title: 'Qué funcionó y qué no — contanos vos',
-    eyebrow: 'Módulo 3 de 8',
+    eyebrow: 'Módulo 3 de 9',
     duration: '~30 min',
     steps: [
       {
@@ -679,7 +679,7 @@ const MODULES = [
   {
     id: 'reporte-docente',
     title: 'Tu reporte quincenal — página por página',
-    eyebrow: 'Módulo 4 de 8',
+    eyebrow: 'Módulo 4 de 9',
     duration: '~2 h',
     steps: [
       {
@@ -1216,7 +1216,7 @@ const MODULES = [
   {
     id: 'reporte-director',
     title: 'El reporte del director',
-    eyebrow: 'Módulo 5 de 8',
+    eyebrow: 'Módulo 5 de 9',
     duration: '~1 h',
     steps: [
       {
@@ -1640,7 +1640,7 @@ const MODULES = [
   {
     id: 'errores-conceptuales',
     title: 'Errores conceptuales típicos + intervención',
-    eyebrow: 'Módulo 6 de 8',
+    eyebrow: 'Módulo 6 de 9',
     duration: '~1.5 h',
     steps: [
       {
@@ -1882,7 +1882,7 @@ const MODULES = [
   {
     id: 'casos-reales',
     title: 'Casos reales anonimizados',
-    eyebrow: 'Módulo 7 de 8',
+    eyebrow: 'Módulo 7 de 9',
     duration: '~1 h',
     steps: [
       {
@@ -2084,7 +2084,7 @@ const MODULES = [
   {
     id: 'final',
     title: 'Quiz final + reflexión + certificado',
-    eyebrow: 'Módulo 8 de 8',
+    eyebrow: 'Módulo 8 de 9',
     duration: '~30 min',
     isFinal: true,
     content: () => `
@@ -2108,6 +2108,82 @@ const MODULES = [
         <div id="reflexionContainer"></div>
       </div>
     `
+  },
+
+  {
+    id: 'recursos',
+    title: 'Recursos para llevarte',
+    eyebrow: 'Módulo 9 de 9',
+    duration: '~10 min',
+    steps: [
+      {
+        title: 'Glosario rápido',
+        content: () => `
+          <div class="lesson">
+            <p>Ya completaste el curso y obtuviste tu certificado. Acá te dejamos <strong>2 recursos para tener a mano</strong> mientras seguís facilitando el programa: este glosario, y el gallito que te ayuda a leer tus reportes.</p>
+            <h3>💬 Glosario rápido</h3>
+            <p>Los términos que más aparecen en el reporte y en el dashboard:</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0;">
+              <div class="info-card" style="padding:14px 18px;margin:0;">
+                <h4 style="margin:0 0 6px;font-size:15px;color:var(--primary-dark);">Domina Matemática</h4>
+                <p style="margin:0;font-size:13.5px;">La plataforma uDocz donde tus estudiantes practican matemática con apoyo de la IA. Cada ejercicio que resuelven queda registrado en el dashboard que vos ves en tiempo real.</p>
+              </div>
+              <div class="info-card" style="padding:14px 18px;margin:0;">
+                <h4 style="margin:0 0 6px;font-size:15px;color:var(--primary-dark);">Dashboard</h4>
+                <p style="margin:0;font-size:13.5px;">Pantalla en uDocz que te muestra en tiempo real qué hacen tus estudiantes durante la sesión: en qué ejercicio están, cuáles fallaron, cuántos minutos llevan activos.</p>
+              </div>
+              <div class="info-card" style="padding:14px 18px;margin:0;">
+                <h4 style="margin:0 0 6px;font-size:15px;color:var(--primary-dark);">Los 5 momentos</h4>
+                <p style="margin:0;font-size:13.5px;"><strong>Apertura</strong> · <strong>Práctica autónoma</strong> · <strong>Pausa y puesta en común</strong> · <strong>Segunda ronda</strong> · <strong>Cierre</strong>. La estructura de toda sesión EMC de Matemática — tu valor agregado está fuerte en los Momentos 1 y 3.</p>
+              </div>
+              <div class="info-card" style="padding:14px 18px;margin:0;">
+                <h4 style="margin:0 0 6px;font-size:15px;color:var(--primary-dark);">Pausa y puesta en común</h4>
+                <p style="margin:0;font-size:13.5px;">El <strong>Momento 3</strong>: parás la práctica, elegís 1-2 errores conceptuales que viste repetir, y los resolvés en pizarra. Es la palanca pedagógica más fuerte — la IA no puede hacer mini-clases grupales.</p>
+              </div>
+              <div class="info-card" style="padding:14px 18px;margin:0;">
+                <h4 style="margin:0 0 6px;font-size:15px;color:var(--primary-dark);">Errores conceptuales</h4>
+                <p style="margin:0;font-size:13.5px;">Los patrones que el reporte quincenal marca como "más comunes" — no errores de cálculo aislados, sino malentendidos sistemáticos (potencias con paréntesis, redondeo prematuro, margen vs markup, etc.). El módulo 6 tiene los 5 guiones para abordarlos.</p>
+              </div>
+              <div class="info-card" style="padding:14px 18px;margin:0;">
+                <h4 style="margin:0 0 6px;font-size:15px;color:var(--primary-dark);">Sesión de aula</h4>
+                <p style="margin:0;font-size:13.5px;">Un día en que al menos la mitad de tu sección entró a la plataforma simultáneamente. Es la señal de que <em>vos guiaste</em> una clase en el lab — no se cuenta una sesión casera como sesión de aula.</p>
+              </div>
+              <div class="info-card" style="padding:14px 18px;margin:0;">
+                <h4 style="margin:0 0 6px;font-size:15px;color:var(--primary-dark);">Acompañante EMC</h4>
+                <p style="margin:0;font-size:13.5px;">Tu contacto directo del equipo Eligiendo Mi Camino. Es tu primera vía para dudas operativas, técnicas o pedagógicas del programa. Te llama una vez al mes; respondé al WhatsApp en horario laboral.</p>
+              </div>
+              <div class="info-card" style="padding:14px 18px;margin:0;">
+                <h4 style="margin:0 0 6px;font-size:15px;color:var(--primary-dark);">UGEL / Programa (en comparaciones)</h4>
+                <p style="margin:0;font-size:13.5px;"><strong>UGEL</strong>: el promedio de tu zona (UGEL 01, 02, etc.). <strong>Programa</strong>: el promedio nacional de todas las IIEE de Eligiendo Mi Camino. Es la referencia más amplia.</p>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        title: 'Cierre · gallito + cómo seguir',
+        content: () => `
+          <div class="lesson">
+            <h3>🐦 Reflexioná sobre tus reportes con el gallito</h3>
+            <p>Cuando llegue tu reporte real, no estás solo/a para interpretarlo. <strong>El gallito de Eligiendo Mi Camino</strong> es un chat especializado que conoce los reportes EMC, los 5 momentos, los errores conceptuales típicos, y los patrones que aparecen en aulas como la tuya. Pedile ayuda con confianza:</p>
+            <div style="text-align:center;margin:24px 0;">
+              <a href="https://eligiendomicamino.org/reporte/" target="_blank" rel="noopener" style="display:inline-block;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;padding:16px 32px;border-radius:10px;font-weight:700;font-size:15.5px;text-decoration:none;box-shadow:0 4px 14px rgba(243,147,0,0.35);">🐦 Hablá con el gallito sobre tus reportes →</a>
+              <p style="font-size:13px;color:var(--text-muted);margin-top:10px;">El gallito conoce tu IE y tus reportes — pedile ayuda para interpretar datos, pensar acciones, o discutir qué intervención probar la próxima sesión.</p>
+            </div>
+
+            <h3 style="margin-top:36px;">📚 Si querés profundizar más</h3>
+            <ul>
+              <li>Volvé a cualquier módulo cuando quieras desde la barra lateral. Tu progreso queda guardado.</li>
+              <li>Tus respuestas del módulo 3 (qué funcionó / qué no de los 5 momentos) las usa el equipo EMC para ajustar el programa. <strong>Si querés agregar más</strong> después, volvé al módulo 3 y editá — al enviar de nuevo, llega la versión actualizada al equipo.</li>
+              <li>Compartí este link con docentes de tu IE u otras IIEE del programa que tengan los mismos productos: <code style="background:#fffaeb;padding:2px 8px;border-radius:4px;font-size:13px;">eligiendomicamino.org/certificacion/perfeccionamiento_mate.html</code></li>
+            </ul>
+
+            <div class="callout callout-tip" style="margin-top:24px;"><p><span class="callout-icon">🙏</span><strong>Gracias por completar el curso.</strong> Lo que aprendiste acá no es teoría — son herramientas que ya están en tu próxima sesión de laboratorio. Buen trabajo.</p></div>
+          </div>
+        `
+      }
+    ],
+    quiz: null
   }
 ];
 
@@ -2263,7 +2339,7 @@ function renderIntake() {
     <h2>Curso de perfeccionamiento docente</h2>
     <p>Matemáticas — Tutor de IA en el aula. <strong>8 horas pedagógicas asincrónicas</strong>. Tu progreso queda registrado para tu certificación.</p>
     <div class="stat-row">
-      <div class="stat-block"><div class="stat-block-num">8</div><div class="stat-block-label">Módulos</div></div>
+      <div class="stat-block"><div class="stat-block-num">9</div><div class="stat-block-label">Módulos</div></div>
       <div class="stat-block"><div class="stat-block-num">~8 h</div><div class="stat-block-label">Pedagógicas</div></div>
       <div class="stat-block"><div class="stat-block-num">6/10</div><div class="stat-block-label">Quiz mínimo</div></div>
     </div>
