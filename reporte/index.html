@@ -7,6 +7,13 @@
   <title>Pregúntale al gallito — Eligiendo Mi Camino</title>
   <meta name="description" content="Conversa con el gallito de Eligiendo Mi Camino sobre el reporte de tu escuela." />
 
+  <!-- PWA: installable on Android (Add to Home Screen) + iOS (Compartir → Añadir a inicio) -->
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Gallito EMC" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600;1,700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -867,6 +874,8 @@
       align-items: flex-end;
       max-width: 720px;
       margin: 0 auto;
+      /* So the mic-hint tooltip can absolute-position above the mic button */
+      position: relative;
     }
     .chat-input {
       flex: 1;
@@ -1015,6 +1024,48 @@
     }
     /* Hide mic on browsers without SpeechRecognition (Firefox) */
     .chat-mic.unsupported { display: none; }
+
+    /* First-time hint that points at the mic button */
+    .mic-hint {
+      position: absolute;
+      bottom: calc(100% + 8px);
+      right: 50px;
+      background: var(--text-dark);
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.78rem;
+      padding: 8px 12px;
+      border-radius: 10px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+      max-width: 260px;
+      line-height: 1.35;
+      z-index: 30;
+      animation: hint-pop 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    .mic-hint::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      right: 18px;
+      width: 12px;
+      height: 12px;
+      background: var(--text-dark);
+      transform: rotate(45deg);
+    }
+    .mic-hint .mic-hint-close {
+      background: none;
+      border: none;
+      color: #fff;
+      opacity: 0.7;
+      font-size: 0.9rem;
+      cursor: pointer;
+      padding: 0 4px;
+      margin-left: 6px;
+    }
+    @keyframes hint-pop {
+      from { opacity: 0; transform: translateY(6px) scale(0.92); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
 
     .chat-footer-actions {
       display: flex;
@@ -1700,6 +1751,9 @@
     // Render the KPI card content (the wrap is already in place inside chat-body).
     renderKpiCard();
     showView('chat');
+    // First-time-only mic hint, so the user knows to allow the browser
+    // permission prompt when they tap the mic for the first time.
+    maybeShowMicHint();
     setTimeout(() => document.getElementById('chat-input').focus(), 80);
   }
 
@@ -1719,6 +1773,43 @@
     }
   });
   sendBtn.addEventListener('click', sendMessage);
+
+  // ---------- PWA: register the service worker so the site is installable ----
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js').catch((e) =>
+        console.warn('Service worker registration failed:', e)
+      );
+    });
+  }
+
+  // First-time hint that points at the mic button so the user is ready when
+  // the browser asks for microphone permission. Stored in localStorage so it
+  // never reappears.
+  function maybeShowMicHint() {
+    const Speech = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!Speech) return; // no point showing if mic is unsupported
+    try {
+      if (localStorage.getItem('emc-mic-hint-shown') === '1') return;
+    } catch {}
+    const row = document.querySelector('.chat-input-row');
+    if (!row) return;
+    if (row.querySelector('.mic-hint')) return; // already there
+    const hint = document.createElement('div');
+    hint.className = 'mic-hint';
+    hint.innerHTML = `
+      Toca 🎤 para hablar. Cuando tu navegador pregunte, dale <b>Permitir</b>.
+      <button class="mic-hint-close" type="button" aria-label="Cerrar">×</button>
+    `;
+    row.appendChild(hint);
+    const dismiss = () => {
+      hint.remove();
+      try { localStorage.setItem('emc-mic-hint-shown', '1'); } catch {}
+    };
+    hint.querySelector('.mic-hint-close').addEventListener('click', dismiss);
+    // Auto-dismiss after 14s in case the user just ignores it.
+    setTimeout(dismiss, 14000);
+  }
 
   // ---------- Voice input (Web Speech API) -------------------------------
   const micBtn = document.getElementById('chat-mic');
