@@ -642,7 +642,7 @@ const MODULES = [
           <div class="lesson">
             <p>Las fricciones más comunes que aparecen en aula. Ninguna es "error grave" — son patrones que se corrigen con un pequeño ajuste de método.</p>
             <div class="observations-card obs-friction">
-              <h4>⚠️ Donde más vimos fricción</h4>
+              <h4>🎯 Áreas donde podemos mejorar juntos</h4>
               <ul class="obs-list">
                 <li><strong>Privacidad del diario (Paso 1):</strong> tutores que leen lo que el estudiante escribió en el diario virtual rompen la confianza. La regla es: solo lo leés si te lo comparte voluntariamente.</li>
                 <li><strong>Test RIASEC como sentencia:</strong> "tu perfil es Investigador, entonces ingeniería". El test es una <em>orientación</em>, no un veredicto.</li>
@@ -661,6 +661,10 @@ const MODULES = [
           <div class="lesson">
             <h3>¿Cómo te fue con cada paso?</h3>
             <p>Una o dos líneas por paso alcanzan. <strong>Tu respuesta va directamente al equipo EMC</strong> a través de este formulario de Google. Tus datos (nombre, DNI, IE) son los mismos que registraste al empezar el curso — copialos del intake.</p>
+            <div class="callout" style="background:#f4f9ee;border-left:4px solid #6b8e3d;margin:14px 0;padding:12px 16px;font-size:13.5px;">
+              <p style="margin:0;"><strong>👀 ¿Por qué aparece tu email arriba del formulario?</strong> Si tenés sesión iniciada en Google, Forms muestra ese email en la cabecera — pero <em>no lo registra</em>. La respuesta queda asociada al email que escribas en el primer campo del formulario.</p>
+            </div>
+
 
             <div class="callout callout-info"><p><span class="callout-icon">💡</span><strong>Si el formulario no carga acá abajo:</strong> <a href="https://docs.google.com/forms/d/e/1FAIpQLSebEnwnaP7rzML-HtRd9UmuEsO0wuATEla9NmZbX8ju0wnxPw/viewform" target="_blank" rel="noopener" style="color:var(--primary-dark);font-weight:600;">abrílo en otra pestaña →</a></p></div>
 
@@ -944,6 +948,10 @@ const MODULES = [
         content: () => `
           <div class="lesson">
             <p>Las últimas páginas del reporte son el <strong>anexo</strong>: la lista completa de todos tus estudiantes con sus métricas. Útil como referencia, no como lista de acciones inmediatas.</p>
+            <div class="callout callout-tip" style="margin-top:20px;background:#fff4d4;border-left:4px solid #f39300;">
+              <p><span class="callout-icon">🐦</span><strong>Cuando llegue tu reporte real:</strong> podés pedirle al gallito de Eligiendo Mi Camino que te ayude a interpretarlo y a pensar próximos pasos. Es un chat especializado en reportes EMC, accesible en <a href="https://eligiendomicamino.org/reporte/" target="_blank" rel="noopener" style="color:var(--primary-dark);font-weight:600;">eligiendomicamino.org/reporte/</a></p>
+            </div>
+
 
             <div class="report">
               <div class="report-pg">
@@ -1711,11 +1719,11 @@ const MODULES = [
         title: 'Pedir llamada + cierre',
         content: () => `
           <div class="lesson">
-        <h3>📞 Pedir llamada con tu acompañante EMC</h3>
-        <p>El equipo EMC te asignó un acompañante que te llama una vez al mes (mínimo 2 de 3 cuenta para tu certificación). <strong>Si necesitás una llamada extra entre las mensuales</strong> — porque algo del reporte no te queda claro, porque una semana se complicó, o porque querés discutir una intervención antes de hacerla — escribilas con un mensaje breve:</p>
+        <h3>🐦 Reflexioná sobre tus reportes con el gallito</h3>
+        <p>Cuando llegue tu reporte real, no estás solo/a para interpretarlo. <strong>El gallito de Eligiendo Mi Camino</strong> es un chat especializado que conoce los reportes EMC, los pasos del viaje vocacional, y los patrones que aparecen en aulas como la tuya. Pedile ayuda con confianza:</p>
         <div style="text-align:center;margin:24px 0;">
-          <a href="mailto:eligiendomicamino@worldbank.org?subject=Pedido%20de%20llamada%20EMC%20—%20${encodeURIComponent(state.userName || '')}&body=${encodeURIComponent('Hola equipo EMC,\n\nMe gustaría coordinar una llamada con mi acompañante para discutir:\n\n[brevemente lo que necesitás resolver]\n\nMis datos:\nNombre: ' + (state.userName || '') + '\nDNI: ' + (state.userDni || '') + '\nIE: ' + (state.userSchool || '') + '\nMateria: Orientación Vocacional\n\nGracias.')}" target="_blank" rel="noopener" style="display:inline-block;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;padding:16px 32px;border-radius:10px;font-weight:700;font-size:15.5px;text-decoration:none;box-shadow:0 4px 14px rgba(243,147,0,0.35);">📩 Pedir llamada con mi acompañante →</a>
-          <p style="font-size:13px;color:var(--text-muted);margin-top:10px;">Abre tu correo con un mensaje prellenado. Solo agregás lo específico y enviás.</p>
+          <a href="https://eligiendomicamino.org/reporte/" target="_blank" rel="noopener" style="display:inline-block;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;padding:16px 32px;border-radius:10px;font-weight:700;font-size:15.5px;text-decoration:none;box-shadow:0 4px 14px rgba(243,147,0,0.35);">🐦 Hablá con el gallito sobre tus reportes →</a>
+          <p style="font-size:13px;color:var(--text-muted);margin-top:10px;">El gallito conoce tu IE y tus reportes — pedile ayuda para interpretar datos, pensar acciones o discutir intervenciones.</p>
         </div>
 
         <h3 style="margin-top:36px;">📚 Si querés profundizar más</h3>

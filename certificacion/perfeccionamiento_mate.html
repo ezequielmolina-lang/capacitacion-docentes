@@ -399,7 +399,7 @@ const MODULES = [
   {
     id: 'bienvenida-video',
     title: 'Bienvenida + Video del programa',
-    eyebrow: 'Módulo 1 de 9',
+    eyebrow: 'Módulo 1 de 8',
     duration: '~15 min',
     steps: [
       {
@@ -410,7 +410,7 @@ const MODULES = [
             <p>Matemáticas — Tutor de IA en el aula. Continuamos lo que empezó en marzo, ahora con los datos que ya tenemos de tu sección y tu sección comparada con el resto del programa.</p>
             <div class="welcome-stats">
               <div class="stat"><div class="stat-num">8 h</div><div class="stat-label">Pedagógicas</div></div>
-              <div class="stat"><div class="stat-num">9</div><div class="stat-label">Módulos</div></div>
+              <div class="stat"><div class="stat-num">8</div><div class="stat-label">Módulos</div></div>
               <div class="stat"><div class="stat-num">30%</div><div class="stat-label">De tu nota final</div></div>
             </div>
           </div>
@@ -471,7 +471,7 @@ const MODULES = [
   {
     id: 'cinco-momentos',
     title: 'Los 5 momentos de la sesión',
-    eyebrow: 'Módulo 2 de 9',
+    eyebrow: 'Módulo 2 de 8',
     duration: '~45 min',
     steps: [
       {
@@ -586,7 +586,7 @@ const MODULES = [
   {
     id: 'feedback-momentos',
     title: 'Qué funcionó y qué no — contanos vos',
-    eyebrow: 'Módulo 3 de 9',
+    eyebrow: 'Módulo 3 de 8',
     duration: '~30 min',
     steps: [
       {
@@ -613,15 +613,15 @@ const MODULES = [
         title: 'Donde vimos fricción',
         content: () => `
           <div class="lesson">
-            <p>Estas son las fricciones más comunes que aparecen en aula. Ninguna es "error grave" — son patrones que se corrigen con un pequeño ajuste de método.</p>
+            <p>Estas son <strong>áreas donde el equipo EMC vio oportunidad de mejorar juntos</strong> al visitar aulas. Ninguna es crítica — son ajustes chiquitos que mueven mucho. No están acá como "lo que se hizo mal" sino como prácticas que vale la pena cuidar.</p>
             <div class="observations-card obs-friction">
-              <h4>⚠️ Donde más vimos fricción</h4>
+              <h4>🎯 Áreas donde podemos mejorar juntos</h4>
               <ul class="obs-list">
-                <li><strong>Acceso uDocz al inicio:</strong> credenciales olvidadas o equipo que no carga retrasaron la apertura en varias sesiones. (Coordinar con el AIP/PIP de la IE ayuda — ver Módulo 7 del cert.)</li>
-                <li><strong>Saltar el ejemplo resuelto del Momento 1:</strong> mandar a los estudiantes directo a Doc sin abrir el tema en pizarra hace que la práctica empiece dispersa.</li>
-                <li><strong>Saltar la pausa del Momento 3:</strong> seguir con la práctica corrida sin parar a sintetizar los errores repetidos. La IA no puede hacer mini-clases colectivas — esa es tu palanca exclusiva.</li>
-                <li><strong>Dashboard como vigilancia:</strong> mirar el dashboard solo para "ver quién no avanza" genera resistencia. Usalo como herramienta de apoyo, no de control.</li>
-                <li><strong>Confundir el programa con la capacitación inicial:</strong> algunos docentes esperan que el Tutor IA "enseñe el tema completo". Doc practica, el docente enseña en los Momentos 1 y 3 — son complementarios.</li>
+                <li><strong>Coordinar acceso uDocz antes de la sesión:</strong> credenciales y equipos listos previo a empezar arrancan la sesión con fluidez. El AIP/PIP de tu IE es tu mejor aliado para esto (ver Módulo 7 del cert).</li>
+                <li><strong>Abrir con el Momento 1 (ejemplo resuelto):</strong> antes de soltar a los estudiantes a la plataforma, un ejemplo en pizarra de 5 minutos ubica el cerebro de todos. Sin esa apertura, la práctica empieza dispersa.</li>
+                <li><strong>Cuidar el Momento 3 (Pausa y puesta en común):</strong> 5 minutos para resolver en pizarra los 1-2 errores conceptuales que viste circulando. Es <em>la palanca pedagógica más fuerte</em> — la IA hace feedback 1 a 1 muy bien pero no puede hacer mini-clases colectivas. Esa es tu zona única de aporte.</li>
+                <li><strong>Usar el dashboard como apoyo, no como vigilancia:</strong> mirá el dashboard para detectar patrones (3+ estudiantes con el mismo error) que merecen mini-clase, no para "ver quién no avanza". El uso de apoyo genera adopción; el uso de control genera resistencia.</li>
+                <li><strong>Recordá que el Tutor IA practica, vos enseñás:</strong> son complementarios. La IA acompaña la práctica autónoma y da feedback. La enseñanza conceptual — abrir y sintetizar — sigue en tus manos en los Momentos 1 y 3.</li>
               </ul>
             </div>
             <p style="margin-top:14px;font-size:14.5px;">En el próximo paso te toca a vos: contanos tu experiencia con cada momento. Una o dos líneas por momento alcanza.</p>
@@ -634,6 +634,10 @@ const MODULES = [
           <div class="lesson">
             <h3>¿Cómo te fue con cada momento?</h3>
             <p>Una o dos líneas por momento alcanzan. <strong>Tu respuesta va directamente al equipo EMC</strong> a través de este formulario de Google. Tus datos (nombre, DNI, IE) son los mismos que registraste al empezar el curso — copialos del intake.</p>
+            <div class="callout" style="background:#f4f9ee;border-left:4px solid #6b8e3d;margin:14px 0;padding:12px 16px;font-size:13.5px;">
+              <p style="margin:0;"><strong>👀 ¿Por qué aparece tu email arriba del formulario?</strong> Si tenés sesión iniciada en Google, Forms muestra ese email en la cabecera — pero <em>no lo registra</em>. La respuesta queda asociada al email que escribas en el primer campo del formulario.</p>
+            </div>
+
 
             <div class="callout callout-info"><p><span class="callout-icon">💡</span><strong>Si el formulario no carga acá abajo:</strong> <a href="https://docs.google.com/forms/d/e/1FAIpQLSfXNh-DQqm6wVUPZrOlrvS__gpSganMq_61HvNA7FG8q0Hz_w/viewform" target="_blank" rel="noopener" style="color:var(--primary-dark);font-weight:600;">abrílo en otra pestaña →</a></p></div>
 
@@ -669,7 +673,7 @@ const MODULES = [
   {
     id: 'reporte-docente',
     title: 'Tu reporte quincenal — página por página',
-    eyebrow: 'Módulo 4 de 9',
+    eyebrow: 'Módulo 4 de 8',
     duration: '~2 h',
     steps: [
       {
@@ -1098,6 +1102,10 @@ const MODULES = [
         content: () => `
           <div class="lesson">
           <p>Las últimas dos páginas del reporte son el anexo: la lista completa de todos tus estudiantes con sus métricas. Útil como referencia, no como lista de acciones inmediatas.</p>
+            <div class="callout callout-tip" style="margin-top:20px;background:#fff4d4;border-left:4px solid #f39300;">
+              <p><span class="callout-icon">🐦</span><strong>Cuando llegue tu reporte real:</strong> podés pedirle al gallito de Eligiendo Mi Camino que te ayude a interpretarlo y a pensar próximos pasos. Es un chat especializado en reportes EMC, accesible en <a href="https://eligiendomicamino.org/reporte/" target="_blank" rel="noopener" style="color:var(--primary-dark);font-weight:600;">eligiendomicamino.org/reporte/</a></p>
+            </div>
+
 
           <div class="report">
 <!-- =================== PÁGINA 7 =================== -->
@@ -1202,7 +1210,7 @@ const MODULES = [
   {
     id: 'reporte-director',
     title: 'El reporte del director',
-    eyebrow: 'Módulo 5 de 9',
+    eyebrow: 'Módulo 5 de 8',
     duration: '~1 h',
     steps: [
       {
@@ -1626,7 +1634,7 @@ const MODULES = [
   {
     id: 'errores-conceptuales',
     title: 'Errores conceptuales típicos + intervención',
-    eyebrow: 'Módulo 6 de 9',
+    eyebrow: 'Módulo 6 de 8',
     duration: '~1.5 h',
     steps: [
       {
@@ -1868,7 +1876,7 @@ const MODULES = [
   {
     id: 'casos-reales',
     title: 'Casos reales anonimizados',
-    eyebrow: 'Módulo 7 de 9',
+    eyebrow: 'Módulo 7 de 8',
     duration: '~1 h',
     steps: [
       {
@@ -2070,7 +2078,7 @@ const MODULES = [
   {
     id: 'final',
     title: 'Quiz final + reflexión + certificado',
-    eyebrow: 'Módulo 8 de 9',
+    eyebrow: 'Módulo 8 de 8',
     duration: '~30 min',
     isFinal: true,
     content: () => `
@@ -2094,125 +2102,6 @@ const MODULES = [
         <div id="reflexionContainer"></div>
       </div>
     `
-  },
-
-  {
-    id: 'recursos',
-    title: 'Recursos para llevarte',
-    eyebrow: 'Módulo 9 de 9',
-    duration: '~10 min',
-    steps: [
-      {
-        title: 'Calendario sugerido por quincena',
-        content: () => {
-          const today = new Date();
-          const dayOfWeek = today.getDay();
-          const daysUntilMonday = dayOfWeek === 1 ? 0 : (dayOfWeek === 0 ? 1 : 8 - dayOfWeek);
-          const nextMonday = new Date(today);
-          nextMonday.setDate(today.getDate() + daysUntilMonday);
-          const closureYear = today.getMonth() >= 7 ? today.getFullYear() + 1 : today.getFullYear();
-          const closure = new Date(closureYear, 6, 30);
-          const dates = [];
-          for (let i = 0; i < 6; i++) {
-            const d = new Date(nextMonday);
-            d.setDate(nextMonday.getDate() + i * 14);
-            if (d > closure) break;
-            dates.push(d.toLocaleDateString('es-PE', { day: 'numeric', month: 'long' }));
-          }
-          const showClosure = dates.length > 0 && new Date(closureYear, 6, 30) >= today;
-          const calendarPrompts = [
-            '¿Qué error conceptual aparece con más frecuencia? — Mirá el guion del módulo 6 si te suena.',
-            '¿Hubo alguna semana sin actividad? — Si tu sección tiene "—", revisá si fue contexto o señal real.',
-            '¿Qué estudiantes están en P1/P2/P3? — Concentrate en P1+P2 esta quincena.',
-            '¿La precisión subió o bajó vs. la quincena anterior? — Trend es lo que importa, no el número absoluto.',
-            '¿Hay un estudiante con buen volumen pero un tema débil? — Caso 4 del módulo 7.',
-            '¿Cómo viene tu sección vs. la otra sección de tu IE? — Página 3 del reporte del director te lo dice.'
-          ];
-          return `
-          <div class="lesson">
-            <p>Ya completaste el curso y obtuviste tu certificado. Acá te dejamos <strong>3 recursos para tener a mano</strong> mientras seguís implementando el programa:</p>
-
-            <h3>📅 Calendario sugerido — qué mirar cada quincena</h3>
-            <p>El reporte de aula llega cada dos semanas, los lunes por la mañana, hasta el <strong>cierre del programa el 30 de julio</strong>. Acá una guía rápida de qué priorizar en cada uno. Las fechas son aproximadas — ajustá según cuándo te llegue el reporte real.</p>
-            <table class="data-table">
-              <thead><tr><th>Próxima entrega (estimada)</th><th>Qué priorizar al leer</th></tr></thead>
-              <tbody>
-                ${dates.map((d, i) => `<tr><td><strong>${d}</strong></td><td>${calendarPrompts[i]}</td></tr>`).join('')}
-                ${showClosure ? `<tr style="background:#fff4d4;"><td><strong>30 de julio · CIERRE</strong></td><td>Última quincena del programa. Reporte final + última conversación con tu acompañante EMC. Las entregas pendientes se reciben hasta esta fecha.</td></tr>` : ''}
-              </tbody>
-            </table>
-            <p style="font-size:13.5px;color:var(--text-muted);">💡 No es necesario que cubras los 6 puntos en cada reporte. La idea es que cada quincena uses una lente distinta para no pasar por alto patrones que se acumulan. <strong>Después del 30 de julio</strong> ya no recibís más reportes — el programa cerró.</p>
-          </div>
-        `;
-        }
-      },
-      {
-        title: 'Glosario rápido',
-        content: () => `
-          <div class="lesson">
-            <h3>💬 Glosario rápido</h3>
-        <p>Los términos que más aparecen en el reporte y en el dashboard:</p>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0;">
-          <div class="info-card" style="padding:14px 18px;margin:0;">
-            <h4 style="margin:0 0 6px;font-size:15px;color:var(--primary-dark);">Tutor IA / Doc</h4>
-            <p style="margin:0;font-size:13.5px;">La IA que practica con tus estudiantes en uDocz. Tiene Modo Escuela (con vos en clase) y Modo Casa (individual).</p>
-          </div>
-          <div class="info-card" style="padding:14px 18px;margin:0;">
-            <h4 style="margin:0 0 6px;font-size:15px;color:var(--primary-dark);">Dashboard</h4>
-            <p style="margin:0;font-size:13.5px;">Pantalla en uDocz que te muestra en tiempo real qué hacen tus estudiantes durante una sesión: avance, errores frecuentes, tiempo activo.</p>
-          </div>
-          <div class="info-card" style="padding:14px 18px;margin:0;">
-            <h4 style="margin:0 0 6px;font-size:15px;color:var(--primary-dark);">Precisión</h4>
-            <p style="margin:0;font-size:13.5px;">% de preguntas respondidas correctamente sobre el total respondido. NO es % sobre todas las preguntas que existen — solo sobre las que tu sección efectivamente respondió.</p>
-          </div>
-          <div class="info-card" style="padding:14px 18px;margin:0;">
-            <h4 style="margin:0 0 6px;font-size:15px;color:var(--primary-dark);">Preguntas (vs. intentos)</h4>
-            <p style="margin:0;font-size:13.5px;"><strong>Preguntas únicas</strong> respondidas. Si un estudiante responde la misma pregunta 3 veces (porque la IA le pide reintentar), cuenta como <em>1 pregunta · 3 intentos</em>.</p>
-          </div>
-          <div class="info-card" style="padding:14px 18px;margin:0;">
-            <h4 style="margin:0 0 6px;font-size:15px;color:var(--primary-dark);">Sesión de aula</h4>
-            <p style="margin:0;font-size:13.5px;">Un día en que al menos la mitad de tu sección entró a la plataforma simultáneamente. Es la señal de que <em>vos guiaste</em> una clase en el lab — no se cuenta una sesión casera como sesión de aula.</p>
-          </div>
-          <div class="info-card" style="padding:14px 18px;margin:0;">
-            <h4 style="margin:0 0 6px;font-size:15px;color:var(--primary-dark);">Modo Escuela vs Modo Casa</h4>
-            <p style="margin:0;font-size:13.5px;"><strong>Escuela</strong>: con vos en clase, en el lab. <strong>Casa</strong>: el estudiante practica solo desde su casa o celular. Modo Casa no requiere tu presencia ni cuenta como sesión de aula tuya.</p>
-          </div>
-          <div class="info-card" style="padding:14px 18px;margin:0;">
-            <h4 style="margin:0 0 6px;font-size:15px;color:var(--primary-dark);">Acompañante EMC</h4>
-            <p style="margin:0;font-size:13.5px;">Tu contacto directo del equipo Eligiendo Mi Camino. Es tu primera vía para dudas operativas, técnicas o pedagógicas del programa. Te llama una vez al mes y respondé al WhatsApp en horario laboral.</p>
-          </div>
-          <div class="info-card" style="padding:14px 18px;margin:0;">
-            <h4 style="margin:0 0 6px;font-size:15px;color:var(--primary-dark);">UGEL / Programa (en comparaciones)</h4>
-            <p style="margin:0;font-size:13.5px;"><strong>UGEL</strong>: el promedio de tu zona (UGEL 01, 02, etc.). <strong>Programa</strong>: el promedio nacional de todas las IIEE de Eligiendo Mi Camino. Es la referencia más amplia.</p>
-          </div>
-        </div>
-          </div>
-        `
-      },
-      {
-        title: 'Pedir llamada + cierre',
-        content: () => `
-          <div class="lesson">
-            <h3>📞 Pedir llamada con tu acompañante EMC</h3>
-            <p>El equipo EMC te asignó un acompañante que te llama una vez al mes (mínimo 2 de 3 cuenta para tu certificación). <strong>Si necesitás una llamada extra entre las mensuales</strong> — porque algo del reporte no te queda claro, porque una semana se complicó, o porque querés discutir una intervención antes de hacerla — escribilas con un mensaje breve:</p>
-            <div style="text-align:center;margin:24px 0;">
-              <a href="mailto:eligiendomicamino@worldbank.org?subject=Pedido%20de%20llamada%20EMC%20—%20${encodeURIComponent(state.userName || '')}&body=${encodeURIComponent('Hola equipo EMC,\n\nMe gustaría coordinar una llamada con mi acompañante para discutir:\n\n[brevemente lo que necesitás resolver]\n\nMis datos:\nNombre: ' + (state.userName || '') + '\nDNI: ' + (state.userDni || '') + '\nIE: ' + (state.userSchool || '') + '\nMateria: Matemáticas\n\nGracias.')}" target="_blank" rel="noopener" style="display:inline-block;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;padding:16px 32px;border-radius:10px;font-weight:700;font-size:15.5px;text-decoration:none;box-shadow:0 4px 14px rgba(243,147,0,0.35);">📩 Pedir llamada con mi acompañante →</a>
-              <p style="font-size:13px;color:var(--text-muted);margin-top:10px;">Abre tu correo con un mensaje prellenado. Solo agregás lo específico y enviás.</p>
-            </div>
-
-            <h3 style="margin-top:36px;">📚 Si querés profundizar más</h3>
-            <ul>
-              <li>Volvé a cualquier módulo cuando quieras desde la barra lateral. Tu progreso queda guardado.</li>
-              <li>Tus respuestas del módulo 3 (qué funcionó / qué no de los 5 momentos) las usa el equipo EMC para ajustar el programa. <strong>Si querés agregar más</strong> después, volvé al módulo 3 y editá — al enviar de nuevo, llega la versión actualizada al equipo.</li>
-              <li>Compartí este link con docentes de tu IE u otras IIEE del programa que tengan los mismos productos: <code style="background:#fffaeb;padding:2px 8px;border-radius:4px;font-size:13px;">eligiendomicamino.org/certificacion/perfeccionamiento_mate.html</code></li>
-            </ul>
-
-            <div class="callout callout-tip" style="margin-top:24px;"><p><span class="callout-icon">🙏</span><strong>Gracias por completar el curso.</strong> Lo que aprendiste acá no es teoría — son herramientas que ya están en tu próxima sesión de laboratorio. Buen trabajo.</p></div>
-          </div>
-        `
-      }
-    ],
-    quiz: null
   }
 ];
 
@@ -2226,12 +2115,12 @@ const FINAL_QUIZ = [
    o:['Momento 2 (Práctica autónoma) y Momento 4 (Segunda ronda) — circular todo el tiempo','Momento 1 (Apertura con ejemplo resuelto) y Momento 3 (Pausa y puesta en común con mini-clase) — donde la IA no puede aportar lo mismo','Momento 5 (Cierre) y Momento 1 (Apertura) — el ritmo lo da la entrada y la salida','Todos los momentos por igual'],c:1},
 
   // Módulo 3 — Qué funcionó y qué no
-  {q:'Según las observaciones del equipo EMC, ¿cuál de estas acciones tiene mayor impacto en el volumen de práctica?',
-   o:['Pedir a los estudiantes que practiquen lo más rápido posible','Anunciar la meta concreta de la sesión en el Momento 2 (ej.: "vamos a llegar al ejercicio 3")','Intervenir individualmente con cada estudiante','Saltar el cierre para tener más tiempo de práctica'],c:1},
+  {q:'En el Momento 2 (práctica autónoma) ves en el dashboard que 6 estudiantes están repitiendo el mismo error conceptual. ¿Qué hacés en el Momento 3 (Pausa)?',
+   o:['Sigo con la práctica para no cortar el ritmo','Voy uno a uno explicándole a cada estudiante','Paro la sesión 5 minutos y resuelvo el error en pizarra con todo el grupo','Les pido que vuelvan a intentar los mismos ejercicios'],c:2},
 
   // Módulo 4 — Reporte de aula (uso general)
-  {q:'Recibís el reporte un lunes a las 8 am y tenés clase a las 10 am. Solo tenés 14 minutos antes. ¿Qué priorizás?',
-   o:['Leer las 8 páginas completas y memorizarlas','Saltarte el reporte y revisarlo el fin de semana','Leer la página 1 (resumen "en 14 minutos") y arrancar con lo prioritario','Imprimir el reporte y dárselo a tus estudiantes'],c:2},
+  {q:'En el reporte quincenal, ves que 12 de 28 estudiantes están atascados en el mismo tema. ¿Tu próxima acción más útil?',
+   o:['Mandarles ejercicios extra del tema en la plataforma','Hacer una mini-clase grupal corta del tema en el próximo Momento 3 (Pausa)','Pedir que los exoneren del tema','Esperar al próximo reporte para ver si mejora solo'],c:1},
 
   // Módulo 4 — Reporte (errores conceptuales)
   {q:'En la página 3 del reporte, el error "(-2)⁵ = 32" aparece 9 veces. ¿Qué interpretación es correcta?',
@@ -2368,7 +2257,7 @@ function renderIntake() {
     <h2>Curso de perfeccionamiento docente</h2>
     <p>Matemáticas — Tutor de IA en el aula. <strong>8 horas pedagógicas asincrónicas</strong>. Tu progreso queda registrado para tu certificación.</p>
     <div class="stat-row">
-      <div class="stat-block"><div class="stat-block-num">9</div><div class="stat-block-label">Módulos</div></div>
+      <div class="stat-block"><div class="stat-block-num">8</div><div class="stat-block-label">Módulos</div></div>
       <div class="stat-block"><div class="stat-block-num">~8 h</div><div class="stat-block-label">Pedagógicas</div></div>
       <div class="stat-block"><div class="stat-block-num">6/10</div><div class="stat-block-label">Quiz mínimo</div></div>
     </div>
