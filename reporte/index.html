@@ -612,6 +612,7 @@
       word-wrap: break-word;
       white-space: pre-wrap;
     }
+    /* User bubble stays as a pill — the "you said this" anchor */
     .msg-bubble.user {
       background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       color: #fff;
@@ -620,15 +621,27 @@
       transition: box-shadow 0.2s ease;
     }
     .msg-bubble.user:hover { box-shadow: 0 6px 22px rgba(243,147,0,0.32); }
+
+    /* Gallito message flows inline — no box, no border, no card-on-card look.
+       Looks like the gallito is talking in your space, not handing you a sticker. */
     .msg-bubble.gallito {
-      background: #fff;
+      background: transparent;
       color: var(--text-dark);
-      border: 1px solid rgba(36,44,50,0.08);
-      border-bottom-left-radius: 4px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      transition: box-shadow 0.2s ease;
+      border: none;
+      box-shadow: none;
+      border-radius: 0;
+      padding: 4px 0 4px 2px;
+      max-width: calc(100% - 50px);
+      font-size: 1rem;
+      line-height: 1.55;
     }
-    .msg-bubble.gallito:hover { box-shadow: 0 6px 22px rgba(0,0,0,0.08); }
+    .msg-bubble.gallito:hover { box-shadow: none; }
+    .msg-bubble.error {
+      background: transparent;
+      color: var(--math-color);
+      border: none;
+      padding: 4px 0 4px 2px;
+    }
     /* Soft fade-up entrance for every new message */
     .msg-row {
       animation: msg-enter 0.34s cubic-bezier(0.34,1.56,0.64,1) both;
@@ -975,11 +988,31 @@
       .chat-header-meta { font-size: 0.72rem; }
       .chat-header-change { font-size: 0.74rem; padding: 4px 6px; }
 
-      /* KPI card: start collapsed on mobile so the chat has room */
+      /* KPI card: start collapsed on mobile so the chat has room. When the
+         user expands it, allow internal scrolling so it doesn't take over
+         the screen — there's a clear "Ocultar resumen" button at the bottom
+         and the user can still see + interact with the chat below. */
       .kpi-wrap.mobile-start-collapsed .kpi-card-body { display: none; }
       .kpi-wrap.mobile-start-collapsed .kpi-actions { display: none; }
       .kpi-wrap { padding: 12px 12px 4px; }
       .kpi-card { padding: 0; }
+      .kpi-wrap:not(.collapsed):not(.mobile-start-collapsed) {
+        max-height: 45vh;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+      }
+      /* Sticky collapse button inside the scrollable wrap so it's always
+         reachable without scrolling all the way down */
+      .kpi-wrap:not(.collapsed):not(.mobile-start-collapsed) .kpi-collapse {
+        position: sticky;
+        bottom: -1px;
+        background: rgba(255,251,240,0.95);
+        backdrop-filter: blur(8px);
+        margin-top: 6px;
+        padding: 8px 0;
+        width: 100%;
+        border-top: 1px dotted rgba(36,44,50,0.12);
+      }
       .kpi-stat-num { font-size: 2.1rem; }
       .kpi-stat-label { font-size: 0.85rem; }
       .kpi-eyebrow { margin-bottom: 10px; font-size: 0.62rem; letter-spacing: 1.6px; }
@@ -1228,35 +1261,41 @@
     const out = [];
     summary = summary || {};
 
-    if (role === 'director' || role === 'pip') {
+    if (role === 'director') {
+      // Director default focus: matemática (lo que más impacto tiene en el día a día).
+      // Tutoría queda como fallback.
       const mate = summary.matematica || {};
       const tut = summary.tutoria || {};
-      // Math adoption flag
+      // Math-leaning priority questions first
       if (mate.active_pct_school != null && mate.active_pct_school < 80) {
         out.push("¿Cómo subir la adopción en matemática?");
       }
-      // Math precision flag
       if (mate.precision_school != null && mate.precision_school < 60) {
         out.push("¿Qué tema de mate debo reforzar?");
       }
-      // Tutoría completion flag
-      if (tut.completed_8_pct_school != null && tut.completed_8_pct_school < 30) {
-        out.push("¿Cómo apoyar a los que no terminaron los 8 pasos?");
-      }
-      // Standout
       const mateStrong = mate.active_pct_school != null && mate.active_pct_programa != null
         && (mate.active_pct_school - mate.active_pct_programa) >= 10;
-      const tutStrong = tut.pasos_promedio_school != null && tut.pasos_promedio_programa != null
-        && (tut.pasos_promedio_school - tut.pasos_promedio_programa) >= 1;
-      if (mateStrong || tutStrong) {
-        out.push("¿Qué destaca de mi escuela?");
+      if (mateStrong) {
+        out.push("¿Qué destaca de mi escuela en mate?");
       }
-      // 3 weekly actions
-      if ((summary.weekly_actions || []).length) {
-        out.push("¿Qué debo priorizar esta semana?");
-      }
-      // Fallbacks
-      out.push("Compárame con mi UGEL", "Explícame los perfiles RIASEC");
+      // Math fallbacks (still math-focused)
+      out.push(
+        "¿Cómo va mi escuela en matemática?",
+        "¿Qué docente de mate necesita más apoyo?",
+        "Compárame con mi UGEL"
+      );
+    }
+
+    else if (role === 'pip') {
+      // PIP / Coordinador AIP: rol técnico, no pedagógico. Preguntas
+      // orientadas a soporte, accesos, grabaciones y certificación AIP/PIP.
+      out.push(
+        "¿Qué necesito hacer esta semana como PIP?",
+        "¿Cómo apoyo a los docentes en sus grabaciones?",
+        "¿Qué cubre mi certificación AIP/PIP de 120h?",
+        "¿Qué protocolos de soporte técnico me piden?",
+        "¿Cómo va la escuela en general?"
+      );
     }
 
     else if (role === 'matematica') {
