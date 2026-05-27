@@ -952,11 +952,76 @@
       color: var(--primary-dark);
     }
 
-    /* Mobile tweaks */
+    /* ============================================================
+       Mobile tweaks (≤640px) — most users open this on a phone
+       ============================================================ */
     @media (max-width: 640px) {
-      .gallito-hero { width: 150px; height: 150px; }
+      /* Welcome: shrink the hero so it doesn't dominate the screen */
+      .gallito-hero-wrap { width: 200px; height: 200px; }
+      .gallito-hero { width: 160px; height: 160px; }
       .welcome-card { max-width: 100%; }
+      .footer-note { padding: 0 12px; }
+
+      /* Role + school: take the full width */
       .chat-app { max-width: 100%; }
+      .role-grid { grid-template-columns: 1fr; gap: 12px; }
+      .role-card { padding: 22px 18px; }
+      .step-title { font-size: 1.7rem; padding: 0 16px; }
+
+      /* Chat header: tighter so the title + Ver PDF + Cambiar fit */
+      .chat-header { padding: 10px 12px; gap: 10px; }
+      .chat-header-gallito { width: 36px; height: 36px; }
+      .chat-header-name { font-size: 1rem; }
+      .chat-header-meta { font-size: 0.72rem; }
+      .chat-header-change { font-size: 0.74rem; padding: 4px 6px; }
+
+      /* KPI card: start collapsed on mobile so the chat has room */
+      .kpi-wrap.mobile-start-collapsed .kpi-card-body { display: none; }
+      .kpi-wrap.mobile-start-collapsed .kpi-actions { display: none; }
+      .kpi-wrap { padding: 12px 12px 4px; }
+      .kpi-card { padding: 0; }
+      .kpi-stat-num { font-size: 2.1rem; }
+      .kpi-stat-label { font-size: 0.85rem; }
+      .kpi-eyebrow { margin-bottom: 10px; font-size: 0.62rem; letter-spacing: 1.6px; }
+
+      /* Hide the redundant footer actions on mobile — Cambiar reporte and
+         the PDF link already live in the chat header. Keeps input-zone short. */
+      .chat-footer-actions { display: none; }
+
+      /* Chat input area: tighter padding, respect iOS safe area */
+      .chat-input-zone {
+        padding: 8px 10px calc(8px + env(safe-area-inset-bottom, 0px));
+      }
+      .chat-input-row { gap: 6px; }
+      .chat-input {
+        font-size: 1rem;           /* 16px stays — iOS won't auto-zoom */
+        padding: 10px 12px;
+        border-radius: 18px;
+      }
+      .chat-mic, .chat-send { width: 42px; height: 42px; }
+      .chat-mic svg, .chat-send svg { width: 18px; height: 18px; }
+
+      /* Chat body: slightly less side padding, more room for content */
+      .chat-body { padding: 14px 12px; gap: 12px; }
+      .msg-bubble { max-width: 86%; font-size: 0.95rem; }
+
+      /* Follow-up chips: bigger touch target */
+      .followups { margin-left: 38px; gap: 6px; }
+      .followup-chip { padding: 8px 14px; font-size: 0.82rem; }
+
+      /* Suggested-question intro cards: stack with bigger taps */
+      .suggested-questions { gap: 8px; }
+      .suggested { padding: 14px 14px; font-size: 0.92rem; }
+      .chat-intro-line { font-size: 1.05rem; padding: 0 10px; }
+    }
+
+    /* Tiny phones (≤380px): tighter still */
+    @media (max-width: 380px) {
+      .chat-header-meta { display: none; }
+      .gallito-hero-wrap { width: 170px; height: 170px; }
+      .gallito-hero { width: 140px; height: 140px; }
+      .welcome-title { font-size: 1.85rem; }
+      .step-title { font-size: 1.55rem; }
     }
   </style>
 </head>
@@ -1867,6 +1932,13 @@
     const wrap = document.getElementById('kpi-wrap');
     wrap.innerHTML = '';
     wrap.classList.remove('collapsed');
+    // On phones, start the KPI card collapsed (just the eyebrow visible) so
+    // the chat has breathing room. Desktop shows it expanded.
+    if (window.matchMedia('(max-width: 640px)').matches) {
+      wrap.classList.add('mobile-start-collapsed');
+    } else {
+      wrap.classList.remove('mobile-start-collapsed');
+    }
     const s = state.summary;
     if (!s) return;
 
@@ -2042,7 +2114,17 @@
   function wireCollapse(wrap) {
     const btn = wrap.querySelector('.kpi-collapse');
     if (btn) {
-      btn.addEventListener('click', () => wrap.classList.toggle('collapsed'));
+      btn.addEventListener('click', () => {
+        // Toggling on mobile means: clear the "auto-collapsed" mobile state
+        // and flip the user-driven collapsed state. This way one tap from
+        // collapsed → expanded, next tap → collapsed (predictable).
+        if (wrap.classList.contains('mobile-start-collapsed')) {
+          wrap.classList.remove('mobile-start-collapsed');
+          wrap.classList.remove('collapsed'); // user wants to see it
+        } else {
+          wrap.classList.toggle('collapsed');
+        }
+      });
     }
   }
 
