@@ -208,42 +208,29 @@
     }
     .btn-ghost:hover { background: rgba(243,147,0,0.06); border-color: var(--primary); }
 
-    .welcome-actions {
-      margin-top: 8px;
-      display: flex;
-      justify-content: center;
-    }
-    .welcome-actions:empty { display: none; }
-
-    /* "Sumar a mi inicio" button — same shape and weight as Empezar but
-       outlined (so Empezar stays the primary CTA, this is the clear
-       secondary "install as app" action). */
-    .btn-install {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
+    /* "Guardar el enlace" — a discreet pill that sits below the chat input,
+       only visible if the user hasn't installed the PWA yet. Less heavy
+       than a primary button (so it doesn't compete with chat actions). */
+    .chat-install-link {
+      display: block;
+      margin: 6px auto 0;
       background: #fff;
-      border: 2px solid var(--primary);
+      border: 1px solid rgba(243,147,0,0.35);
       color: var(--primary-dark);
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 600;
-      font-size: 1rem;
-      padding: 12px 28px;
-      margin-top: 14px;
+      font-family: inherit;
+      font-weight: 500;
+      font-size: 0.82rem;
+      padding: 8px 16px;
       border-radius: 100px;
       cursor: pointer;
-      transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1),
-                  background 0.18s ease, box-shadow 0.18s ease;
-      box-shadow: 0 2px 8px rgba(243,147,0,0.10);
+      transition: background 0.18s ease, border-color 0.18s ease, transform 0.15s ease;
     }
-    .btn-install:hover {
+    .chat-install-link:hover {
       background: #fff8e7;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(243,147,0,0.25);
+      border-color: var(--primary);
     }
-    .btn-install:active { transform: translateY(0); }
-    .btn-install[hidden] { display: none; }
+    .chat-install-link:active { transform: scale(0.97); }
+    .chat-install-link[hidden] { display: none; }
 
     .footer-note {
       margin-top: 12px;
@@ -1211,9 +1198,6 @@
         <h1 class="welcome-title">Hola, soy el <em>gallito</em>.</h1>
         <p class="welcome-sub">Te ayudo a entender tu reporte y a decidir qué hacer esta quincena. Conversemos.</p>
         <button class="btn-primary idle" data-goto="role">Empezar</button>
-        <div class="welcome-actions">
-          <button class="btn-install" id="btn-install" type="button" hidden>📲 Sumar a mi inicio</button>
-        </div>
         <p class="period-badge" id="period-badge"></p>
         <p class="footer-note">Solo para directores, docentes de matemática, tutores y docentes PIP del programa. Tus mensajes no se guardan.</p>
       </div>
@@ -1351,6 +1335,9 @@
             <a id="link-whatsapp" href="#" target="_blank" rel="noopener" style="display:none">WhatsApp a mi acompañante</a>
             <button data-action="change-report">Cambiar reporte</button>
           </div>
+          <button class="chat-install-link" id="btn-install" type="button" hidden>
+            💾 Guardar el enlace en mi celular
+          </button>
         </div>
       </div>
     </section>
