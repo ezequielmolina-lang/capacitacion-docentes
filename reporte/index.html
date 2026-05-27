@@ -914,6 +914,7 @@
             <div class="chat-header-name" id="chat-school-name"></div>
             <div class="chat-header-meta" id="chat-school-meta"></div>
           </div>
+          <a class="chat-header-change" id="link-pdf-header" href="#" target="_blank" rel="noopener" style="display:none">Ver PDF</a>
           <button class="chat-header-change" data-action="change-report">Cambiar reporte</button>
         </header>
 
@@ -970,6 +971,7 @@
     seccion: null,
     typed_name: null,     // validated name — sent with every chat message
     whatsapp: null,       // revealed by /api/verify on a successful gate
+    pdf_url: null,        // unguessable URL to download the original PDF
     summary: null,        // structured KPIs for the cards (from /api/verify)
     messages: [],         // [{role: 'user'|'assistant', content: string}]
     sending: false,
@@ -1206,6 +1208,7 @@
       state.ugel_label = data.ugel_label || state.ugel_label;
       state.whatsapp = data.acompanante_whatsapp || null;
       state.summary = data.summary || null;
+      state.pdf_url = data.pdf_url || null;
       openChat();
     } catch (err) {
       const errEl = document.getElementById('gate-error');
@@ -1256,6 +1259,15 @@
       wa.style.display = '';
     } else {
       wa.style.display = 'none';
+    }
+
+    // PDF download link (header) — only shows after the gate hands us an URL
+    const pdfHeader = document.getElementById('link-pdf-header');
+    if (state.pdf_url) {
+      pdfHeader.href = state.pdf_url;
+      pdfHeader.style.display = '';
+    } else {
+      pdfHeader.style.display = 'none';
     }
 
     // Render the KPI card (role-aware)
@@ -1489,6 +1501,8 @@
       state.seccion = null;
       state.typed_name = null;
       state.whatsapp = null;
+      state.pdf_url = null;
+      state.summary = null;
       state.messages = [];
       showView('role');
     });

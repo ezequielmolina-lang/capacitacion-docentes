@@ -20,8 +20,12 @@ Output:
 from __future__ import annotations
 
 import argparse
+import hashlib
+import hmac
 import json
+import os
 import re
+import secrets
 import shutil
 import subprocess
 import sys
@@ -33,6 +37,50 @@ from pathlib import Path
 from typing import Optional
 
 PDFTOTEXT = shutil.which("pdftotext") or r"C:\Program Files\Git\mingw64\bin\pdftotext.exe"
+
+# ---------- PDF download secret -------------------------------------------------
+
+PDF_SECRET_FILE = Path(r"C:\Users\cosmo\Downloads\emc-reporte-api\.pdf-secret")
+PDF_DOWNLOADS_DIR = Path(r"C:\Users\cosmo\Downloads\emc-reporte-api\public\r")
+
+
+def load_or_create_pdf_secret() -> str:
+    """Read .pdf-secret if present; otherwise generate one and save it.
+
+    On first run, prints the secret + setup instructions so the user can
+    paste it into the Vercel dashboard.
+    """
+    env_secret = os.environ.get("PDF_URL_SECRET")
+    if env_secret:
+        return env_secret.strip()
+    if PDF_SECRET_FILE.exists():
+        return PDF_SECRET_FILE.read_text(encoding="utf-8").strip()
+    new_secret = secrets.token_hex(32)
+    PDF_SECRET_FILE.parent.mkdir(parents=True, exist_ok=True)
+    PDF_SECRET_FILE.write_text(new_secret, encoding="utf-8")
+    print()
+    print("=" * 70)
+    print("PRIMERA VEZ: generé un secreto para los URLs de descarga de PDF.")
+    print(f"  Guardado en: {PDF_SECRET_FILE}")
+    print()
+    print("Para que los PDFs se descarguen desde el sitio, copia este valor")
+    print("en Vercel (Settings > Environment Variables > nueva variable):")
+    print()
+    print(f"  Nombre:  PDF_URL_SECRET")
+    print(f"  Valor:   {new_secret}")
+    print()
+    print("Marca Production + Preview + Development. Luego corre")
+    print("'npx vercel --prod' una vez para que el servidor use el secreto.")
+    print("=" * 70)
+    print()
+    return new_secret
+
+
+def pdf_url_filename(secret: str, role: str, codigo: str, seccion: Optional[str]) -> str:
+    """Stable 32-hex-char filename derived from (role, codigo, seccion) + secret."""
+    payload = f"{role}|{codigo}|{seccion or ''}"
+    digest = hmac.new(secret.encode("utf-8"), payload.encode("utf-8"), hashlib.sha256).hexdigest()
+    return digest[:32]
 
 
 # ---------- filename parsing ----------------------------------------------------
@@ -614,6 +662,13 @@ def process(input_path: Path, out_dir: Path, period_label: str) -> dict:
         for old in (out_dir / sub).glob("*.json"):
             old.unlink()
 
+    # PDF downloads: load/create the secret, wipe the old folder so we don't
+    # ship stale PDFs for schools that left the program this cycle.
+    pdf_secret = load_or_create_pdf_secret()
+    PDF_DOWNLOADS_DIR.mkdir(parents=True, exist_ok=True)
+    for old in PDF_DOWNLOADS_DIR.glob("*.pdf"):
+        old.unlink()
+
     root, files = collect_pdfs(input_path)
     print(f"Found {len(files)} PDFs.")
 
@@ -730,6 +785,13 @@ def process(input_path: Path, out_dir: Path, period_label: str) -> dict:
         (out_dir / "director" / f"{key}.json").write_text(
             json.dumps(doc, ensure_ascii=False, indent=2), encoding="utf-8"
         )
+        # Copy the original PDF under an unguessable HMAC-named filename so
+        # the gated /api/verify can hand out a stable download URL.
+        try:
+            pdf_name = pdf_url_filename(pdf_secret, "director", key, None)
+            shutil.copyfile(abs_p, PDF_DOWNLOADS_DIR / f"{pdf_name}.pdf")
+        except Exception as e:
+            failed.append((pf.src_path, f"pdf copy failed: {e}"))
         extracted_count += 1
 
     # Pass 2: matemática + tutoría — match to school by local codigo / name.
@@ -782,6 +844,11 @@ def process(input_path: Path, out_dir: Path, period_label: str) -> dict:
         (out_dir / pf.role / f"{key}_{pf.seccion}.json").write_text(
             json.dumps(doc, ensure_ascii=False, indent=2), encoding="utf-8"
         )
+        try:
+            pdf_name = pdf_url_filename(pdf_secret, pf.role, key, pf.seccion)
+            shutil.copyfile(abs_p, PDF_DOWNLOADS_DIR / f"{pdf_name}.pdf")
+        except Exception as e:
+            failed.append((pf.src_path, f"pdf copy failed: {e}"))
         extracted_count += 1
 
     # Build index.json
