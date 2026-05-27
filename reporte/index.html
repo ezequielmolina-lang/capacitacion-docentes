@@ -211,6 +211,29 @@
     }
     .btn-ghost:hover { background: rgba(243,147,0,0.06); border-color: var(--primary); }
 
+    .btn-install {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: transparent;
+      border: 1px dashed rgba(243,147,0,0.45);
+      color: var(--primary-dark);
+      font-family: inherit;
+      font-weight: 500;
+      font-size: 0.85rem;
+      padding: 8px 16px;
+      margin-top: 14px;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .btn-install:hover {
+      background: rgba(243,147,0,0.08);
+      border-style: solid;
+      border-color: var(--primary);
+    }
+    .btn-install[hidden] { display: none; }
+
     .footer-note {
       margin-top: 12px;
       font-size: 0.8rem;
@@ -1180,6 +1203,7 @@
         <h1 class="welcome-title">Hola, soy el <em>gallito</em>.</h1>
         <p class="welcome-sub">Te ayudo a entender tu reporte y a decidir qué hacer esta quincena. Conversemos.</p>
         <button class="btn-primary idle" data-goto="role">Empezar</button>
+        <button class="btn-install" id="btn-install" type="button" hidden>📲 Instalar como app</button>
         <p class="period-badge" id="period-badge"></p>
         <p class="footer-note">Solo para directores, docentes de matemática, tutores y docentes PIP del programa. Tus mensajes no se guardan.</p>
       </div>
@@ -1783,6 +1807,90 @@
     });
   }
 
+  // ---------- "Instalar como app" — works across Chrome / iOS / desktop -------
+  const btnInstall = document.getElementById('btn-install');
+  let _deferredInstall = null;
+
+  // Detect if the page is already running as an installed PWA.
+  function isInstalled() {
+    return window.matchMedia('(display-mode: standalone)').matches
+        || window.navigator.standalone === true;
+  }
+
+  // Chrome / Android / desktop Edge fire this event when install is possible.
+  // We stash it so a user gesture later can trigger the native prompt.
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    _deferredInstall = e;
+    if (!isInstalled()) btnInstall.hidden = false;
+  });
+
+  window.addEventListener('appinstalled', () => {
+    btnInstall.hidden = true;
+    _deferredInstall = null;
+  });
+
+  // iOS Safari never fires beforeinstallprompt — we still want to show the
+  // button so we can tell the user to use the Share sheet.
+  function isiOS() {
+    return /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
+  }
+
+  // Decide on page load whether to show the button.
+  if (!isInstalled()) {
+    if (isiOS()) {
+      // iOS path: show the button with an instructions modal as the action.
+      btnInstall.hidden = false;
+    }
+    // Else: stays hidden until beforeinstallprompt fires.
+  }
+
+  // Show a modal with step-by-step instructions per platform. Reuses the
+  // existing mic-help modal markup with different content.
+  function showInstallInstructions(platform) {
+    const helpSteps = document.getElementById('mic-help-steps');
+    const helpTitle = document.getElementById('mic-help-title');
+    const tabsRow = document.querySelector('.mic-help-tab-row');
+    const iconEl = document.querySelector('.mic-help-icon');
+    iconEl.textContent = '📲';
+    helpTitle.textContent = 'Guardar como app';
+    // Hide the mic tab row, we don't need it here.
+    if (tabsRow) tabsRow.style.display = 'none';
+    if (platform === 'ios') {
+      helpSteps.innerHTML = `
+        <ol>
+          <li>Toca el ícono <b>Compartir</b> (cuadrado con flecha arriba) en la barra de Safari.</li>
+          <li>Desliza hacia abajo y toca <b>Añadir a inicio</b> / <em>Add to Home Screen</em>.</li>
+          <li>Toca <b>Añadir</b> arriba a la derecha.</li>
+          <li>Listo — el ícono naranja del gallito quedó en tu pantalla de inicio. Tócalo para abrir el chat como app. 🎉</li>
+        </ol>`;
+    } else {
+      helpSteps.innerHTML = `
+        <ol>
+          <li>Toca el menú <b>⋮</b> (tres puntos) arriba a la derecha de tu navegador.</li>
+          <li>Toca <b>Instalar app</b> o <b>Añadir a pantalla de inicio</b>.</li>
+          <li>Confirma con <b>Instalar</b>.</li>
+          <li>Listo — el ícono del gallito quedó entre tus apps. 🎉</li>
+        </ol>`;
+    }
+    document.getElementById('mic-help-backdrop').classList.add('open');
+  }
+
+  btnInstall.addEventListener('click', async () => {
+    if (_deferredInstall) {
+      // Android / Chrome: fire the native install prompt.
+      _deferredInstall.prompt();
+      const choice = await _deferredInstall.userChoice;
+      _deferredInstall = null;
+      if (choice.outcome === 'accepted') {
+        btnInstall.hidden = true;
+      }
+      return;
+    }
+    // iOS or browsers without native install support → show instructions.
+    showInstallInstructions(isiOS() ? 'ios' : 'other');
+  });
+
   // First-time hint that points at the mic button so the user is ready when
   // the browser asks for microphone permission. Stored in localStorage so it
   // never reappears.
@@ -1863,6 +1971,11 @@
       </ol>`,
   };
   function openMicHelp() {
+    // Reset the modal to mic-help mode (it's also used for install help).
+    const tabsRow = document.querySelector('.mic-help-tab-row');
+    if (tabsRow) tabsRow.style.display = '';
+    document.querySelector('.mic-help-icon').textContent = '🎤';
+    document.getElementById('mic-help-title').textContent = 'Activar el micrófono';
     // Pick the default tab based on user agent
     const ua = navigator.userAgent.toLowerCase();
     let defaultTab = 'chrome';
