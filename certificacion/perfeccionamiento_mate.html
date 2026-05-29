@@ -501,8 +501,10 @@ const MODULES = [
                 <h4>Apertura con ejemplo resuelto</h4>
                 <p>Recibís a tus estudiantes, <strong>iniciás sesión con tu usuario docente</strong> (sin ese paso, la clase no se registra como tuya), te aseguras de que <strong>todos accedan a uDocz</strong> con sus credenciales del programa, y <strong>resolvés un ejemplo en pizarra</strong> conectado al tema del día.</p>
                 <p>El ejemplo <strong>no es para enseñar contenido nuevo</strong> — es para ubicar el cerebro de los estudiantes en el tipo de problema que van a practicar con Doc. 5 minutos bien usados acá ahorran 15 de práctica dispersa después.</p>
+                <p><strong>Antes de soltar la práctica, chequeá que cada estudiante tenga hoja y lápiz sobre la mesa.</strong> En matemática, resolver en papel no es opcional: es donde de verdad piensan el problema. Pedilo como parte del ritual de apertura, igual que iniciar sesión en uDocz.</p>
               </div>
             </div>
+            <div class="callout callout-tip"><p><span class="callout-icon">✏️</span><strong>Hojas a la mano = mejor aprendizaje.</strong> Tener papel y lápiz listos desde la apertura evita que después, en plena práctica, los estudiantes empiecen a adivinar la opción o a buscar la respuesta en otra página. El lápiz es la diferencia entre practicar y "acertar de casualidad".</p></div>
           </div>
         `
       },
@@ -517,8 +519,10 @@ const MODULES = [
                 <h4>Práctica autónoma + circulación docente</h4>
                 <p>Los estudiantes resuelven con Doc en sus dispositivos. Vos <strong>circulás por el aula con la lista de cotejo de 5 indicadores</strong> (acceso, ritmo, foco, errores frecuentes, conversación con Doc).</p>
                 <p>El dashboard te da el panorama agregado; la circulación te da el detalle individual. <strong>No intervenís todavía</strong> — la IA está haciendo su trabajo de feedback inmediato 1 a 1. Solo observás patrones para usarlos en la pausa del Momento 3.</p>
+                <p>Mientras circulás, mirá <strong>dos cosas concretas en cada mesa</strong>: que el estudiante esté <strong>resolviendo en su hoja</strong> (procedimiento escrito, no solo clics) y que en la pantalla <strong>solo esté abierto uDocz</strong>, no otra pestaña ni una página de respuestas. Sin hoja, muchos caen en "adivinar la opción" o copiar el resultado de otro sitio — y ahí la práctica deja de enseñar, aunque el dashboard muestre actividad.</p>
               </div>
             </div>
+            <div class="callout callout-warning"><p><span class="callout-icon">⚠️</span><strong>Lo más común que rompe la práctica:</strong> estudiantes sin hoja que solo tantean opciones, o que resuelven en otra página web con uDocz abierto al lado. Tu circulación es la que lo corta: <strong>hoja con procedimiento + pantalla solo en uDocz</strong>. Es tu palanca de aula más simple y la que más cambia el aprendizaje real.</p></div>
           </div>
         `
       },
@@ -1886,14 +1890,14 @@ const MODULES = [
     duration: '~1 h',
     steps: [
       {
-        title: 'Intro · cómo usar los 6 casos',
+        title: 'Intro · cómo usar los 7 casos',
         content: () => `
           <div class="lesson">
-            <p>Hasta acá viste el marco general (5 momentos, dashboard, reporte de aula y de director, errores conceptuales). Ahora repasamos <strong>6 casos típicos</strong> que vas a encontrar en tu reporte. Cada caso tiene un snapshot del dato, un diagnóstico (qué te dice + qué descartar), y una acción sugerida.</p>
+            <p>Hasta acá viste el marco general (5 momentos, dashboard, reporte de aula y de director, errores conceptuales). Ahora repasamos <strong>7 casos típicos</strong> que vas a encontrar en tu reporte (o en tu propia aula). Cada caso tiene un snapshot del dato, un diagnóstico (qué te dice + qué descartar), y una acción sugerida.</p>
 
         <div class="callout callout-info"><p><span class="callout-icon">💼</span>Todos los casos son <strong>anonimizados</strong>: situaciones que el equipo EMC vio repetirse en aulas, con nombres y números cambiados.</p></div>
 
-        <h3>🧩 Los 6 casos</h3>
+        <h3>🧩 Los 7 casos</h3>
 
         <div style="display:grid;gap:20px;">
           </div>
@@ -2058,6 +2062,37 @@ const MODULES = [
             </ol>
             <p style="font-size:14.5px;margin:8px 0 0;">Una vez reportado, EMC excluye al estudiante del cómputo. Tu sección sube en promedios.</p>
             <p style="font-size:13.5px;color:var(--text-muted);margin:8px 0 0;"><em>Tu trabajo pedagógico con ese estudiante puede ser distinto (actividades adaptadas en paralelo, sin presionar por completar la plataforma) — eso ya queda en tu criterio docente.</em></p>
+          </div>
+          </div>
+        `
+      },
+      {
+        title: 'Caso 7',
+        content: () => `
+          <div class="lesson">
+            <!-- CASO 7 -->
+          <div class="info-card" style="border-left:4px solid var(--primary);">
+            <h4 style="display:flex;align-items:baseline;gap:10px;">
+              <span style="background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;padding:3px 10px;border-radius:14px;font-size:12px;font-weight:700;">7</span>
+              <span>Practican sin hoja: adivinan la opción o copian de otra página</span>
+            </h4>
+
+            <div class="rp-eyebrow" style="margin:12px 0 4px;">📸 Snapshot (lo ves circulando + en el dashboard)</div>
+            <p style="font-size:14px;background:#fffaeb;padding:10px 14px;border-radius:8px;font-family:'Crimson Pro',serif;font-style:italic;color:#1a1815;">"Varias hojas en blanco sobre las mesas · ejercicios respondidos en 5-10 segundos · precisión que sube y baja sin patrón · alguna pantalla con otra pestaña abierta"</p>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">🔬 Diagnóstico</div>
+            <p style="font-size:14.5px;line-height:1.55;margin:0;">Los estudiantes <strong>no están resolviendo, están adivinando</strong>: marcan una opción al azar para "pasar" el ejercicio, o copian el resultado de otra página web (una calculadora, un buscador, otra app). El dato engaña — parece adopción (entran, responden), pero <strong>sin procedimiento escrito no hay aprendizaje</strong>. En matemática el pensar pasa por la hoja: si no escriben el procedimiento, solo están jugando a acertar.</p>
+            <p style="font-size:14px;color:var(--text-muted);margin:8px 0 0;">⚠️ Las dos señales: <strong>hojas vacías</strong> y <strong>respuestas demasiado rápidas</strong> para ser trabajo real. A veces se suma una <strong>pestaña ajena a uDocz</strong> abierta.</p>
+
+            <div class="rp-eyebrow" style="margin:14px 0 4px;">🎯 Acción sugerida</div>
+            <p style="font-size:14.5px;line-height:1.55;margin:0;">Es un problema de <strong>encuadre de aula</strong>, no de plataforma. Cuatro palancas:</p>
+            <ul style="font-size:14.5px;margin:8px 0 0;">
+              <li><strong>Regla del aula: "primero en la hoja, después en la pantalla"</strong> — no se marca la opción hasta tener el procedimiento escrito. Anunciala en la apertura (Momento 1).</li>
+              <li><strong>Circulá mirando hojas, no solo pantallas.</strong> Una hoja en blanco te dice más que el dashboard sobre quién no está trabajando de verdad.</li>
+              <li><strong>Pantalla solo con uDocz.</strong> Si ves otra página abierta, pediles cerrarla: uDocz da el feedback que enseña; otra web solo da el resultado y corta el aprendizaje.</li>
+              <li><strong>En el Momento 3</strong>, resolvé un ejercicio en pizarra y pediles compararlo con su hoja — deja en evidencia para qué sirve escribir el procedimiento.</li>
+            </ul>
+            <p style="font-size:13.5px;color:var(--text-muted);margin:8px 0 0;"><em>Tip operativo: pediles que traigan hoja y lápiz como material fijo de la clase de lab. Cuando no las tienen a mano es justo cuando más caen en adivinar o buscar la respuesta en otro lado.</em></p>
           </div>
 
           <div class="callout callout-tip" style="margin-top:24px;"><p><span class="callout-icon">💡</span><strong>Regla general:</strong> el reporte te marca casos, pero <strong>vos elegís cuáles abordar primero</strong>. Priorizá los de menor costo (conversación 2 min &gt; clase corta 10 min &gt; intervención individual 5 min). En 14 minutos resolvés 2-3 casos típicos.</p></div>
