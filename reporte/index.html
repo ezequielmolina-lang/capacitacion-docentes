@@ -1462,6 +1462,94 @@
     UGEL_07_SAN_BORJA:     { matematica: { name: "Carlos La Rosa", phone: "+51 955 310 474" }, tutoria: { name: "Judith Vergara", phone: "+51 955 894 716" } },
   };
 
+  // PIP / Coordinador AIP facilitators per school — must stay in sync with
+  // emc-reporte-api/lib/pip_facilitators.json. Source: "ASIGNACION PIP
+  // FACILITADOR.xlsx". PIPs have their OWN dedicated people (Mafer or Vale),
+  // not the math/tutoría acompañantes. Mapped per codigo.
+  const PIP_FACILITATORS = {
+    "0086": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "0087": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "0089": { name: "María Fernanda Galván Alvarado", nickname: "Mafer", phone: "+51 976 307 786" },
+    "0090": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "100":  { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "1021": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "1035": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "1049": { name: "María Fernanda Galván Alvarado", nickname: "Mafer", phone: "+51 976 307 786" },
+    "107":  { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "1070": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "1087": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "109":  { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "1105": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "1124": { name: "María Fernanda Galván Alvarado", nickname: "Mafer", phone: "+51 976 307 786" },
+    "1128": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "115":  { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "1166": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "1181": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "1209": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "122":  { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "1225": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "1267": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "1278": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "139":  { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "2023": { name: "María Fernanda Galván Alvarado", nickname: "Mafer", phone: "+51 976 307 786" },
+    "2031": { name: "María Fernanda Galván Alvarado", nickname: "Mafer", phone: "+51 976 307 786" },
+    "2040": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "2053": { name: "María Fernanda Galván Alvarado", nickname: "Mafer", phone: "+51 976 307 786" },
+    "2070": { name: "María Fernanda Galván Alvarado", nickname: "Mafer", phone: "+51 976 307 786" },
+    "2076": { name: "María Fernanda Galván Alvarado", nickname: "Mafer", phone: "+51 976 307 786" },
+    "2078": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "2085": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "2088": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "2091": { name: "María Fernanda Galván Alvarado", nickname: "Mafer", phone: "+51 976 307 786" },
+    "2092": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "24":   { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "3014": { name: "María Fernanda Galván Alvarado", nickname: "Mafer", phone: "+51 976 307 786" },
+    "3015": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "3032": { name: "María Fernanda Galván Alvarado", nickname: "Mafer", phone: "+51 976 307 786" },
+    "3040": { name: "María Fernanda Galván Alvarado", nickname: "Mafer", phone: "+51 976 307 786" },
+    "3049": { name: "María Fernanda Galván Alvarado", nickname: "Mafer", phone: "+51 976 307 786" },
+    "6004": { name: "María Fernanda Galván Alvarado", nickname: "Mafer", phone: "+51 976 307 786" },
+    "6037": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "6062": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "6063": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "6069": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "6087": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "6096": { name: "María Fernanda Galván Alvarado", nickname: "Mafer", phone: "+51 976 307 786" },
+    "7034": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "7042": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "7055": { name: "María Fernanda Galván Alvarado", nickname: "Mafer", phone: "+51 976 307 786" },
+    "7057": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "7061": { name: "María Fernanda Galván Alvarado", nickname: "Mafer", phone: "+51 976 307 786" },
+    "7067": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "7082": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "7086": { name: "María Fernanda Galván Alvarado", nickname: "Mafer", phone: "+51 976 307 786" },
+    "7089": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "7090": { name: "María Fernanda Galván Alvarado", nickname: "Mafer", phone: "+51 976 307 786" },
+    "7231": { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "7265": { name: "María Fernanda Galván Alvarado", nickname: "Mafer", phone: "+51 976 307 786" },
+    "7266": { name: "María Fernanda Galván Alvarado", nickname: "Mafer", phone: "+51 976 307 786" },
+    "ANGELICAPALMAROMAN":               { name: "María Fernanda Galván Alvarado", nickname: "Mafer", phone: "+51 976 307 786" },
+    "BARTOLOMEHERRERA":                 { name: "María Fernanda Galván Alvarado", nickname: "Mafer", phone: "+51 976 307 786" },
+    "CARLOSPAREJAPAZSOLDAN":            { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "ENRIQUEMILLAOCHOA":                { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "GENERALFELIPESANTIAGOSALAVERRY":   { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "ISABELCHIMPUOCLLO":                { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "JOSESANTOSCHOCANO":                { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "JUANPABLOVIZCARDOYGUZMAN-90":      { name: "María Fernanda Galván Alvarado", nickname: "Mafer", phone: "+51 976 307 786" },
+    "MANUELCALVOYPEREZ":                { name: "María Fernanda Galván Alvarado", nickname: "Mafer", phone: "+51 976 307 786" },
+    "MICAELABASTIDAS":                  { name: "María Fernanda Galván Alvarado", nickname: "Mafer", phone: "+51 976 307 786" },
+    "MIGUELGRAU":                       { name: "María Fernanda Galván Alvarado", nickname: "Mafer", phone: "+51 976 307 786" },
+    "NUESTRASENORADELOURDES-71":        { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "PALMASREALES":                     { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "REPUBLICADEBOLIVIA":               { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "REPUBLICADECHILE":                 { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "RICARDOPALMA":                     { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "ROSADOMINGAPEREZLIENDO":           { name: "María Fernanda Galván Alvarado", nickname: "Mafer", phone: "+51 976 307 786" },
+    "SOLIDARIDADIII":                   { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "TELESFOROCATACORA":                { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+    "TUPACAMARUII-72":                  { name: "Valeria Arteaga Mejía", nickname: "Vale", phone: "+51 944 545 459" },
+  };
+
   // Lightweight beacon — fire-and-forget telemetry. NEVER includes message
   // content. Tracks structural events: chat opened, gate pass/fail, message
   // sent, response received (with duration), errors, feedback votes, etc.
@@ -2315,18 +2403,30 @@
   // user to copy-paste the number).
   function renderAcompananteLinks(text) {
     const map = ACOMPANANTES[state.ugel];
-    if (!map) return;
     const found = [];
-    for (const track of ['matematica', 'tutoria']) {
-      const a = map[track];
-      if (!a) continue;
-      // Match phone with flexible whitespace; also accept name-only mention.
+    const checkMatch = (a) => {
+      if (!a || !a.phone) return false;
       const digits = a.phone.replace(/\D/g, '').slice(-9);
       const phoneRe = new RegExp(digits.split('').join('\\s*'));
-      const namePresent = text.toLowerCase().includes(a.name.toLowerCase());
-      const phonePresent = phoneRe.test(text.replace(/\s+/g, ' '));
-      if (namePresent || phonePresent) {
-        found.push({ track, ...a });
+      const lower = text.toLowerCase();
+      // Match name OR nickname OR phone digits
+      const nameHit = a.name && lower.includes(a.name.toLowerCase());
+      const nickHit = a.nickname && lower.includes(a.nickname.toLowerCase());
+      const phoneHit = phoneRe.test(text.replace(/\s+/g, ' '));
+      return nameHit || nickHit || phoneHit;
+    };
+    if (map) {
+      for (const track of ['matematica', 'tutoria']) {
+        const a = map[track];
+        if (a && checkMatch(a)) found.push({ track, ...a });
+      }
+    }
+    // PIP facilitator (Mafer or Vale) — only if the user IS a PIP and we have
+    // a mapping for this school's codigo.
+    if (state.role === 'pip' && state.codigo) {
+      const pipFac = PIP_FACILITATORS[state.codigo];
+      if (pipFac && checkMatch(pipFac)) {
+        found.push({ track: 'pip', ...pipFac });
       }
     }
     if (!found.length) return;
@@ -2342,7 +2442,9 @@
                  state.typed_name ? `soy ${state.typed_name}` : 'soy del programa';
       const schoolBit = state.school_name ? `, del colegio ${state.school_name}` : '';
       const ctx = lastQ ? `\n\nConsulta: ${lastQ.slice(0, 240)}` : '';
-      const draft = `Hola ${a.name.split(' ')[0]}, ${me}${schoolBit}. Te escribo desde el gallito.${ctx}`;
+      // Prefer nickname if present (e.g. Mafer / Vale for PIP facilitators)
+      const greetName = a.nickname || a.name.split(' ')[0];
+      const draft = `Hola ${greetName}, ${me}${schoolBit}. Te escribo desde el gallito.${ctx}`;
       const digits = a.phone.replace(/\D/g, '');
       const url = `https://wa.me/${digits}?text=${encodeURIComponent(draft)}`;
 
@@ -2351,7 +2453,7 @@
       a_el.href = url;
       a_el.target = '_blank';
       a_el.rel = 'noopener';
-      a_el.innerHTML = `📱 Escribirle a <b>${escapeHtml(a.name.split(' ')[0])}</b> por WhatsApp`;
+      a_el.innerHTML = `📱 Escribirle a <b>${escapeHtml(greetName)}</b> por WhatsApp`;
       a_el.addEventListener('click', () => track('whatsapp_clicked', { for_track: a.track }));
       row.appendChild(a_el);
     }
