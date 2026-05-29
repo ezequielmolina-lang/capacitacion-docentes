@@ -293,6 +293,44 @@
   .report .rp-prioridad-card .rp-pc-list{margin:6px 0 0;font-size:12.5px}
 
   .report .rp-reconoce{background:#fcf8e6;border-left:3px solid #2e7d32;padding:14px 18px;border-radius:4px;margin:10px 0;font-size:13px}
+
+  /* === v2 ELEMENTOS NUEVOS (reporte de tutoría OV) === */
+  .report .rp-vistazo{padding:20px 24px;background:#f5ecc8;border:1px solid #e5dba0;border-radius:4px;margin:14px 0 16px}
+  .report .rp-vistazo-header{font-family:'JetBrains Mono',monospace;font-size:10px;color:#9b9275;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid #d9cfa8;padding-bottom:10px;margin-bottom:14px}
+  .report .rp-vistazo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}
+  .report .rp-vistazo-block .rp-vistazo-num{font-family:'Crimson Pro',serif;font-weight:700;font-style:italic;font-size:36px;line-height:1;color:#c75d2e;letter-spacing:-0.02em}
+  .report .rp-vistazo-block .rp-vistazo-label{font-family:'Crimson Pro',serif;font-size:11.5px;color:#766c52;margin-top:4px;line-height:1.3}
+  .report .rp-vistazo-row{display:grid;grid-template-columns:100px 1fr;gap:14px;padding:7px 0;border-top:1px solid #d9cfa8;font-size:12.5px;align-items:start}
+  .report .rp-vistazo-row .rp-vr-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:#c75d2e;letter-spacing:.05em;text-transform:uppercase;font-weight:500}
+  .report .rp-vistazo-row strong{font-weight:700;color:#1a1815}
+
+  .report .rp-bar-row{display:grid;grid-template-columns:200px 1fr 90px;gap:12px;align-items:center;padding:4px 0;font-size:11.5px}
+  .report .rp-bar-row .rp-bar-label{color:#1a1815}
+  .report .rp-bar-row.dim .rp-bar-label{color:#9b9275;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.04em;text-transform:uppercase}
+  .report .rp-bar-track{height:9px;background:#ece2c0;border-radius:2px;overflow:hidden}
+  .report .rp-bar-fill{height:100%;background:#c75d2e;border-radius:2px}
+  .report .rp-bar-fill.green{background:#5a7d3a}
+  .report .rp-bar-fill.neutral{background:#766c52}
+  .report .rp-bar-row .rp-bar-value{text-align:right;font-family:'JetBrains Mono',monospace;font-size:11px;color:#1a1815}
+  .report .rp-bar-row .rp-bar-value .rp-bar-pct{color:#9b9275;font-size:10px}
+
+  .report .rp-riasec-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:10px 0 16px}
+  .report .rp-riasec-card{background:#f5ecc8;border:1px solid #e5dba0;border-radius:4px;padding:14px 16px}
+  .report .rp-riasec-letter{font-family:'Crimson Pro',serif;font-weight:700;font-size:32px;line-height:1;color:#c75d2e;margin-bottom:6px}
+  .report .rp-riasec-name{font-family:'Crimson Pro',serif;font-weight:700;font-size:14px;color:#1a1815;margin-bottom:4px}
+  .report .rp-riasec-desc{font-size:10.5px;color:#766c52;line-height:1.4;font-family:'Crimson Pro',serif;font-style:italic}
+
+  .report .rp-action-v2{padding:14px 0 14px 30px;border-bottom:1px solid #ece2c0;position:relative;counter-increment:rp-actv2}
+  .report .rp-action-v2-list{counter-reset:rp-actv2;list-style:none;padding:0;margin:8px 0 18px}
+  .report .rp-action-v2::before{content:"0" counter(rp-actv2);position:absolute;left:0;top:14px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#c75d2e;letter-spacing:.04em;font-weight:500}
+  .report .rp-action-v2 .rp-av-title{font-family:'Crimson Pro',serif;font-weight:700;font-size:16px;color:#1a1815;margin:0 0 4px}
+  .report .rp-action-v2 .rp-av-body{font-size:12.5px;line-height:1.55;color:#1a1815;margin:0 0 8px}
+  .report .rp-action-v2 .rp-av-plan{font-family:'JetBrains Mono',monospace;font-size:10px;color:#9b9275;letter-spacing:.04em;text-transform:uppercase}
+  .report .rp-action-v2 .rp-av-plan .rp-av-blank{display:inline-block;border-bottom:1px solid #c75d2e;min-width:200px;height:14px;vertical-align:middle;margin-left:8px}
+
+  .report .rp-callout-side{background:transparent;border-left:3px solid #d9ad3b;padding:10px 16px;margin:14px 0 0;font-size:12.5px;line-height:1.55;color:#1a1815}
+  .report .rp-callout-side strong{color:#1a1815;font-weight:700}
+
   .report .rp-reconoce .rp-rec-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;color:#2e7d32;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
   .report .rp-reconoce strong{font-weight:700}
 
@@ -710,303 +748,328 @@ const MODULES = [
     duration: '~2 h',
     steps: [
       {
-        title: 'Página 1 · Bienvenida + acción de la quincena',
+        title: 'Página 1 · Bienvenida + DE UN VISTAZO',
         content: () => `
           <div class="lesson">
-            <p>Cada dos semanas recibís un <strong>Reporte de Tutoría</strong> con datos reales de tu sección OV en la plataforma. Este módulo recorre las <strong>5 páginas del reporte</strong>. Para no exponer información de ningún docente real, trabajamos sobre un <strong>reporte demo</strong> con datos sintéticos pero idéntico en formato al que vas a recibir.</p>
+            <p>Cada dos semanas recibís un <strong>Reporte de Tutoría Vocacional</strong> con datos reales de tu sección OV en la plataforma. Este módulo recorre las <strong>5 páginas del reporte</strong>. Para no exponer información de ningún docente real, trabajamos sobre un <strong>reporte demo</strong> (Amílcar, IE 6062 PERU EEUU, Sección A) — idéntico en formato al que vas a recibir.</p>
 
             <div class="callout callout-info"><p><span class="callout-icon">📄</span><strong>Cómo usar este módulo:</strong> abajo aparece el reporte demo completo (5 páginas, scrolleable). Debajo de cada página vas a encontrar el walk-through: qué muestra, cómo se lee, qué hacer con eso, y qué malinterpretar. Tomate los 5 minutos que toma leer el reporte completo primero, después volvé a cada página con el walk-through al lado.</p></div>
 
-            <h3>📊 Reporte demo — IE Ficticia 9999 · Sección A · 30 mar — 15 may 2026</h3>
+            <h3>📊 Reporte demo — 6062 PERU EEUU · Sección A · 30 mar — 15 may 2026</h3>
+
             <div class="report">
               <div class="report-pg">
                 <div class="pg-header">
                   <div class="pg-header-left">
-                    <div class="pg-logo">🧭</div>
+                    <div class="pg-logo">🦜</div>
                     <div>
                       <div class="pg-eyebrow">Eligiendo Mi Camino</div>
-                      <div class="pg-title">Reporte de Tutoría</div>
+                      <div class="pg-title">Reporte de Tutoría<br>Vocacional</div>
                     </div>
                   </div>
                   <div class="pg-meta">
-                    <div class="pg-meta-bold">IE 9999 · Sección A</div>
-                    <div class="pg-meta-line">Profe Demo · UGEL DEMO</div>
-                    <div class="pg-meta-line">30 marzo — 15 mayo 2026 · ORIENTADOR IA</div>
+                    <div class="pg-meta-bold">6062 PERU EEUU · Sección A</div>
+                    <div class="pg-meta-line">Amílcar Concha Ayquipa · UGEL 01 SAN JUAN DE MIRAFLORES</div>
+                    <div class="pg-meta-line">30 marzo — 15 mayo 2026 · por sección, para el tutor/a</div>
                   </div>
                 </div>
 
                 <div class="rp-bienvenida-grid">
                   <div class="rp-bienv-block">
-                    <div class="rp-bienv-label">Bienvenida · tu primer reporte</div>
-                    <h3>Hola, <em>Profe</em>.</h3>
-                    <p>Este es tu primer reporte de tutoría. Llega cada dos semanas con base en lo que tus estudiantes hicieron en la plataforma con el <em>Orientador IA</em>.</p>
-                    <p>No es una evaluación tuya. Es una herramienta para ahorrarte tiempo: te dice dónde está cada estudiante en su viaje vocacional y qué hacer en la próxima sesión de aula.</p>
-                    <p>Léelo en cinco minutos. Al final hay un anexo con la lista completa de tus estudiantes y sus métricas.</p>
+                    <div class="rp-bienv-label">BIENVENIDA</div>
+                    <h3>Hola, <em>Amílcar</em>.</h3>
+                    <p>Este es el <em>primer reporte</em> de tu sección en la tutoría vocacional de <em>Eligiendo Mi Camino</em>, del Banco Mundial con uDocz. Cubre el período acumulado desde el inicio (30-mar al 15-may); las próximas entregas serán quincenales.</p>
+                    <p>Resume <em>cuánto avanzaron tus estudiantes</em> en el viaje de 8 pasos, qué intereses y rutas descubrieron, y dos o tres cosas para tu próxima sesión. Léelo en cinco minutos.</p>
                   </div>
                   <div class="rp-bienv-block">
-                    <div class="rp-bienv-label">Cómo funciona</div>
-                    <div class="rp-bienv-row"><div class="l">Frecuencia</div><div>Cada dos semanas, los lunes por la mañana. Cierre programa: 30 julio.</div></div>
-                    <div class="rp-bienv-row"><div class="l">De dónde sale</div><div>Datos de tu sección con el Orientador IA, comparados con la UGEL y con el programa nacional.</div></div>
-                    <div class="rp-bienv-row"><div class="l">Qué encontrarás</div><div>Una sesión de aula sugerida y dos conversaciones breves con estudiantes específicos.</div></div>
-                    <div class="rp-bienv-row"><div class="l warn">Lo que no es</div><div>Una evaluación de tu desempeño. Nadie más recibe estos datos sobre tu sección.</div></div>
-                    <div class="rp-bienv-row"><div class="l">Si tienes preguntas</div><div>Demo Acompañante · WhatsApp +51 999 999 999. Está para apoyarte con cualquier duda del programa.</div></div>
+                    <div class="rp-bienv-label">CÓMO FUNCIONA</div>
+                    <div class="rp-bienv-row"><div class="l">QUÉ VAS A ENCONTRAR</div><div>Dónde está parada tu sección, qué descubrieron tus estudiantes (intereses y rutas), acciones para tu próxima sesión, y la lista completa al final.</div></div>
+                    <div class="rp-bienv-row"><div class="l warn">LO QUE NO ES</div><div>Una evaluación de tu trabajo como tutor/a. Es una herramienta de seguimiento del programa para acompañar la implementación en tu aula.</div></div>
+                    <div class="rp-bienv-row"><div class="l">SI TIENES PREGUNTAS</div><div>Escribe por WhatsApp a tu acompañante de tutoría del programa: <strong>Isabel Huiza</strong> · +51 928 623 010.</div></div>
                   </div>
                 </div>
 
-                <div class="rp-section">
-                  <span class="rp-section-num">Esta quincena, en 14 minutos</span>
-                  <div class="rp-section-rule"></div>
+                <div class="rp-vistazo">
+                  <div class="rp-vistazo-header">DE UN VISTAZO</div>
+                  <div class="rp-vistazo-grid">
+                    <div class="rp-vistazo-block"><div class="rp-vistazo-num">7.7<em>/8</em></div><div class="rp-vistazo-label">de 8 pasos (prom.)</div></div>
+                    <div class="rp-vistazo-block"><div class="rp-vistazo-num">91%</div><div class="rp-vistazo-label">entró al módulo</div></div>
+                    <div class="rp-vistazo-block"><div class="rp-vistazo-num">23</div><div class="rp-vistazo-label">terminaron los 8</div></div>
+                    <div class="rp-vistazo-block"><div class="rp-vistazo-num">3</div><div class="rp-vistazo-label">de 7 sesiones de aula</div></div>
+                  </div>
+                  <div class="rp-vistazo-row"><div class="rp-vr-label">PRIORIDAD</div><div><strong>3 estudiantes no entraron todavía</strong> al módulo — tráelos en la próxima sesión (los nombres están en el anexo).</div></div>
+                  <div class="rp-vistazo-row"><div class="rp-vr-label">SESIONES</div><div>Solo <strong>3 de 7</strong> sesiones de aula — coordina el aula de cómputo con el o la docente PIP.</div></div>
                 </div>
-                <div class="rp-quincena-title">Una sesión de <em>diez minutos</em>. Dos conversaciones de <em>dos minutos</em>.</div>
 
-                <ol class="rp-action-list">
-                  <li><strong>Trabaja el Paso 6 (Investigación de instituciones).</strong> 17 de 28 estudiantes ya tienen su top-3 de ocupaciones (Paso 5), pero solo 4 entraron a Paso 6. Es el cuello de botella de la quincena — y el paso donde más cuesta avanzar solos.</li>
-                  <li><strong>Habla con Diana y con Marcos.</strong> Diana lleva 3 semanas sin entrar (la última fue antes del feriado). Marcos completó Paso 2 (RIASEC) pero su perfil dominante "Artístico" no se conecta con ninguna ocupación que haya explorado — está atascado.</li>
-                </ol>
-                <p style="font-family:'Crimson Pro',serif;font-style:italic;color:#766c52;font-size:12px;margin-top:14px;">El resto del reporte explica por qué, te da el guion exacto y cierra con un anexo con todos tus estudiantes.</p>
-
-                <div class="pg-footer"><span>PRÓXIMA ENTREGA · LUNES 25 DE MAYO</span><span class="pg-footer-num">PÁGINA 1 DE 5</span></div>
+                <div class="pg-footer"><span>6062 PERU EEUU · SECCIÓN A</span><span class="pg-footer-num">PÁGINA 1 DE 5</span></div>
               </div>
             </div>
 
             <div class="walkthrough">
-              <div class="walkthrough-title"><span class="wt-pg-num">1</span>Bienvenida y "Esta quincena, en 14 minutos"</div>
+              <div class="walkthrough-title"><span class="wt-pg-num">1</span>Bienvenida + DE UN VISTAZO</div>
               <div class="wt-panels">
-                <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>El propósito del reporte y un <strong>resumen ejecutivo</strong>: una sesión corta de 10 minutos + dos conversaciones de 2 minutos. La columna derecha resume la mecánica del reporte y a quién contactar.</p></div>
-                <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Esta página es <strong>la promesa del reporte</strong>: si solo tenés 14 minutos esta semana, hacer estas dos cosas mueve la aguja. Es lo de mayor impacto con menor inversión de tu tiempo.</p></div>
-                <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Anotá la sesión sugerida (Paso 6) en tu agenda para esta semana. Identificá a Diana y Marcos. Si la semana se te complica, <strong>al menos hacé las dos conversaciones</strong> — son las que mueven más con menos.</p></div>
-                <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p><strong>No es una evaluación de tu desempeño</strong>. Nadie más recibe estos datos. La página lo dice explícitamente: "Lo que no es: una evaluación tuya".</p></div>
+                <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>Saludo personal + 4 estadísticas grandes en "DE UN VISTAZO" (pasos prom., % que entró, # que terminó, sesiones de aula) y debajo las <strong>2 cosas más urgentes</strong> (PRIORIDAD + SESIONES).</p></div>
+                <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Los 4 números son <strong>una foto del estado actual</strong>. PRIORIDAD y SESIONES son las dos cosas que el reporte mismo señala como las que más mueven la aguja ahora. Si solo lees una página, lee esta.</p></div>
+                <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Anotá los 3 estudiantes que no entraron (los buscás en el anexo). Coordiná con el PIP para reservar el aula de cómputo. <strong>Esas 2 cosas resuelven el 80% del progreso</strong> de tu sección esta quincena.</p></div>
+                <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p><strong>No es una evaluación tuya.</strong> La caja "LO QUE NO ES" lo dice explícito: es seguimiento del programa, herramienta de acompañamiento. Nadie más recibe esto.</p></div>
               </div>
-              <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>Si tu semana está saturada y solo podés hacer una cosa de las dos sugeridas, ¿cuál priorizás según el reporte? <em>(Respuesta: las dos conversaciones de 2 min — son las de menor costo y mayor impacto inmediato sobre estudiantes en riesgo.)</em></div>
+              <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>Tu sección tiene 7.7 / 8 pasos promedio. ¿Eso significa que ya terminó el viaje? <em>(Respuesta: no — significa que los que entraron están muy avanzados, pero 3 estudiantes no entraron y solo se hicieron 3 de 7 sesiones de aula. Hay terreno para crecer.)</em></div>
             </div>
           </div>
         `
       },
       {
-        title: 'Página 2 · Tu sección por paso del viaje',
+        title: 'Página 2 · § 01 Dónde está parada tu sección',
         content: () => `
           <div class="lesson">
+
             <div class="report">
               <div class="report-pg">
                 <div class="rp-section">
                   <span class="rp-section-num">§ 01</span>
-                  <span class="rp-section-title">Lo que está pasando con <em>tu sección</em></span>
+                  <span class="rp-section-title">Dónde está parada <em>tu sección</em></span>
                   <div class="rp-section-rule"></div>
                 </div>
-                <p class="rp-lead">En el periodo tus estudiantes activos pasaron en promedio <strong>27 minutos por semana</strong> en la plataforma, en línea con la UGEL (29 minutos). Hay ritmo de uso. La pregunta que sigue es cómo subir la profundidad: que cada estudiante no solo entre, sino que <strong>avance al siguiente paso</strong>. La adopción está; ahora hay que sumar avance.</p>
+                <p class="rp-lead"><strong style="font-family:'Crimson Pro',serif;font-style:italic;font-size:22px;color:#c75d2e;">7.7 / 8</strong> pasos completados en promedio por los estudiantes que entraron. <strong>23 ya completaron los 8.</strong></p>
 
-                <div class="rp-eyebrow">Minutos en la plataforma · por estudiante activo · por semana</div>
-                <div class="rp-eyebrow-sub">Promedio de minutos por estudiante que entró esa semana. Si entraron 8 estudiantes, es el promedio de esos 8 — no de los 28 del aula.</div>
+                <div class="rp-eyebrow">Cómo se compara tu sección</div>
                 <table class="rp-table">
-                  <thead><tr><th>Semana</th><th class="t-right">Tu sección</th><th class="t-right">UGEL DEMO</th><th class="t-right">Programa</th></tr></thead>
+                  <thead><tr><th>Indicador</th><th class="t-right">Tu sección</th><th class="t-right">Todo el programa</th></tr></thead>
                   <tbody>
-                    <tr><td>13 abr — 19 abr</td><td class="t-right">22</td><td class="t-right">28</td><td class="t-right">31</td></tr>
-                    <tr><td>20 abr — 26 abr</td><td class="t-right">31</td><td class="t-right">29</td><td class="t-right">32</td></tr>
-                    <tr><td>27 abr — 3 may</td><td class="t-right tu-seccion">—</td><td class="t-right">26</td><td class="t-right">30</td></tr>
-                    <tr><td>4 may — 10 may</td><td class="t-right">28</td><td class="t-right">30</td><td class="t-right">31</td></tr>
-                    <tr><td>11 may — 15 may</td><td class="t-right">26</td><td class="t-right">32</td><td class="t-right">33</td></tr>
+                    <tr><td>Entraron al módulo vocacional</td><td class="t-right tu-seccion">29 (91%)</td><td class="t-right">84%</td></tr>
+                    <tr><td>Pasos completados (prom. /8)</td><td class="t-right tu-seccion">7.7</td><td class="t-right">5.0</td></tr>
+                    <tr><td>Terminaron los 8 pasos</td><td class="t-right tu-seccion">23 (72%)</td><td class="t-right">14%</td></tr>
+                    <tr><td>Sesiones de aula realizadas<sup>¹</sup></td><td class="t-right tu-seccion">3 de 7</td><td class="t-right">3.1</td></tr>
                   </tbody>
                 </table>
+                <p style="font-size:10.5px;color:#9b9275;font-family:'Crimson Pro',serif;font-style:italic;margin:0 0 16px;line-height:1.4;"><sup>¹</sup> Sesión de aula = día en que al menos la mitad de la sección entró a la plataforma el mismo día (señal de clase guiada por ti). El programa contempla 12 sesiones en total; 7 esperadas a la fecha de corte.</p>
 
-                <div class="rp-eyebrow" style="margin-top:18px;">Paso del viaje · ¿en cuál están?</div>
-                <div class="rp-eyebrow-sub">Cuántos de tus 28 estudiantes alcanzaron al menos cada paso. Algunos vuelven hacia atrás — el viaje es una espiral.</div>
-                <table class="rp-table">
-                  <thead><tr><th>Paso</th><th class="t-right">Tu sección</th><th class="t-right">UGEL</th><th class="t-right">Programa</th></tr></thead>
-                  <tbody>
-                    <tr><td>1 · Autoconocimiento</td><td class="t-right">26 / 28</td><td class="t-right">88%</td><td class="t-right">91%</td></tr>
-                    <tr><td>2 · RIASEC</td><td class="t-right">24 / 28</td><td class="t-right">82%</td><td class="t-right">85%</td></tr>
-                    <tr><td>3 · Mitos</td><td class="t-right">23 / 28</td><td class="t-right">79%</td><td class="t-right">82%</td></tr>
-                    <tr><td>4 · Rutas</td><td class="t-right">20 / 28</td><td class="t-right">68%</td><td class="t-right">72%</td></tr>
-                    <tr><td>5 · Ocupaciones</td><td class="t-right">17 / 28</td><td class="t-right">56%</td><td class="t-right">62%</td></tr>
-                    <tr><td>6 · Investigación</td><td class="t-right tu-seccion">4 / 28</td><td class="t-right">31%</td><td class="t-right">38%</td></tr>
-                    <tr><td>7 · Familia</td><td class="t-right">1 / 28</td><td class="t-right">14%</td><td class="t-right">19%</td></tr>
-                    <tr><td>8 · Plan de vida</td><td class="t-right">0 / 28</td><td class="t-right">6%</td><td class="t-right">9%</td></tr>
-                  </tbody>
-                </table>
+                <div class="rp-eyebrow" style="margin-top:18px;">Avance en el recorrido (tu sección)</div>
+                <div style="margin:8px 0 18px;">
+                  <div class="rp-bar-row"><div class="rp-bar-label">No entró al módulo</div><div class="rp-bar-track"><div class="rp-bar-fill" style="width:9%;"></div></div><div class="rp-bar-value">3 <span class="rp-bar-pct">(9%)</span></div></div>
+                  <div class="rp-bar-row"><div class="rp-bar-label">Entró pero no avanzó</div><div class="rp-bar-track"><div class="rp-bar-fill" style="width:0%;"></div></div><div class="rp-bar-value">0 <span class="rp-bar-pct">(0%)</span></div></div>
+                  <div class="rp-bar-row"><div class="rp-bar-label">En proceso (Pasos 1-5)</div><div class="rp-bar-track"><div class="rp-bar-fill green" style="width:3%;"></div></div><div class="rp-bar-value">1 <span class="rp-bar-pct">(3%)</span></div></div>
+                  <div class="rp-bar-row"><div class="rp-bar-label">Avanzados (Pasos 6-8)</div><div class="rp-bar-track"><div class="rp-bar-fill" style="width:88%;"></div></div><div class="rp-bar-value">28 <span class="rp-bar-pct">(88%)</span></div></div>
+                </div>
 
-                <div class="pg-footer"><span>RESUMEN — § 01</span><span class="pg-footer-num">PÁGINA 2 DE 5</span></div>
+                <div class="rp-eyebrow" style="margin-top:18px;">¿En qué paso está cada estudiante?</div>
+                <div class="rp-eyebrow-sub">Distribución de los 29 que entraron, en los 8 pasos del viaje (0 = donde no hay nadie todavía).</div>
+                <div style="margin:8px 0 6px;">
+                  <div class="rp-bar-row dim"><div class="rp-bar-label">NO AVANZÓ (PASO 0)</div><div class="rp-bar-track"><div class="rp-bar-fill neutral" style="width:0%;"></div></div><div class="rp-bar-value">0</div></div>
+                  <div class="rp-bar-row dim"><div class="rp-bar-label">PASO 1 · AUTOCONOCIMIENTO</div><div class="rp-bar-track"><div class="rp-bar-fill neutral" style="width:0%;"></div></div><div class="rp-bar-value">0</div></div>
+                  <div class="rp-bar-row dim"><div class="rp-bar-label">PASO 2 · TEST RIASEC</div><div class="rp-bar-track"><div class="rp-bar-fill neutral" style="width:0%;"></div></div><div class="rp-bar-value">0</div></div>
+                  <div class="rp-bar-row dim"><div class="rp-bar-label">PASO 3 · MITOS</div><div class="rp-bar-track"><div class="rp-bar-fill neutral" style="width:0%;"></div></div><div class="rp-bar-value">0</div></div>
+                  <div class="rp-bar-row dim"><div class="rp-bar-label">PASO 4 · RUTAS</div><div class="rp-bar-track"><div class="rp-bar-fill" style="width:4%;"></div></div><div class="rp-bar-value">1</div></div>
+                  <div class="rp-bar-row dim"><div class="rp-bar-label">PASO 5 · OCUPACIONES</div><div class="rp-bar-track"><div class="rp-bar-fill neutral" style="width:0%;"></div></div><div class="rp-bar-value">0</div></div>
+                  <div class="rp-bar-row dim"><div class="rp-bar-label">PASO 6 · INVESTIGACIÓN</div><div class="rp-bar-track"><div class="rp-bar-fill neutral" style="width:0%;"></div></div><div class="rp-bar-value">0</div></div>
+                  <div class="rp-bar-row dim"><div class="rp-bar-label">PASO 7 · FAMILIA</div><div class="rp-bar-track"><div class="rp-bar-fill" style="width:17%;"></div></div><div class="rp-bar-value">5</div></div>
+                  <div class="rp-bar-row dim"><div class="rp-bar-label">PASO 8 · PLAN (COMPLETO)</div><div class="rp-bar-track"><div class="rp-bar-fill" style="width:79%;"></div></div><div class="rp-bar-value">23</div></div>
+                </div>
+
+                <div class="pg-footer"><span>§ 01</span><span class="pg-footer-num">PÁGINA 2 DE 5</span></div>
               </div>
             </div>
 
             <div class="walkthrough">
-              <div class="walkthrough-title"><span class="wt-pg-num">2</span>Lo que está pasando con tu sección</div>
+              <div class="walkthrough-title"><span class="wt-pg-num">2</span>Dónde está parada tu sección</div>
               <div class="wt-panels">
-                <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>Dos tablas. La primera: <strong>minutos por semana</strong> vs UGEL/Programa. La segunda: <strong>distribución por paso del viaje</strong>. La línea destacada (anaranjada) son las semanas o pasos donde tu sección está debajo del promedio.</p></div>
-                <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Tu sección está <strong>en línea con UGEL en minutos</strong> (adopción está). Pero en el Paso 6 hay un cuello de botella: solo 4 de 28 — versus el 31% UGEL. <strong>Ahí está la palanca</strong>.</p></div>
-                <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Diseñá la próxima sesión de aula <strong>centrada en Paso 6</strong> (cómo investigar instituciones). 13 estudiantes ya completaron Paso 5 — están listos para avanzar pero no encuentran cómo. Esa transición la facilitás vos en el aula.</p></div>
-                <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>El 0% en Paso 8 <strong>no significa fracaso</strong>. Plan de vida es el último paso — se hace en sesiones presenciales finales (sesiones 11-12). Es esperable a esta altura.</p></div>
+                <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>Tabla que <strong>compara tu sección con el promedio del programa</strong> (4 indicadores) + 2 vistas de barras: avance en el recorrido (4 grupos) + distribución por paso (los 8 + paso 0).</p></div>
+                <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>La tabla destaca en color naranja tus números. Si están <em>arriba</em> del promedio del programa, vas bien. Las barras de "avance en el recorrido" agrupan a tus 29 estudiantes en 4 estados: sirve para ver el grueso de un vistazo.</p></div>
+                <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Mirá donde tu sección está <strong>por encima del promedio</strong> — eso lo querés sostener. Si la distribución por paso muestra un <em>cuello de botella</em> (mucha gente atascada en un paso), la próxima sesión la diseñás centrada en ese paso.</p></div>
+                <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>"7.7 vs 5.0 del programa" <strong>no significa que tu sección sea mejor docente</strong>. Hay 1000 razones (composición del aula, etapa del año, contexto). Es un dato útil, no un veredicto.</p></div>
               </div>
-              <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>De estas dos lecturas del reporte, ¿cuál es correcta? <em>(a) Mi sección va atrasada porque está debajo del promedio en Paso 6 / (b) Mi sección tiene una palanca clara en Paso 6 — 13 estudiantes listos para avanzar pero atascados. Respuesta: la (b). La adopción está bien; la palanca está en facilitar la transición específica.</em></div>
+              <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>De los 29 que entraron, 28 están en Pasos 6-8 (avanzados). ¿Cuál es la mejor próxima sesión para sostener ese ritmo? <em>(Respuesta: foco en el paso donde más gente quedó atascada — en este caso Paso 7 Familia con 5 estudiantes — para evitar que ese cuello se vuelva crónico.)</em></div>
             </div>
           </div>
         `
       },
       {
-        title: 'Página 3 · Perfiles RIASEC y rutas',
+        title: 'Página 3 · § 02 Qué descubrieron y hacia dónde van',
         content: () => `
           <div class="lesson">
+
             <div class="report">
               <div class="report-pg">
                 <div class="rp-section">
                   <span class="rp-section-num">§ 02</span>
-                  <span class="rp-section-title">Perfiles RIASEC y rutas exploradas</span>
+                  <span class="rp-section-title">Qué <em>descubrieron</em> y hacia dónde van</span>
                   <div class="rp-section-rule"></div>
                 </div>
-                <p class="rp-lead">El test RIASEC (Paso 2) entrega 3 perfiles dominantes por estudiante. En tu sección los 3 perfiles más frecuentes son <strong>Social, Investigador y Convencional</strong>. La ruta más explorada (Paso 4) es <strong>Universidad</strong>; le sigue <strong>Instituto técnico</strong>. <strong>Trabajo + estudio</strong> tiene poca exploración — vale la pena conversarla con los estudiantes que dudan sobre el costo.</p>
 
-                <div class="rp-eyebrow">Top 3 perfiles RIASEC en tu sección</div>
-                <table class="rp-table">
-                  <thead><tr><th>Perfil</th><th class="t-right">Estudiantes</th><th>Ocupaciones más exploradas</th></tr></thead>
+                <div class="rp-eyebrow" style="font-size:13px;font-family:'Crimson Pro',serif;font-style:normal;text-transform:none;letter-spacing:0;color:#1a1815;font-weight:700;margin-top:4px;">Perfiles RIASEC de tu sección</div>
+                <p style="font-size:11.5px;color:#766c52;font-family:'Crimson Pro',serif;font-style:italic;margin:0 0 8px;">El test (Paso 2) mide 6 intereses. Este es el perfil dominante de cada estudiante.</p>
+                <div class="rp-riasec-grid">
+                  <div class="rp-riasec-card"><div class="rp-riasec-letter">I</div><div class="rp-riasec-name">Investigador</div><div class="rp-riasec-desc">16 estud. · investigar, ciencia, entender el porqué</div></div>
+                  <div class="rp-riasec-card"><div class="rp-riasec-letter">S</div><div class="rp-riasec-name">Social</div><div class="rp-riasec-desc">7 estud. · enseñar, ayudar, acompañar</div></div>
+                  <div class="rp-riasec-card"><div class="rp-riasec-letter">R</div><div class="rp-riasec-name">Realista</div><div class="rp-riasec-desc">4 estud. · manos a la obra: construir, reparar</div></div>
+                  <div class="rp-riasec-card"><div class="rp-riasec-letter">A</div><div class="rp-riasec-name">Artístico</div><div class="rp-riasec-desc">2 estud. · crear, expresarse, diseñar</div></div>
+                </div>
+                <p style="font-size:11.5px;font-family:'Crimson Pro',serif;font-style:italic;color:#1a1815;margin:0 0 18px;">El perfil más común es <strong>Investigador</strong> — útil para conectar la sesión con sus intereses.</p>
+
+                <div class="rp-eyebrow" style="font-size:13px;font-family:'Crimson Pro',serif;font-style:normal;text-transform:none;letter-spacing:0;color:#1a1815;font-weight:700;">Paso 4 · ruta <em style="font-style:italic;color:#c75d2e;font-weight:400;">recomendada por el sistema</em></div>
+                <p style="font-size:11px;color:#766c52;font-family:'Crimson Pro',serif;font-style:italic;margin:0 0 6px;">Sugerencia del sistema según el test. Sobre 29 que completaron el Paso 4 (antes de completarlo, el sistema muestra "Universidad" por defecto, por eso no los contamos).</p>
+                <div style="margin:6px 0 16px;">
+                  <div class="rp-bar-row"><div class="rp-bar-label">Universidad</div><div class="rp-bar-track"><div class="rp-bar-fill green" style="width:52%;"></div></div><div class="rp-bar-value">15 <span class="rp-bar-pct">(52%)</span></div></div>
+                  <div class="rp-bar-row"><div class="rp-bar-label">Instituto técnico</div><div class="rp-bar-track"><div class="rp-bar-fill green" style="width:38%;"></div></div><div class="rp-bar-value">11 <span class="rp-bar-pct">(38%)</span></div></div>
+                  <div class="rp-bar-row"><div class="rp-bar-label">Trabajo + estudio</div><div class="rp-bar-track"><div class="rp-bar-fill green" style="width:10%;"></div></div><div class="rp-bar-value">3 <span class="rp-bar-pct">(10%)</span></div></div>
+                </div>
+
+                <div class="rp-eyebrow" style="font-size:13px;font-family:'Crimson Pro',serif;font-style:normal;text-transform:none;letter-spacing:0;color:#1a1815;font-weight:700;">Paso 8 · ruta <em style="font-style:italic;color:#c75d2e;font-weight:400;">que eligió el estudiante</em></div>
+                <p style="font-size:11px;color:#766c52;font-family:'Crimson Pro',serif;font-style:italic;margin:0 0 6px;line-height:1.4;">Sobre 27 que eligieron una ruta concreta en el Paso 8 (puede ser más que quienes terminaron el paso completo: elegir la ruta es una de las primeras partes del plan). Solo se agrupan las <strong>carreras universitarias</strong> (medicina, ingeniería, administración, contabilidad, educación, etc.) bajo "Universidad"; el resto se muestra tal cual. Las respuestas poco claras o sin ruta van más abajo, en "para conversar".</p>
+                <div style="margin:6px 0 16px;">
+                  <div class="rp-bar-row"><div class="rp-bar-label">Universidad</div><div class="rp-bar-track"><div class="rp-bar-fill" style="width:67%;"></div></div><div class="rp-bar-value">18 <span class="rp-bar-pct">(67%)</span></div></div>
+                  <div class="rp-bar-row"><div class="rp-bar-label">Instituto técnico</div><div class="rp-bar-track"><div class="rp-bar-fill" style="width:22%;"></div></div><div class="rp-bar-value">6 <span class="rp-bar-pct">(22%)</span></div></div>
+                  <div class="rp-bar-row"><div class="rp-bar-label">Trabajo + estudio</div><div class="rp-bar-track"><div class="rp-bar-fill" style="width:7%;"></div></div><div class="rp-bar-value">2 <span class="rp-bar-pct">(7%)</span></div></div>
+                  <div class="rp-bar-row"><div class="rp-bar-label">Fuerzas armadas</div><div class="rp-bar-track"><div class="rp-bar-fill" style="width:4%;"></div></div><div class="rp-bar-value">1 <span class="rp-bar-pct">(4%)</span></div></div>
+                </div>
+
+                <div class="rp-eyebrow" style="font-size:13px;font-family:'Crimson Pro',serif;font-style:normal;text-transform:none;letter-spacing:0;color:#1a1815;font-weight:700;">17 estudiantes eligieron una ruta distinta a la que sugirió el sistema</div>
+                <table class="rp-table" style="margin-top:6px;">
+                  <thead><tr><th>Estudiante</th><th>Paso 4 · sugirió el sistema</th><th>Paso 8 · eligió</th></tr></thead>
                   <tbody>
-                    <tr><td><strong>Social</strong> (S)</td><td class="t-right">11</td><td>Docente, psicólogo/a, enfermería, trabajo social</td></tr>
-                    <tr><td><strong>Investigador</strong> (I)</td><td class="t-right">8</td><td>Ingeniería de sistemas, biología, química, medicina</td></tr>
-                    <tr><td><strong>Convencional</strong> (C)</td><td class="t-right">6</td><td>Contabilidad, administración, banca, derecho</td></tr>
-                    <tr><td>Realista (R)</td><td class="t-right">5</td><td>Mecánica, agricultura, construcción</td></tr>
-                    <tr><td>Emprendedor (E)</td><td class="t-right">4</td><td>Negocios, marketing, comercio internacional</td></tr>
-                    <tr><td>Artístico (A)</td><td class="t-right">3</td><td>Diseño gráfico, comunicaciones, fotografía</td></tr>
+                    <tr><td>Reyna Renteria, Jossue Enrique</td><td>Instituto técnico</td><td>Universidad</td></tr>
+                    <tr><td>Puma Espinoza, Armando Alexander</td><td>Instituto técnico</td><td>Universidad</td></tr>
                   </tbody>
                 </table>
-                <p style="font-size:12px;color:#766c52;font-family:'Crimson Pro',serif;font-style:italic;">Cada estudiante tiene 3 perfiles dominantes; los conteos suman más que 28.</p>
+                <p style="font-size:11px;color:#766c52;font-family:'Crimson Pro',serif;font-style:italic;margin:4px 0 12px;">y 15 más — la lista completa (Paso 4 y Paso 8 de cada estudiante) está en el anexo.</p>
 
-                <div class="rp-eyebrow" style="margin-top:18px;">Rutas exploradas (Paso 4) · 20 estudiantes</div>
-                <table class="rp-table">
-                  <thead><tr><th>Ruta</th><th class="t-right">Estudiantes</th><th>Comentario</th></tr></thead>
-                  <tbody>
-                    <tr><td>🎓 Universidad</td><td class="t-right">14</td><td>La más explorada. 8 mencionaron Beca 18 al menos una vez.</td></tr>
-                    <tr><td>🔧 Instituto técnico</td><td class="t-right">9</td><td>Crece. Carreras: enfermería técnica, mecatrónica, contabilidad técnica.</td></tr>
-                    <tr><td>💼 Trabajo + estudio</td><td class="t-right tu-seccion">3</td><td>Subexplorada. Suele asociarse a "no me alcanza" — vale conversarlo.</td></tr>
-                  </tbody>
-                </table>
+                <div class="rp-callout-side"><strong>Para tu próxima sesión:</strong> conversa con ellos y pregúntales qué los llevó a esa elección; suele abrir una buena conversación vocacional.</div>
 
                 <div class="pg-footer"><span>§ 02</span><span class="pg-footer-num">PÁGINA 3 DE 5</span></div>
               </div>
             </div>
 
             <div class="walkthrough">
-              <div class="walkthrough-title"><span class="wt-pg-num">3</span>Perfiles RIASEC y rutas exploradas</div>
+              <div class="walkthrough-title"><span class="wt-pg-num">3</span>Qué descubrieron y hacia dónde van</div>
               <div class="wt-panels">
-                <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>Los <strong>3 perfiles RIASEC más comunes</strong> en tu sección + las <strong>3 rutas</strong> (universidad / técnico / trabajo+estudio) y cuántos estudiantes las exploraron. Las ocupaciones que más miraron por perfil.</p></div>
-                <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>El perfil RIASEC <strong>orienta, no sentencia</strong>. Que 11 sean Social no significa que todos sean docentes — significa que les motiva trabajar con personas. La ruta dominante (Universidad) suele asociarse con prestigio: vale conversar las otras 2 rutas como caminos legítimos, no como segunda opción.</p></div>
-                <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>En la próxima sesión, dedicá 10 min a <strong>Trabajo + estudio</strong> como ruta válida (no segundona). Mostrá ejemplos: 70% de profesionales peruanos trabajaron mientras estudiaban; algunas empresas tienen programas de horarios flexibles para jóvenes. Conectá con el sesgo socioeconómico del módulo 6.</p></div>
-                <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que un estudiante con perfil Investigador haya explorado ocupaciones técnicas <strong>no es un error</strong> — es exploración legítima. La idea es <em>ampliar</em>, no encajar en cajas.</p></div>
+                <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>3 piezas: <strong>perfiles RIASEC</strong> de la sección (4 cards con los dominantes) + <strong>ruta recomendada</strong> por el sistema (Paso 4) + <strong>ruta elegida</strong> por el estudiante (Paso 8). El contraste es el insight central.</p></div>
+                <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Comparás Paso 4 (sugerencia) con Paso 8 (decisión). Si son muy parecidos, el sistema acertó. Si difieren mucho (acá: 38% → 22% en técnico), <strong>algo pasó en el medio</strong> — algo cambió la idea del estudiante.</p></div>
+                <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p><strong>Conversá con los 17 que cambiaron de ruta.</strong> No para corregir — para entender qué los llevó. Esa conversación suele ser de las más fértiles del viaje. Los 2 ejemplos de la tabla te dan pie para arrancar.</p></div>
+                <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Que un estudiante <strong>cambió de ruta no es un error</strong>. Es exactamente lo que el viaje busca: que la decisión final sea suya, no del sistema. El test orienta, no sentencia.</p></div>
               </div>
-              <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>Solo 3 de tus estudiantes exploraron "Trabajo + estudio". ¿Es buena señal? <em>(Respuesta: depende. Si es porque no la conocen o porque la asocian con "fracasar", no. Vale traerla como ruta legítima con datos reales en la próxima sesión.)</em></div>
+              <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>De los que cambiaron de ruta, varios pasaron de "Instituto técnico" a "Universidad". ¿Qué interpretás? <em>(Respuesta: depende. Puede ser ambición legítima de explorar U + beca, o puede ser presión social hacia U como "ruta prestigio". La conversación 1:1 te dice cuál de las dos es.)</em></div>
             </div>
           </div>
         `
       },
       {
-        title: 'Página 4 · Estudiantes que necesitan tu atención',
+        title: 'Página 4 · § 03 Qué hacer en próximas sesiones',
         content: () => `
           <div class="lesson">
+
             <div class="report">
               <div class="report-pg">
                 <div class="rp-section">
                   <span class="rp-section-num">§ 03</span>
-                  <span class="rp-section-title">Estudiantes que necesitan <em>tu atención</em></span>
+                  <span class="rp-section-title">Qué hacer en tus <em>próximas sesiones</em></span>
                   <div class="rp-section-rule"></div>
                 </div>
-                <p class="rp-lead">Esta página tiene 4 estudiantes para una conversación corta de 2 minutos esta semana. No es una lista de problema — es la prioridad de tu atención. <strong>Si tenés tiempo para dos, hablá con Diana y Marcos</strong> (los del resumen de página 1). Los otros dos pueden esperar a la próxima quincena si no te alcanza.</p>
+                <p class="rp-lead">Acciones que los datos muestran con mayor impacto en tu sección ahora. Cada una toma pocos minutos.</p>
 
-                <div class="rp-card-attention">
-                  <div class="rp-attention-title">🟡 Diana Pérez · 3 semanas sin entrar</div>
-                  <p><strong>Qué pasa</strong>: última sesión activa el 26 de abril. No entró en las 3 quincenas posteriores. Antes venía bien — completó Pasos 1-3.</p>
-                  <p><strong>Hipótesis</strong>: pudo ser el feriado largo + algo familiar. No sabemos. <strong>Conversación de 2 min</strong>: "Diana, te extrañé estas semanas. ¿Algo en el camino que no esperabas?" Escuchá sin juzgar. Si menciona algo serio (mudanza, salud familiar), avisá al acompañante EMC.</p>
-                </div>
+                <ul class="rp-action-v2-list">
+                  <li class="rp-action-v2">
+                    <div class="rp-av-title">Trae al módulo a quienes no entraron</div>
+                    <div class="rp-av-body"><strong>3 estudiantes (9%)</strong> todavía no abrieron el módulo vocacional. Dedica los primeros minutos de la próxima tutoría a que entren y hagan el Paso 1. Los nombres están en el anexo, en rojo.</div>
+                    <div class="rp-av-plan">Cuándo lo voy a hacer:<span class="rp-av-blank"></span></div>
+                  </li>
+                  <li class="rp-action-v2">
+                    <div class="rp-av-title">Coordina el aula de cómputo para hacer más sesiones</div>
+                    <div class="rp-av-body">Tu sección hizo <strong>3 de 7</strong> sesiones de aula esperadas (un día con al menos la mitad de la sección en la plataforma). Reserva 15 minutos para coordinar con el o la docente PIP del colegio y reservar el aula de cómputo, así tu sección avanza en grupo.</div>
+                    <div class="rp-av-plan">Cuándo lo voy a hacer:<span class="rp-av-blank"></span></div>
+                  </li>
+                  <li class="rp-action-v2">
+                    <div class="rp-av-title">Conversa con quienes cambiaron de ruta</div>
+                    <div class="rp-av-body"><strong>17 eligieron una ruta distinta</strong> a la que sugirió el sistema (detalle en la pág. 3). Pregúntales qué los llevó a esa elección.</div>
+                    <div class="rp-av-plan">Cuándo lo voy a hacer:<span class="rp-av-blank"></span></div>
+                  </li>
+                </ul>
 
-                <div class="rp-card-attention">
-                  <div class="rp-attention-title">🟡 Marcos Quispe · perfil "Artístico" sin ocupaciones</div>
-                  <p><strong>Qué pasa</strong>: completó RIASEC (perfil Artístico dominante) pero no exploró ninguna ocupación artística en Paso 5. Mencionó "ingeniería civil" como única opción.</p>
-                  <p><strong>Hipótesis</strong>: presión familiar o creencia de que "del arte no se vive". <strong>Conversación de 2 min</strong>: "Marcos, vi que tu perfil dice Artístico fuerte y exploraste ingeniería civil. ¿Te interesa lo artístico aunque no como carrera principal? Hay caminos híbridos — diseño industrial, arquitectura — que combinan ambos."</p>
-                </div>
-
-                <div class="rp-card-attention">
-                  <div class="rp-attention-title">🟢 Rocío Mendoza · "fantasma"</div>
-                  <p><strong>Qué pasa</strong>: asiste a las sesiones de aula presenciales pero solo entra a la plataforma cuando está obligada. 47 min totales en 4 semanas.</p>
-                  <p><strong>Hipótesis</strong>: vergüenza, no entiende la dinámica, o no le da prioridad. <strong>Conversación de 2 min</strong>: "Rocío, ¿qué te ayudaría a sentirte más cómoda usando la plataforma? ¿Hay algo del Orientador IA que te incomoda?" — el módulo 7 tiene el guion completo de este caso.</p>
-                </div>
-
-                <div class="rp-card-attention">
-                  <div class="rp-attention-title">🟢 Esteban Robles · vuelve en círculos</div>
-                  <p><strong>Qué pasa</strong>: completó Pasos 1-5, volvió a Paso 4 (rutas) tres veces, no avanza a Paso 6. No es "no entiende" — sí entiende, pero no decide.</p>
-                  <p><strong>Hipótesis</strong>: necesita validación externa para tomar la decisión. <strong>Conversación de 2 min</strong>: "Esteban, vi que estás dándole vueltas a las rutas. No es un examen — es exploración. ¿Qué te impide quedarte con una ruta y probar Paso 6 antes de decidir nada?"</p>
-                </div>
+                <div class="rp-callout-side" style="margin-top:18px;">¿Dudas o algo para reportar? Escribe a tu acompañante de tutoría del programa por WhatsApp: <strong>Isabel Huiza</strong> — +51 928 623 010.</div>
 
                 <div class="pg-footer"><span>§ 03</span><span class="pg-footer-num">PÁGINA 4 DE 5</span></div>
               </div>
             </div>
 
             <div class="walkthrough">
-              <div class="walkthrough-title"><span class="wt-pg-num">4</span>Estudiantes que necesitan tu atención</div>
+              <div class="walkthrough-title"><span class="wt-pg-num">4</span>Qué hacer en tus próximas sesiones</div>
               <div class="wt-panels">
-                <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>4 estudiantes con <strong>nombre, qué pasa, hipótesis y guion de conversación de 2 min</strong>. Los 🟡 son alta prioridad (suelen ser los del resumen); los 🟢 son segunda prioridad.</p></div>
-                <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>El reporte sugiere conversaciones — no diagnósticos. Las hipótesis son <strong>puntos de partida para escuchar</strong>, no veredictos. La idea es abrir una puerta corta para que el estudiante hable.</p></div>
-                <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Elegí 2 conversaciones para esta semana (idealmente Diana y Marcos). Cada una toma 2 min al inicio o final del recreo. <strong>Si una conversación destapa algo serio</strong> (violencia, salud mental), no la resolvés vos sola — escribís al acompañante EMC inmediatamente.</p></div>
-                <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>"Estudiante necesita atención" <strong>no es etiqueta permanente</strong>. Diana puede entrar la próxima semana y salir de la lista. Es un mapa de la quincena, no un diagnóstico.</p></div>
+                <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p><strong>3 acciones numeradas</strong> en orden de impacto, cada una con su justificación corta y un espacio "Cuándo lo voy a hacer: ____" para que escribas la fecha. Es un mini-plan ya armado.</p></div>
+                <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Las 3 son <strong>complementarias</strong>, no excluyentes. La #1 es la más urgente (3 estudiantes no entraron), la #2 multiplica adopción (más sesiones de aula), la #3 profundiza decisiones (cambios de ruta).</p></div>
+                <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p><strong>Llená los 3 "cuándo lo voy a hacer"</strong> con fecha concreta antes de cerrar el reporte. Sin fecha, no se hace. Si una semana no podés con las 3, hacé la #1 — el resto puede esperar a la próxima quincena.</p></div>
+                <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p>Las 3 acciones <strong>no son una orden del programa</strong>. Son sugerencias basadas en los datos de tu sección. Si vos ves algo más urgente (ej. un estudiante con problema serio), eso va primero. Tu juicio profesional > algoritmo.</p></div>
               </div>
-              <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>Diana menciona en la conversación que se mudó porque su papá perdió el trabajo. ¿Cuál es tu siguiente paso? <em>(Respuesta: escuchar primero — no abrir el celular para escribir al acompañante EMC delante de ella. Después de la conversación, escribís al acompañante con un resumen breve. No diagnostiques ni prometás solución de tu cabeza.)</em></div>
+              <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>Tu sección tiene 3 estudiantes que no entraron y 17 que cambiaron de ruta. Solo podés hacer una de las dos esta semana. ¿Cuál? <em>(Respuesta: traer a los 3 que no entraron — sin Paso 1 no avanzan en nada. Las 17 conversaciones de ruta esperan a la próxima quincena.)</em></div>
             </div>
           </div>
         `
       },
       {
-        title: 'Página 5 · Anexo · lista completa',
+        title: 'Página 5 · Anexo · todos tus estudiantes',
         content: () => `
           <div class="lesson">
-            <p>Las últimas páginas del reporte son el <strong>anexo</strong>: la lista completa de todos tus estudiantes con sus métricas. Útil como referencia, no como lista de acciones inmediatas.</p>
-            <div class="callout callout-tip" style="margin-top:20px;background:#fff4d4;border-left:4px solid #f39300;">
-              <p><span class="callout-icon">🐦</span><strong>Cuando llegue tu reporte real:</strong> podés pedirle al gallito de Eligiendo Mi Camino que te ayude a interpretarlo y a pensar próximos pasos. Es un chat especializado en reportes EMC, accesible en <a href="https://eligiendomicamino.org/reporte/" target="_blank" rel="noopener" style="color:var(--primary-dark);font-weight:600;">eligiendomicamino.org/reporte/</a></p>
-            </div>
-
 
             <div class="report">
               <div class="report-pg">
                 <div class="rp-section">
-                  <span class="rp-section-num">§ 04 · ANEXO</span>
-                  <span class="rp-section-title">Tus 28 estudiantes</span>
+                  <span class="rp-section-num">ANEXO</span>
+                  <span class="rp-section-title">todos tus <em>estudiantes</em></span>
                   <div class="rp-section-rule"></div>
                 </div>
-                <p class="rp-lead">Lista completa con paso alcanzado, perfil RIASEC dominante, ruta más explorada y minutos en el periodo. Ordenado alfabéticamente. La columna "estado" replica el ícono de página 4 si el estudiante está marcado para conversación.</p>
+                <p class="rp-lead">Lista completa de la sección. <strong>29 entraron</strong> al menos una vez · <strong style="color:#c75d2e;">3 no entraron</strong> (en rojo). Ordenados por avance.</p>
 
-                <table class="rp-table" style="font-size:11.5px;">
-                  <thead><tr><th>Estudiante</th><th>Paso</th><th>RIASEC</th><th>Ruta más vista</th><th class="t-right">Min</th><th>Estado</th></tr></thead>
+                <table class="rp-table" style="font-size:10.5px;">
+                  <thead><tr><th>Estudiante</th><th>Entró</th><th>Paso</th><th>Perfil RIASEC</th><th>Paso 4 · recomendada</th><th>Paso 8 · eligió</th></tr></thead>
                   <tbody>
-                    <tr><td>Aguilar, Carmen</td><td>5</td><td>SCI</td><td>Universidad</td><td class="t-right">186</td><td>—</td></tr>
-                    <tr><td>Aliaga, Juan</td><td>4</td><td>RIC</td><td>Técnico</td><td class="t-right">142</td><td>—</td></tr>
-                    <tr><td>Apaza, Lucía</td><td>6</td><td>SIA</td><td>Universidad</td><td class="t-right">221</td><td>—</td></tr>
-                    <tr><td>Caballero, Bryan</td><td>3</td><td>REC</td><td>Técnico</td><td class="t-right">98</td><td>—</td></tr>
-                    <tr><td>Cárdenas, Diego</td><td>5</td><td>ISC</td><td>Universidad</td><td class="t-right">174</td><td>—</td></tr>
-                    <tr><td>Castro, Renata</td><td>4</td><td>SAE</td><td>Universidad</td><td class="t-right">156</td><td>—</td></tr>
-                    <tr><td>Chávez, Pedro</td><td>5</td><td>RIC</td><td>Trabajo+estudio</td><td class="t-right">133</td><td>—</td></tr>
-                    <tr><td>De la Cruz, Sofía</td><td>2</td><td>ACS</td><td>—</td><td class="t-right">62</td><td>—</td></tr>
-                    <tr><td>Espinoza, Luis</td><td>4</td><td>RIE</td><td>Técnico</td><td class="t-right">128</td><td>—</td></tr>
-                    <tr><td><strong>Mendoza, Rocío</strong></td><td>2</td><td>SCA</td><td>—</td><td class="t-right">47</td><td>🟢</td></tr>
-                    <tr><td><strong>Pérez, Diana</strong></td><td>3</td><td>SEC</td><td>Universidad</td><td class="t-right">71</td><td>🟡</td></tr>
-                    <tr><td><strong>Quispe, Marcos</strong></td><td>5</td><td>AIS</td><td>Universidad</td><td class="t-right">119</td><td>🟡</td></tr>
-                    <tr><td><strong>Robles, Esteban</strong></td><td>5</td><td>ICR</td><td>Universidad</td><td class="t-right">203</td><td>🟢</td></tr>
-                    <tr><td>Salazar, Ana</td><td>6</td><td>SIC</td><td>Universidad</td><td class="t-right">241</td><td>—</td></tr>
-                    <tr><td>Sánchez, Pablo</td><td>4</td><td>REC</td><td>Técnico</td><td class="t-right">147</td><td>—</td></tr>
-                    <tr><td>Tello, Andrea</td><td>5</td><td>SAI</td><td>Universidad</td><td class="t-right">168</td><td>—</td></tr>
-                    <tr><td>Torres, Joaquín</td><td>6</td><td>ICE</td><td>Universidad</td><td class="t-right">198</td><td>—</td></tr>
-                    <tr><td>Vargas, Daniela</td><td>4</td><td>SCE</td><td>Trabajo+estudio</td><td class="t-right">112</td><td>—</td></tr>
-                    <tr><td>Vásquez, Eduardo</td><td>5</td><td>RIC</td><td>Técnico</td><td class="t-right">156</td><td>—</td></tr>
-                    <tr><td colspan="6" style="text-align:center;color:#766c52;font-style:italic;font-family:'Crimson Pro',serif;font-size:11px;">… 9 estudiantes más en el reporte real …</td></tr>
+                    <tr><td>Aricari Mendoza, Helen Francesca</td><td>sí</td><td>8/8</td><td>Social</td><td>Instituto técnico</td><td>Universidad</td></tr>
+                    <tr><td>Bajonero Pasion, Johan Anthony Edgar</td><td>sí</td><td>8/8</td><td>Realista</td><td>Universidad</td><td>Instituto técnico</td></tr>
+                    <tr><td>Bernilla Bernabe, Julian Vicente</td><td>sí</td><td>8/8</td><td>Investigador</td><td>Universidad</td><td>Universidad</td></tr>
+                    <tr><td>Ciampe Gutierrez, Angeles Yahdiel</td><td>sí</td><td>8/8</td><td>Investigador</td><td>Universidad</td><td>Universidad</td></tr>
+                    <tr><td>Condori Figueroa, Anderson Roger</td><td>sí</td><td>8/8</td><td>Social</td><td>Trabajo + estudio</td><td>Universidad</td></tr>
+                    <tr><td>Evangelista Vargas, Mathias Alexis</td><td>sí</td><td>8/8</td><td>Investigador</td><td>Universidad</td><td>Universidad</td></tr>
+                    <tr><td>Fernandez Curacachi, Daniela Melissa</td><td>sí</td><td>8/8</td><td>Investigador</td><td>Universidad</td><td>Universidad</td></tr>
+                    <tr><td>Fernandez Magipo, Alexandra Milagros</td><td>sí</td><td>8/8</td><td>Investigador</td><td>Instituto técnico</td><td>Trabajo + estudio</td></tr>
+                    <tr><td>Gomez Rivera, Solanh Julei</td><td>sí</td><td>8/8</td><td>Social</td><td>Universidad</td><td>Instituto técnico</td></tr>
+                    <tr><td>Huaman Cotrado, Luhana Amaia</td><td>sí</td><td>8/8</td><td>Investigador</td><td>Trabajo + estudio</td><td>Universidad</td></tr>
+                    <tr><td>Jara Ordoñez, Pamela Alexandra</td><td>sí</td><td>8/8</td><td>Artístico</td><td>Instituto técnico</td><td>Universidad</td></tr>
+                    <tr><td>Menis Palomino, Joaquin Aaron</td><td>sí</td><td>8/8</td><td>Realista</td><td>Universidad</td><td>Universidad</td></tr>
+                    <tr><td>Ordoñez Guerrero, Aracely Rosie</td><td>sí</td><td>8/8</td><td>Investigador</td><td>Instituto técnico</td><td>Universidad</td></tr>
+                    <tr><td>Padilla Mamani, Steysi Ysabel</td><td>sí</td><td>8/8</td><td>Investigador</td><td>Instituto técnico</td><td>Educacion inicial</td></tr>
+                    <tr><td>Pantigoso Patricio, Steven Anderson</td><td>sí</td><td>8/8</td><td>Investigador</td><td>Universidad</td><td>Fuerzas armadas</td></tr>
+                    <tr><td>Peralta Santos, Anahomy Nataniel</td><td>sí</td><td>8/8</td><td>Investigador</td><td>Instituto técnico</td><td>Trabajo + estudio</td></tr>
+                    <tr><td>Puma Espinoza, Armando Alexander</td><td>sí</td><td>8/8</td><td>Investigador</td><td>Instituto técnico</td><td>Universidad</td></tr>
+                    <tr><td>Quispe Alvaro, Arhiana Mayte</td><td>sí</td><td>8/8</td><td>Investigador</td><td>Universidad</td><td>Universidad</td></tr>
+                    <tr><td>Reyna Renteria, Jossue Enrique</td><td>sí</td><td>8/8</td><td>Social</td><td>Instituto técnico</td><td>Universidad</td></tr>
+                    <tr><td>Rodriguez Leon, Alexandra Adriana</td><td>sí</td><td>8/8</td><td>Social</td><td>Universidad</td><td>Universidad</td></tr>
+                    <tr><td>Salvador Agustin, Jhossue</td><td>sí</td><td>8/8</td><td>Investigador</td><td>Universidad</td><td>Universidad</td></tr>
+                    <tr><td>Sanchez Ronquillo, Luanna Valentina</td><td>sí</td><td>8/8</td><td>Social</td><td>Universidad</td><td>Universidad</td></tr>
+                    <tr><td>Zavala Cahua, Smith Karlz Exnayder</td><td>sí</td><td>8/8</td><td>Realista</td><td>Instituto técnico</td><td>Instituto técnico</td></tr>
+                    <tr><td>Bastardo CASTAÑEDA, keylin Gabriela</td><td>sí</td><td>7/8</td><td>Investigador</td><td>Universidad</td><td>Universidad</td></tr>
+                    <tr><td>Candiotti Pacheco, Liliana Karin</td><td>sí</td><td>7/8</td><td>Investigador</td><td>Universidad</td><td>Instituto técnico</td></tr>
+                    <tr><td>PEREZ RAMIREZ, KIARA MADELEY</td><td>sí</td><td>7/8</td><td>Artístico</td><td>Instituto técnico</td><td>—</td></tr>
+                    <tr><td>Paitan Trujillo, Randú Aaron</td><td>sí</td><td>7/8</td><td>Realista</td><td>Instituto técnico</td><td>Instituto técnico</td></tr>
+                    <tr><td>Sanchez Ronquillo, Lianna Antonella</td><td>sí</td><td>7/8</td><td>Social</td><td>Universidad</td><td>Universidad</td></tr>
+                    <tr><td>LINO CORONACIÓN, HENDRICKS SPLINER</td><td>sí</td><td>4/8</td><td>Investigador</td><td>Trabajo + estudio</td><td>—</td></tr>
+                    <tr style="color:#c75d2e;"><td>PACIFICO GARCIA, DANNA ALEXA</td><td><strong>no</strong></td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                    <tr style="color:#c75d2e;"><td>QUIROZ SANCHEZ, GABIEL</td><td><strong>no</strong></td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                    <tr style="color:#c75d2e;"><td>ROJAS COSEATADO, TATIANA DE GUADALUPE</td><td><strong>no</strong></td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
                   </tbody>
                 </table>
 
-                <div class="pg-footer"><span>ANEXO · § 04</span><span class="pg-footer-num">PÁGINA 5 DE 5</span></div>
+                <p style="font-size:10px;color:#9b9275;font-family:'Crimson Pro',serif;font-style:italic;margin:6px 0 0;line-height:1.4;">— = sin dato (aún no llegó a ese paso). En el Paso 8, "Universidad" agrupa las carreras que se cursan en universidad (medicina, ingeniería, administración, contabilidad, educación, etc.); el resto se muestra tal cual lo que eligió cada estudiante.</p>
+
+                <div class="pg-footer"><span>6062 PERU EEUU · SECCIÓN A · ANEXO</span><span class="pg-footer-num">PÁGINA 5 DE 5</span></div>
               </div>
             </div>
 
             <div class="walkthrough">
-              <div class="walkthrough-title"><span class="wt-pg-num">5</span>Anexo · todos los estudiantes</div>
+              <div class="walkthrough-title"><span class="wt-pg-num">5</span>Anexo · todos tus estudiantes</div>
               <div class="wt-panels">
-                <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>La <strong>lista completa de los 28 estudiantes</strong> con paso, perfil RIASEC top, ruta más explorada y minutos. Los marcados (🟡🟢) son los de la página 4.</p></div>
-                <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Como referencia, no como tarea. Si querés ubicar a un estudiante puntual durante la sesión, buscás acá. No es para "leer toda la lista" — el reporte ya destacó los importantes en la página 4.</p></div>
-                <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Usalo como <strong>consulta puntual</strong>: si un estudiante pregunta algo en clase, mirás su fila para saber dónde está parado. También sirve para identificar grupos: "los 5 del Paso 6 podrían trabajar juntos en pequeño grupo".</p></div>
-                <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p><strong>No es para compartir con estudiantes ni con dirección</strong>. Es información sensible (perfil RIASEC, comportamiento). El reporte del director (Módulo 5) es para tu director — este es solo tuyo.</p></div>
+                <div class="wt-panel wt-panel-muestra"><h5>🔎 ¿Qué muestra?</h5><p>La <strong>lista completa de los 32 estudiantes</strong> con: si entró, en qué paso quedó, su perfil RIASEC, qué ruta le sugirió el sistema y cuál eligió. Los <span style="color:#c75d2e;font-weight:600;">3 en rojo</span> son los que no entraron.</p></div>
+                <div class="wt-panel wt-panel-lee"><h5>🧭 ¿Cómo se lee?</h5><p>Ordenado por <strong>avance (de más a menos)</strong>. Los 23 con "8/8" terminaron el viaje. Los con 7/8 están a un paso. El de 4/8 quedó por la mitad. Los 3 con "no" en rojo son la PRIORIDAD de la página 1.</p></div>
+                <div class="wt-panel wt-panel-hago"><h5>🎯 ¿Qué hago con esto?</h5><p>Como <strong>consulta puntual</strong>: cuando una persona te pregunte algo en clase, buscás su fila. También sirve para identificar grupos (los 5 del Paso 7 podrían trabajar juntos) y para preparar las conversaciones de "cambiaron de ruta" — acá ves Paso 4 y Paso 8 de cada uno.</p></div>
+                <div class="wt-panel wt-panel-no"><h5>⚠️ Lo que NO significa</h5><p><strong>No es para compartir con estudiantes ni con dirección.</strong> Es información sensible (perfil RIASEC, ruta elegida). El reporte del director (Módulo 5) es lo que él/ella ve — con datos agregados, no por nombre.</p></div>
               </div>
-              <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>Tu director te pide que le compartas el reporte para "estar al tanto". ¿Qué hacés? <em>(Respuesta: le explicás que el reporte de tutoría es tuyo — él/ella recibe su propio reporte del director con datos agregados. Si quiere ver datos por estudiante, debería pedírselo al programa, no a vos.)</em></div>
+              <div class="wt-mini-check"><div class="wt-mini-check-q">Mini-check:</div>Tu director te pide la lista para llamar a los papás de los 3 que no entraron. ¿Qué hacés? <em>(Respuesta: le explicás que esa info es del tutor. Ofrecete a hablar primero vos con los 3 estudiantes en la próxima sesión — eso suele resolver antes de que el director necesite intervenir.)</em></div>
             </div>
 
             <div class="callout callout-tip" style="margin-top:24px;"><p><span class="callout-icon">💡</span><strong>El reporte completo es así.</strong> Cada quincena lo recibís por correo. Si querés revisarlo de nuevo durante tu sesión de aula, podés abrirlo desde tu celular o computadora — está pensado para ser usable también en pantalla pequeña.</p></div>
@@ -1015,12 +1078,17 @@ const MODULES = [
       }
     ],
     quiz: {
-      question: 'Si solo tenés 14 minutos esta semana para actuar sobre el reporte, ¿qué priorizás?',
-      options: ['Leer las 5 páginas completas', 'Las dos conversaciones de 2 min con estudiantes marcados', 'La sesión de aula de 10 min sugerida', 'Compartir el reporte con tu director'],
+      question: 'Tu sección tiene 3 estudiantes que NO entraron al módulo y 17 que cambiaron de ruta entre Paso 4 (sugerida) y Paso 8 (elegida). Solo podés hacer una acción esta semana — ¿cuál priorizás?',
+      options: [
+        'Las 17 conversaciones de "cambio de ruta" — es la palanca pedagógica más rica',
+        'Traer a los 3 que no entraron — sin Paso 1 no avanzan en nada y la sección queda incompleta',
+        'Coordinar el aula de cómputo para más sesiones',
+        'Esperar al próximo reporte para tener más datos'
+      ],
       correct: 1,
       feedback: {
-        correct: 'Exacto. Las dos conversaciones de 2 min con estudiantes marcados son la palanca de mayor impacto con menor inversión de tu tiempo — son los que ya están en riesgo y donde una intervención corta puede mover la aguja esta misma semana.',
-        incorrect: 'La respuesta correcta es <strong>B</strong>. Las dos conversaciones de 2 min son las que más mueven con menos esfuerzo — el reporte mismo lo dice en la página 1. Las 5 páginas se leen cuando hay tiempo; la sesión de aula sirve para la próxima vez que tengas el grupo. Pero las conversaciones con los estudiantes marcados son <em>ahora</em>.'
+        correct: 'Exacto. Los 3 que no entraron son la prioridad absoluta — sin Paso 1 no se mueven en nada y la sección no termina. Las 17 conversaciones de ruta son ricas pero pueden esperar a la próxima quincena. El reporte mismo lo dice en la sección PRIORIDAD de la página 1.',
+        incorrect: 'La respuesta correcta es <strong>B</strong>. Los 3 que no entraron son la <em>palanca de mínimo costo, máximo impacto</em>: 5 minutos al inicio de tu sesión les puede destrabar todo el viaje. Las 17 conversaciones de ruta y la coordinación del aula son importantes pero pueden esperar. La página 1 del reporte lo marca como PRIORIDAD por algo.'
       }
     }
   },
