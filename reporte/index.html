@@ -623,6 +623,64 @@
       from { opacity: 0; transform: translateY(6px) scale(0.92); }
       to   { opacity: 1; transform: translateY(0) scale(1); }
     }
+    /* WhatsApp deep-link chips — shown when the gallito mentions a known
+       acompañante. One tap opens WA with a pre-filled draft. */
+    .wa-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 8px 0 4px 38px;  /* indent under the gallito avatar */
+      max-width: 760px;
+    }
+    .wa-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      background: #25d366;       /* WhatsApp green */
+      color: #fff;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 3px 10px rgba(37,211,102,0.30);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .wa-chip:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(37,211,102,0.40);
+    }
+    .wa-chip b { font-weight: 700; }
+    /* Feedback row — 👍 / 👎 below the gallito's response. */
+    .feedback-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 2px 0 0 38px;     /* align with bubble text */
+      max-width: 760px;
+      font-size: 0.85rem;
+      color: var(--text-gray);
+    }
+    .fb-label { margin-right: 4px; }
+    .fb-btn {
+      background: transparent;
+      border: 1px solid rgba(36,44,50,0.18);
+      border-radius: 999px;
+      width: 30px; height: 30px;
+      display: inline-flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.15s;
+      font-size: 1rem; line-height: 1; padding: 0;
+    }
+    .fb-btn:hover:not(:disabled) {
+      transform: scale(1.1);
+      border-color: var(--primary);
+    }
+    .fb-btn:disabled { cursor: default; opacity: 0.4; }
+    .fb-btn.voted {
+      opacity: 1;
+      background: var(--primary);
+      border-color: var(--primary);
+    }
     .followup-chip:hover {
       background: var(--primary);
       color: #fff;
@@ -1389,6 +1447,47 @@
   const API_CHAT = `${API_BASE}/api/chat`;
   const API_VERIFY = `${API_BASE}/api/verify`;
   const API_SCHOOLS = `${API_BASE}/api/schools`;
+  const API_EVENT = `${API_BASE}/api/event`;
+
+  // Acompañantes by UGEL — must stay in sync with
+  // emc-reporte-api/lib/acompanantes.json. Used by the frontend to render
+  // WhatsApp deep links when the gallito mentions a known phone.
+  const ACOMPANANTES = {
+    UGEL_01_SJ_MIRAFLORES: { matematica: { name: "Norma Rodriguez", phone: "+51 993 113 333" }, tutoria: { name: "Isabel Huiza", phone: "+51 928 623 010" } },
+    UGEL_02_RIMAC:         { matematica: { name: "Alejandro Saldarriaga", phone: "+51 954 755 142" }, tutoria: { name: "Isabel Huiza", phone: "+51 928 623 010" } },
+    UGEL_03_BRENA:         { matematica: { name: "Maria Elena Marcos", phone: "+51 991 677 474" }, tutoria: { name: "Judith Vergara", phone: "+51 955 894 716" } },
+    UGEL_04_COMAS:         { matematica: { name: "Elvis Valerio Solari", phone: "+51 910 244 511" }, tutoria: { name: "Isabel Huiza", phone: "+51 928 623 010" } },
+    UGEL_05_SJ_LURIGANCHO: { matematica: { name: "Elvis Valerio Solari", phone: "+51 910 244 511" }, tutoria: { name: "Judith Vergara", phone: "+51 955 894 716" } },
+    UGEL_06_ATE:           { matematica: { name: "Carlos La Rosa", phone: "+51 955 310 474" }, tutoria: { name: "Judith Vergara", phone: "+51 955 894 716" } },
+    UGEL_07_SAN_BORJA:     { matematica: { name: "Carlos La Rosa", phone: "+51 955 310 474" }, tutoria: { name: "Judith Vergara", phone: "+51 955 894 716" } },
+  };
+
+  // Lightweight beacon — fire-and-forget telemetry. NEVER includes message
+  // content. Tracks structural events: chat opened, gate pass/fail, message
+  // sent, response received (with duration), errors, feedback votes, etc.
+  function track(type, extra) {
+    try {
+      const body = Object.assign(
+        { type, role: state.role || null, ugel: state.ugel || null,
+          codigo: state.codigo || null },
+        extra || {}
+      );
+      // sendBeacon if available — survives page navigation; falls back to fetch.
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(
+          API_EVENT,
+          new Blob([JSON.stringify(body)], { type: "application/json" })
+        );
+      } else {
+        fetch(API_EVENT, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(body),
+          keepalive: true,
+        }).catch(() => {});
+      }
+    } catch {}
+  }
 
   const state = {
     role: null,           // "director" | "matematica" | "tutoria" | "pip"
@@ -1682,12 +1781,14 @@
         }),
       });
       if (res.status === 403) {
+        track('gate_fail', { status: 403 });
         document.getElementById('gate-error').classList.add('visible');
         document.getElementById('gate-input').focus();
         document.getElementById('gate-input').select();
         return;
       }
       if (!res.ok) {
+        track('error', { status: res.status });
         const errEl = document.getElementById('gate-error');
         errEl.textContent = 'No pudimos abrir el reporte. Reintenta en un minuto.';
         errEl.classList.add('visible');
@@ -1701,6 +1802,7 @@
       state.whatsapp = data.acompanante_whatsapp || null;
       state.summary = data.summary || null;
       state.pdf_url = data.pdf_url || null;
+      track('gate_pass');
       openChat();
     } catch (err) {
       const errEl = document.getElementById('gate-error');
@@ -1714,6 +1816,7 @@
 
   // ----- Pantalla 4: chat -----
   function openChat() {
+    track('chat_open');
     // header
     document.getElementById('chat-school-name').textContent = state.school_name;
     const seccionLabel = state.seccion ? ` · Sección ${state.seccion}` : '';
@@ -1758,6 +1861,7 @@
     if (state.pdf_url) {
       pdfHeader.href = state.pdf_url;
       pdfHeader.style.display = '';
+      pdfHeader.onclick = () => track('pdf_opened');
     } else {
       pdfHeader.style.display = 'none';
     }
@@ -1766,7 +1870,7 @@
     // Wipe message bubbles and any stale follow-up chips, but preserve the
     // KPI wrap and the intro element so they stay at the top of the chat.
     const body = document.getElementById('chat-body');
-    body.querySelectorAll('.msg-row, .followups').forEach(el => el.remove());
+    body.querySelectorAll('.msg-row, .followups, .feedback-row, .wa-row').forEach(el => el.remove());
     const intro = document.getElementById('chat-intro');
     intro.style.display = '';
     // Render the KPI card content (the wrap is already in place inside chat-body).
@@ -2180,6 +2284,81 @@
     scrollToBottom();
   }
 
+  // 👍 / 👎 feedback row appended below the latest gallito bubble. One vote
+  // per response — clicking either disables both and pings telemetry.
+  function renderFeedback(bubbleEl) {
+    // Remove previous feedback rows so only the latest response has them.
+    document.querySelectorAll('.feedback-row').forEach(el => el.remove());
+    const row = document.createElement('div');
+    row.className = 'feedback-row';
+    row.innerHTML = `
+      <span class="fb-label">¿Te sirvió?</span>
+      <button class="fb-btn" data-vote="up"   aria-label="Sí, me sirvió">👍</button>
+      <button class="fb-btn" data-vote="down" aria-label="No, no fue útil">👎</button>
+    `;
+    row.querySelectorAll('.fb-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const vote = btn.dataset.vote;
+        track('feedback', { vote });
+        row.querySelectorAll('.fb-btn').forEach(b => b.disabled = true);
+        btn.classList.add('voted');
+        row.querySelector('.fb-label').textContent = vote === 'up' ? '¡Gracias!' : 'Gracias, lo tomaré en cuenta.';
+      });
+    });
+    document.getElementById('chat-body').appendChild(row);
+    scrollToBottom();
+  }
+
+  // After a response renders, scan it for known acompañante phones (the
+  // gallito frequently surfaces "Elvis · +51 910 244 511" — make that a
+  // one-tap WhatsApp link with a pre-filled draft, instead of asking the
+  // user to copy-paste the number).
+  function renderAcompananteLinks(text) {
+    const map = ACOMPANANTES[state.ugel];
+    if (!map) return;
+    const found = [];
+    for (const track of ['matematica', 'tutoria']) {
+      const a = map[track];
+      if (!a) continue;
+      // Match phone with flexible whitespace; also accept name-only mention.
+      const digits = a.phone.replace(/\D/g, '').slice(-9);
+      const phoneRe = new RegExp(digits.split('').join('\\s*'));
+      const namePresent = text.toLowerCase().includes(a.name.toLowerCase());
+      const phonePresent = phoneRe.test(text.replace(/\s+/g, ' '));
+      if (namePresent || phonePresent) {
+        found.push({ track, ...a });
+      }
+    }
+    if (!found.length) return;
+    // Remove previous WA row if any (only latest response gets them)
+    document.querySelectorAll('.wa-row').forEach(el => el.remove());
+    const row = document.createElement('div');
+    row.className = 'wa-row';
+    for (const a of found) {
+      // Build a pre-filled message draft. Pull the last USER message
+      // for context (no PII — just what they typed).
+      const lastQ = (state.messages || []).filter(m => m.role === 'user').slice(-1)[0]?.content || '';
+      const me = state.role === 'pip' ? 'soy el / la docente PIP' :
+                 state.typed_name ? `soy ${state.typed_name}` : 'soy del programa';
+      const schoolBit = state.school_name ? `, del colegio ${state.school_name}` : '';
+      const ctx = lastQ ? `\n\nConsulta: ${lastQ.slice(0, 240)}` : '';
+      const draft = `Hola ${a.name.split(' ')[0]}, ${me}${schoolBit}. Te escribo desde el gallito.${ctx}`;
+      const digits = a.phone.replace(/\D/g, '');
+      const url = `https://wa.me/${digits}?text=${encodeURIComponent(draft)}`;
+
+      const a_el = document.createElement('a');
+      a_el.className = 'wa-chip';
+      a_el.href = url;
+      a_el.target = '_blank';
+      a_el.rel = 'noopener';
+      a_el.innerHTML = `📱 Escribirle a <b>${escapeHtml(a.name.split(' ')[0])}</b> por WhatsApp`;
+      a_el.addEventListener('click', () => track('whatsapp_clicked', { for_track: a.track }));
+      row.appendChild(a_el);
+    }
+    document.getElementById('chat-body').appendChild(row);
+    scrollToBottom();
+  }
+
   function appendTyping() {
     const row = document.createElement('div');
     row.className = 'msg-row gallito';
@@ -2236,6 +2415,8 @@
     inputEl.style.height = 'auto';
 
     state.messages.push({ role: 'user', content: text });
+    track('message_sent');
+    const t0 = Date.now();
 
     // typing indicator
     const typingRow = appendTyping();
@@ -2313,10 +2494,15 @@
       const { body: finalBody, suggestions } = splitSuggestions(assistantText);
       assistantBubble.innerHTML = renderMarkdown(finalBody);
       assistantBubble.closest('.msg-row')?.classList.remove('streaming');
+      // WhatsApp chips first (above sugerencias) so they're visually anchored
+      // to the response that mentioned the acompañante.
+      renderAcompananteLinks(finalBody);
       if (suggestions.length) {
         renderFollowupChips(suggestions);
       }
+      renderFeedback(assistantBubble);
       state.messages.push({ role: 'assistant', content: finalBody });
+      track('response_received', { duration_ms: Date.now() - t0 });
     } catch (err) {
       if (typingRow.parentNode) typingRow.remove();
       const bub = appendBubble('gallito', '');
@@ -2325,6 +2511,7 @@
       bub.textContent = err.message || 'Ocurrió un error inesperado.';
       // remove the last user message from state since the round failed
       state.messages.pop();
+      track('error', { duration_ms: Date.now() - t0 });
     } finally {
       state.sending = false;
       sendBtn.disabled = !inputEl.value.trim();
