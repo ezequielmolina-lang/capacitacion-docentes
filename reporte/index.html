@@ -1619,12 +1619,20 @@
       if (mateStrong) {
         out.push("¿Qué destaca de mi escuela en mate?");
       }
-      // Math fallbacks (still math-focused)
+      // Math fallbacks (still math-focused). Frame "needs more support" by
+      // SECTION, not teacher: a school often has one teacher across both
+      // sections, so "which teacher" has a single useless answer. "Which
+      // section" is always actionable when there are 2+ (and still points the
+      // director at that section's teacher). With one section, neither applies
+      // — fall back to a student-level question the report can also answer.
+      const nSecciones = (summary.sections || []).length;
+      out.push("¿Cómo va mi escuela en matemática?");
       out.push(
-        "¿Cómo va mi escuela en matemática?",
-        "¿Qué docente de mate necesita más apoyo?",
-        "Compárame con mi UGEL"
+        nSecciones >= 2
+          ? "¿Qué sección de matemática necesita más apoyo?"
+          : "¿Qué estudiantes necesitan más apoyo en mate?"
       );
+      out.push("Compárame con mi UGEL");
     }
 
     else if (role === 'pip') {
