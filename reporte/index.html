@@ -486,6 +486,7 @@
     .chat-header {
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
       gap: 12px;
       padding: 14px 18px;
       background: rgba(255,255,255,0.72);
@@ -532,6 +533,27 @@
       flex-shrink: 0;
     }
     .chat-header-change:hover { background: rgba(243,147,0,0.08); }
+    /* Dated PDF buttons live on their own full-width row inside the sticky
+       header (the footer actions are hidden on mobile). One "Ver PDF" pill for
+       non-math roles; two pills — Reporte 2 (29 may) + Reporte 1 (15 may) —
+       for math sections that have a 1st report. */
+    .chat-header-pdfs {
+      display: flex;
+      flex-basis: 100%;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .chat-pdf-btn {
+      border: 1px solid rgba(243,147,0,0.45);
+      background: rgba(243,147,0,0.07);
+      border-radius: 999px;
+      padding: 5px 13px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .chat-pdf-btn:hover { background: rgba(243,147,0,0.16); }
 
     .chat-body {
       flex: 1;
@@ -1188,6 +1210,7 @@
       .chat-header-name { font-size: 1rem; }
       .chat-header-meta { font-size: 0.72rem; }
       .chat-header-change { font-size: 0.74rem; padding: 4px 6px; }
+      .chat-pdf-btn { font-size: 0.78rem; padding: 6px 11px; }
 
       /* KPI sits at the top of the scrollable chat body — scrolls naturally
          with the conversation, no toggle needed. */
@@ -1364,8 +1387,11 @@
             <div class="chat-header-name" id="chat-school-name"></div>
             <div class="chat-header-meta" id="chat-school-meta"></div>
           </div>
-          <a class="chat-header-change" id="link-pdf-header" href="#" target="_blank" rel="noopener" style="display:none">Ver PDF</a>
           <button class="chat-header-change" data-action="change-report">Cambiar reporte</button>
+          <div class="chat-header-pdfs" id="chat-header-pdfs" style="display:none">
+            <a class="chat-header-change chat-pdf-btn" id="link-pdf-header" href="#" target="_blank" rel="noopener" style="display:none">Ver PDF</a>
+            <a class="chat-header-change chat-pdf-btn" id="link-pdf-prev-header" href="#" target="_blank" rel="noopener" style="display:none"></a>
+          </div>
         </header>
 
         <div class="chat-body" id="chat-body">
@@ -1587,7 +1613,10 @@
     seccion: null,
     typed_name: null,     // validated name — sent with every chat message
     whatsapp: null,       // revealed by /api/verify on a successful gate
-    pdf_url: null,        // unguessable URL to download the original PDF
+    pdf_url: null,        // report-2 (29 may) PDF — unguessable presigned URL
+    pdf_url_prev: null,   // report-1 (15 may) PDF — only for math sections w/ a 1st report
+    pdf_label: null,      // button text for report-2 when both reports exist
+    pdf_prev_label: null, // button text for report-1 when both reports exist
     summary: null,        // structured KPIs for the cards (from /api/verify)
     messages: [],         // [{role: 'user'|'assistant', content: string}]
     sending: false,
@@ -1899,6 +1928,9 @@
       state.whatsapp = data.acompanante_whatsapp || null;
       state.summary = data.summary || null;
       state.pdf_url = data.pdf_url || null;
+      state.pdf_url_prev = data.pdf_url_prev || null;
+      state.pdf_label = data.pdf_label || null;
+      state.pdf_prev_label = data.pdf_prev_label || null;
       track('gate_pass');
       openChat();
     } catch (err) {
@@ -1953,15 +1985,31 @@
       wa.style.display = 'none';
     }
 
-    // PDF download link (header) — only shows after the gate hands us an URL
+    // PDF download links (header). Math sections with a 1st report show two
+    // dated pills — Reporte 2 (29 may, current) + Reporte 1 (15 may); everyone
+    // else shows the single "Ver PDF". The footer is hidden on mobile, so these
+    // live in the sticky header.
+    const pdfBar = document.getElementById('chat-header-pdfs');
     const pdfHeader = document.getElementById('link-pdf-header');
+    const pdfPrev = document.getElementById('link-pdf-prev-header');
+    const hasPrev = !!state.pdf_url_prev;
     if (state.pdf_url) {
       pdfHeader.href = state.pdf_url;
+      pdfHeader.textContent = hasPrev ? ('📄 ' + (state.pdf_label || 'Reporte 2')) : 'Ver PDF';
       pdfHeader.style.display = '';
       pdfHeader.onclick = () => track('pdf_opened');
     } else {
       pdfHeader.style.display = 'none';
     }
+    if (hasPrev) {
+      pdfPrev.href = state.pdf_url_prev;
+      pdfPrev.textContent = '📄 ' + (state.pdf_prev_label || 'Reporte 1');
+      pdfPrev.style.display = '';
+      pdfPrev.onclick = () => track('pdf_prev_opened');
+    } else {
+      pdfPrev.style.display = 'none';
+    }
+    pdfBar.style.display = state.pdf_url ? '' : 'none';
 
     state.messages = [];
     // Wipe message bubbles and any stale follow-up chips, but preserve the
@@ -2644,6 +2692,9 @@
       state.typed_name = null;
       state.whatsapp = null;
       state.pdf_url = null;
+      state.pdf_url_prev = null;
+      state.pdf_label = null;
+      state.pdf_prev_label = null;
       state.summary = null;
       state.messages = [];
       showView('role');
