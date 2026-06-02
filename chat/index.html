@@ -346,6 +346,8 @@
   <div class="lang-toggle" id="lang-toggle" role="group" aria-label="Language">
     <button class="lang-opt" data-lang="es">ES</button>
     <button class="lang-opt" data-lang="en">EN</button>
+    <button class="lang-opt" data-lang="pt">PT</button>
+    <button class="lang-opt" data-lang="fr">FR</button>
   </div>
 
   <div class="app">
@@ -481,6 +483,66 @@
         ios: ['Open Settings → Safari → Microphone.', 'Allow access for this site.', 'Come back here and tap the mic again.']
       },
       mic_close: 'Got it'
+    },
+    pt: {
+      doc_title: 'Eligiendo Mi Camino — gallito',
+      hero_title: 'Converse com o gallito',
+      hero_sub: 'Sou o embaixador público do Eligiendo Mi Camino. Pergunte-me o que é o programa, como funciona e como replicá-lo no seu país.',
+      chips: [
+        'O que é o Eligiendo Mi Camino?',
+        'Como replicamos no meu país?',
+        'Ver depoimentos de estudantes',
+        'O que diz a evidência?',
+        'Como funciona o tutor de matemática?',
+        'Como funciona o coach vocacional?'
+      ],
+      placeholder: 'Escreva a sua pergunta...',
+      new_chat: 'Nova conversa',
+      playbook: 'Leve o playbook',
+      partners: 'Banco Mundial · DRELM · UPC · uDocz · Anthropic',
+      award: 'Vencedor do Prêmio Presidencial de Inovação do Banco Mundial 2026',
+      err: 'Ops — algo falhou do meu lado. Tente novamente em um momento.',
+      err_offline: 'Não consegui me conectar. Verifique sua conexão e tente novamente.',
+      err_notready: 'O gallito ainda está terminando a configuração. Tente novamente em um momento.',
+      mic_hint: 'Você pode falar comigo — toque no microfone.',
+      mic_title: 'Ative o microfone',
+      mic_intro: 'Para falar comigo, seu navegador precisa de permissão para usar o microfone.',
+      mic_tabs: { android: 'Android / Chrome', ios: 'iPhone / Safari' },
+      mic_steps: {
+        android: ['Toque no cadeado ou no ícone ⓘ ao lado do endereço web.', 'Ative a permissão de Microfone.', 'Recarregue a página e toque no microfone novamente.'],
+        ios: ['Abra Ajustes → Safari → Microfone.', 'Permita o acesso para este site.', 'Volte aqui e toque no microfone novamente.']
+      },
+      mic_close: 'Entendi'
+    },
+    fr: {
+      doc_title: 'Eligiendo Mi Camino — gallito',
+      hero_title: 'Discutez avec gallito',
+      hero_sub: "Je suis l'ambassadeur public d'Eligiendo Mi Camino. Demandez-moi ce qu'est le programme, comment il fonctionne et comment le reproduire dans votre pays.",
+      chips: [
+        "Qu'est-ce qu'Eligiendo Mi Camino ?",
+        'Comment le reproduire dans mon pays ?',
+        "Voir les témoignages d'élèves",
+        'Que disent les données ?',
+        'Comment fonctionne le tuteur de maths ?',
+        "Comment fonctionne le coach d'orientation ?"
+      ],
+      placeholder: 'Écrivez votre question...',
+      new_chat: 'Nouvelle conversation',
+      playbook: 'Obtenir le playbook',
+      partners: 'Banque mondiale · DRELM · UPC · uDocz · Anthropic',
+      award: "Lauréat du Prix présidentiel de l'innovation de la Banque mondiale 2026",
+      err: 'Oups — quelque chose a échoué de mon côté. Réessayez dans un instant.',
+      err_offline: "Je n'ai pas pu me connecter. Vérifiez votre connexion et réessayez.",
+      err_notready: 'Gallito est en train de terminer sa configuration. Réessayez dans un instant.',
+      mic_hint: 'Vous pouvez me parler — touchez le micro.',
+      mic_title: 'Activez le microphone',
+      mic_intro: "Pour me parler, votre navigateur a besoin de l'autorisation d'utiliser le microphone.",
+      mic_tabs: { android: 'Android / Chrome', ios: 'iPhone / Safari' },
+      mic_steps: {
+        android: ["Touchez le cadenas ou l'icône ⓘ à côté de l'adresse web.", "Activez l'autorisation du microphone.", 'Rechargez la page et touchez le micro à nouveau.'],
+        ios: ['Ouvrez Réglages → Safari → Microphone.', 'Autorisez l\'accès pour ce site.', 'Revenez ici et touchez le micro à nouveau.']
+      },
+      mic_close: 'Compris'
     }
   };
 
@@ -490,10 +552,11 @@
   const qs = (s) => document.querySelector(s);
   const bodyEl = () => qs('#chat-body');
 
+  const ALLOWED_LANGS = ['es', 'en', 'pt', 'fr'];
   let initialLang = localStorage.getItem('emc-explorar-lang');
   const urlLang = params.get('lang');
-  if (urlLang === 'es' || urlLang === 'en') initialLang = urlLang;
-  const state = { messages: [], lang: (initialLang === 'en' ? 'en' : 'es'), busy: false };
+  if (ALLOWED_LANGS.includes(urlLang)) initialLang = urlLang;
+  const state = { messages: [], lang: (ALLOWED_LANGS.includes(initialLang) ? initialLang : 'es'), busy: false };
 
   let micHelpTab = 'android';
 
@@ -640,7 +703,10 @@
   function subsLabel(codes) {
     if (!codes || !codes.length) return '';
     const up = codes.map((c) => String(c).toUpperCase()).join('/');
-    return state.lang === 'en' ? up + ' subtitles' : 'subtítulos ' + up;
+    if (state.lang === 'en') return up + ' subtitles';
+    if (state.lang === 'pt') return 'legendas ' + up;
+    if (state.lang === 'fr') return 'sous-titres ' + up;
+    return 'subtítulos ' + up;
   }
 
   function buildVideoCard(v) {
@@ -816,6 +882,7 @@
   /* ---------- voice input ---------- */
   let recog = null, recognizing = false;
   function speechSupported() { return !!(window.SpeechRecognition || window.webkitSpeechRecognition); }
+  function speechLang() { return { en: 'en-US', pt: 'pt-BR', fr: 'fr-FR' }[state.lang] || 'es-PE'; }
   function setMicState(on) {
     recognizing = on;
     qs('#btn-mic').classList.toggle('recording', on);
@@ -847,7 +914,7 @@
         stream.getTracks().forEach((t) => t.stop());
       }
     } catch (e) { openMicHelp(); return; }
-    recog = makeRecognition(state.lang === 'en' ? 'en-US' : 'es-PE');
+    recog = makeRecognition(speechLang());
     if (!recog) { openMicHelp(); return; }
     try { recog.start(); setMicState(true); } catch (e) { setMicState(false); }
   }
@@ -910,11 +977,11 @@
   }
 
   function setLang(l) {
-    state.lang = (l === 'en') ? 'en' : 'es';
+    state.lang = ALLOWED_LANGS.includes(l) ? l : 'es';
     localStorage.setItem('emc-explorar-lang', state.lang);
     applyI18n();
     if (qs('#mic-help-backdrop').classList.contains('open')) renderMicHelp();
-    if (recog) { try { recog.lang = state.lang === 'en' ? 'en-US' : 'es-PE'; } catch (e) {} }
+    if (recog) { try { recog.lang = speechLang(); } catch (e) {} }
   }
 
   /* ---------- wire up ---------- */
