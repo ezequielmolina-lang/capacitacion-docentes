@@ -128,6 +128,11 @@
       margin-top: 30px; font-size: 0.72rem; letter-spacing: 0.4px; color: var(--text-gray);
       line-height: 1.6; max-width: 36em; margin-left: auto; margin-right: auto;
     }
+    .welcome-award {
+      margin-top: 7px; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic;
+      font-weight: 600; font-size: 1.08rem; line-height: 1.3; letter-spacing: 0.2px;
+      color: var(--primary-dark); max-width: 30em; margin-left: auto; margin-right: auto;
+    }
 
     /* ============ Chat view ============ */
     #view-chat.active { position: fixed; inset: 0; z-index: 1; display: flex; flex-direction: column; }
@@ -359,6 +364,7 @@
           <a class="btn-playbook" id="btn-playbook" href="https://ezequielmolina-lang.github.io/emc-steal-shamelessly-hub/" target="_blank" rel="noopener noreferrer"></a>
         </div>
         <p class="welcome-partners" id="welcome-partners"></p>
+        <p class="welcome-award" id="welcome-award"></p>
       </div>
     </section>
 
@@ -432,7 +438,8 @@
       placeholder: 'Escríbeme tu pregunta...',
       new_chat: 'Nueva conversación',
       playbook: 'Llévate el playbook',
-      partners: 'Banco Mundial · DRELM · UPC · uDocz · Anthropic — Ganador del Premio Presidencial a la Innovación del Banco Mundial 2026',
+      partners: 'Banco Mundial · DRELM · UPC · uDocz · Anthropic',
+      award: 'Ganador del Premio Presidencial a la Innovación del Banco Mundial 2026',
       err: 'Ups — algo falló de mi lado. Intenta de nuevo en un momento.',
       err_offline: 'No pude conectarme. Revisa tu conexión e inténtalo de nuevo.',
       err_notready: 'Gallito todavía se está terminando de configurar. Vuelve a intentarlo en un momento.',
@@ -462,7 +469,8 @@
       placeholder: 'Type your question...',
       new_chat: 'New conversation',
       playbook: 'Get the playbook',
-      partners: 'World Bank · DRELM · UPC · uDocz · Anthropic — Winner of the World Bank Presidential Innovation Award 2026',
+      partners: 'World Bank · DRELM · UPC · uDocz · Anthropic',
+      award: 'Winner of the World Bank Presidential Innovation Award 2026',
       err: 'Oops — something broke on my end. Please try again in a moment.',
       err_offline: "I couldn't connect. Check your connection and try again.",
       err_notready: 'Gallito is still finishing its setup. Please try again in a moment.',
@@ -631,6 +639,11 @@
     if (!obj) return '';
     return obj[state.lang] || obj.es || obj.en || '';
   }
+  function subsLabel(codes) {
+    if (!codes || !codes.length) return '';
+    const up = codes.map((c) => String(c).toUpperCase()).join('/');
+    return state.lang === 'en' ? up + ' subtitles' : 'subtítulos ' + up;
+  }
 
   function buildVideoCard(v) {
     const a = document.createElement('a');
@@ -641,6 +654,8 @@
     const title = pickLang(v.title) || 'Video';
     const dur = pickLang(v.duration_label) || '';
     const badge = (v.language || 'es').toUpperCase();
+    const subs = subsLabel(v.subtitles);
+    const meta = [dur, subs].filter(Boolean).join(' · ');
     a.innerHTML =
       '<div class="video-thumb-wrap">' +
         `<img class="video-thumb" src="${v.preview_url}" alt="" loading="lazy" onerror="this.style.visibility='hidden'"/>` +
@@ -648,7 +663,7 @@
       '</div>' +
       '<div class="video-meta">' +
         `<div class="video-title">${escapeHtml(title)}</div>` +
-        `<div class="video-sub"><span class="video-badge">${escapeHtml(badge)}</span>${escapeHtml(dur)}</div>` +
+        `<div class="video-sub"><span class="video-badge">${escapeHtml(badge)}</span>${escapeHtml(meta)}</div>` +
       '</div>';
     return a;
   }
@@ -881,6 +896,7 @@
     qs('#btn-new').setAttribute('aria-label', t.new_chat);
     qs('#btn-playbook').textContent = t.playbook;
     qs('#welcome-partners').textContent = t.partners;
+    qs('#welcome-award').textContent = t.award;
 
     const chipsWrap = qs('#entry-chips');
     chipsWrap.innerHTML = '';
