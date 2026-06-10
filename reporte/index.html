@@ -1365,8 +1365,14 @@
           <div class="gate-school" id="gate-school"></div>
           <div class="gate-meta" id="gate-meta"></div>
           <p class="gate-prompt" id="gate-prompt">Escribe tu primer nombre <em>tal como aparece</em> en tu reporte, donde dice "Hola, ___."</p>
-          <form id="gate-form" onsubmit="return false;">
-            <input type="text" class="gate-input" id="gate-input" placeholder="Tu primer nombre" autocomplete="off" autocorrect="off" autocapitalize="words" />
+          <form id="gate-form" onsubmit="return false;" autocomplete="off">
+            <!-- autocomplete="one-time-code": Chrome/Edge IGNORE autocomplete="off",
+                 and were mis-classifying this lone "nombre" box as a cardholder-name
+                 field — popping the user's saved Visa/credit cards over a field that
+                 only wants a first name. "one-time-code" pins it as an access-code
+                 field, which suppresses ALL profile + payment autofill. The
+                 data-*-ignore attrs quiet 1Password / LastPass for the same reason. -->
+            <input type="text" class="gate-input" id="gate-input" name="emc-access-check" placeholder="Tu primer nombre" autocomplete="one-time-code" autocorrect="off" autocapitalize="words" data-lpignore="true" data-1p-ignore data-form-type="other" />
             <div class="field-error" id="gate-error">No reconozco ese nombre. Revisa la primera página del PDF — el saludo "Hola, ___" tiene el nombre correcto.</div>
             <div class="gate-actions">
               <button type="submit" class="btn-primary" id="btn-gate">Abrir reporte</button>
