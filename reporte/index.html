@@ -554,6 +554,14 @@
       white-space: nowrap;
     }
     .chat-pdf-btn:hover { background: rgba(243,147,0,0.16); }
+    /* The newest/current report pill is filled so it stands out from the
+       older-report pills the user can also open. */
+    .chat-pdf-btn-current {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+    .chat-pdf-btn-current:hover { background: var(--primary-dark); }
 
     .chat-body {
       flex: 1;
@@ -1394,10 +1402,8 @@
             <div class="chat-header-meta" id="chat-school-meta"></div>
           </div>
           <button class="chat-header-change" data-action="change-report">Cambiar reporte</button>
-          <div class="chat-header-pdfs" id="chat-header-pdfs" style="display:none">
-            <a class="chat-header-change chat-pdf-btn" id="link-pdf-header" href="#" target="_blank" rel="noopener" style="display:none">Ver PDF</a>
-            <a class="chat-header-change chat-pdf-btn" id="link-pdf-prev-header" href="#" target="_blank" rel="noopener" style="display:none"></a>
-          </div>
+          <!-- One pill per available report (newest first), built dynamically in openChat() -->
+          <div class="chat-header-pdfs" id="chat-header-pdfs" style="display:none"></div>
         </header>
 
         <div class="chat-body" id="chat-body">
@@ -1623,6 +1629,7 @@
     pdf_url_prev: null,   // report-1 (15 may) PDF — only for math sections w/ a 1st report
     pdf_label: null,      // button text for report-2 when both reports exist
     pdf_prev_label: null, // button text for report-1 when both reports exist
+    reports: null,        // [{label, url, current}] full report history, newest-first
     summary: null,        // structured KPIs for the cards (from /api/verify)
     messages: [],         // [{role: 'user'|'assistant', content: string}]
     sending: false,
@@ -1941,6 +1948,7 @@
       state.pdf_url_prev = data.pdf_url_prev || null;
       state.pdf_label = data.pdf_label || null;
       state.pdf_prev_label = data.pdf_prev_label || null;
+      state.reports = Array.isArray(data.reports) ? data.reports : null;
       track('gate_pass');
       openChat();
     } catch (err) {
@@ -1995,31 +2003,34 @@
       wa.style.display = 'none';
     }
 
-    // PDF download links (header). Math sections with a 1st report show two
-    // dated pills — Reporte 2 (29 may, current) + Reporte 1 (15 may); everyone
-    // else shows the single "Ver PDF". The footer is hidden on mobile, so these
-    // live in the sticky header.
+    // PDF pills (header) — one per report this section has, newest first, so the
+    // user can open ANY past report, not just the latest. Built dynamically from
+    // the `reports` array /api/verify returns. The footer is hidden on mobile, so
+    // these live in the sticky header. Falls back to the legacy pdf_url fields if
+    // an older cached response (pre-`reports`) comes through.
     const pdfBar = document.getElementById('chat-header-pdfs');
-    const pdfHeader = document.getElementById('link-pdf-header');
-    const pdfPrev = document.getElementById('link-pdf-prev-header');
-    const hasPrev = !!state.pdf_url_prev;
-    if (state.pdf_url) {
-      pdfHeader.href = state.pdf_url;
-      pdfHeader.textContent = hasPrev ? ('📄 ' + (state.pdf_label || 'Reporte 2')) : 'Ver PDF';
-      pdfHeader.style.display = '';
-      pdfHeader.onclick = () => track('pdf_opened');
-    } else {
-      pdfHeader.style.display = 'none';
+    pdfBar.innerHTML = '';
+    let reports = Array.isArray(state.reports) ? state.reports.filter(r => r && r.url) : [];
+    if (!reports.length && state.pdf_url) {
+      reports = [{ label: state.pdf_label || 'Ver PDF', url: state.pdf_url, current: true }];
+      if (state.pdf_url_prev) reports.push({ label: state.pdf_prev_label || 'Reporte anterior', url: state.pdf_url_prev });
     }
-    if (hasPrev) {
-      pdfPrev.href = state.pdf_url_prev;
-      pdfPrev.textContent = '📄 ' + (state.pdf_prev_label || 'Reporte 1');
-      pdfPrev.style.display = '';
-      pdfPrev.onclick = () => track('pdf_prev_opened');
+    if (reports.length) {
+      const single = reports.length === 1;
+      reports.forEach((r, i) => {
+        const a = document.createElement('a');
+        a.className = 'chat-header-change chat-pdf-btn' + (i === 0 ? ' chat-pdf-btn-current' : '');
+        a.href = r.url;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.textContent = single ? 'Ver PDF' : ('📄 ' + r.label);
+        a.addEventListener('click', () => track(i === 0 ? 'pdf_opened' : 'pdf_prev_opened', { label: r.label }));
+        pdfBar.appendChild(a);
+      });
+      pdfBar.style.display = '';
     } else {
-      pdfPrev.style.display = 'none';
+      pdfBar.style.display = 'none';
     }
-    pdfBar.style.display = state.pdf_url ? '' : 'none';
 
     state.messages = [];
     // Wipe message bubbles and any stale follow-up chips, but preserve the
@@ -2705,6 +2716,7 @@
       state.pdf_url_prev = null;
       state.pdf_label = null;
       state.pdf_prev_label = null;
+      state.reports = null;
       state.summary = null;
       state.messages = [];
       showView('role');

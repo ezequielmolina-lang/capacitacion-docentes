@@ -7,7 +7,7 @@
 //
 // Bump the CACHE_VERSION on every shell update so old assets get evicted.
 
-const CACHE_VERSION = 'gallito-v10';
+const CACHE_VERSION = 'gallito-v11';
 
 const SHELL = [
   './',
