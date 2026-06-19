@@ -111,8 +111,22 @@
                    padding:16px 20px;border-bottom:1px solid var(--border);background:#fffaeb}
   .form-shell-head .t{font-weight:700;font-size:15px;display:flex;align-items:center;gap:10px}
   .form-shell-head .t i{color:var(--primary-dark)}
-  .form-frame{width:100%;border:0;display:block;height:1850px;background:#fff}
+  .form-frame{width:100%;border:0;display:block;height:1650px;background:#fff;transition:height .2s}
   iframe.form-frame{color-scheme:light}
+
+  /* role toggle */
+  .role-tabs{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 18px}
+  .role-tab{display:inline-flex;align-items:center;gap:10px;padding:12px 22px;border-radius:999px;
+            border:2px solid var(--primary-light);background:#fff;color:var(--primary-dark);font-family:inherit;
+            font-weight:700;font-size:15px;cursor:pointer;transition:all .18s}
+  .role-tab:hover{background:#fffaeb}
+  .role-tab.active{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;
+                   border-color:transparent;box-shadow:0 6px 16px rgba(243,147,0,.28)}
+  .who-btn{margin-top:14px;display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;
+           background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;text-decoration:none;
+           font-weight:700;font-size:13.5px;box-shadow:0 4px 10px rgba(243,147,0,.25);transition:all .18s;
+           cursor:pointer;border:none;font-family:inherit}
+  .who-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
 
   /* ---------- FOOTER ---------- */
   footer{background:#242c32;color:#cfc9bd;padding:34px 0;font-size:14px}
@@ -141,9 +155,8 @@
       </div>
 
       <div class="cta-row">
-        <a class="btn btn-primary" href="#formulario"><i class="fa-solid fa-pen-to-square"></i> Responder la consulta</a>
-        <a class="btn btn-ghost" href="https://docs.google.com/forms/d/e/1FAIpQLSfd4JvNj1NHRkmdHWhfDZE4-NUSavX5f00iWlgxM3lijnfK_Q/viewform"
-           target="_blank" rel="noopener"><i class="fa-solid fa-up-right-from-square"></i> Abrir en pantalla completa</a>
+        <a class="btn btn-primary" href="#formulario" onclick="showRole('dir')"><i class="fa-solid fa-user-tie"></i> Soy dirección</a>
+        <a class="btn btn-ghost" href="#formulario" onclick="showRole('doc')"><i class="fa-solid fa-chalkboard-user"></i> Soy docente</a>
       </div>
     </div>
     <img class="gallito" src="../img/gallito-pip.png" alt="Gallito de Eligiendo Mi Camino con una lista de cotejo">
@@ -180,22 +193,24 @@
 <!-- ===================== QUIÉN RESPONDE ===================== -->
 <section class="wrap" style="padding-top:6px">
   <p class="section-tag">Quién responde</p>
-  <h2>El formulario tiene dos partes</h2>
+  <h2>Dos formularios, uno para cada rol</h2>
   <div class="who">
     <div class="who-card">
       <div class="who-ic"><i class="fa-solid fa-user-tie"></i></div>
       <div>
-        <h4>Parte A — Dirección</h4>
-        <p>La completa la dirección de la IE: decisión de continuidad, prioridad del laboratorio y compromiso de la institución.</p>
-        <span class="pill">1 por institución</span>
+        <h4>Dirección de la IE</h4>
+        <p>Decisión de continuidad y, si continúan, el compromiso de la institución: horas de laboratorio y docente responsable.</p>
+        <span class="pill">1 por institución</span><br>
+        <a class="who-btn" href="#formulario" onclick="showRole('dir')"><i class="fa-solid fa-pen-to-square"></i> Responder como dirección</a>
       </div>
     </div>
     <div class="who-card">
       <div class="who-ic"><i class="fa-solid fa-chalkboard-user"></i></div>
       <div>
-        <h4>Parte B — Docente de Matemáticas</h4>
-        <p>La completa cada docente que trabajó con el Tutor: su preferencia sincera, qué le sirvió y a qué se comprometería.</p>
-        <span class="pill">1 por docente</span>
+        <h4>Docente de Matemáticas</h4>
+        <p>Su preferencia sincera sobre seguir usándolo y a cuántas sesiones por semana se comprometería.</p>
+        <span class="pill">1 por docente</span><br>
+        <a class="who-btn" href="#formulario" onclick="showRole('doc')"><i class="fa-solid fa-pen-to-square"></i> Responder como docente</a>
       </div>
     </div>
   </div>
@@ -205,26 +220,67 @@
 <section class="form-section" id="formulario">
   <div class="wrap">
     <p class="section-tag">El formulario</p>
-    <h2>Consulta–Compromiso del Tutor de Matemáticas</h2>
+    <h2>Elija su rol y responda</h2>
+
+    <div class="role-tabs" role="tablist">
+      <button class="role-tab active" id="tab-dir" type="button" onclick="showRole('dir')">
+        <i class="fa-solid fa-user-tie"></i> Soy dirección (IE)
+      </button>
+      <button class="role-tab" id="tab-doc" type="button" onclick="showRole('doc')">
+        <i class="fa-solid fa-chalkboard-user"></i> Soy docente de Matemáticas
+      </button>
+    </div>
+
     <div class="form-shell">
       <div class="form-shell-head">
-        <span class="t"><i class="fa-solid fa-list-check"></i> Responder aquí mismo</span>
-        <a class="btn btn-ghost" style="padding:9px 18px;font-size:13.5px"
+        <span class="t"><i class="fa-solid fa-list-check"></i> <span id="formLabel">Formulario de dirección (IE)</span></span>
+        <a class="btn btn-ghost" id="formFull" style="padding:9px 18px;font-size:13.5px"
            href="https://docs.google.com/forms/d/e/1FAIpQLSfd4JvNj1NHRkmdHWhfDZE4-NUSavX5f00iWlgxM3lijnfK_Q/viewform"
            target="_blank" rel="noopener"><i class="fa-solid fa-up-right-from-square"></i> Pantalla completa</a>
       </div>
-      <iframe class="form-frame"
+      <iframe class="form-frame" id="formFrame"
         src="https://docs.google.com/forms/d/e/1FAIpQLSfd4JvNj1NHRkmdHWhfDZE4-NUSavX5f00iWlgxM3lijnfK_Q/viewform?embedded=true"
-        title="Consulta–Compromiso del Tutor de Matemáticas — 2.º semestre 2026"
+        title="Formulario de continuidad — Tutor de Matemáticas"
         loading="lazy">Cargando el formulario…</iframe>
     </div>
+
     <p style="text-align:center;color:var(--text-muted);font-size:13.5px;margin:16px 0 0">
-      ¿El formulario no carga o lo prefiere a pantalla completa?
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSfd4JvNj1NHRkmdHWhfDZE4-NUSavX5f00iWlgxM3lijnfK_Q/viewform"
-         target="_blank" rel="noopener">Ábralo en una pestaña nueva</a>.
+      ¿Prefiere compartir el link directo? &nbsp;
+      <a id="linkDir" href="https://docs.google.com/forms/d/e/1FAIpQLSfd4JvNj1NHRkmdHWhfDZE4-NUSavX5f00iWlgxM3lijnfK_Q/viewform"
+         target="_blank" rel="noopener">Formulario de dirección</a> &nbsp;·&nbsp;
+      <a id="linkDoc" href="https://docs.google.com/forms/d/e/1FAIpQLSeZHIOas9HqBywvdPHdp2WKRdPiuCOAA7LWA90MKPj-iw8I1g/viewform"
+         target="_blank" rel="noopener">Formulario de docente</a>
     </p>
   </div>
 </section>
+
+<script>
+  var FORMS = {
+    dir: {
+      embed: 'https://docs.google.com/forms/d/e/1FAIpQLSfd4JvNj1NHRkmdHWhfDZE4-NUSavX5f00iWlgxM3lijnfK_Q/viewform?embedded=true',
+      full:  'https://docs.google.com/forms/d/e/1FAIpQLSfd4JvNj1NHRkmdHWhfDZE4-NUSavX5f00iWlgxM3lijnfK_Q/viewform',
+      label: 'Formulario de dirección (IE)', h: 1650
+    },
+    doc: {
+      embed: 'https://docs.google.com/forms/d/e/1FAIpQLSeZHIOas9HqBywvdPHdp2WKRdPiuCOAA7LWA90MKPj-iw8I1g/viewform?embedded=true',
+      full:  'https://docs.google.com/forms/d/e/1FAIpQLSeZHIOas9HqBywvdPHdp2WKRdPiuCOAA7LWA90MKPj-iw8I1g/viewform',
+      label: 'Formulario de docente', h: 1450
+    }
+  };
+  var _role = 'dir';
+  function showRole(role){
+    if(!FORMS[role] || role === _role) return;
+    var f = FORMS[role];
+    document.getElementById('formFrame').src = f.embed;
+    document.getElementById('formFrame').style.height = f.h + 'px';
+    document.getElementById('formFull').href = f.full;
+    document.getElementById('formLabel').textContent = f.label;
+    document.getElementById('tab-dir').classList.toggle('active', role === 'dir');
+    document.getElementById('tab-doc').classList.toggle('active', role === 'doc');
+    _role = role;
+  }
+  if (location.hash === '#docente') showRole('doc');
+</script>
 
 <!-- ===================== FOOTER ===================== -->
 <footer>
