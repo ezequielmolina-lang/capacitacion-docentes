@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>¿Seguimos hasta diciembre? — Tutor de Matemáticas · Eligiendo Mi Camino</title>
+<meta name="description" content="Consulta-compromiso para directores y docentes: ¿desea su institución continuar con el Tutor de Matemáticas hasta diciembre? Respuesta libre, decisión de cada institución. DRELM + Banco Mundial.">
+<meta property="og:title" content="¿Seguimos hasta diciembre? — Tutor de Matemáticas">
+<meta property="og:description" content="Una consulta breve y de respuesta libre para directores y docentes. La decisión es de cada institución.">
+<meta property="og:type" content="website">
+<link rel="icon" href="../img/gallito-pip.png">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root{
+    --primary:#f39300; --primary-dark:#f75a00; --primary-light:#fdd026;
+    --bg:#fffbf0; --surface:#FFFFFF; --border:#f0e8d8;
+    --text:#242c32; --text-muted:#6b6457;
+    --success:#2E7D32; --info:#1565C0;
+    --shadow-sm:0 1px 4px rgba(0,0,0,.05);
+    --shadow:0 2px 12px rgba(0,0,0,.08);
+    --shadow-lg:0 14px 40px rgba(243,147,0,.18), 0 4px 12px rgba(0,0,0,.08);
+    --radius:16px;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+       background:var(--bg);color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--primary-dark)}
+  .wrap{max-width:920px;margin:0 auto;padding:0 22px}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;overflow:hidden;background:
+        radial-gradient(1100px 460px at 80% -10%,rgba(253,208,38,.30),transparent 60%),
+        radial-gradient(800px 420px at 5% 0%,rgba(243,147,0,.12),transparent 55%),
+        var(--bg);
+        border-bottom:1px solid var(--border)}
+  .hero-inner{display:grid;grid-template-columns:1fr 200px;gap:26px;align-items:center;
+              padding:46px 0 40px}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--primary-light);
+           color:var(--primary-dark);font-weight:700;font-size:12.5px;letter-spacing:.4px;text-transform:uppercase;
+           padding:6px 14px;border-radius:999px;box-shadow:var(--shadow-sm)}
+  .hero h1{font-size:clamp(30px,5.4vw,48px);line-height:1.08;margin:16px 0 12px;font-weight:800;letter-spacing:-.5px}
+  .hero h1 em{font-family:'Crimson Pro',serif;font-style:italic;font-weight:700;color:var(--primary-dark)}
+  .hero .lede{font-size:clamp(16px,2.3vw,19px);color:var(--text);max-width:600px;margin:0}
+  .hero .lede strong{color:var(--primary-dark)}
+  .gallito{width:200px;height:auto;filter:drop-shadow(0 12px 22px rgba(247,90,0,.28));justify-self:center}
+  @media (max-width:720px){
+    .hero-inner{grid-template-columns:1fr;text-align:center;padding:34px 0 28px}
+    .gallito{width:130px;order:-1}
+    .hero .lede{margin:0 auto}
+  }
+
+  /* ---------- REASSURANCE STRIP ---------- */
+  .reassure{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 0}
+  @media (max-width:720px){.reassure{justify-content:center}}
+  .chip{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border);
+        border-radius:999px;padding:8px 15px;font-size:13.5px;font-weight:600;color:var(--text);box-shadow:var(--shadow-sm)}
+  .chip i{color:var(--primary)}
+
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+  @media (max-width:720px){.cta-row{justify-content:center}}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:999px;font-weight:700;
+       cursor:pointer;border:none;font-size:15px;transition:all .2s;text-decoration:none;font-family:inherit;letter-spacing:.2px}
+  .btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+  .btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;
+               box-shadow:0 6px 16px rgba(243,147,0,.30)}
+  .btn-ghost{background:#fff;color:var(--primary-dark);border:2px solid var(--primary-light)}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:44px 0}
+  .section-tag{font-family:'Crimson Pro',serif;font-style:italic;color:var(--primary-dark);font-size:18px;margin:0 0 4px}
+  h2{font-size:clamp(22px,3.4vw,28px);margin:0 0 18px;font-weight:800;letter-spacing:-.3px}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media (max-width:680px){.two{grid-template-columns:1fr}}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+        padding:24px 24px 22px;box-shadow:var(--shadow-sm);position:relative}
+  .card .num{position:absolute;top:-14px;left:22px;width:38px;height:38px;border-radius:50%;
+             background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;font-weight:800;
+             display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 4px 10px rgba(243,147,0,.3)}
+  .card h3{margin:10px 0 8px;font-size:18.5px}
+  .card p{margin:0;color:var(--text-muted);font-size:15px}
+  .card p strong{color:var(--text)}
+
+  .who{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:6px}
+  @media (max-width:680px){.who{grid-template-columns:1fr}}
+  .who-card{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(135deg,#fffaeb 0%,#fff 100%);
+            border:1px solid var(--primary-light);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow-sm)}
+  .who-ic{flex-shrink:0;width:50px;height:50px;border-radius:14px;background:#fff;border:1px solid var(--border);
+          display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--primary-dark)}
+  .who-card h4{margin:0 0 4px;font-size:16px}
+  .who-card p{margin:0;font-size:14px;color:var(--text-muted)}
+  .who-card .pill{display:inline-block;margin-top:8px;font-size:11.5px;font-weight:700;letter-spacing:.4px;
+                  text-transform:uppercase;color:var(--primary-dark);background:#fff4d4;border-radius:999px;padding:3px 10px}
+
+  .note{background:linear-gradient(135deg,#fff8e1 0%,#fffdf6 100%);border-left:4px solid var(--primary);
+        border-radius:12px;padding:18px 22px;margin:22px 0 0;font-size:15px}
+  .note strong{color:var(--primary-dark)}
+
+  /* ---------- FORM EMBED ---------- */
+  .form-section{background:
+      radial-gradient(900px 300px at 50% 0%,rgba(253,208,38,.16),transparent 60%),var(--bg);
+      border-top:1px solid var(--border)}
+  .form-shell{background:#fff;border:1px solid var(--border);border-radius:var(--radius);
+              box-shadow:var(--shadow-lg);overflow:hidden}
+  .form-shell-head{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+                   padding:16px 20px;border-bottom:1px solid var(--border);background:#fffaeb}
+  .form-shell-head .t{font-weight:700;font-size:15px;display:flex;align-items:center;gap:10px}
+  .form-shell-head .t i{color:var(--primary-dark)}
+  .form-frame{width:100%;border:0;display:block;height:2400px;background:#fff}
+  iframe.form-frame{color-scheme:light}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:#242c32;color:#cfc9bd;padding:34px 0;font-size:14px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between}
+  footer a{color:var(--primary-light);text-decoration:none;font-weight:600}
+  footer .org{font-weight:700;color:#fff}
+  footer .muted{color:#9a9384;font-size:12.5px}
+</style>
+</head>
+<body>
+
+<!-- ===================== HERO ===================== -->
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <span class="eyebrow"><i class="fa-solid fa-calculator"></i> Tutor de Matemáticas · 2.º semestre 2026</span>
+      <h1>¿<em>Seguimos</em> hasta diciembre?</h1>
+      <p class="lede">Una consulta breve para saber si su institución desea <strong>continuar con el Tutor de
+        Matemáticas</strong> el resto del año — y, si decide seguir, a qué se comprometería de forma concreta.</p>
+
+      <div class="reassure">
+        <span class="chip"><i class="fa-solid fa-feather-pointed"></i> Respuesta libre</span>
+        <span class="chip"><i class="fa-solid fa-school"></i> La decisión es de cada institución</span>
+        <span class="chip"><i class="fa-solid fa-square-root-variable"></i> Solo Matemáticas</span>
+        <span class="chip"><i class="fa-regular fa-clock"></i> ~5 minutos</span>
+      </div>
+
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#formulario"><i class="fa-solid fa-pen-to-square"></i> Responder la consulta</a>
+        <a class="btn btn-ghost" href="https://docs.google.com/forms/d/e/1FAIpQLSfd4JvNj1NHRkmdHWhfDZE4-NUSavX5f00iWlgxM3lijnfK_Q/viewform"
+           target="_blank" rel="noopener"><i class="fa-solid fa-up-right-from-square"></i> Abrir en pantalla completa</a>
+      </div>
+    </div>
+    <img class="gallito" src="../img/gallito-pip.png" alt="Gallito de Eligiendo Mi Camino con una lista de cotejo">
+  </div>
+</header>
+
+<!-- ===================== QUÉ LES PEDIMOS ===================== -->
+<section class="wrap">
+  <p class="section-tag">Qué les pedimos</p>
+  <h2>Dos preguntas, con total libertad de respuesta</h2>
+  <div class="two">
+    <div class="card">
+      <div class="num">1</div>
+      <h3>¿Quieren continuar?</h3>
+      <p><strong>No continuar es una respuesta válida y sin consecuencias.</strong> Solo queremos saber si el Tutor
+        de Matemáticas le sirve a su institución y si desea sostenerlo hasta diciembre.</p>
+    </div>
+    <div class="card">
+      <div class="num">2</div>
+      <h3>Si deciden seguir, ¿con qué se comprometen?</h3>
+      <p>Un compromiso concreto: <strong>horas de laboratorio</strong> a la semana, el <strong>docente
+        responsable</strong> y cuántas <strong>sesiones</strong> harían. Eso nos permite preparar el apoyo.</p>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>¿Cómo se usará?</strong> Las respuestas se combinan con los datos reales de uso de la plataforma para
+    planificar el próximo semestre — docentes, horarios y la versión sin conexión donde haga falta. Las
+    instituciones que deseen continuar reciben acompañamiento personalizado según su situación.
+  </div>
+</section>
+
+<!-- ===================== QUIÉN RESPONDE ===================== -->
+<section class="wrap" style="padding-top:6px">
+  <p class="section-tag">Quién responde</p>
+  <h2>El formulario tiene dos partes</h2>
+  <div class="who">
+    <div class="who-card">
+      <div class="who-ic"><i class="fa-solid fa-user-tie"></i></div>
+      <div>
+        <h4>Parte A — Dirección</h4>
+        <p>La completa la dirección de la IE: decisión de continuidad, prioridad del laboratorio y compromiso de la institución.</p>
+        <span class="pill">1 por institución</span>
+      </div>
+    </div>
+    <div class="who-card">
+      <div class="who-ic"><i class="fa-solid fa-chalkboard-user"></i></div>
+      <div>
+        <h4>Parte B — Docente de Matemáticas</h4>
+        <p>La completa cada docente que trabajó con el Tutor: su preferencia sincera, qué le sirvió y a qué se comprometería.</p>
+        <span class="pill">1 por docente</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FORMULARIO ===================== -->
+<section class="form-section" id="formulario">
+  <div class="wrap">
+    <p class="section-tag">El formulario</p>
+    <h2>Consulta–Compromiso del Tutor de Matemáticas</h2>
+    <div class="form-shell">
+      <div class="form-shell-head">
+        <span class="t"><i class="fa-solid fa-list-check"></i> Responder aquí mismo</span>
+        <a class="btn btn-ghost" style="padding:9px 18px;font-size:13.5px"
+           href="https://docs.google.com/forms/d/e/1FAIpQLSfd4JvNj1NHRkmdHWhfDZE4-NUSavX5f00iWlgxM3lijnfK_Q/viewform"
+           target="_blank" rel="noopener"><i class="fa-solid fa-up-right-from-square"></i> Pantalla completa</a>
+      </div>
+      <iframe class="form-frame"
+        src="https://docs.google.com/forms/d/e/1FAIpQLSfd4JvNj1NHRkmdHWhfDZE4-NUSavX5f00iWlgxM3lijnfK_Q/viewform?embedded=true"
+        title="Consulta–Compromiso del Tutor de Matemáticas — 2.º semestre 2026"
+        loading="lazy">Cargando el formulario…</iframe>
+    </div>
+    <p style="text-align:center;color:var(--text-muted);font-size:13.5px;margin:16px 0 0">
+      ¿El formulario no carga o lo prefiere a pantalla completa?
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSfd4JvNj1NHRkmdHWhfDZE4-NUSavX5f00iWlgxM3lijnfK_Q/viewform"
+         target="_blank" rel="noopener">Ábralo en una pestaña nueva</a>.
+    </p>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="org">Eligiendo Mi Camino</div>
+      <div class="muted">DRELM · Universidad Peruana de Ciencias Aplicadas (UPC) · Banco Mundial</div>
+    </div>
+    <div>
+      <i class="fa-regular fa-envelope"></i>
+      <a href="mailto:eligiendomicamino@worldbank.org">eligiendomicamino@worldbank.org</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
