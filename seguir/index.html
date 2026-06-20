@@ -86,7 +86,7 @@
   .card p{margin:0;color:var(--text-muted);font-size:15px}
   .card p strong{color:var(--text)}
 
-  .who{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:6px}
+  .who{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:6px}
   @media (max-width:680px){.who{grid-template-columns:1fr}}
   .who-card{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(135deg,#fffaeb 0%,#fff 100%);
             border:1px solid var(--primary-light);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow-sm)}
@@ -144,8 +144,7 @@
     <div>
       <span class="eyebrow"><i class="fa-solid fa-calculator"></i> Tutor de Matemáticas · 2.º semestre 2026</span>
       <h1>¿<em>Seguimos</em> hasta diciembre?</h1>
-      <p class="lede">Una consulta breve para saber si su institución desea <strong>continuar con el Tutor de
-        Matemáticas</strong> el resto del año — y, si decide seguir, a qué se comprometería de forma concreta.</p>
+      <p class="lede">El Tutor de Matemáticas <strong>termina a fines de julio.</strong> A pedido de muchos docentes y directores, estamos <strong>evaluando continuarlo hasta diciembre</strong> — solo Matemáticas. Esta consulta nos dice si el interés es <strong>aislado o de una gran mayoría</strong>; con eso decidimos.</p>
 
       <div class="reassure">
         <span class="chip"><i class="fa-solid fa-feather-pointed"></i> Respuesta libre</span>
@@ -155,8 +154,9 @@
       </div>
 
       <div class="cta-row">
-        <a class="btn btn-primary" href="#formulario" onclick="showRole('dir')"><i class="fa-solid fa-user-tie"></i> Soy dirección</a>
+        <a class="btn btn-primary" href="#formulario" onclick="showRole('dir')"><i class="fa-solid fa-user-tie"></i> Soy director</a>
         <a class="btn btn-ghost" href="#formulario" onclick="showRole('doc')"><i class="fa-solid fa-chalkboard-user"></i> Soy docente</a>
+        <a class="btn btn-ghost" href="#formulario" onclick="showRole('pip')"><i class="fa-solid fa-people-group"></i> Soy PIP</a>
       </div>
     </div>
     <img class="gallito" src="../img/gallito-pip.png" alt="Gallito de Eligiendo Mi Camino con una lista de cotejo">
@@ -171,8 +171,7 @@
     <div class="card">
       <div class="num">1</div>
       <h3>¿Quieren continuar?</h3>
-      <p><strong>No continuar es una respuesta válida y sin consecuencias.</strong> Solo queremos saber si el Tutor
-        de Matemáticas le sirve a su institución y si desea sostenerlo hasta diciembre.</p>
+      <p><strong>No continuar es una respuesta válida y sin consecuencias.</strong> Solo queremos saber si el Tutor de Matemáticas le sirve a su institución y si querrían sostenerlo hasta diciembre.</p>
     </div>
     <div class="card">
       <div class="num">2</div>
@@ -183,17 +182,14 @@
   </div>
 
   <div class="note">
-    <strong>¿Cómo se usará?</strong> Esta consulta es un <strong>insumo para la decisión que tomaremos junto con la
-    DRELM</strong> — no es la decisión final. Sus respuestas se combinan con los datos reales de uso de la plataforma
-    para planificar el próximo semestre. Las instituciones que deseen continuar reciben acompañamiento personalizado
-    según su situación.
+    <strong>¿Cómo se usará?</strong> El programa termina a fines de julio. <strong>Si una gran mayoría quiere seguir, lo continuamos</strong> hasta diciembre; si el interés es aislado, no. Por eso preguntamos: para medir la demanda real. Sus respuestas se combinan con los datos reales de uso de la plataforma, y la decisión final la tomamos junto con la DRELM. <strong>Responder que sí no garantiza la continuidad — ayuda a decidirla.</strong>
   </div>
 </section>
 
 <!-- ===================== QUIÉN RESPONDE ===================== -->
 <section class="wrap" style="padding-top:6px">
   <p class="section-tag">Quién responde</p>
-  <h2>Dos formularios, uno para cada rol</h2>
+  <h2>Tres formularios, uno para cada rol</h2>
   <div class="who">
     <div class="who-card">
       <div class="who-ic"><i class="fa-solid fa-user-tie"></i></div>
@@ -201,7 +197,7 @@
         <h4>Dirección de la IE</h4>
         <p>Decisión de continuidad y, si continúan, el compromiso de la institución: horas de laboratorio y docente responsable.</p>
         <span class="pill">1 por institución</span><br>
-        <a class="who-btn" href="#formulario" onclick="showRole('dir')"><i class="fa-solid fa-pen-to-square"></i> Responder como dirección</a>
+        <a class="who-btn" href="#formulario" onclick="showRole('dir')"><i class="fa-solid fa-pen-to-square"></i> Responder como director</a>
       </div>
     </div>
     <div class="who-card">
@@ -211,6 +207,15 @@
         <p>Su preferencia sincera sobre seguir usándolo y a cuántas sesiones por semana se comprometería.</p>
         <span class="pill">1 por docente</span><br>
         <a class="who-btn" href="#formulario" onclick="showRole('doc')"><i class="fa-solid fa-pen-to-square"></i> Responder como docente</a>
+      </div>
+    </div>
+    <div class="who-card">
+      <div class="who-ic"><i class="fa-solid fa-people-group"></i></div>
+      <div>
+        <h4>PIP / Acompañante</h4>
+        <p>Su lectura del interés y el uso real en las escuelas que acompaña; qué instituciones querrían seguir.</p>
+        <span class="pill">1 por PIP</span><br>
+        <a class="who-btn" href="#formulario" onclick="showRole('pip')"><i class="fa-solid fa-pen-to-square"></i> Responder como PIP</a>
       </div>
     </div>
   </div>
@@ -224,10 +229,13 @@
 
     <div class="role-tabs" role="tablist">
       <button class="role-tab active" id="tab-dir" type="button" onclick="showRole('dir')">
-        <i class="fa-solid fa-user-tie"></i> Soy dirección (IE)
+        <i class="fa-solid fa-user-tie"></i> Soy director (IE)
       </button>
       <button class="role-tab" id="tab-doc" type="button" onclick="showRole('doc')">
         <i class="fa-solid fa-chalkboard-user"></i> Soy docente de Matemáticas
+      </button>
+      <button class="role-tab" id="tab-pip" type="button" onclick="showRole('pip')">
+        <i class="fa-solid fa-people-group"></i> Soy PIP
       </button>
     </div>
 
@@ -242,6 +250,11 @@
         src="https://docs.google.com/forms/d/e/1FAIpQLSfd4JvNj1NHRkmdHWhfDZE4-NUSavX5f00iWlgxM3lijnfK_Q/viewform?embedded=true"
         title="Formulario de continuidad — Tutor de Matemáticas"
         loading="lazy">Cargando el formulario…</iframe>
+      <div id="formPending" style="display:none;padding:48px 28px;text-align:center;color:var(--text-muted);font-size:15.5px;line-height:1.7">
+        <i class="fa-solid fa-screwdriver-wrench" style="font-size:34px;color:var(--primary);display:block;margin-bottom:14px"></i>
+        El formulario para PIP está en preparación. Escríbenos a
+        <a href="mailto:eligiendomicamino@worldbank.org">eligiendomicamino@worldbank.org</a> y te lo enviamos.
+      </div>
     </div>
 
     <p style="text-align:center;color:var(--text-muted);font-size:13.5px;margin:16px 0 0">
@@ -249,7 +262,9 @@
       <a id="linkDir" href="https://docs.google.com/forms/d/e/1FAIpQLSfd4JvNj1NHRkmdHWhfDZE4-NUSavX5f00iWlgxM3lijnfK_Q/viewform"
          target="_blank" rel="noopener">Formulario de dirección</a> &nbsp;·&nbsp;
       <a id="linkDoc" href="https://docs.google.com/forms/d/e/1FAIpQLSeZHIOas9HqBywvdPHdp2WKRdPiuCOAA7LWA90MKPj-iw8I1g/viewform"
-         target="_blank" rel="noopener">Formulario de docente</a>
+         target="_blank" rel="noopener">Formulario de docente</a> &nbsp;·&nbsp;
+      <a id="linkPip" href="https://docs.google.com/forms/d/e/1FAIpQLSd5yay-HEiBAmdXhQeWZZaJDYWmacSpl9pUHZ48AZTasaXnRw/viewform"
+         target="_blank" rel="noopener">Formulario de PIP</a>
     </p>
   </div>
 </section>
@@ -265,21 +280,40 @@
       embed: 'https://docs.google.com/forms/d/e/1FAIpQLSeZHIOas9HqBywvdPHdp2WKRdPiuCOAA7LWA90MKPj-iw8I1g/viewform?embedded=true',
       full:  'https://docs.google.com/forms/d/e/1FAIpQLSeZHIOas9HqBywvdPHdp2WKRdPiuCOAA7LWA90MKPj-iw8I1g/viewform',
       label: 'Formulario de docente', h: 1450
+    },
+    pip: {
+      embed: 'https://docs.google.com/forms/d/e/1FAIpQLSd5yay-HEiBAmdXhQeWZZaJDYWmacSpl9pUHZ48AZTasaXnRw/viewform?embedded=true',
+      full:  'https://docs.google.com/forms/d/e/1FAIpQLSd5yay-HEiBAmdXhQeWZZaJDYWmacSpl9pUHZ48AZTasaXnRw/viewform',
+      label: 'Formulario de PIP / Acompañante', h: 2100
     }
   };
   var _role = 'dir';
   function showRole(role){
     if(!FORMS[role] || role === _role) return;
     var f = FORMS[role];
-    document.getElementById('formFrame').src = f.embed;
-    document.getElementById('formFrame').style.height = f.h + 'px';
-    document.getElementById('formFull').href = f.full;
+    var frame = document.getElementById('formFrame');
+    var pending = document.getElementById('formPending');
+    var full = document.getElementById('formFull');
+    if(f.embed){
+      pending.style.display = 'none';
+      frame.style.display = 'block';
+      frame.src = f.embed;
+      frame.style.height = f.h + 'px';
+      full.href = f.full;
+      full.style.display = '';
+    } else {
+      frame.style.display = 'none';
+      pending.style.display = 'block';
+      full.style.display = 'none';
+    }
     document.getElementById('formLabel').textContent = f.label;
     document.getElementById('tab-dir').classList.toggle('active', role === 'dir');
     document.getElementById('tab-doc').classList.toggle('active', role === 'doc');
+    document.getElementById('tab-pip').classList.toggle('active', role === 'pip');
     _role = role;
   }
   if (location.hash === '#docente') showRole('doc');
+  if (location.hash === '#pip') showRole('pip');
 </script>
 
 <!-- ===================== FOOTER ===================== -->
