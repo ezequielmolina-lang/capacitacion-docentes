@@ -101,6 +101,19 @@
         border-radius:12px;padding:18px 22px;margin:22px 0 0;font-size:15px}
   .note strong{color:var(--primary-dark)}
 
+  /* evidence / stat cards */
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:4px 0 0}
+  @media (max-width:680px){.stats{grid-template-columns:1fr}}
+  .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+             padding:26px 20px;box-shadow:var(--shadow-sm);text-align:center}
+  .stat-card .big{font-size:clamp(40px,6vw,54px);font-weight:800;line-height:1;letter-spacing:-1px;
+                  background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+                  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .stat-card .lbl{font-size:14px;color:var(--text-muted);margin-top:12px;line-height:1.45}
+  .stat-card .lbl strong{color:var(--text)}
+  .evidence-note{margin-top:22px;font-size:16px;line-height:1.75}
+  .evidence-note strong{color:var(--primary-dark)}
+
   /* ---------- FORM EMBED ---------- */
   .form-section{background:
       radial-gradient(900px 300px at 50% 0%,rgba(253,208,38,.16),transparent 60%),var(--bg);
@@ -162,6 +175,29 @@
     <img class="gallito" src="../img/gallito-pip.png" alt="Gallito de Eligiendo Mi Camino con una lista de cotejo">
   </div>
 </header>
+
+<!-- ===================== POR QUÉ PREGUNTAMOS (EVIDENCIA) ===================== -->
+<section class="wrap">
+  <p class="section-tag">Por qué preguntamos</p>
+  <h2>El Tutor está funcionando</h2>
+  <div class="stats">
+    <div class="stat-card">
+      <div class="big">46%</div>
+      <div class="lbl">de los estudiantes que lo usaron dice que su <strong>satisfacción con la clase de matemática aumentó</strong> — frente al 37% del grupo de comparación</div>
+    </div>
+    <div class="stat-card">
+      <div class="big">63%</div>
+      <div class="lbl">está de acuerdo en que <strong>"el Tutor me ayuda a identificar mis errores"</strong></div>
+    </div>
+    <div class="stat-card">
+      <div class="big">~3.900</div>
+      <div class="lbl">estudiantes encuestados, <strong>con un grupo de comparación</strong> que no usó el Tutor (diferencias significativas)</div>
+    </div>
+  </div>
+  <p class="evidence-note">
+    Quienes usaron el Tutor se mostraron <strong>más satisfechos y más motivados</strong> con la clase de matemática que el grupo que no lo usó. En un contexto donde <strong>más de la mitad de los estudiantes llega con ansiedad matemática</strong>, ese cambio no es menor. El programa funciona — pero <strong>sostenerlo hasta diciembre tiene un costo</strong>, y solo tiene sentido continuarlo donde hay demanda real. Por eso preguntamos.
+  </p>
+</section>
 
 <!-- ===================== QUÉ LES PEDIMOS ===================== -->
 <section class="wrap">
