@@ -25,9 +25,9 @@
     font-size:.7rem;font-weight:700;color:var(--teal-deep);}
 
   /* language toggle: every translatable node is an inline <span class="lang en|es"> */
-  .lang.es{display:none}
-  body.es .lang.en{display:none}
-  body.es .lang.es{display:inline}
+  .lang.en{display:none}
+  body.en .lang.es{display:none}
+  body.en .lang.en{display:inline}
 
   /* ---- top bar ---- */
   header.top{position:sticky;top:0;z-index:20;background:rgba(251,246,234,.88);
@@ -141,8 +141,8 @@
       <span>Gallito</span>
     </span>
     <span class="toggle" role="group" aria-label="Language / Idioma">
-      <button id="btn-en" aria-pressed="true" onclick="setLang('en')">EN</button>
-      <button id="btn-es" aria-pressed="false" onclick="setLang('es')">ES</button>
+      <button id="btn-en" aria-pressed="false" onclick="setLang('en')">EN</button>
+      <button id="btn-es" aria-pressed="true" onclick="setLang('es')">ES</button>
     </span>
   </div>
 </header>
@@ -401,10 +401,10 @@
 
 <script>
   function setLang(l){
-    document.body.classList.toggle('es', l==='es');
+    document.body.classList.toggle('en', l==='en');
     document.getElementById('btn-en').setAttribute('aria-pressed', String(l==='en'));
     document.getElementById('btn-es').setAttribute('aria-pressed', String(l==='es'));
     try{ document.documentElement.lang = l; }catch(e){}
   }
-  setLang('en');
+  setLang('es');
 </script>
