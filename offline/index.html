@@ -112,6 +112,10 @@
   .pnum{display:inline-flex;align-items:center;justify-content:center;width:1.55rem;height:1.55rem;border-radius:50%;background:var(--amber);color:#fff;font-family:var(--sans);font-weight:800;font-size:.82rem;}
   .pt{font-family:var(--sans);font-weight:800;font-size:.92rem;color:var(--ink);margin:.5rem 0 .3rem;line-height:1.16;letter-spacing:-.01em;}
   .pstep p{font-family:var(--sans);font-size:.79rem;line-height:1.35;color:var(--ink-soft);margin:0;}
+  .lessons{display:grid;gap:.7rem;margin:1.2rem 0;}
+  .lesson{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:.55rem;padding:.8rem 1.05rem;}
+  .lh{font-family:var(--sans);font-weight:800;font-size:.98rem;color:var(--ink);letter-spacing:-.01em;margin-bottom:.18rem;}
+  .lesson p{font-family:var(--sans);font-size:.84rem;color:var(--ink-soft);line-height:1.42;margin:0;}
   @media(max-width:640px){.pipe{grid-template-columns:1fr;}}
   @media (max-width:560px){
     .flow{flex-direction:column}
@@ -349,6 +353,21 @@
     </p>
   </section>
 
+
+  <section class="blk">
+    <h2><span class="lang en">Five lessons that outlast this project</span><span class="lang es">Cinco lecciones que trascienden este proyecto</span></h2>
+    <p>
+      <span class="lang en">The specifics are Peruvian, but the lessons are general &mdash; useful to anyone trying to put AI to work in schools with few resources.</span>
+      <span class="lang es">Los detalles son peruanos, pero las lecciones son generales &mdash; útiles para cualquiera que intente poner la IA a trabajar en escuelas con pocos recursos.</span>
+    </p>
+    <div class="lessons">
+      <div class="lesson"><div class="lh"><span class="lang en">Training beats instructing.</span><span class="lang es">Entrenar gana a instruir.</span></div><p><span class="lang en">For a narrow task, training a small model on the cloud model's own answers beats writing clever instructions &mdash; by a wide margin.</span><span class="lang es">Para una tarea concreta, entrenar un modelo pequeño con las propias respuestas del modelo de la nube supera &mdash;por amplio margen&mdash; a escribir instrucciones ingeniosas.</span></p></div>
+      <div class="lesson"><div class="lh"><span class="lang en">A stronger teacher lifts quality, not faithfulness.</span><span class="lang es">Un maestro más fuerte sube la calidad, no la fidelidad.</span></div><p><span class="lang en">Switching to a stronger teacher (Opus) closed the quality gap but not the invention one &mdash; removing that habit needs a different kind of training, not a better prompt.</span><span class="lang es">Cambiar a un maestro más fuerte (Opus) cerró la brecha de calidad, pero no la de invención &mdash; sacar ese hábito necesita otro tipo de entrenamiento, no un mejor prompt.</span></p></div>
+      <div class="lesson"><div class="lh"><span class="lang en">Safety belongs in a fixed layer, not the model.</span><span class="lang es">La seguridad va en una capa fija, no en el modelo.</span></div><p><span class="lang en">No model &mdash; not even the cloud one &mdash; reliably surfaces the crisis line, so safety has to live in a deterministic layer, independent of the model.</span><span class="lang es">Ningún modelo &mdash;ni el de la nube&mdash; muestra de forma confiable la línea de crisis, así que la seguridad tiene que vivir en una capa determinista, independiente del modelo.</span></p></div>
+      <div class="lesson"><div class="lh"><span class="lang en">Doing less isn't being more faithful.</span><span class="lang es">Hacer menos no es ser más fiel.</span></div><p><span class="lang en">A poorly-trained model stalls and never finishes the summary &mdash; so it &ldquo;invents less,&rdquo; but only because it does less. That's why fabrication must be measured as a completion-controlled <em>rate</em>, not a raw count.</span><span class="lang es">Un modelo poco entrenado se queda a medias y no termina el resumen &mdash; así &ldquo;inventa menos&rdquo;, pero solo porque hace menos. Por eso la fabricación se mide como <em>tasa</em>, ajustada por cuánto completa, no como conteo.</span></p></div>
+      <div class="lesson"><div class="lh"><span class="lang en">The human system carries the tool.</span><span class="lang es">La herramienta la sostiene el sistema humano.</span></div><p><span class="lang en">The teacher in the room and the family reading the summary decide whether it works &mdash; not the model alone.</span><span class="lang es">El docente en el aula y la familia que lee el resumen deciden si funciona &mdash; no el modelo solo.</span></p></div>
+    </div>
+  </section>
 
   <section class="blk">
     <h2><span class="lang en">Why it matters</span><span class="lang es">Por qué importa</span></h2>
