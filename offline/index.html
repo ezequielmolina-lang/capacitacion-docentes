@@ -106,6 +106,15 @@
   .node-t{font-family:var(--sans);font-size:.82rem;line-height:1.25;color:var(--ink);}
   .node-t b{font-weight:800;}
   .flow-arrow{align-self:center;color:var(--amber);font-weight:900;font-size:1.1rem;font-family:var(--sans);flex:0 0 auto;}
+  .pipe-h{font-family:var(--sans);font-size:.9rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--teal-deep);margin:1.7rem 0 .1rem;}
+  .pipe{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin:1rem 0 1.5rem;}
+  .pstep{position:relative;background:var(--card);border:1px solid var(--line);border-radius:.7rem;padding:1rem 1rem .95rem;}
+  .pstep.key{border-color:var(--teal);background:#EFF6F2;}
+  .pnum{display:inline-flex;align-items:center;justify-content:center;width:1.55rem;height:1.55rem;border-radius:50%;background:var(--amber);color:#fff;font-family:var(--sans);font-weight:800;font-size:.82rem;}
+  .pstep.key .pnum{background:var(--teal);}
+  .pt{font-family:var(--sans);font-weight:800;font-size:.92rem;color:var(--ink);margin:.5rem 0 .3rem;line-height:1.16;letter-spacing:-.01em;}
+  .pstep p{font-family:var(--sans);font-size:.79rem;line-height:1.35;color:var(--ink-soft);margin:0;}
+  @media(max-width:640px){.pipe{grid-template-columns:1fr;}}
   @media (max-width:560px){
     .flow{flex-direction:column}
     .flow-arrow{transform:rotate(90deg);align-self:center}
@@ -217,20 +226,31 @@
       <span class="lang es">En la versión habitual, Gallito funciona con una gran IA en la nube. <strong>La versión sin conexión que se describe aquí es trabajo propio del Banco Mundial:</strong> tomamos ese asistente de la nube y <strong>entrenamos a un programa pequeño y gratuito para que lo imite</strong> en esta única tarea, aprendiendo de las conversaciones pasadas del propio curso (después de quitarles todos los datos personales). El resultado es una app gratuita que el estudiante instala en el equipo y funciona totalmente sin conexión &mdash; sin internet, sin cuenta, y sin que nada salga del dispositivo. (En las Chromebooks bloqueadas del colegio que no permiten instalar apps, el mismo modelo puede correr dentro del navegador.)</span>
     </p>
 
-    <div class="flow" role="img" aria-label="Pipeline: a big cloud AI (Claude Haiku) teaches a small model through training on de-identified conversations, producing a single offline file that runs on the device with no internet.">
-      <div class="node">
-        <span class="node-k"><span class="lang en">Cloud</span><span class="lang es">Nube</span></span>
-        <span class="node-t"><span class="lang en">Big cloud AI<br><b>Claude Haiku</b></span><span class="lang es">Gran IA de la nube<br><b>Claude Haiku</b></span></span>
+    <h3 class="pipe-h"><span class="lang en">How we built it, step by step</span><span class="lang es">Cómo lo construimos, paso a paso</span></h3>
+    <div class="pipe">
+      <div class="pstep"><span class="pnum">1</span>
+        <div class="pt"><span class="lang en">Real conversations</span><span class="lang es">Conversaciones reales</span></div>
+        <p><span class="lang en">Thousands of real course chats, with every personal detail stripped out first.</span><span class="lang es">Miles de conversaciones reales del curso, a las que primero se les quita todo dato personal.</span></p>
       </div>
-      <span class="flow-arrow" aria-hidden="true">&rarr;</span>
-      <div class="node mid">
-        <span class="node-k"><span class="lang en">Training</span><span class="lang es">Entrenamiento</span></span>
-        <span class="node-t"><span class="lang en">The small model <b>learns to imitate</b> it on de-identified conversations</span><span class="lang es">El modelo pequeño <b>aprende a imitarla</b> con conversaciones anonimizadas</span></span>
+      <div class="pstep"><span class="pnum">2</span>
+        <div class="pt"><span class="lang en">Clean &amp; fact-audit</span><span class="lang es">Limpiar y auditar</span></div>
+        <p><span class="lang en">Each training example is rewritten to mention only what the student said, and auto-checked for invented details.</span><span class="lang es">Cada ejemplo de entrenamiento se reescribe para mencionar solo lo que el estudiante dijo, y se revisa automáticamente en busca de invenciones.</span></p>
       </div>
-      <span class="flow-arrow" aria-hidden="true">&rarr;</span>
-      <div class="node">
-        <span class="node-k"><span class="lang en">Offline</span><span class="lang es">Sin conexión</span></span>
-        <span class="node-t"><span class="lang en">A <b>single file</b> that runs on the device, no internet</span><span class="lang es">Un <b>único archivo</b> que corre en el dispositivo, sin internet</span></span>
+      <div class="pstep"><span class="pnum">3</span>
+        <div class="pt"><span class="lang en">Thread the journey</span><span class="lang es">Enhebrar el recorrido</span></div>
+        <p><span class="lang en">The student's own research (Step 6) is woven into later steps, so the model grounds &ldquo;what you explored&rdquo; instead of guessing.</span><span class="lang es">La investigación real del estudiante (Paso 6) se enhebra en los pasos siguientes, para que no invente lo que &ldquo;exploró&rdquo;.</span></p>
+      </div>
+      <div class="pstep"><span class="pnum">4</span>
+        <div class="pt"><span class="lang en">Train with Opus</span><span class="lang es">Entrenar con Opus</span></div>
+        <p><span class="lang en">The small model learns by imitating a stronger teacher (Claude Opus) &mdash; not by being handed instructions.</span><span class="lang es">El modelo pequeño aprende imitando a un maestro más fuerte (Claude Opus), no con instrucciones.</span></p>
+      </div>
+      <div class="pstep key"><span class="pnum">5</span>
+        <div class="pt"><span class="lang en">Deterministic layer</span><span class="lang es">Capa determinista</span></div>
+        <p><span class="lang en">It is wrapped in fixed rules: verified data for the numbers, a safety guard, summary clean-up, and an &ldquo;AI can make mistakes &mdash; check with a teacher&rdquo; notice.</span><span class="lang es">Se envuelve en reglas fijas: datos verificados para las cifras, una guardia de seguridad, limpieza de resúmenes y el aviso &ldquo;la IA puede equivocarse &mdash; revisa con un profesor&rdquo;.</span></p>
+      </div>
+      <div class="pstep key"><span class="pnum">6</span>
+        <div class="pt"><span class="lang en">Offline app</span><span class="lang es">App sin conexión</span></div>
+        <p><span class="lang en">The finished model ships as a native app that runs on the device &mdash; no internet, no account, nothing leaves it.</span><span class="lang es">El modelo terminado se entrega como una app nativa que corre en el dispositivo &mdash; sin internet, sin cuenta, sin que nada salga.</span></p>
       </div>
     </div>
 
