@@ -109,9 +109,7 @@
   .pipe-h{font-family:var(--sans);font-size:.9rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--teal-deep);margin:1.7rem 0 .1rem;}
   .pipe{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin:1rem 0 1.5rem;}
   .pstep{position:relative;background:var(--card);border:1px solid var(--line);border-radius:.7rem;padding:1rem 1rem .95rem;}
-  .pstep.key{border-color:var(--teal);background:#EFF6F2;}
   .pnum{display:inline-flex;align-items:center;justify-content:center;width:1.55rem;height:1.55rem;border-radius:50%;background:var(--amber);color:#fff;font-family:var(--sans);font-weight:800;font-size:.82rem;}
-  .pstep.key .pnum{background:var(--teal);}
   .pt{font-family:var(--sans);font-weight:800;font-size:.92rem;color:var(--ink);margin:.5rem 0 .3rem;line-height:1.16;letter-spacing:-.01em;}
   .pstep p{font-family:var(--sans);font-size:.79rem;line-height:1.35;color:var(--ink-soft);margin:0;}
   @media(max-width:640px){.pipe{grid-template-columns:1fr;}}
@@ -244,11 +242,11 @@
         <div class="pt"><span class="lang en">Train with Opus</span><span class="lang es">Entrenar con Opus</span></div>
         <p><span class="lang en">The small model learns by imitating a stronger teacher (Claude Opus) &mdash; not by being handed instructions.</span><span class="lang es">El modelo pequeño aprende imitando a un maestro más fuerte (Claude Opus), no con instrucciones.</span></p>
       </div>
-      <div class="pstep key"><span class="pnum">5</span>
+      <div class="pstep"><span class="pnum">5</span>
         <div class="pt"><span class="lang en">Deterministic layer</span><span class="lang es">Capa determinista</span></div>
         <p><span class="lang en">It is wrapped in fixed rules: verified data for the numbers, a safety guard, summary clean-up, and an &ldquo;AI can make mistakes &mdash; check with a teacher&rdquo; notice.</span><span class="lang es">Se le suma una capa de reglas fijas: datos verificados para las cifras, un mecanismo de seguridad, limpieza de resúmenes y el aviso &ldquo;la IA puede equivocarse &mdash; revisa con un profesor&rdquo;.</span></p>
       </div>
-      <div class="pstep key"><span class="pnum">6</span>
+      <div class="pstep"><span class="pnum">6</span>
         <div class="pt"><span class="lang en">Offline app</span><span class="lang es">App sin conexión</span></div>
         <p><span class="lang en">The finished model ships as a native app that runs on the device &mdash; no internet, no account, nothing leaves it.</span><span class="lang es">El modelo terminado se entrega como una app nativa que corre en el dispositivo &mdash; sin internet, sin cuenta, sin que nada salga.</span></p>
       </div>
@@ -355,18 +353,6 @@
     </p>
   </section>
 
-  <section class="blk">
-    <h2><span class="lang en">What we have <em>not</em> shown yet</span><span class="lang es">Lo que <em>todavía</em> no demostramos</span></h2>
-    <p>
-      <span class="lang en">We are deliberately honest about the limits of an early study.</span>
-      <span class="lang es">Somos deliberadamente honestos sobre los límites de un estudio preliminar.</span>
-    </p>
-    <ul class="clean">
-      <li><span class="lang en">Running the model inside a browser crashed on weak laptops &mdash; so we rebuilt it as a native app that runs the model directly, and it now installs and runs offline on an ordinary Windows PC. We have not yet confirmed it on the very lowest-end shared devices, so that is a key thing to test in schools.</span><span class="lang es">Correr el modelo dentro del navegador se colgaba en laptops de gama baja &mdash; por eso lo reconstruimos como una app nativa que ejecuta el modelo directamente, y ahora se instala y funciona sin conexión en una PC con Windows común. Todavía no lo confirmamos en los dispositivos compartidos más modestos, así que eso es clave para probar en los colegios.</span></li>
-      <li><span class="lang en">This is a preliminary study. It reports only what we measured; the definitive head-to-head comparison, the child-safety certification, and the classroom trial are planned but not yet run.</span><span class="lang es">Este es un estudio preliminar. Reporta solo lo que medimos; la comparación definitiva, la certificación de seguridad para menores y la prueba en aulas están planeadas pero aún no realizadas.</span></li>
-      <li><span class="lang en">A tool like this succeeds or fails on the human system around it &mdash; the teacher in the room, the family reading the summary &mdash; not on the model alone.</span><span class="lang es">Una herramienta así triunfa o fracasa por el sistema humano que la rodea &mdash; el docente en el aula, la familia que lee el resumen &mdash; no por el modelo solo.</span></li>
-    </ul>
-  </section>
 
   <section class="blk">
     <h2><span class="lang en">Why it matters</span><span class="lang es">Por qué importa</span></h2>
