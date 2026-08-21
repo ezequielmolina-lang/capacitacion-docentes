@@ -113,17 +113,6 @@
     }
     .suggested:hover { border-color: var(--primary); background: #fff8e7; transform: translateY(-2px) scale(1.02); box-shadow: 0 8px 22px rgba(243,147,0,0.14); }
     .suggested:active { transform: translateY(0) scale(0.98); }
-    .welcome-cta { margin-top: 26px; }
-    .btn-playbook {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff;
-      border: none; border-radius: 100px; padding: 12px 24px;
-      font-family: inherit; font-size: 0.95rem; font-weight: 600; cursor: pointer;
-      text-decoration: none; box-shadow: 0 4px 16px rgba(243,147,0,0.32);
-      transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.18s;
-    }
-    .btn-playbook:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 8px 22px rgba(243,147,0,0.42); }
-    .btn-playbook svg { width: 16px; height: 16px; }
     .welcome-partners {
       margin-top: 30px; font-size: 0.72rem; letter-spacing: 0.4px; color: var(--text-gray);
       line-height: 1.6; max-width: 36em; margin-left: auto; margin-right: auto;
@@ -362,9 +351,6 @@
         <h1 class="welcome-title" id="hero-title"></h1>
         <p class="welcome-sub" id="hero-sub"></p>
         <div class="entry-chips" id="entry-chips"></div>
-        <div class="welcome-cta">
-          <a class="btn-playbook" id="btn-playbook" href="https://ezequielmolina-lang.github.io/emc-steal-shamelessly-hub/" target="_blank" rel="noopener noreferrer"></a>
-        </div>
         <p class="welcome-partners" id="welcome-partners"></p>
         <p class="welcome-award" id="welcome-award"></p>
       </div>
@@ -421,7 +407,6 @@
 (function () {
   const params = new URLSearchParams(location.search);
   const API_BASE = (params.get('api') || 'https://emc-explorar-api.vercel.app').replace(/\/+$/, '');
-  const HUB_URL = 'https://ezequielmolina-lang.github.io/emc-steal-shamelessly-hub/';
 
   const I18N = {
     es: {
@@ -438,7 +423,6 @@
       ],
       placeholder: 'Escríbeme tu pregunta...',
       new_chat: 'Nueva conversación',
-      playbook: 'Llévate el playbook',
       partners: 'Banco Mundial · DRELM · UPC · uDocz · Anthropic',
       award: 'Ganador del Premio Presidencial a la Innovación del Banco Mundial 2026',
       err: 'Ups — algo falló de mi lado. Intenta de nuevo en un momento.',
@@ -468,7 +452,6 @@
       ],
       placeholder: 'Type your question...',
       new_chat: 'New conversation',
-      playbook: 'Get the playbook',
       partners: 'World Bank · DRELM · UPC · uDocz · Anthropic',
       award: 'Winner of the World Bank Presidential Innovation Award 2026',
       err: 'Oops — something broke on my end. Please try again in a moment.',
@@ -498,7 +481,6 @@
       ],
       placeholder: 'Escreva a sua pergunta...',
       new_chat: 'Nova conversa',
-      playbook: 'Leve o playbook',
       partners: 'Banco Mundial · DRELM · UPC · uDocz · Anthropic',
       award: 'Vencedor do Prêmio Presidencial de Inovação do Banco Mundial 2026',
       err: 'Ops — algo falhou do meu lado. Tente novamente em um momento.',
@@ -528,7 +510,6 @@
       ],
       placeholder: 'Écrivez votre question...',
       new_chat: 'Nouvelle conversation',
-      playbook: 'Obtenir le playbook',
       partners: 'Banque mondiale · DRELM · UPC · uDocz · Anthropic',
       award: "Lauréat du Prix présidentiel de l'innovation de la Banque mondiale 2026",
       err: 'Oups — quelque chose a échoué de mon côté. Réessayez dans un instant.',
@@ -689,7 +670,10 @@
       if (!r.ok) throw new Error('bad');
       const j = await r.json();
       VIDEO_MAP = {};
-      (j.videos || []).forEach((v) => { if (v.drive_id) VIDEO_MAP[v.drive_id] = v; });
+      (j.videos || []).forEach((v) => {
+        if (v.drive_id) VIDEO_MAP[v.drive_id] = v;
+        if (v.youtube_id) VIDEO_MAP[v.youtube_id] = v;
+      });
     } catch (e) {
       VIDEO_MAP = {};
     }
@@ -707,6 +691,18 @@
     if (state.lang === 'pt') return 'legendas ' + up;
     if (state.lang === 'fr') return 'sous-titres ' + up;
     return 'subtítulos ' + up;
+  }
+
+  // Pulls the provider id out of a Drive, youtube.com/watch or youtu.be link.
+  function videoIdFromHref(href) {
+    href = href || '';
+    let m = href.match(/drive\.google\.com\/file\/d\/([A-Za-z0-9_-]+)/);
+    if (m) return m[1];
+    m = href.match(/youtube\.com\/watch\?(?:[^#]*&)?v=([A-Za-z0-9_-]{11})/);
+    if (m) return m[1];
+    m = href.match(/youtu\.be\/([A-Za-z0-9_-]{11})/);
+    if (m) return m[1];
+    return null;
   }
 
   function buildVideoCard(v) {
@@ -737,12 +733,12 @@
     if (!VIDEO_MAP) return;
     const seen = new Set();
     const cards = [];
-    bubble.querySelectorAll('a[href*="drive.google.com/file/d/"]').forEach((a) => {
-      const m = (a.getAttribute('href') || '').match(/\/file\/d\/([A-Za-z0-9_-]+)/);
-      if (!m) return;
-      const v = VIDEO_MAP[m[1]];
-      if (!v || seen.has(m[1])) return;
-      seen.add(m[1]);
+    bubble.querySelectorAll('a[href*="drive.google.com/file/d/"], a[href*="youtube.com/watch"], a[href*="youtu.be/"]').forEach((a) => {
+      const id = videoIdFromHref(a.getAttribute('href'));
+      if (!id) return;
+      const v = VIDEO_MAP[id];
+      if (!v || seen.has(id)) return;
+      seen.add(id);
       cards.push(buildVideoCard(v));
     });
     if (!cards.length) return;
@@ -959,7 +955,6 @@
     qs('#hero-sub').textContent = t.hero_sub;
     qs('#chat-input').placeholder = t.placeholder;
     qs('#btn-new').setAttribute('aria-label', t.new_chat);
-    qs('#btn-playbook').textContent = t.playbook;
     qs('#welcome-partners').textContent = t.partners;
     qs('#welcome-award').textContent = t.award;
 
