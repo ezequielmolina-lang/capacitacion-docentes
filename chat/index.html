@@ -113,6 +113,8 @@
     }
     .suggested:hover { border-color: var(--primary); background: #fff8e7; transform: translateY(-2px) scale(1.02); box-shadow: 0 8px 22px rgba(243,147,0,0.14); }
     .suggested:active { transform: translateY(0) scale(0.98); }
+    #turnstile-host:empty { display: none; }
+    #turnstile-host { margin-top: 16px; display: flex; justify-content: center; }
     .welcome-partners {
       margin-top: 30px; font-size: 0.72rem; letter-spacing: 0.4px; color: var(--text-gray);
       line-height: 1.6; max-width: 36em; margin-left: auto; margin-right: auto;
@@ -353,6 +355,7 @@
         <div class="entry-chips" id="entry-chips"></div>
         <p class="welcome-partners" id="welcome-partners"></p>
         <p class="welcome-award" id="welcome-award"></p>
+        <div id="turnstile-host"></div>
       </div>
     </section>
 
@@ -407,6 +410,11 @@
 (function () {
   const params = new URLSearchParams(location.search);
   const API_BASE = (params.get('api') || 'https://emc-explorar-api.vercel.app').replace(/\/+$/, '');
+  // Cloudflare Turnstile. Empty string = OFF: no script is loaded and no token
+  // is sent, which is exactly what the server expects while TURNSTILE_SECRET is
+  // unset. To turn it on, paste the sitekey here and deploy the page FIRST,
+  // only then set TURNSTILE_SECRET on the API — the reverse order 403s everyone.
+  const TURNSTILE_SITEKEY = '';
 
   const I18N = {
     es: {
@@ -428,6 +436,7 @@
       err: 'Ups — algo falló de mi lado. Intenta de nuevo en un momento.',
       err_offline: 'No pude conectarme. Revisa tu conexión e inténtalo de nuevo.',
       err_notready: 'Gallito todavía se está terminando de configurar. Vuelve a intentarlo en un momento.',
+      err_ratelimited: 'Vas muy rápido para mí. Espera un momento y volvemos a conversar.',
       mic_hint: 'Puedes hablarme — toca el micrófono.',
       mic_title: 'Activa el micrófono',
       mic_intro: 'Para hablarme, tu navegador necesita permiso para usar el micrófono.',
@@ -457,6 +466,7 @@
       err: 'Oops — something broke on my end. Please try again in a moment.',
       err_offline: "I couldn't connect. Check your connection and try again.",
       err_notready: 'Gallito is still finishing its setup. Please try again in a moment.',
+      err_ratelimited: 'You’re going faster than I can keep up. Give it a moment and we’ll pick this up again.',
       mic_hint: 'You can talk to me — tap the mic.',
       mic_title: 'Turn on the microphone',
       mic_intro: 'To talk to me, your browser needs permission to use the microphone.',
@@ -486,6 +496,7 @@
       err: 'Ops — algo falhou do meu lado. Tente novamente em um momento.',
       err_offline: 'Não consegui me conectar. Verifique sua conexão e tente novamente.',
       err_notready: 'O gallito ainda está terminando a configuração. Tente novamente em um momento.',
+      err_ratelimited: 'Você está indo mais rápido do que eu consigo acompanhar. Espere um momento e continuamos.',
       mic_hint: 'Você pode falar comigo — toque no microfone.',
       mic_title: 'Ative o microfone',
       mic_intro: 'Para falar comigo, seu navegador precisa de permissão para usar o microfone.',
@@ -515,6 +526,7 @@
       err: 'Oups — quelque chose a échoué de mon côté. Réessayez dans un instant.',
       err_offline: "Je n'ai pas pu me connecter. Vérifiez votre connexion et réessayez.",
       err_notready: 'Gallito est en train de terminer sa configuration. Réessayez dans un instant.',
+      err_ratelimited: 'Vous allez plus vite que moi. Patientez un instant et nous reprenons.',
       mic_hint: 'Vous pouvez me parler — touchez le micro.',
       mic_title: 'Activez le microphone',
       mic_intro: "Pour me parler, votre navigateur a besoin de l'autorisation d'utiliser le microphone.",
@@ -789,7 +801,49 @@
   function friendlyError(code) {
     const t = I18N[state.lang];
     if (code === 'server_not_configured') return t.err_notready;
+    if (code === 'rate_limited') return t.err_ratelimited;
     return t.err;
+  }
+
+  /* ---------- turnstile (off until TURNSTILE_SITEKEY is set) ---------- */
+  let tsWidgetId = null, tsLoading = null, tsResolve = null;
+
+  function loadTurnstile() {
+    if (!TURNSTILE_SITEKEY) return Promise.resolve(false);
+    if (tsLoading) return tsLoading;
+    tsLoading = new Promise((resolve) => {
+      const sc = document.createElement('script');
+      sc.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+      sc.async = true; sc.defer = true;
+      sc.onerror = () => resolve(false);
+      sc.onload = () => {
+        try {
+          tsWidgetId = window.turnstile.render('#turnstile-host', {
+            sitekey: TURNSTILE_SITEKEY,
+            appearance: 'interaction-only',
+            execution: 'execute',
+            callback: (token) => { const r = tsResolve; tsResolve = null; if (r) r(token); },
+            'error-callback': () => { const r = tsResolve; tsResolve = null; if (r) r(null); },
+          });
+          resolve(true);
+        } catch (e) { resolve(false); }
+      };
+      document.head.appendChild(sc);
+    });
+    return tsLoading;
+  }
+
+  // Resolves to a token, or null if Turnstile is off, blocked or slow. Null
+  // means we send no token: the server only rejects that once its secret is set.
+  async function turnstileToken() {
+    if (!(await loadTurnstile())) return null;
+    try { window.turnstile.reset(tsWidgetId); } catch (e) {}
+    return new Promise((resolve) => {
+      const timer = setTimeout(() => { tsResolve = null; resolve(null); }, 8000);
+      tsResolve = (tok) => { clearTimeout(timer); resolve(tok); };
+      try { window.turnstile.execute(tsWidgetId); }
+      catch (e) { clearTimeout(timer); tsResolve = null; resolve(null); }
+    });
   }
 
   /* ---------- send / stream ---------- */
@@ -810,10 +864,14 @@
     let full = '';
 
     try {
+      const payload = { messages: state.messages, language_hint: state.lang };
+      const tsTok = await turnstileToken();
+      if (tsTok) payload.turnstile_token = tsTok;
+
       const res = await fetch(API_BASE + '/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: state.messages, language_hint: state.lang })
+        body: JSON.stringify(payload)
       });
 
       if (!res.ok || !res.body) {
