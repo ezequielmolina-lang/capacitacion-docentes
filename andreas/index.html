@@ -10,16 +10,23 @@
 :root{--paper:#fbfaf6;--ink:#14191f;--soft:#2a323d;--mute:#5a6470;--mid:#8a8d92;--red:#c8362a;--rule:rgba(20,25,31,.16)}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--paper);color:var(--ink);font-family:'Newsreader',serif;-webkit-font-smoothing:antialiased}
-.wrap{max-width:860px;margin:0 auto;padding:56px 28px 80px}
+.wrap{max-width:900px;margin:0 auto;padding:56px 28px 80px}
 .eb{font-family:'Inter',sans-serif;font-size:11px;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--red)}
 h1{font-size:44px;font-weight:600;letter-spacing:-.015em;line-height:1.05;margin:10px 0 6px}
 .sub{font-family:'Inter',sans-serif;font-size:13px;color:var(--mute);margin-bottom:40px}
 .sec{font-family:'Inter',sans-serif;font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--mute);margin:38px 0 6px;border-bottom:1px solid var(--rule);padding-bottom:8px}
-a.card{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:16px 2px;border-bottom:1px solid var(--rule);text-decoration:none;color:inherit}
-a.card:hover .t{color:var(--red)}
+.card{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:16px 2px;border-bottom:1px solid var(--rule)}
 .t{font-size:20px;font-weight:600;letter-spacing:-.01em}
+a.tl{color:inherit;text-decoration:none}
+a.tl:hover{color:var(--red)}
 .d{font-family:'Inter',sans-serif;font-size:12.5px;color:var(--mute);margin-top:2px;font-weight:400}
+.acts{font-family:'Inter',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.acts a{color:var(--red);text-decoration:none;margin-left:12px}
+.acts a:hover{text-decoration:underline}
 .tag{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);white-space:nowrap}
+.prog-hint{font-family:'Inter',sans-serif;font-size:11.5px;color:var(--mute);margin:14px 0 10px}
+.prog-box{overflow-x:auto;border:1px solid var(--rule);background:#e6e2d9;padding:16px 8px}
+.prog-box iframe{display:block;width:834px;height:3260px;border:0;margin:0 auto;background:var(--paper);box-shadow:0 6px 24px rgba(0,0,0,.12)}
 .foot{margin-top:56px;font-family:'Inter',sans-serif;font-size:11px;color:var(--mid)}
 </style>
 </head>
@@ -30,75 +37,77 @@ a.card:hover .t{color:var(--red)}
   <div class="sub">Andreas Blom &middot; Lima &middot; Arequipa &middot; Cusco &middot; 31 August &ndash; 3 September 2026</div>
 
   <div class="sec">Programme</div>
-  <a class="card" href="programa.html">
-    <span><span class="t">Mission programme</span>
-    <div class="d">Day by day: times, venues, flights and logistics notes.</div></span>
-    <span class="tag">3 pages</span>
-  </a>
+  <div class="card">
+    <span><a class="tl" href="programa.html"><span class="t">Mission programme</span></a>
+    <div class="d">Day by day: times, venues, flights and logistics notes. Laid out in full below.</div></span>
+    <span class="acts"><a href="programa.html">full screen</a><a href="Mission_Programme_Blom_Peru.pdf">pdf</a></span>
+  </div>
+  <div class="prog-hint">The three pages, as they read. On a phone, swipe sideways inside the box.</div>
+  <div class="prog-box"><iframe src="programa.html" title="Mission programme" loading="lazy" scrolling="no"></iframe></div>
 
   <div class="sec">Slides</div>
-  <a class="card" href="EMC_Deck_Arequipa.html">
-    <span><span class="t">Arequipa</span>
+  <div class="card">
+    <span><a class="tl" href="EMC_Deck_Arequipa.html"><span class="t">Arequipa</span></a>
     <div class="d">Deck for the meeting with the Gerencia Regional de Educaci&oacute;n &middot; Tuesday 09:30.</div></span>
-    <span class="tag">deck</span>
-  </a>
-  <a class="card" href="EMC_Deck_Moquegua.html">
-    <span><span class="t">Moquegua</span>
+    <span class="acts"><a href="EMC_Deck_Arequipa.html">view</a><a href="EMC_Deck_Arequipa.html" download>html</a><a href="EMC_Deck_Arequipa.pdf">pdf</a></span>
+  </div>
+  <div class="card">
+    <span><a class="tl" href="EMC_Deck_Moquegua.html"><span class="t">Moquegua</span></a>
     <div class="d">Deck for the working lunch with the Direcci&oacute;n Regional de Educaci&oacute;n &middot; Tuesday 13:00.</div></span>
-    <span class="tag">deck</span>
-  </a>
-  <a class="card" href="EMC_Deck_Cusco.html">
-    <span><span class="t">Cusco</span>
+    <span class="acts"><a href="EMC_Deck_Moquegua.html">view</a><a href="EMC_Deck_Moquegua.html" download>html</a><a href="EMC_Deck_Moquegua.pdf">pdf</a></span>
+  </div>
+  <div class="card">
+    <span><a class="tl" href="EMC_Deck_Cusco.html"><span class="t">Cusco</span></a>
     <div class="d">Deck for the meeting with the Regional Government &middot; Wednesday 09:00.</div></span>
-    <span class="tag">deck</span>
-  </a>
-  <a class="card" href="EvidencIA_Lanzamiento_Deck.html">
-    <span><span class="t">EvidencIA launch</span>
+    <span class="acts"><a href="EMC_Deck_Cusco.html">view</a><a href="EMC_Deck_Cusco.html" download>html</a><a href="EMC_Deck_Cusco.pdf">pdf</a></span>
+  </div>
+  <div class="card">
+    <span><a class="tl" href="EvidencIA_Lanzamiento_Deck.html"><span class="t">EvidencIA launch</span></a>
     <div class="d">Slides for the launch event at UPC Monterrico &middot; Monday 17:00.</div></span>
-    <span class="tag">deck</span>
-  </a>
+    <span class="acts"><a href="EvidencIA_Lanzamiento_Deck.html">view</a><a href="EvidencIA_Lanzamiento_Deck.html" download>html</a><a href="EvidencIA_Lanzamiento_Deck.pdf">pdf</a></span>
+  </div>
 
   <div class="sec">Resources &middot; Eligiendo Mi Camino</div>
-  <a class="card" href="https://youtu.be/6c1JkF6wrsw">
-    <span><span class="t">The platform, in video</span>
+  <div class="card">
+    <span><a class="tl" href="https://youtu.be/6c1JkF6wrsw"><span class="t">The platform, in video</span></a>
     <div class="d">Six minutes in Spanish: what a student actually does in a session. The single most useful thing to watch before Arequipa.</div></span>
     <span class="tag">video</span>
-  </a>
-  <a class="card" href="https://ezequielmolina-lang.github.io/eligiendo-mi-camino-offline/">
-    <span><span class="t">The offline version</span>
+  </div>
+  <div class="card">
+    <span><a class="tl" href="https://ezequielmolina-lang.github.io/eligiendo-mi-camino-offline/"><span class="t">The offline version</span></a>
     <div class="d">Runs in the browser with no connection. The answer to the Cusco question, and it can be opened in the room.</div></span>
     <span class="tag">demo</span>
-  </a>
-  <a class="card" href="https://eligiendomicamino.org/chat/">
-    <span><span class="t">Gallito</span>
+  </div>
+  <div class="card">
+    <span><a class="tl" href="https://eligiendomicamino.org/chat/"><span class="t">Gallito</span></a>
     <div class="d">The public assistant that answers questions about the programme, multilingual, no personal data collected.</div></span>
     <span class="tag">chat</span>
-  </a>
-  <a class="card" href="https://eligiendomicamino.org">
-    <span><span class="t">The programme site</span>
+  </div>
+  <div class="card">
+    <span><a class="tl" href="https://eligiendomicamino.org"><span class="t">The programme site</span></a>
     <div class="d">Teacher certification, materials and the school-facing pages.</div></span>
     <span class="tag">site</span>
-  </a>
-  <a class="card" href="https://drive.google.com/file/d/1RUY9DCH_R5pHIAfxEhDMG49IXPXmOpTt/view">
-    <span><span class="t">The lesson plans</span>
+  </div>
+  <div class="card">
+    <span><a class="tl" href="https://drive.google.com/file/d/1RUY9DCH_R5pHIAfxEhDMG49IXPXmOpTt/view"><span class="t">The lesson plans</span></a>
     <div class="d">What a teacher receives, already prepared, for each of the twelve sessions.</div></span>
     <span class="tag">pdf</span>
-  </a>
-  <a class="card" href="https://redevidencia.org">
-    <span><span class="t">EvidencIA</span>
+  </div>
+  <div class="card">
+    <span><a class="tl" href="https://redevidencia.org"><span class="t">EvidencIA</span></a>
     <div class="d">The network, live since August with seven partners. Monday&rsquo;s launch is its Peru opening.</div></span>
     <span class="tag">site</span>
-  </a>
-  <a class="card" href="https://ezequielmolina-lang.github.io/EvidencIA/iniciativas/eligiendo-mi-camino.html">
-    <span><span class="t">Eligiendo Mi Camino, as the network presents it</span>
+  </div>
+  <div class="card">
+    <span><a class="tl" href="https://ezequielmolina-lang.github.io/EvidencIA/iniciativas/eligiendo-mi-camino.html"><span class="t">Eligiendo Mi Camino, as the network presents it</span></a>
     <div class="d">The initiative page, alongside La IA en el Aula, Teach + IA and El Director LIBRE.</div></span>
     <span class="tag">page</span>
-  </a>
-  <a class="card" href="https://www.bancomundial.org/es/country/peru/brief/eligiendo-mi-camino">
-    <span><span class="t">The World Bank&rsquo;s own page</span>
+  </div>
+  <div class="card">
+    <span><a class="tl" href="https://www.bancomundial.org/es/country/peru/brief/eligiendo-mi-camino"><span class="t">The World Bank&rsquo;s own page</span></a>
     <div class="d">The public brief on the Peru country page.</div></span>
     <span class="tag">brief</span>
-  </a>
+  </div>
 
   <div class="foot">Slides open in the browser; use the arrow keys to move through them.</div>
 </div>
