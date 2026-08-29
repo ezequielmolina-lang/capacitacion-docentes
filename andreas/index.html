@@ -25,9 +25,8 @@ a.tl:hover{color:var(--red)}
 .acts a:hover{text-decoration:underline}
 .tag{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);white-space:nowrap}
 .prog-hint{font-family:'Inter',sans-serif;font-size:11.5px;color:var(--mute);margin:14px 0 10px}
-.prog-box{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);display:flex;justify-content:center}
-.prog-clip{overflow:hidden}
-.prog-clip iframe{display:block;width:834px;height:3130px;border:0;background:var(--paper);transform-origin:top left}
+.prog-box{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.prog-box iframe{display:block;width:100%;height:3130px;border:0;background:var(--paper)}
 @media (max-width:700px){
   .wrap{padding:36px 18px 60px}
   h1{font-size:32px}
@@ -50,19 +49,19 @@ a.tl:hover{color:var(--red)}
     <div class="d">Day by day: times, venues, flights and logistics notes. Laid out in full below.</div></span>
     <span class="acts"><a href="programa.html">full screen</a><a href="Mission_Programme_Blom_Peru.pdf">pdf</a></span>
   </div>
-  <div class="prog-hint">The three pages, as they read; they scale to the screen.</div>
-  <div class="prog-box"><div class="prog-clip"><iframe id="progfr" src="programa.html?v=2" title="Mission programme" loading="lazy" scrolling="no"></iframe></div></div>
+  <div class="prog-hint">The programme in full, as it reads.</div>
+  <div class="prog-box"><iframe id="progfr" src="programa.html?v=3" title="Mission programme" loading="lazy" scrolling="no"></iframe></div>
 <script>
 (function(){
-  var box=document.querySelector('.prog-box'),clip=document.querySelector('.prog-clip'),
-      fr=document.getElementById('progfr'),W=834,H=3130;
+  var fr=document.getElementById('progfr');
   function fit(){
-    var s=Math.min(1,box.clientWidth/W);
-    fr.style.transform='scale('+s+')';
-    clip.style.width=(W*s)+'px';
-    clip.style.height=(H*s)+'px';
+    try{
+      var d=fr.contentDocument;
+      if(d&&d.documentElement)fr.style.height=d.documentElement.scrollHeight+'px';
+    }catch(e){}
   }
-  window.addEventListener('resize',fit);fit();
+  fr.addEventListener('load',function(){fit();setTimeout(fit,600);setTimeout(fit,2000);});
+  window.addEventListener('resize',function(){setTimeout(fit,150);});
 })();
 </script>
 
