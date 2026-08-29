@@ -109,8 +109,13 @@ body { background: var(--paper); }
   body { padding: 24px 0; background: #e9e6dd; }
   .page { box-shadow: 0 2px 24px rgba(0,0,0,0.14); margin-bottom: 26px; }
 }
+
+@media screen {
+  html.embedded, html.embedded body { background: var(--paper); padding: 0; }
+  html.embedded .page { box-shadow: none; margin-bottom: 0; }
+}
 </style>
-</head>
+<script>if(window.self!==window.top)document.documentElement.classList.add('embedded')</script></head>
 <body>
 
 <style>
