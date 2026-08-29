@@ -127,9 +127,11 @@ body { background: var(--paper); }
   .agenda, .agenda tbody { display: block; }
   .agenda tr { display: block; padding: 9px 0; border-bottom: 1px solid var(--rule-soft); }
   .agenda td { display: block; border-bottom: none; padding: 0; width: auto; }
-  .when { font-size: 10.5px; margin-bottom: 2px; }
-  .what { font-size: 14px; line-height: 1.35; }
-  .where { font-size: 12px; text-align: left; margin-top: 3px; }
+  .when { font-size: 10.5px; margin-bottom: 2px; width: auto; }
+  .agenda .what { font-size: 14px; line-height: 1.35; }
+  .agenda .where { font-size: 12px; text-align: left; width: auto; margin-top: 3px; }
+  tr.key { background: rgba(184,138,44,0.08); padding: 9px 8px; }
+  tr.key td, .key td { background: transparent; }
 }
 </style>
 <script>if(window.self!==window.top)document.documentElement.classList.add('embedded')</script></head>
