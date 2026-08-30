@@ -26,7 +26,7 @@ a.tl:hover{color:var(--red)}
 .tag{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);white-space:nowrap}
 .prog-hint{font-family:'Inter',sans-serif;font-size:11.5px;color:var(--mute);margin:14px 0 10px}
 .prog-box{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
-.prog-box iframe{display:block;width:100%;height:3130px;border:0;background:var(--paper)}
+.prog-box iframe{display:block;width:100%;height:900px;border:0;background:var(--paper)}
 @media (max-width:700px){
   .wrap{padding:36px 18px 60px}
   h1{font-size:32px}
@@ -57,7 +57,9 @@ a.tl:hover{color:var(--red)}
   function fit(){
     try{
       var d=fr.contentDocument;
-      if(d&&d.documentElement)fr.style.height=d.documentElement.scrollHeight+'px';
+      if(!d||!d.documentElement)return;
+      fr.style.height='10px';
+      fr.style.height=d.documentElement.scrollHeight+'px';
     }catch(e){}
   }
   fr.addEventListener('load',function(){fit();setTimeout(fit,600);setTimeout(fit,2000);});
