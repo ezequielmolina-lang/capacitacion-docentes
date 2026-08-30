@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Peru Mission Assistant</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&family=Inter:wght@400;500;600;700;800&display=swap');
+:root{--paper:#fbfaf6;--ink:#14191f;--soft:#2a323d;--mute:#5a6470;--mid:#8a8d92;--red:#c8362a;--rule:rgba(20,25,31,.16)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--paper);color:var(--ink);font-family:'Newsreader',serif;display:flex;flex-direction:column}
+.top{padding:18px 20px 14px;border-bottom:2px solid var(--ink);display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.top .eb{font-family:'Inter',sans-serif;font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--red)}
+.top h1{font-size:21px;font-weight:600;letter-spacing:-.01em;margin-top:2px}
+.top .d{font-family:'Inter',sans-serif;font-size:10.5px;color:var(--mute);white-space:nowrap}
+.chat{flex:1;overflow-y:auto;padding:20px;max-width:760px;width:100%;margin:0 auto}
+.msg{margin-bottom:16px;line-height:1.5;font-size:16px}
+.msg.user{color:var(--soft)}
+.msg.user::before{content:'You';display:block;font-family:'Inter',sans-serif;font-size:9.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--mid);margin-bottom:3px}
+.msg.bot::before{content:'Assistant';display:block;font-family:'Inter',sans-serif;font-size:9.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:3px}
+.msg.bot b,.msg.bot strong{font-weight:700}
+.sug{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 18px}
+.sug button{font-family:'Inter',sans-serif;font-size:12px;padding:7px 12px;border:1px solid var(--rule);background:#fff;border-radius:16px;cursor:pointer;color:var(--soft)}
+.sug button:hover{border-color:var(--red);color:var(--red)}
+.abajo{border-top:1px solid var(--rule);padding:14px 20px 18px;background:var(--paper)}
+.fila{max-width:760px;margin:0 auto;display:flex;gap:10px}
+textarea{flex:1;font-family:'Newsreader',serif;font-size:16px;padding:11px 14px;border:1px solid var(--rule);border-radius:10px;background:#fff;resize:none;height:52px;outline:none}
+textarea:focus{border-color:var(--red)}
+button.enviar{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;letter-spacing:.06em;padding:0 22px;border:0;border-radius:10px;background:var(--ink);color:#fff;cursor:pointer}
+button.enviar:disabled{opacity:.45;cursor:default}
+.gate{position:fixed;inset:0;background:var(--paper);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;padding:24px;text-align:center;z-index:10}
+.gate .eb{font-family:'Inter',sans-serif;font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--red)}
+.gate h2{font-size:26px;font-weight:600}
+.gate input{font-family:'Inter',sans-serif;font-size:16px;padding:10px 14px;border:1px solid var(--rule);border-radius:10px;text-align:center;outline:none;width:min(280px,80vw)}
+.gate .err{font-family:'Inter',sans-serif;font-size:12px;color:var(--red);min-height:16px}
+.pensando{font-family:'Inter',sans-serif;font-size:12px;color:var(--mute);font-style:italic}
+</style>
+</head>
+<body>
+<div class="gate" id="gate">
+  <div class="eb">Eligiendo Mi Camino &middot; World Bank</div>
+  <h2>Peru Mission Assistant</h2>
+  <input id="pass" type="password" placeholder="Access phrase" autocomplete="off">
+  <div class="err" id="gerr"></div>
+</div>
+
+<div class="top">
+  <div>
+    <div class="eb">Peru mission &middot; 31 Aug &ndash; 3 Sep 2026</div>
+    <h1>Mission assistant</h1>
+  </div>
+  <div class="d" id="reloj"></div>
+</div>
+
+<div class="chat" id="chat">
+  <div class="msg bot">Ask me anything about the mission: the schedule, who you are meeting,
+  the proposed objectives, talking points or likely questions. I know the programme and the
+  briefing book, and I know what time it is in Lima.</div>
+  <div class="sug" id="sug">
+    <button>What is my next meeting?</button>
+    <button>Who am I meeting there, and what do they want?</button>
+    <button>Give me the talking points for that meeting</button>
+    <button>What should I not say in that room?</button>
+  </div>
+</div>
+
+<div class="abajo"><div class="fila">
+  <textarea id="caja" placeholder="Ask about the mission..."></textarea>
+  <button class="enviar" id="btn">Send</button>
+</div></div>
+
+<script>
+var API = 'https://blom-peru-bot.vercel.app/api/chat';
+var hist = [];
+var PASSKEY = 'blom_pass';
+
+function reloj(){
+  try{
+    var f = new Intl.DateTimeFormat('en-GB',{timeZone:'America/Lima',weekday:'short',
+      day:'numeric', month:'short', hour:'2-digit', minute:'2-digit', hour12:false});
+    document.getElementById('reloj').textContent = f.format(new Date()) + ' · Lima';
+  }catch(e){}
+}
+reloj(); setInterval(reloj, 30000);
+
+var gate = document.getElementById('gate');
+var passInput = document.getElementById('pass');
+try{ if(localStorage.getItem(PASSKEY)) gate.style.display='none'; }catch(e){}
+passInput.addEventListener('keydown', function(e){
+  if(e.key==='Enter' && passInput.value.trim()){
+    try{ localStorage.setItem(PASSKEY, passInput.value.trim()); }catch(err){}
+    gate.style.display='none';
+  }
+});
+
+var chat = document.getElementById('chat');
+var caja = document.getElementById('caja');
+var btn = document.getElementById('btn');
+
+function md(t){
+  t = t.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  t = t.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
+  t = t.replace(/\n/g,'<br>');
+  return t;
+}
+function agrega(rol, texto, esHtml){
+  var d = document.createElement('div');
+  d.className = 'msg ' + rol;
+  if(esHtml) d.innerHTML = texto; else d.textContent = texto;
+  chat.appendChild(d);
+  chat.scrollTop = chat.scrollHeight;
+  return d;
+}
+function enviar(texto){
+  texto = (texto || caja.value).trim();
+  if(!texto) return;
+  caja.value = '';
+  var s = document.getElementById('sug'); if(s) s.remove();
+  agrega('user', texto);
+  hist.push({role:'user', content:texto});
+  btn.disabled = true;
+  var espera = agrega('bot', '');
+  espera.innerHTML = '<span class="pensando">thinking...</span>';
+  var clave = '';
+  try{ clave = localStorage.getItem(PASSKEY) || ''; }catch(e){}
+  fetch(API, {method:'POST',
+    headers:{'Content-Type':'application/json','X-Pass':clave},
+    body: JSON.stringify({messages: hist})
+  }).then(function(r){ return r.json().then(function(j){ return {ok:r.ok, st:r.status, j:j}; }); })
+    .then(function(r){
+      if(r.st === 401){
+        espera.innerHTML = md('Wrong access phrase. Reload the page and try again.');
+        try{ localStorage.removeItem(PASSKEY); }catch(e){}
+        return;
+      }
+      if(!r.ok){ espera.innerHTML = md('Error: ' + (r.j.error || r.st)); return; }
+      espera.innerHTML = md(r.j.text || '');
+      hist.push({role:'assistant', content: r.j.text || ''});
+    })
+    .catch(function(e){ espera.innerHTML = md('Connection error: ' + e); })
+    .then(function(){ btn.disabled = false; });
+}
+btn.addEventListener('click', function(){ enviar(); });
+caja.addEventListener('keydown', function(e){
+  if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); enviar(); }
+});
+document.getElementById('sug').addEventListener('click', function(e){
+  if(e.target.tagName==='BUTTON') enviar(e.target.textContent);
+});
+</script>
+</body>
+</html>
