@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Peru Mission Assistant</title>
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Peru Mission">
+<meta name="theme-color" content="#fbfaf6">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&family=Inter:wght@400;500;600;700;800&display=swap');
 :root{--paper:#fbfaf6;--ink:#14191f;--soft:#2a323d;--mute:#5a6470;--mid:#8a8d92;--red:#c8362a;--rule:rgba(20,25,31,.16)}
@@ -36,6 +42,16 @@ button.enviar:disabled{opacity:.45;cursor:default}
 .gate input{font-family:'Inter',sans-serif;font-size:16px;padding:10px 14px;border:1px solid var(--rule);border-radius:10px;text-align:center;outline:none;width:min(280px,80vw)}
 .gate .err{font-family:'Inter',sans-serif;font-size:12px;color:var(--red);min-height:16px}
 .pensando{font-family:'Inter',sans-serif;font-size:12px;color:var(--mute);font-style:italic}
+html,body{height:100dvh}
+@media (max-width:600px){
+  .top{padding:12px 14px 10px}
+  .top h1{font-size:18px}
+  .top .d{display:none}
+  .chat{padding:14px}
+  .msg{font-size:15.5px}
+  .abajo{padding:10px 12px calc(12px + env(safe-area-inset-bottom))}
+  textarea{font-size:16px}
+}
 </style>
 </head>
 <body>
