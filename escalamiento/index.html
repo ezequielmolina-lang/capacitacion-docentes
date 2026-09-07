@@ -31,9 +31,9 @@
     header p{max-width:700px;font-size:17px;color:rgba(243,239,230,.8);margin-top:22px;line-height:1.5}
     header .partners{margin-top:36px;color:rgba(243,239,230,.55);font-size:11px}
     header .hero{display:grid;grid-template-columns:1fr 360px;gap:40px;align-items:center}
-    header .vid{width:360px;height:360px;border-radius:50%;overflow:hidden;border:6px solid rgba(243,239,230,.92);box-shadow:0 18px 50px rgba(0,0,0,.35);background:#fff;justify-self:end;padding:32px}
-    header .vid video,header .vid img{width:100%;height:100%;object-fit:contain;display:block;background:#fff}
-    @media (max-width:760px){header .hero{grid-template-columns:1fr}header .vid{width:240px;height:240px;justify-self:start;margin-top:26px;padding:22px}}
+    header .vid{width:360px;height:360px;border-radius:50%;overflow:hidden;border:6px solid rgba(243,239,230,.92);box-shadow:0 18px 50px rgba(0,0,0,.35);background:#fff;justify-self:end}
+    header .vid video,header .vid img{width:100%;height:100%;object-fit:cover;display:block;background:#fff}
+    @media (max-width:760px){header .hero{grid-template-columns:1fr}header .vid{width:240px;height:240px;justify-self:start;margin-top:26px}}
     main{padding:8px 0 40px}
     section{padding:54px 0 14px;border-bottom:1px solid var(--line)}
     section:last-of-type{border-bottom:0}
@@ -89,7 +89,7 @@
         <p>Todo lo que necesita el equipo de una Direcci&oacute;n o Gerencia Regional de Educaci&oacute;n para conocer el programa: la presentaci&oacute;n de su regi&oacute;n, los resultados del piloto de Lima, la plataforma para probarla y los materiales que reciben los docentes.</p>
         <div class="partners lab">Banco Mundial &middot; uDocz &middot; Anthropic &middot; UPC</div>
       </div>
-      <div class="vid"><video src="assets/gallito_anim.mp4" poster="assets/gallito_s.png" autoplay loop muted playsinline></video></div>
+      <div class="vid"><video src="assets/gallito_circle.mp4" poster="assets/gallito_poster.jpg" autoplay loop muted playsinline></video></div>
     </div>
   </div>
 </header>
