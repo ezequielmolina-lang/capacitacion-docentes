@@ -20,7 +20,7 @@
     .sq{display:inline-block;width:12px;height:12px;background:var(--green);margin-right:12px;vertical-align:-1px}
     .kick{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:10px}
     /* portada oscura, como las laminas dark */
-    header{background:var(--ink2);color:#f3efe6;padding:34px 0 54px;position:relative;overflow:hidden}
+    header{background:linear-gradient(135deg,#2a5566 0%,#1d3b47 55%,#16242f 100%);color:#f3efe6;padding:34px 0 54px;position:relative;overflow:hidden}
     header::after{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(200,154,60,.28),rgba(200,154,60,0) 70%)}
     header .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:64px}
     header .top .lab{color:rgba(243,239,230,.72)}
@@ -32,7 +32,7 @@
     header .partners{margin-top:36px;color:rgba(243,239,230,.55);font-size:11px}
     header .hero{display:grid;grid-template-columns:1fr 360px;gap:40px;align-items:center}
     header .vid{width:360px;height:360px;border-radius:50%;overflow:hidden;border:6px solid rgba(243,239,230,.92);box-shadow:0 18px 50px rgba(0,0,0,.35);background:#fff;justify-self:end}
-    header .vid video,header .vid img{width:100%;height:100%;object-fit:cover;display:block;background:#fff}
+    header .vid video,header .vid img{width:100%;height:100%;object-fit:cover;display:block;background:#fff;transform:scale(1.28);transform-origin:50% 50%}
     @media (max-width:760px){header .hero{grid-template-columns:1fr}header .vid{width:240px;height:240px;justify-self:start;margin-top:26px}}
     main{padding:8px 0 40px}
     section{padding:54px 0 14px;border-bottom:1px solid var(--line)}
