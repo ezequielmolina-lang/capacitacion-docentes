@@ -4847,7 +4847,7 @@ function App() {
     if (userName) trozos.push('Se llama ' + userName + '.');
     const cierre = msgs.filter(x => x.r === 'ai').slice(-1)[0];
     if (cierre && /##\s*Tu descripci/i.test(cierre.t)) trozos.push('Del paso de autoconocimiento:\n' + cierre.t);
-    if (results && results.top) trozos.push('Su perfil de intereses (RIASEC) dio: ' + (Array.isArray(results.top) ? results.top.join(', ') : String(results.top)) + '.');
+    if (Array.isArray(results) && results.length) trozos.push('Su perfil de intereses (RIASEC), de mayor a menor: ' + results.slice(0, 3).join(', ') + '.');
     if (selCareer && selCareer.name) trozos.push('La ocupacion que mas exploro fue ' + selCareer.name + '.');
     return trozos.join('\n\n');
   };
