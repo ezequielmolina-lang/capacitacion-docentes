@@ -2848,7 +2848,9 @@ function App() {
       if (!abierto) throw new Error('respuesta_vacia');
     } catch (e) {
       const m = String(e && e.message || '');
-      marcarErr(m.indexOf('rate_limited') >= 0 ? 'Hay muchas personas usando el orientador en este momento. Espera un minuto y vuelve a intentarlo.' : 'No pude conectarme con el orientador. Revisa tu conexión y vuelve a intentarlo.');
+      let aviso = 'No pude conectarme con el orientador. Revisa tu conexión y vuelve a intentarlo.';
+      if (m.indexOf('rate_limited') >= 0) aviso = 'Hay muchas personas usando el orientador en este momento. Espera un minuto y vuelve a intentarlo.';else if (/http_5|upstream/.test(m)) aviso = 'El orientador no está disponible en este momento. No es tu conexión: vuelve a intentarlo en un minuto.';
+      marcarErr(aviso);
     } finally {
       marcarBusy(false);
     }
@@ -2897,7 +2899,8 @@ function App() {
     }
   })));
   const AvisoCoach = ({
-    texto
+    texto,
+    reintentar
   }) => texto ? React.createElement("div", {
     className: "flex justify-start"
   }, React.createElement("div", {
@@ -2906,7 +2909,10 @@ function App() {
     className: "bg-red-50 border-2 border-red-200 rounded-2xl px-4 py-2.5"
   }, React.createElement("p", {
     className: "text-xs text-red-700 font-bold"
-  }, texto))) : null;
+  }, texto), reintentar && React.createElement("button", {
+    onClick: reintentar,
+    className: "mt-1.5 text-xs font-bold text-red-700 underline hover:text-red-900"
+  }, "Reintentar"))) : null;
   const chatInit = useRef(false);
   const pedirPaso1 = lista => hablarConTato(lista, {
     step: 'autoconocimiento',
@@ -2916,11 +2922,11 @@ function App() {
     marcarErr: setCoachErr
   });
   useEffect(() => {
-    if (!chatInit.current && msgs.length === 0) {
+    if (view === 'chat' && !chatInit.current && msgs.length === 0) {
       chatInit.current = true;
       pedirPaso1([]);
     }
-  }, [msgs.length]);
+  }, [view, msgs.length]);
   const send = () => {
     if (!input.trim() || coachBusy) return;
     const m = input.trim();
@@ -2939,7 +2945,7 @@ function App() {
   const chatDone = !coachBusy && msgs.some(x => x.r === 'ai' && esCierre(x.t, 'Tu descripci[oó]n', ['Rasgos que aparecen', 'Talentos o fortalezas', 'Motivaciones e intereses']));
   const puedeCerrarP1 = !chatDone && !coachBusy && msgs.filter(x => x.r === 'user').length >= 3;
   const cerrarPaso1 = () => {
-    const m = 'Ya conté lo que quería. Escríbeme ahora mi devolución final, por favor.';
+    const m = 'Ya conté lo que quería. Escríbeme ahora mi devolución final con lo que ya te conté, aunque falte algo. No me hagas más preguntas.';
     const lista = msgs.concat([{
       r: 'user',
       t: m
@@ -2986,8 +2992,9 @@ function App() {
     className: `max-w-[85%] sm:max-w-[70%] px-4 sm:px-5 py-3 ${m.r === 'ai' ? 'chat-ai bg-white border border-cream-200 text-navy-700' : 'chat-user bg-brand-400 text-white'} shadow-sm`
   }, React.createElement("div", {
     className: "text-sm leading-relaxed"
-  }, fmtMsg(m.t))))), coachBusy && React.createElement(Escribiendo, null), React.createElement(AvisoCoach, {
-    texto: coachErr
+  }, fmtMsg(m.t))))), coachBusy && Escribiendo(), AvisoCoach({
+    texto: coachErr,
+    reintentar: msgs.length === 0 ? () => pedirPaso1([]) : null
   }), React.createElement("div", {
     ref: chatEnd
   }))), React.createElement("div", {
@@ -4888,11 +4895,11 @@ function App() {
     marcarErr: setFamErr
   });
   useEffect(() => {
-    if (!famInit.current && famMsgs.length === 0) {
+    if (view === 'family' && !famInit.current && famMsgs.length === 0) {
       famInit.current = true;
       pedirFam([]);
     }
-  }, [famMsgs.length]);
+  }, [view, famMsgs.length]);
   const sendFam = () => {
     if (!famInput.trim() || famBusy) return;
     const m = famInput.trim();
@@ -4907,7 +4914,7 @@ function App() {
   const famChatDone = !famBusy && famMsgs.some(x => x.r === 'ai' && esCierre(x.t, 'Mi conversaci[oó]n con la familia', ['Que decir', 'Qué decir', 'Como abrir', 'Cómo abrir']));
   const puedeCerrarP7 = !famChatDone && !famBusy && famMsgs.filter(x => x.r === 'user').length >= 3;
   const cerrarPaso7 = () => {
-    const m = 'Ya conté lo que quería. Escríbeme ahora el resumen para mi conversación con la familia, por favor.';
+    const m = 'Ya conté lo que quería. Escríbeme ahora el resumen para mi conversación con la familia con lo que ya te conté, aunque falte algo. No me hagas más preguntas.';
     const lista = famMsgs.concat([{
       r: 'user',
       t: m
@@ -4950,8 +4957,9 @@ function App() {
     className: `max-w-[80%] sm:max-w-[70%] px-4 sm:px-5 py-3 ${m.r === 'ai' ? 'chat-ai bg-white border border-cream-200 text-navy-700' : 'chat-user bg-brand-400 text-white'} shadow-sm`
   }, React.createElement("div", {
     className: "text-sm leading-relaxed"
-  }, fmtMsg(m.t))))), famBusy && React.createElement(Escribiendo, null), React.createElement(AvisoCoach, {
-    texto: famErr
+  }, fmtMsg(m.t))))), famBusy && Escribiendo(), AvisoCoach({
+    texto: famErr,
+    reintentar: famMsgs.length === 0 ? () => pedirFam([]) : null
   }), React.createElement("div", {
     ref: famEnd
   })))), React.createElement("div", {
@@ -5013,7 +5021,7 @@ function App() {
   const planDone = !planBusy && planMsgs.some(x => x.r === 'ai' && esCierre(x.t, 'Mi plan', ['Plan A', 'Plan B', 'Mis primeros pasos', 'Primeros pasos']));
   const puedeCerrarP8 = !planDone && !planBusy && planMsgs.filter(x => x.r === 'user').length >= 3;
   const cerrarPaso8 = () => {
-    const m = 'Ya conté lo que quería. Escríbeme ahora mi plan, por favor.';
+    const m = 'Ya conté lo que quería. Escríbeme ahora mi plan con lo que ya te conté, aunque falte algo; marca como pendiente lo que no sepas. No me hagas más preguntas.';
     const lista = planMsgs.concat([{
       r: 'user',
       t: m
@@ -5049,8 +5057,9 @@ function App() {
     className: `max-w-[88%] px-3.5 py-2.5 ${m.r === 'ai' ? 'chat-ai bg-white border border-cream-200 text-navy-700' : 'chat-user bg-brand-400 text-white'} shadow-sm`
   }, React.createElement("div", {
     className: "text-sm leading-relaxed"
-  }, fmtMsg(m.t))))), planBusy && React.createElement(Escribiendo, null), React.createElement(AvisoCoach, {
-    texto: planErr
+  }, fmtMsg(m.t))))), planBusy && Escribiendo(), AvisoCoach({
+    texto: planErr,
+    reintentar: planMsgs.length === 0 ? () => pedirPlan([]) : null
   }), React.createElement("div", {
     ref: planEnd
   })), puedeCerrarP8 && React.createElement("button", {
@@ -5104,7 +5113,7 @@ function App() {
   const cvListo = !cvBusy && !!cvTexto();
   const puedeCerrarCv = !cvListo && !cvBusy && cvMsgs.filter(x => x.r === 'user').length >= 2;
   const cerrarCv = () => {
-    const m = 'Con eso basta. Escríbeme ya mi hoja de vida, por favor.';
+    const m = 'Con eso basta. Escríbeme ya mi hoja de vida con lo que ya te conté; deja en blanco con guiones lo que falte. No me hagas más preguntas.';
     const lista = cvMsgs.concat([{
       r: 'user',
       t: m
@@ -5159,8 +5168,9 @@ function App() {
     className: `max-w-[88%] px-3.5 py-2.5 ${m.r === 'ai' ? 'chat-ai bg-white border border-cream-200 text-navy-700' : 'chat-user bg-brand-400 text-white'} shadow-sm`
   }, React.createElement("div", {
     className: "text-sm leading-relaxed"
-  }, fmtMsg(m.t))))), cvBusy && React.createElement(Escribiendo, null), React.createElement(AvisoCoach, {
-    texto: cvErr
+  }, fmtMsg(m.t))))), cvBusy && Escribiendo(), AvisoCoach({
+    texto: cvErr,
+    reintentar: cvMsgs.length === 0 ? () => pedirCv([]) : null
   }), React.createElement("div", {
     ref: cvEnd
   })), cvListo && React.createElement("button", {
@@ -5325,7 +5335,7 @@ function App() {
     className: "font-bold text-navy-700 text-sm truncate flex-1"
   }, "Eligiendo Mi Camino")), React.createElement("main", {
     className: "flex-1 flex flex-col overflow-hidden bg-cream-50 pt-[52px] md:pt-0"
-  }, view === 'home' && React.createElement(Home, null), view === 'chat' && Chat(), view === 'test' && React.createElement(Test, null), view === 'test-results' && React.createElement(TestResults, null), view === 'myths' && React.createElement(Myths, null), view === 'routes' && React.createElement(Routes, null), view === 'explore' && React.createElement(Explore, null), view === 'notebook' && React.createElement(Notebook, null), view === 'family' && Family(), view === 'plan' && Plan()));
+  }, view === 'home' && Home(), view === 'chat' && Chat(), view === 'test' && Test(), view === 'test-results' && TestResults(), view === 'myths' && Myths(), view === 'routes' && Routes(), view === 'explore' && Explore(), view === 'notebook' && Notebook(), view === 'family' && Family(), view === 'plan' && Plan()));
 }
 ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App, null));
 </script>
