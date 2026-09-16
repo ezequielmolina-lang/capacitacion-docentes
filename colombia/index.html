@@ -2418,7 +2418,7 @@ function App() {
   }, "IA personalizada")), React.createElement("button", {
     onClick: () => nav('home'),
     className: "mt-6 sm:mt-8 px-8 sm:px-10 py-3 sm:py-4 bg-navy-700 text-white rounded-2xl font-bold text-base sm:text-lg hover:bg-navy-800 transition-all shadow-xl shadow-navy-700/30"
-  }, "Comenzar mi camino"), React.createElement("div", {
+  }, hayAvance ? 'Continuar donde quedaste' : 'Comenzar mi camino'), React.createElement("div", {
     className: "mt-6 flex items-center justify-center gap-3 flex-wrap"
   }, React.createElement("img", {
     src: WBG_LOGO,
@@ -2517,7 +2517,10 @@ function App() {
     className: "text-sm font-bold text-navy-700 truncate"
   }, userName || 'Estudiante'), React.createElement("p", {
     className: "text-[11px] text-navy-300"
-  }, "Grado once"))), React.createElement("p", {
+  }, "Grado once"))), hayAvance && React.createElement("button", {
+    onClick: borrarAvance,
+    className: "w-full mt-2 py-1.5 text-[11px] font-bold text-navy-300 hover:text-red-600 transition"
+  }, "Borrar mi avance de este computador"), React.createElement("p", {
     className: "text-[10px] text-navy-200 mt-3 text-center"
   }, "Powered by Anthropic")));
   const Home = () => React.createElement("div", {
@@ -5306,6 +5309,78 @@ function App() {
     },
     className: "w-full py-3.5 bg-gradient-to-r from-brand-400 to-brand-300 text-white rounded-xl font-bold shadow-lg hover:opacity-90 transition"
   }, "Finalizar y guardar mi plan")));
+  const LLAVE = 'emc-colombia-v1';
+  const memoriaLista = useRef(false);
+  const guardable = () => {
+    try {
+      const k = '__prueba';
+      localStorage.setItem(k, '1');
+      localStorage.removeItem(k);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  };
+  const hayMemoria = useRef(guardable());
+  useEffect(() => {
+    if (!hayMemoria.current) {
+      memoriaLista.current = true;
+      return;
+    }
+    try {
+      const crudo = localStorage.getItem(LLAVE);
+      if (crudo) {
+        const d = JSON.parse(crudo);
+        if (Array.isArray(d.done)) setDone(new Set(d.done));
+        if (typeof d.userName === 'string') setUserName(d.userName);
+        if (Array.isArray(d.msgs)) setMsgs(d.msgs);
+        if (Array.isArray(d.famMsgs)) setFamMsgs(d.famMsgs);
+        if (Array.isArray(d.planMsgs)) setPlanMsgs(d.planMsgs);
+        if (Array.isArray(d.cvMsgs)) setCvMsgs(d.cvMsgs);
+        if (d.answers && typeof d.answers === 'object') setAnswers(d.answers);
+        if (typeof d.qIdx === 'number') setQIdx(d.qIdx);
+        if (Array.isArray(d.results)) setResults(d.results);
+        if (Array.isArray(d.mythAnswers)) setMythAnswers(d.mythAnswers);
+        if (typeof d.mythIdx === 'number') setMythIdx(d.mythIdx);
+        if (typeof d.mythDone === 'boolean') setMythDone(d.mythDone);
+        if (Array.isArray(d.routeAs)) setRouteAs(d.routeAs);
+        if (typeof d.routeQ === 'number') setRouteQ(d.routeQ);
+        if (Array.isArray(d.msgs) && d.msgs.length) chatInit.current = true;
+        if (Array.isArray(d.famMsgs) && d.famMsgs.length) famInit.current = true;
+      }
+    } catch (e) {}
+    memoriaLista.current = true;
+  }, []);
+  useEffect(() => {
+    if (!memoriaLista.current || !hayMemoria.current) return;
+    try {
+      localStorage.setItem(LLAVE, JSON.stringify({
+        done: Array.from(done),
+        userName,
+        msgs,
+        famMsgs,
+        planMsgs,
+        cvMsgs,
+        answers,
+        qIdx,
+        results,
+        mythAnswers,
+        mythIdx,
+        mythDone,
+        routeAs,
+        routeQ,
+        guardado: new Date().toISOString()
+      }));
+    } catch (e) {}
+  }, [done, userName, msgs, famMsgs, planMsgs, cvMsgs, answers, qIdx, results, mythAnswers, mythIdx, mythDone, routeAs, routeQ]);
+  const hayAvance = !!(userName || msgs.length || famMsgs.length || planMsgs.length || cvMsgs.length || done.size);
+  const borrarAvance = () => {
+    if (!window.confirm('Se borrará todo lo que hiciste en este computador: la conversación, el test y tu plan. Esto no se puede deshacer. ¿Seguro?')) return;
+    try {
+      localStorage.removeItem(LLAVE);
+    } catch (e) {}
+    window.location.reload();
+  };
   if (view === 'welcome') return React.createElement("div", {
     className: "h-full"
   }, React.createElement(Welcome, null));
@@ -5316,7 +5391,7 @@ function App() {
     onClick: () => setMenuOpen(false)
   }), React.createElement("div", {
     className: `fixed md:relative z-50 h-full transition-transform duration-300 ${menuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`
-  }, React.createElement(Sidebar, null)), React.createElement("div", {
+  }, Sidebar()), React.createElement("div", {
     className: "md:hidden fixed top-0 left-0 right-0 z-30 bg-white border-b border-cream-200 px-4 py-3 flex items-center gap-3"
   }, React.createElement("button", {
     onClick: () => setMenuOpen(true),
