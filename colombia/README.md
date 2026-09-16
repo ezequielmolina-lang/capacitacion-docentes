@@ -28,6 +28,24 @@ Tres advertencias que la propia página repite, porque sin ellas el dato engaña
   la estructura del Perú y se ancló a la mediana del ingreso base de cotización
   del OLE. No son cifras oficiales por ocupación.
 
+## El orientador
+
+Los pasos 1 (autoconocimiento) y 7 (decisión familiar) no son un guion: los conduce
+**Claude Haiku 4.5**. Los prompts salieron de la versión sin conexión, que a su vez
+salieron de la entrevista realmente desplegada en el Perú y de los modos de falla que
+aparecieron en los datos de conversación: aceptar respuestas vacías, no reflejar lo que
+dijo el estudiante, inventar cifras y desviarse del tema.
+
+La llave nunca llega al navegador. La petición va a `/api/coach` en `emc-explorar-api`,
+el mismo proyecto del orientador público de `/chat`, que ya trae límite por IP y lista de
+orígenes permitidos. El modelo se cambia con `ANTHROPIC_MODEL_COACH` en el entorno, sin
+tocar código. Los prompts viven en `lib/coach-colombia.md` de ese repositorio.
+
+Se conservan los resguardos del piloto: no dar por válidas respuestas vacías o
+incomprensibles, no inventar cifras ni enlaces, no desviarse del tema, y ante un sueño de
+baja probabilidad validarlo y decir la verdad sobre las probabilidades en vez de
+desanimar. Nada de lo que escribe el estudiante se guarda en el servidor.
+
 ## Cómo se genera
 
 La edición se construye desde la fuente prístina del Perú, así que se puede
