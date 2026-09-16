@@ -2747,46 +2747,195 @@ function App() {
       className: "inline-block mt-2 text-[11px] bg-green-600 text-white px-2.5 py-0.5 rounded-full font-bold"
     }, "Completado"));
   }))));
-  const aiR = {
-    0: "¡Hola! Soy Tato, el oso de anteojos, tu guía en Eligiendo Mi Camino.\n\nEn este espacio vamos a conversar sobre tu día a día, tus hábitos y las cosas que se te facilitan o te cuestan, para poner en palabras cómo estás hoy y qué te ayuda a avanzar.\n\n¿Cómo te llamas?",
-    1: n => `¡Mucho gusto, ${n}!\n\nCuéntame, ¿qué es lo que más te gusta hacer cuando NO estás en el colegio? Puede ser cualquier cosa: un hobby, algo que haces con amigos, algo que ves en internet...`,
-    2: "¡Qué interesante! Eso me dice mucho sobre ti.\n\nAhora dime: ¿hay algo en lo que sientas que eres bueno/a, aunque nadie te lo haya enseñado formalmente?",
-    3: "Me encanta lo que me cuentas.\n\nUna última pregunta por ahora: cuando piensas en tu futuro después del colegio, ¿qué es lo primero que se te viene a la mente? No hay respuestas correctas.",
-    4: n => `Gracias por compartir todo esto, ${n}.\n\nBasándome en lo que me has contado, veo a una persona curiosa, con intereses definidos y ganas de explorar.\n\nEn las próximas sesiones vamos a:\n\u2022 Identificar tus intereses con un test RIASEC\n\u2022 Romper mitos vocacionales con datos reales\n\u2022 Explorar sectores y carreras con salarios verificados\n\u2022 Investigar ocupaciones con IA (NotebookLM)\n\u2022 Preparar una conversación con tu familia\n\u2022 Construir un plan concreto con pasos inmediatos\n\n¡Esto recién empieza!`
+  const COACH_API = 'https://emc-explorar-api.vercel.app/api/coach';
+  const [coachBusy, setCoachBusy] = useState(false);
+  const [coachErr, setCoachErr] = useState('');
+  const [famBusy, setFamBusy] = useState(false);
+  const [famErr, setFamErr] = useState('');
+  const alAire = lista => [{
+    role: 'user',
+    content: 'Hola'
+  }].concat(lista.map(x => ({
+    role: x.r === 'ai' ? 'assistant' : 'user',
+    content: x.t
+  })));
+  const esCierre = (t, titulo, secciones) => {
+    const s = String(t || '');
+    if (new RegExp('(^|\\n)\\s*##\\s*' + titulo, 'i').test(s)) return true;
+    return secciones.some(h => new RegExp('\\*\\*\\s*' + h, 'i').test(s));
   };
+  const hablarConTato = async (lista, {
+    step,
+    short,
+    context,
+    poner,
+    marcarBusy,
+    marcarErr
+  }) => {
+    marcarBusy(true);
+    marcarErr('');
+    try {
+      const r = await fetch(COACH_API, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          step: step,
+          short: !!short,
+          context: context || '',
+          messages: alAire(lista)
+        })
+      });
+      if (!r.ok || !r.body) {
+        let j = {};
+        try {
+          j = await r.json();
+        } catch (e) {}
+        throw new Error(j.error || 'http_' + r.status);
+      }
+      const rd = r.body.getReader(),
+        dec = new TextDecoder();
+      let buf = '',
+        txt = '',
+        abierto = false;
+      for (;;) {
+        const paso = await rd.read();
+        if (paso.done) break;
+        buf += dec.decode(paso.value, {
+          stream: true
+        });
+        const lineas = buf.split('\n');
+        buf = lineas.pop();
+        for (const ln of lineas) {
+          if (ln.indexOf('data:') !== 0) continue;
+          let d = null;
+          try {
+            d = JSON.parse(ln.slice(5).trim());
+          } catch (e) {
+            continue;
+          }
+          if (d && d.type === 'content_block_delta' && d.delta && typeof d.delta.text === 'string') {
+            txt += d.delta.text;
+            if (!abierto) {
+              abierto = true;
+              poner(p => p.concat([{
+                r: 'ai',
+                t: txt
+              }]));
+            } else poner(p => {
+              const q = p.slice();
+              q[q.length - 1] = {
+                r: 'ai',
+                t: txt
+              };
+              return q;
+            });
+          }
+        }
+      }
+      if (!abierto) throw new Error('respuesta_vacia');
+    } catch (e) {
+      const m = String(e && e.message || '');
+      marcarErr(m.indexOf('rate_limited') >= 0 ? 'Hay muchas personas usando el orientador en este momento. Espera un minuto y vuelve a intentarlo.' : 'No pude conectarme con el orientador. Revisa tu conexión y vuelve a intentarlo.');
+    } finally {
+      marcarBusy(false);
+    }
+  };
+  const fmtMsg = t => String(t || '').split('\n').map((ln, i) => {
+    if (/^\s*##\s+/.test(ln)) return React.createElement("p", {
+      key: i,
+      className: "font-black text-navy-700 text-base mt-2 mb-1"
+    }, ln.replace(/^\s*##\s+/, ''));
+    if (!ln.trim()) return React.createElement("div", {
+      key: i,
+      className: "h-2"
+    });
+    const partes = ln.split(/(\*\*[^*]+\*\*)/g).map((s, j) => s.slice(0, 2) === '**' && s.slice(-2) === '**' ? React.createElement("strong", {
+      key: j,
+      className: "font-bold"
+    }, s.slice(2, -2)) : React.createElement(React.Fragment, {
+      key: j
+    }, s));
+    return React.createElement("p", {
+      key: i
+    }, partes);
+  });
+  const Escribiendo = () => React.createElement("div", {
+    className: "flex justify-start animate-fade-in"
+  }, React.createElement("div", {
+    className: "mr-3 mt-1 shrink-0"
+  }, React.createElement(OwlMini, {
+    size: 32
+  })), React.createElement("div", {
+    className: "chat-ai bg-white border border-cream-200 px-5 py-3.5 shadow-sm flex gap-1.5 items-center"
+  }, React.createElement("span", {
+    className: "w-2 h-2 bg-brand-300 rounded-full animate-bounce",
+    style: {
+      animationDelay: '0ms'
+    }
+  }), React.createElement("span", {
+    className: "w-2 h-2 bg-brand-300 rounded-full animate-bounce",
+    style: {
+      animationDelay: '150ms'
+    }
+  }), React.createElement("span", {
+    className: "w-2 h-2 bg-brand-300 rounded-full animate-bounce",
+    style: {
+      animationDelay: '300ms'
+    }
+  })));
+  const AvisoCoach = ({
+    texto
+  }) => texto ? React.createElement("div", {
+    className: "flex justify-start"
+  }, React.createElement("div", {
+    className: "mr-3 mt-1 shrink-0 w-8"
+  }), React.createElement("div", {
+    className: "bg-red-50 border-2 border-red-200 rounded-2xl px-4 py-2.5"
+  }, React.createElement("p", {
+    className: "text-xs text-red-700 font-bold"
+  }, texto))) : null;
   const chatInit = useRef(false);
+  const pedirPaso1 = lista => hablarConTato(lista, {
+    step: 'autoconocimiento',
+    short: true,
+    poner: setMsgs,
+    marcarBusy: setCoachBusy,
+    marcarErr: setCoachErr
+  });
   useEffect(() => {
     if (!chatInit.current && msgs.length === 0) {
       chatInit.current = true;
-      setTimeout(() => setMsgs([{
-        r: 'ai',
-        t: aiR[0]
-      }]), 600);
+      pedirPaso1([]);
     }
   }, [msgs.length]);
   const send = () => {
-    if (!input.trim()) return;
+    if (!input.trim() || coachBusy) return;
     const m = input.trim();
     setInput('');
-    setMsgs(p => [...p, {
+    if (!userName) {
+      const n = m.split(/\s+/)[0] || '';
+      if (n && n.length <= 20 && /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ'-]+$/.test(n)) setUserName(n);
+    }
+    const lista = msgs.concat([{
       r: 'user',
       t: m
     }]);
-    setTimeout(() => {
-      let resp;
-      if (chatPhase === 0) {
-        const name = m.trim().split(/\s+/)[0] || 'Estudiante';
-        setUserName(name);
-        resp = aiR[1](name);
-      } else if (chatPhase === 1) resp = aiR[2];else if (chatPhase === 2) resp = aiR[3];else resp = aiR[4](userName || m.split(' ')[0]);
-      setMsgs(p => [...p, {
-        r: 'ai',
-        t: resp
-      }]);
-      setChatPhase(p => p + 1);
-    }, 1000);
+    setMsgs(lista);
+    pedirPaso1(lista);
   };
-  const chatDone = chatPhase >= 4;
+  const chatDone = !coachBusy && msgs.some(x => x.r === 'ai' && esCierre(x.t, 'Tu descripci[oó]n', ['Rasgos que aparecen', 'Talentos o fortalezas', 'Motivaciones e intereses']));
+  const puedeCerrarP1 = !chatDone && !coachBusy && msgs.filter(x => x.r === 'user').length >= 3;
+  const cerrarPaso1 = () => {
+    const m = 'Ya conté lo que quería. Escríbeme ahora mi devolución final, por favor.';
+    const lista = msgs.concat([{
+      r: 'user',
+      t: m
+    }]);
+    setMsgs(lista);
+    pedirPaso1(lista);
+  };
   const Chat = () => React.createElement("div", {
     className: "flex-1 flex flex-col"
   }, React.createElement("header", {
@@ -2824,15 +2973,20 @@ function App() {
     size: 32
   })), React.createElement("div", {
     className: `max-w-[85%] sm:max-w-[70%] px-4 sm:px-5 py-3 ${m.r === 'ai' ? 'chat-ai bg-white border border-cream-200 text-navy-700' : 'chat-user bg-brand-400 text-white'} shadow-sm`
-  }, React.createElement("p", {
-    className: "text-sm leading-relaxed whitespace-pre-line"
-  }, m.t)))), React.createElement("div", {
+  }, React.createElement("div", {
+    className: "text-sm leading-relaxed"
+  }, fmtMsg(m.t))))), coachBusy && React.createElement(Escribiendo, null), React.createElement(AvisoCoach, {
+    texto: coachErr
+  }), React.createElement("div", {
     ref: chatEnd
   }))), React.createElement("div", {
     className: "px-4 sm:px-8 py-3 sm:py-4 border-t border-cream-200 bg-white safe-bottom"
   }, React.createElement("div", {
     className: "max-w-2xl mx-auto"
-  }, chatDone ? React.createElement("button", {
+  }, puedeCerrarP1 && React.createElement("button", {
+    onClick: cerrarPaso1,
+    className: "w-full mb-2 py-2 text-xs font-bold text-navy-400 hover:text-brand-500 transition"
+  }, "Ya cont\xE9 lo que quer\xEDa, dame mi devoluci\xF3n"), chatDone ? React.createElement("button", {
     onClick: () => {
       mark(0);
       nav('home');
@@ -2841,6 +2995,7 @@ function App() {
   }, "Completar paso") : React.createElement("div", {
     className: "flex gap-3"
   }, React.createElement("input", {
+    disabled: coachBusy,
     value: input,
     onChange: e => setInput(e.target.value),
     onKeyDown: e => e.key === 'Enter' && send(),
@@ -2852,7 +3007,8 @@ function App() {
     className: "flex-1 bg-cream-50 rounded-xl px-4 sm:px-5 py-3 text-base sm:text-sm text-navy-700 placeholder-navy-300 border-2 border-cream-200 focus:border-brand-300 transition"
   }), React.createElement("button", {
     onClick: send,
-    className: "w-12 h-12 bg-brand-400 rounded-xl flex items-center justify-center text-white hover:bg-brand-500 transition shrink-0 shadow-md"
+    disabled: coachBusy,
+    className: "w-12 h-12 disabled:opacity-40 bg-brand-400 rounded-xl flex items-center justify-center text-white hover:bg-brand-500 transition shrink-0 shadow-md"
   }, React.createElement(I.send, {
     className: "w-4 h-4"
   }))))));
@@ -4681,46 +4837,55 @@ function App() {
     },
     className: "w-full py-3.5 bg-gradient-to-r from-brand-400 to-brand-300 text-white rounded-xl font-bold shadow-lg hover:opacity-90 transition"
   }, "Completar paso")));
-  const famAiR = {
-    0: n => `¡Hola${n ? ` ${n}` : ' '}! Este es un paso muy importante. Te haré algunas preguntas para ayudarte a organizar tus ideas antes de conversar con tu familia. Con tus respuestas, construiremos un resumen que podrás usar como apoyo para explicar tu decisión.\n\nRecuerda que también puedes mencionar tus alternativas (Plan B y Plan C) si tu familia tiene dudas sobre tu primera opción.\n\nCuéntame: ¿cuál es la ocupación o ruta que más te convenció después de todo lo que exploraste?`,
-    1: '¡Buena elección! Ahora dime: ¿por qué elegiste esta opción? ¿Qué fue lo que más te convenció? (pueden ser los datos de salario, lo que se estudia, las oportunidades, o simplemente que te emociona)',
-    2: 'Excelente. Ahora hablemos de tu familia. Cuando piensas en contarle a tus padres o tutores sobre tu decisión, ¿cómo crees que van a reaccionar? ¿Qué esperan ellos para tu futuro?',
-    3: 'Entiendo. Última pregunta: ¿hay algo que te preocupe sobre esta decisión? Por ejemplo: el costo, la distancia, el tiempo de estudio, o lo que piense tu familia?',
-    4: n => `Gracias por compartir todo esto, ${n || ''}. Con lo que me contaste, aquí va tu resumen para la conversación familiar:\n\n--- RESUMEN PARA MI FAMILIA ---\n\n\uD83C\uDF93 Mi decisión: La carrera que elegí basándome en mis intereses y datos reales que exploré\n\n\uD83D\uDCCA Por qué: Porque se conecta con mi perfil, tiene buenas oportunidades laborales y me motiva\n\n\uD83D\uDC6A Lo que necesito de ustedes: Su apoyo y comprensión. Les comparto mi proceso de exploración\n\n\uD83D\uDCAA Mi plan: Voy a construir un plan concreto con pasos inmediatos en la siguiente sesión\n\n---\n\nRecuerda: la conversación con tu familia es para COMPARTIR tu decisión, no para pedir permiso. Tú hiciste todo un proceso de exploración con datos reales. ¡Confía en ti!`
-  };
   useEffect(() => {
-    famEnd.current?.scrollIntoView({
+    famEnd.current && famEnd.current.scrollIntoView({
       behavior: 'smooth'
     });
   }, [famMsgs]);
+  const contextoEstudiante = () => {
+    const trozos = [];
+    if (userName) trozos.push('Se llama ' + userName + '.');
+    const cierre = msgs.filter(x => x.r === 'ai').slice(-1)[0];
+    if (cierre && /##\s*Tu descripci/i.test(cierre.t)) trozos.push('Del paso de autoconocimiento:\n' + cierre.t);
+    if (results && results.top) trozos.push('Su perfil de intereses (RIASEC) dio: ' + (Array.isArray(results.top) ? results.top.join(', ') : String(results.top)) + '.');
+    if (selCareer && selCareer.name) trozos.push('La ocupacion que mas exploro fue ' + selCareer.name + '.');
+    return trozos.join('\n\n');
+  };
+  const pedirFam = lista => hablarConTato(lista, {
+    step: 'familia',
+    context: contextoEstudiante(),
+    poner: setFamMsgs,
+    marcarBusy: setFamBusy,
+    marcarErr: setFamErr
+  });
   useEffect(() => {
     if (!famInit.current && famMsgs.length === 0) {
       famInit.current = true;
-      setTimeout(() => setFamMsgs([{
-        r: 'ai',
-        t: famAiR[0](userName)
-      }]), 600);
+      pedirFam([]);
     }
   }, [famMsgs.length]);
   const sendFam = () => {
-    if (!famInput.trim()) return;
+    if (!famInput.trim() || famBusy) return;
     const m = famInput.trim();
     setFamInput('');
-    setFamMsgs(p => [...p, {
+    const lista = famMsgs.concat([{
       r: 'user',
       t: m
     }]);
-    setTimeout(() => {
-      let resp;
-      if (famPhase === 0) resp = famAiR[1];else if (famPhase === 1) resp = famAiR[2];else if (famPhase === 2) resp = famAiR[3];else resp = famAiR[4](userName);
-      setFamMsgs(p => [...p, {
-        r: 'ai',
-        t: resp
-      }]);
-      setFamPhase(p => p + 1);
-    }, 1000);
+    setFamMsgs(lista);
+    pedirFam(lista);
   };
-  const famChatDone = famPhase >= 4;
+  const famChatDone = !famBusy && famMsgs.some(x => x.r === 'ai' && esCierre(x.t, 'Mi conversaci[oó]n con la familia', ['Que decir', 'Qué decir', 'Como abrir', 'Cómo abrir']));
+  const puedeCerrarP7 = !famChatDone && !famBusy && famMsgs.filter(x => x.r === 'user').length >= 3;
+  const cerrarPaso7 = () => {
+    const m = 'Ya conté lo que quería. Escríbeme ahora el resumen para mi conversación con la familia, por favor.';
+    const lista = famMsgs.concat([{
+      r: 'user',
+      t: m
+    }]);
+    setFamMsgs(lista);
+    pedirFam(lista);
+  };
   const Family = () => React.createElement("div", {
     className: "flex-1 flex flex-col"
   }, React.createElement("header", {
@@ -4754,15 +4919,20 @@ function App() {
     size: 28
   })), React.createElement("div", {
     className: `max-w-[80%] sm:max-w-[70%] px-4 sm:px-5 py-3 ${m.r === 'ai' ? 'chat-ai bg-white border border-cream-200 text-navy-700' : 'chat-user bg-brand-400 text-white'} shadow-sm`
-  }, React.createElement("p", {
-    className: "text-sm leading-relaxed whitespace-pre-line"
-  }, m.t)))), React.createElement("div", {
+  }, React.createElement("div", {
+    className: "text-sm leading-relaxed"
+  }, fmtMsg(m.t))))), famBusy && React.createElement(Escribiendo, null), React.createElement(AvisoCoach, {
+    texto: famErr
+  }), React.createElement("div", {
     ref: famEnd
   })))), React.createElement("div", {
     className: "px-4 sm:px-8 py-3 sm:py-4 border-t border-cream-200 bg-white safe-bottom"
   }, React.createElement("div", {
     className: "max-w-2xl mx-auto"
-  }, famChatDone ? React.createElement("button", {
+  }, puedeCerrarP7 && React.createElement("button", {
+    onClick: cerrarPaso7,
+    className: "w-full mb-2 py-2 text-xs font-bold text-navy-400 hover:text-brand-500 transition"
+  }, "Ya cont\xE9 lo que quer\xEDa, dame mi resumen"), famChatDone ? React.createElement("button", {
     onClick: () => {
       mark(6);
       nav('home');
@@ -4771,6 +4941,7 @@ function App() {
   }, "Completar paso") : React.createElement("div", {
     className: "flex gap-2 sm:gap-3"
   }, React.createElement("input", {
+    disabled: famBusy,
     value: famInput,
     onChange: e => setFamInput(e.target.value),
     onKeyDown: e => e.key === 'Enter' && sendFam(),
@@ -4782,7 +4953,8 @@ function App() {
     className: "flex-1 bg-cream-50 rounded-xl px-4 sm:px-5 py-3 text-sm text-navy-700 placeholder-navy-300 border-2 border-cream-200 focus:border-brand-300 transition"
   }), React.createElement("button", {
     onClick: sendFam,
-    className: "w-11 h-11 sm:w-12 sm:h-12 bg-brand-400 rounded-xl flex items-center justify-center text-white hover:bg-brand-500 transition shrink-0 shadow-md"
+    disabled: famBusy,
+    className: "w-11 h-11 sm:w-12 sm:h-12 disabled:opacity-40 bg-brand-400 rounded-xl flex items-center justify-center text-white hover:bg-brand-500 transition shrink-0 shadow-md"
   }, React.createElement(I.send, {
     className: "w-4 h-4"
   }))))));
