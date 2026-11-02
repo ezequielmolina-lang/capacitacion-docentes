@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Agenda Lima, 9 de noviembre</title>
+<title>Lima Visit Agenda</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -24,24 +24,33 @@
     font-family: 'Montserrat', system-ui, sans-serif;
     background: var(--bg-cream);
     color: var(--text-dark);
-    line-height: 1.55;
+    line-height: 1.5;
   }
-  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 56px; }
-  header { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
+  main { max-width: 820px; margin: 0 auto; padding: 32px 16px 56px; }
+  header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
   header img { width: 64px; height: 64px; }
   .kicker { font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--primary-dark); margin: 0; }
   h1 { font-size: 28px; font-weight: 800; margin: 2px 0 0; line-height: 1.2; }
   .sub { color: var(--text-gray); margin: 4px 0 0; font-size: 15px; }
-  .block { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px; margin-bottom: 16px; }
-  .when { font-size: 13px; font-weight: 700; color: var(--primary-dark); text-transform: uppercase; letter-spacing: .05em; margin: 0 0 4px; }
-  h2 { font-size: 20px; font-weight: 700; margin: 0 0 6px; line-height: 1.3; }
-  .block p { margin: 0 0 10px; }
-  ul { margin: 6px 0 0; padding-left: 20px; }
-  li { margin-bottom: 6px; }
+  .agenda { background: var(--card); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  .day { background: #2d2a2b; color: #fff; padding: 14px 20px; font-weight: 800; font-size: 18px; letter-spacing: .02em; }
+  .day span { color: var(--primary); }
+  .row { display: grid; grid-template-columns: 76px 1fr; gap: 12px; padding: 14px 20px; border-top: 1px solid var(--line); }
+  .day + .row { border-top: 0; }
+  .time { font-weight: 800; color: var(--primary-dark); font-variant-numeric: tabular-nums; }
+  .what { font-weight: 700; }
+  .detail { color: var(--text-gray); font-size: 14px; margin-top: 2px; }
+  .note { font-size: 14px; color: var(--text-gray); margin: 14px 4px 0; }
+  .more { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px 22px; margin-top: 24px; }
+  .more h2 { font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--primary-dark); margin: 0 0 8px; }
+  .more ul { margin: 0; padding-left: 20px; }
+  .more li { margin-bottom: 6px; }
   a { color: var(--primary-dark); font-weight: 600; }
-  .links { margin-top: 10px; font-size: 14px; }
-  footer { color: var(--text-gray); font-size: 13px; margin-top: 28px; }
-  @media (max-width: 480px) { h1 { font-size: 23px; } header img { width: 52px; height: 52px; } }
+  @media (max-width: 480px) {
+    h1 { font-size: 23px; }
+    header img { width: 52px; height: 52px; }
+    .row { grid-template-columns: 58px 1fr; padding: 12px 14px; }
+  }
 </style>
 </head>
 <body>
@@ -50,40 +59,31 @@
     <img src="../img/gallito-pip.png" alt="">
     <div>
       <p class="kicker">Eligiendo Mi Camino</p>
-      <h1>Agenda en Lima</h1>
-      <p class="sub">Lunes 9 de noviembre de 2026. Todas las actividades son en Lima.</p>
+      <h1>Lima visit agenda</h1>
+      <p class="sub">Monday 9 November 2026. Lima time (UTC−5). All activities are in Lima.</p>
     </div>
   </header>
 
-  <section class="block">
-    <p class="when">Mañana</p>
-    <h2>Visita a un colegio de Eligiendo Mi Camino</h2>
+  <section class="agenda">
+    <div class="day">Monday <span>9 November</span></div>
+    <div class="row"><div class="time">07:15</div><div><div class="what">Depart hotel for the school in La Victoria</div><div class="detail">About 30 to 45 minutes by car</div></div></div>
+    <div class="row"><div class="time">08:00</div><div><div class="what">Arrival and welcome</div><div class="detail">With the school principal</div></div></div>
+    <div class="row"><div class="time">08:15</div><div><div class="what">Conversation with the school principal</div><div class="detail">How EMC fit into the school's schedule, what worked, what it would take to continue</div></div></div>
+    <div class="row"><div class="time">09:00</div><div><div class="what">Conversation with teachers</div><div class="detail">Over breakfast and coffee</div></div></div>
+    <div class="row"><div class="time">10:00</div><div><div class="what">Conversation with 5th-year students</div><div class="detail">With a teacher present</div></div></div>
+    <div class="row"><div class="time">10:45</div><div><div class="what">Thanks and close</div></div></div>
+    <div class="row"><div class="time">13:00</div><div><div class="what">Working lunch with uDocz</div><div class="detail">Osaka, San Isidro. With the EdTech team behind Gallito and the AI math tutor</div></div></div>
+    <div class="row"><div class="time">15:30</div><div><div class="what">Conversation with UPC professors on adapting teaching and assessment to AI</div><div class="detail">UPC. See their <a href="https://innovacioneducativa.upc.edu.pe/catalogo-de-experiencias/">catalogue of learning experiences</a></div></div></div>
+    <div class="row"><div class="time">19:30</div><div><div class="what">Dinner with the team at Huaca Pucllana</div><div class="detail">Miraflores</div></div></div>
   </section>
+  <p class="note">Students are minors: no photos or recordings of students without the school's consent, and no student names in notes.</p>
 
-  <section class="block">
-    <p class="when">Almuerzo de trabajo</p>
-    <h2>uDocz</h2>
-    <p>La EdTech que trabajó con el equipo en el desarrollo de Gallito: lecciones del programa, el protocolo socioemocional y próximos pasos.</p>
-  </section>
-
-  <section class="block">
-    <p class="when">Tarde</p>
-    <h2>UPC</h2>
-    <p>Profesores universitarios que están adaptando sus clases y evaluaciones a la IA. Ver su <a href="https://innovacioneducativa.upc.edu.pe/catalogo-de-experiencias/">catálogo de experiencias</a>.</p>
-  </section>
-
-  <section class="block">
-    <p class="when">7:30 p. m.</p>
-    <h2>Cena con el equipo en La Huaca Pucllana</h2>
-  </section>
-
-  <section class="block">
-    <p class="when">Más contexto</p>
+  <section class="more">
+    <h2>More background</h2>
     <ul>
-      <li><a href="https://claude.ai/artifact/We9gX4GaYHVNp3MELbcU7b">Pack de la visita</a>: el programa, el ensayo y los materiales de Eligiendo Mi Camino</li>
-      <li><a href="https://redevidencia.org/mk/">IA en educación en América Latina</a>: todo nuestro trabajo en un solo lugar</li>
-      <li><a href="https://blogs.worldbank.org/en/latinamerica/from-learning-to-earning-an-ai-career-coach-for-students-choosing-what-comes-next">From Learning to Earning</a>: blog del Banco Mundial sobre el orientador vocacional</li>
-      <li><a href="https://innovacioneducativa.upc.edu.pe/catalogo-de-experiencias/">Catálogo de experiencias de UPC</a></li>
+      <li><a href="https://claude.ai/artifact/We9gX4GaYHVNp3MELbcU7b">Visit pack</a>: the program, the trial and Eligiendo Mi Camino materials</li>
+      <li><a href="https://redevidencia.org/mk/">AI in education in Latin America</a>: all our work in one place</li>
+      <li><a href="https://blogs.worldbank.org/en/latinamerica/from-learning-to-earning-an-ai-career-coach-for-students-choosing-what-comes-next">From Learning to Earning</a>: World Bank blog on the AI career coach</li>
     </ul>
   </section>
 </main>
