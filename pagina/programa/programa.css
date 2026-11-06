@@ -173,7 +173,7 @@ main>footer,body>footer{border-top:1px solid var(--filete);margin-top:clamp(56px
 }
 @media (max-width:640px){
 body{font-size:17px}.c{padding:0 16px}.nav{position:static}.menu{flex-wrap:wrap;overflow:visible;gap:2px 16px}
-.portada{display:block;min-height:0;background:#14130F}.portada-v{position:relative;inset:auto;height:auto;aspect-ratio:4/5}.portada::after{inset:auto 0 auto 0;top:calc(125vw - 120px);height:120px;background:linear-gradient(to top,#14130F 0,rgba(20,19,15,0) 100%)}.portada>.c{margin-top:-44px;padding-bottom:36px}.portada.jugando .portada-v{aspect-ratio:16/9}
+.portada{display:block;min-height:0;background:#14130F}.portada-v{position:relative;inset:auto;height:auto;aspect-ratio:4/5}.portada::after{display:none}.portada-v::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:121px;pointer-events:none;background:linear-gradient(to top,#14130F 0,#14130F 3px,rgba(20,19,15,0) 100%)}.portada.jugando .portada-v::after{display:none}.portada>.c{margin-top:-44px;padding-bottom:36px}.portada.jugando .portada-v{aspect-ratio:16/9}
 .bf-mate>img{object-position:58% 20%}.bf-ori>img{object-position:62% 20%}.banda-foto{min-height:130vw}
 .sangre{aspect-ratio:4/3;object-fit:cover}
 .ops{grid-template-columns:1fr 1fr}.videos-h{grid-template-columns:1fr}.ocho{grid-template-columns:1fr;gap:18px}.ocho li{display:grid;grid-template-columns:44px 1fr;column-gap:8px}.ocho li::before{grid-row:1/4;font-size:30px;margin:0}.ocho b,.ocho span,.ocho small{grid-column:2}
